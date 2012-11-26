@@ -68,7 +68,7 @@ public class ClubTeamDto
             List<Integer> trainerList = new LinkedList<>();
 
             for (contract.domain.ITrainer t : clubTeam.getTrainerList()) {
-                departmentList.add(t.getId());
+                trainerList.add(t.getId());
             }
             a.setTrainerList(trainerList);
 
@@ -76,7 +76,7 @@ public class ClubTeamDto
             List<Integer> playerList = new LinkedList<>();
 
             for (contract.domain.IPlayer t : clubTeam.getPlayerList()) {
-                departmentList.add(t.getId());
+                playerList.add(t.getId());
             }
             a.setPlayerList(playerList);
 
