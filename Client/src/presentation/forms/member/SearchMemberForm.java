@@ -1,19 +1,16 @@
 package presentation.forms.member;
 
-import com.ServiceClient;
-import com.ServiceNotAvailableException;
+import com.*;
 import contract.dto.*;
-import contract.dto.classes.*;
 import contract.useCaseController.ISearchChangeMember;
 import java.awt.event.ActionEvent;
-import java.nio.channels.SelectionKey;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.event.*;
-import javax.swing.table.TableModel;
+import javax.swing.table.*;
 import presentation.basics.*;
-import presentation.forms.helper.SelectSportsHelper;
-import presentation.forms.helper.SelectTeamsHelper;
+import presentation.forms.dto.*;
+import presentation.forms.helper.*;
 
 /**
 
@@ -31,9 +28,9 @@ public class SearchMemberForm
     IAddressDto address;
     ICountryDto country;
     IClubTeamDto clubTeam;
-    private List<ITypeOfSportDto> typeOfSports;
+    // private List<ITypeOfSportDto> typeOfSports;
     private List<ITypeOfSportDto> availableSports;
-    private List<ITypeOfSportDto> selectedSports;
+    private List<ITypeOfSportDto> selectedSports = new LinkedList<>();
     private List<IClubTeamDto> selectedTeams;
     private List<IMemberDto> matchingMembers;
 
@@ -48,6 +45,8 @@ public class SearchMemberForm
         this.user = user;
         controller = this.client.getSearchChangeMemberService();
         initComponents();
+
+        availableSports = controller.getTypeOfSports();
     }
 
     /**
@@ -488,9 +487,18 @@ public class SearchMemberForm
             try
             {
                 matchingMembers = controller.getMatchingMembers(txtfieldSearchMemb.getText());
-                TableModel tableModel = tabMember.getModel();
 
-                for (int row = 0; row < matchingMembers.size(); row++)
+                TableModel tm = tabMember.getModel();
+
+                DefaultTableModel dm = (DefaultTableModel) tabMember.getModel();
+                dm.setRowCount(0);
+                dm.setRowCount(matchingMembers.size());
+
+                tabMember.setModel(tm);
+                TableModel tableModel = tabMember.getModel();
+                for (int row = 0;
+                     row < matchingMembers.size();
+                     row++)
                 {
                     IMemberDto tmpMember = matchingMembers.get(row);
 
@@ -500,6 +508,7 @@ public class SearchMemberForm
                     tableModel.setValueAt(tmpMember.getDateOfBirth().toString(), row, 3);
                     tableModel.setValueAt(tmpMember.getGender() ? "female" : "male", row, 4);
                 }
+
                 tabMember.setModel(tableModel);
             }
             catch (Exception e)
@@ -573,7 +582,6 @@ public class SearchMemberForm
         {
             JOptionPane.showMessageDialog(null, "Service currently not available. Sorry!");
         }
-
     }
 
     private void btnTeamsActionPerformed(java.awt.event.ActionEvent evt)
@@ -586,12 +594,17 @@ public class SearchMemberForm
         {
             JOptionPane.showMessageDialog(null, "Service currently not available. Sorry!");
         }
-
     }
 
     @Override
     public void setTxtFieldSports(List<ITypeOfSportDto> selection)
     {
+        if (selection.isEmpty())
+        {
+            txtFieldSports.setText("");
+            return;
+        }
+
         this.selectedSports = selection;
 
         StringBuilder sb = new StringBuilder(selectedSports.size());
@@ -600,14 +613,19 @@ public class SearchMemberForm
             sb.append(s);
             sb.append(", ");
         }
-        sb.delete(sb.length() - 2, sb.length());    //TODO check if this works 
 
-        txtFieldSports.setText(sb.toString());
+        txtFieldSports.setText(sb.toString().substring(sb.length() - 2, sb.length()));
     }
 
     @Override
     public void setTxtFieldTeams(List<IClubTeamDto> selected)
     {
+        if (selected.isEmpty())
+        {
+            txtFieldTeam.setText("");
+            return;
+        }
+
         this.selectedTeams = selected;
 
         StringBuilder sb = new StringBuilder(selectedTeams.size());
@@ -619,7 +637,6 @@ public class SearchMemberForm
         }
 
         txtFieldTeam.setText(sb.toString().substring(0, sb.length() - 2));
-
     }
 
     private void setSelectedSports(IRoleDto role)
@@ -638,7 +655,7 @@ public class SearchMemberForm
         }
 
         //add members sports to his/her selectedSportsList
-        for (ITypeOfSportDto tos : typeOfSports)
+        for (ITypeOfSportDto tos : availableSports)
         {
             for (Integer i : typeOfSportsID)
             {
@@ -654,7 +671,7 @@ public class SearchMemberForm
     {
         List<Integer> tosIDs = new LinkedList<>();
 
-        for (ITypeOfSportDto tos : typeOfSports)
+        for (ITypeOfSportDto tos : availableSports)
         {
             for (ITypeOfSportDto s : selectedSports)
             {
@@ -687,8 +704,13 @@ public class SearchMemberForm
                         sports.add(t);
                     }
                 }
-                clubTeamIDList = ((ITrainerDto) role).getClubTeamList();
-
+                for (Integer t : ((ITrainerDto) role).getClubTeamList())
+                {
+                    if (!clubTeamIDList.contains(t))
+                    {
+                        clubTeamIDList.add(t);
+                    }
+                }
             }
             else if (role instanceof IPlayerDto)
             {
@@ -699,12 +721,27 @@ public class SearchMemberForm
                         sports.add(t);
                     }
                 }
-                //TODO clubTeamList bei IPlayerDto
-                //clubTeamIDList = ((IPlayerDto) role).getClubTeamList();
+                for (Integer t : ((IPlayerDto) role).getClubTeamList())
+                {
+                    if (!clubTeamIDList.contains(t))
+                    {
+                        clubTeamIDList.add(t);
+                    }
+                }
             }
         }
 
-        availableSports.addAll(controller.getTypeOfSports(sports));
+        StringBuilder builder = new StringBuilder();
+
+        for (ITypeOfSportDto t : controller.getTypeOfSports(sports))
+        {
+            builder.append(t);
+            builder.append(", ");
+
+        }
+
+        txtFieldSports.setText(builder.toString().substring(0, builder.length() - 2));
+
         setSelectedTeams(clubTeamIDList);
         setTxtFieldTeams(selectedTeams);
 
@@ -725,6 +762,7 @@ public class SearchMemberForm
         txtfieldCountry.setText(country.getName());
 
         radioFemale.setSelected(selectedMember.getGender());
+        radioMale.setSelected(!selectedMember.getGender());
 
         dateEntry.setDate(selectedMember.getMemberFrom());
         dateBirthday.setDate(selectedMember.getDateOfBirth());
@@ -749,14 +787,14 @@ public class SearchMemberForm
                 radioTrainer.setSelected(true);
                 setSelectedSports(role);
 
-                setTxtFieldSports(controller.getTypeOfSports(((ITrainerDto) role).getTypeOfSportList()));
+                // setTxtFieldSports(controller.getTypeOfSports(((ITrainerDto) role).getTypeOfSportList()));
             }
             else if (role instanceof IPlayerDto)
             {
                 radioPlayer.setSelected(true);
                 setSelectedSports(role);
 
-                setTxtFieldSports(controller.getTypeOfSports(((IPlayerDto) role).getTypeOfSportList()));
+                //    setTxtFieldSports(controller.getTypeOfSports(((IPlayerDto) role).getTypeOfSportList()));
             }
         }
     }
@@ -787,19 +825,19 @@ public class SearchMemberForm
         {
             if (radioAdmin.isSelected())
             {
-                roles.add(new AdminDto());
+                roles.add(new Admin());
             }
             if (radioCaretaker.isSelected())
             {
-                roles.add(new CaretakerDto());
+                roles.add(new Caretaker());
             }
             if (radioDepHead.isSelected())
             {
-                roles.add(new DepartmentHeadDto());
+                roles.add(new DepartmentHead());
             }
             if (radioTrainer.isSelected())
             {
-                ITrainerDto trainer = new TrainerDto();
+                ITrainerDto trainer = new Trainer();
                 roles.add(trainer);
                 trainer.setTypeOfSportList(getSelectedSports());
                 trainer.setClubTeamList(getSelectedTeams());
@@ -834,7 +872,6 @@ public class SearchMemberForm
     private void setSelectedTeams(List<Integer> clubTeamIDs)
     {
         selectedTeams = controller.getClubTeams(clubTeamIDs);
-
     }
 
     private List<Integer> getSelectedTeams()
