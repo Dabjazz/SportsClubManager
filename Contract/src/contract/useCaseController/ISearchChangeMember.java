@@ -42,4 +42,6 @@ public interface ISearchChangeMember
     void setSelectedMember(IMemberDto get);
 
     public IMemberDto getSelectedMember();
+
+    public List<ITypeOfSportDto> getTypeOfSports();
 }

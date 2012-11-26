@@ -5,8 +5,8 @@
 package javamessagingclient;
 
 import java.util.*;
-import javamessagingclient.contract.*;
-import javamessagingclient.stubs.*;
+import javamessagingclient.contract.IMemberDepartmentMessage;
+import javamessagingclient.stubs.IDepartmentHeadDto;
 import javax.jms.*;
 import javax.swing.event.*;
 

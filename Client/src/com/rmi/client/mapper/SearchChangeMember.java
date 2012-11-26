@@ -221,6 +221,30 @@ public class SearchChangeMember
     @Override
     public List<IClubTeamDto> getClubTeamsByTypeOfSport(ITypeOfSportDto sport)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        try
+        {
+            return service.getClubTeamsByTypeOfSport(sport);
+        }
+        catch (RemoteException ex)
+        {
+            Logger.getLogger(SearchChangeMember.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
+
+    @Override
+    public List<ITypeOfSportDto> getTypeOfSports()
+    {
+        try
+        {
+            return service.getTypeOfSports();
+        }
+        catch (RemoteException ex)
+        {
+            Logger.getLogger(SearchChangeMember.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
     }
 }

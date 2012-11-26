@@ -110,4 +110,18 @@ public class SearchChangeMemberRmiService
     {
         SearchChangeMember.getInstance().setSelectedMember(selectedMember);
     }
+
+    @Override
+    public List<IClubTeamDto> getClubTeamsByTypeOfSport(ITypeOfSportDto sport)
+            throws RemoteException
+    {
+        return SearchChangeMember.getInstance().getClubTeamsByTypeOfSport(sport);
+    }
+
+    @Override
+    public List<ITypeOfSportDto> getTypeOfSports()
+            throws RemoteException
+    {
+        return SearchChangeMember.getInstance().getTypeOfSports();
+    }
 }
