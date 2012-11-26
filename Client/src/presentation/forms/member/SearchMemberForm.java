@@ -1,37 +1,34 @@
 package presentation.forms.member;
 
 import com.*;
-import contract.dto.*;
-import contract.dto.classes.*;
+import contract.dto.IMemberDto;
 import contract.useCaseController.ISearchChangeMember;
-import java.awt.event.ActionEvent;
-import java.util.*;
+import java.util.List;
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.*;
 import presentation.basics.*;
-import presentation.forms.helper.*;
 
 /**
-
  @author Lucia
  */
 public class SearchMemberForm
         extends AbstractMainForm
 {
     private boolean dataExists;
-    private boolean adminPermission;
+//    private boolean adminPermission;
     ServiceClient client;
     ISearchChangeMember controller;
     IMemberDto user;
-    List<IRoleDto> roles;
-    IAddressDto address;
-    ICountryDto country;
-    IClubTeamDto clubTeam;
+   // List<IRoleDto> roles;
+    //IAddressDto address;
+   // ICountryDto country;
+    //  IClubTeamDto clubTeam;
     // private List<ITypeOfSportDto> typeOfSports;
-    private List<ITypeOfSportDto> availableSports;
-    private List<ITypeOfSportDto> selectedSports = new LinkedList<>();
-    private List<IClubTeamDto> selectedTeams;
+//    private List<ITypeOfSportDto> availableSports;
+//    private List<ITypeOfSportDto> selectedSports = new LinkedList<>();
+//    private List<IClubTeamDto> selectedTrainerTeams;
+//    private List<IClubTeamDto> selectedPlayerTeams;
     private List<IMemberDto> matchingMembers;
 
     /**
@@ -46,7 +43,9 @@ public class SearchMemberForm
         controller = this.client.getSearchChangeMemberService();
         initComponents();
 
-        availableSports = controller.getTypeOfSports();
+       // personDataPanel1.setController(controller.getMemberController());
+      //  membershipDataPanel1.setController(controller.getMembershipController());
+        // availableSports = controller.getTypeOfSports();
     }
 
     /**
@@ -56,387 +55,81 @@ public class SearchMemberForm
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         paneSearch = new javax.swing.JPanel();
         txtfieldSearchMemb = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabMember = new javax.swing.JTable();
-        paneMemberData = new javax.swing.JPanel();
-        lblFName = new javax.swing.JLabel();
-        lblAddress = new javax.swing.JLabel();
-        lblCity = new javax.swing.JLabel();
-        lblPhone = new javax.swing.JLabel();
-        lblBirthDate = new javax.swing.JLabel();
-        lblGender = new javax.swing.JLabel();
-        radioFemale = new javax.swing.JRadioButton();
-        radioMale = new javax.swing.JRadioButton();
-        lblEntryDate = new javax.swing.JLabel();
-        lblTeam = new javax.swing.JLabel();
-        lblRole = new javax.swing.JLabel();
-        radioAdmin = new javax.swing.JRadioButton();
-        radioTrainer = new javax.swing.JRadioButton();
-        radioPlayer = new javax.swing.JRadioButton();
-        lblLName = new javax.swing.JLabel();
-        lblPostCode = new javax.swing.JLabel();
-        lblCountry = new javax.swing.JLabel();
-        lblMail = new javax.swing.JLabel();
-        txtfieldLName = new javax.swing.JTextField();
-        txtfieldPostCode = new javax.swing.JTextField();
-        txtfieldCountry = new javax.swing.JTextField();
-        txtfieldMail = new javax.swing.JTextField();
-        txtfieldFName = new javax.swing.JTextField();
-        txtfieldAddress = new javax.swing.JTextField();
-        txtfieldCity = new javax.swing.JTextField();
-        txtfieldPhone = new javax.swing.JTextField();
-        dateBirthday = new com.toedter.calendar.JDateChooser();
-        dateEntry = new com.toedter.calendar.JDateChooser();
-        lblMemberNr = new javax.swing.JLabel();
-        txtfieldMemberNr = new javax.swing.JTextField();
         btnApplyChange = new javax.swing.JButton();
-        radioCaretaker = new javax.swing.JRadioButton();
-        radioDepHead = new javax.swing.JRadioButton();
-        lblSport = new javax.swing.JLabel();
-        txtFieldSports = new javax.swing.JTextField();
-        btnAddSport = new javax.swing.JButton();
-        txtFieldTeam = new javax.swing.JTextField();
-        btnTeams = new javax.swing.JButton();
-        txtfieldStreetNr = new javax.swing.JTextField();
+        membershipDataPanel2 = new presentation.forms.member.MembershipDataPanel();
+        personDataPanel1 = new presentation.forms.member.PersonDataPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(848, 549));
 
         btnSearch.setText("Search");
-        btnSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnSearch.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnSearchActionPerformed(evt);
             }
         });
 
         tabMember.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+            new Object [][]
+            {
+
             },
-            new String [] {
+            new String []
+            {
                 "Membership Nr.", "First Name", "Last Name", "Birth Date", "Gender"
             }
         ));
-        tabMember.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        tabMember.getSelectionModel().addListSelectionListener(new ListSelectionListener()
+        {
             @Override
-            public void valueChanged(ListSelectionEvent e) {
+            public void valueChanged(ListSelectionEvent e)
+            {
                 tableMemberValueChanged(e);
             }
         });
         jScrollPane1.setViewportView(tabMember);
 
-        paneMemberData.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
-
-        lblFName.setText("First Name");
-
-        lblAddress.setText("Street + Nr.");
-
-        lblCity.setText("City");
-
-        lblPhone.setText("Phone");
-
-        lblBirthDate.setText("Birth Date");
-
-        lblGender.setText("Gender");
-
-        radioFemale.setText("female");
-        radioFemale.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioFemaleActionPerformed(evt);
-            }
-        });
-        radioFemale.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                radioFemalePropertyChange(evt);
-            }
-        });
-
-        radioMale.setText("male");
-        radioMale.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioMaleActionPerformed(evt);
-            }
-        });
-        radioMale.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                radioMalePropertyChange(evt);
-            }
-        });
-
-        lblEntryDate.setText("Entry Date");
-
-        lblTeam.setText("Team");
-
-        lblRole.setText("Role");
-
-        radioAdmin.setText("Admin");
-        radioAdmin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioAdminActionPerformed(evt);
-            }
-        });
-
-        radioTrainer.setText("Trainer");
-        radioTrainer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioTrainerActionPerformed(evt);
-            }
-        });
-
-        radioPlayer.setText("Player");
-        radioPlayer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioPlayerActionPerformed(evt);
-            }
-        });
-
-        lblLName.setText("Last Name");
-
-        lblPostCode.setText("Post Code");
-
-        lblCountry.setText("Country");
-
-        lblMail.setText("Mail");
-
-        txtfieldPostCode.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfieldPostCodeActionPerformed(evt);
-            }
-        });
-
-        dateEntry.setEnabled(false);
-
-        lblMemberNr.setText("Membership Nr.");
-
-        txtfieldMemberNr.setEnabled(false);
-
         btnApplyChange.setText("Apply Changes");
-        btnApplyChange.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnApplyChange.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnApplyChangeActionPerformed(evt);
             }
         });
-
-        radioCaretaker.setText("Caretaker");
-        radioCaretaker.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioCaretakerActionPerformed(evt);
-            }
-        });
-
-        radioDepHead.setText("Department Head");
-        radioDepHead.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioDepHeadActionPerformed(evt);
-            }
-        });
-
-        lblSport.setText("Sport");
-
-        txtFieldSports.setEnabled(false);
-
-        btnAddSport.setText("Select Sport(s)");
-        btnAddSport.setInheritsPopupMenu(true);
-        btnAddSport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddSportActionPerformed(evt);
-            }
-        });
-
-        txtFieldTeam.setEnabled(false);
-
-        btnTeams.setText("Select Team(s)");
-        btnTeams.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTeamsActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout paneMemberDataLayout = new javax.swing.GroupLayout(paneMemberData);
-        paneMemberData.setLayout(paneMemberDataLayout);
-        paneMemberDataLayout.setHorizontalGroup(
-            paneMemberDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(paneMemberDataLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(paneMemberDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(paneMemberDataLayout.createSequentialGroup()
-                        .addGroup(paneMemberDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblFName)
-                            .addComponent(lblAddress)
-                            .addComponent(lblCity)
-                            .addComponent(lblPhone)
-                            .addComponent(lblBirthDate)
-                            .addComponent(lblEntryDate)
-                            .addComponent(lblTeam)
-                            .addComponent(lblSport))
-                        .addGroup(paneMemberDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(paneMemberDataLayout.createSequentialGroup()
-                                .addGap(26, 26, 26)
-                                .addGroup(paneMemberDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtfieldCity)
-                                    .addComponent(txtfieldFName)
-                                    .addComponent(txtfieldPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(dateBirthday, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(dateEntry, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(paneMemberDataLayout.createSequentialGroup()
-                                        .addComponent(txtfieldAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtfieldStreetNr)))
-                                .addGap(133, 133, 133)
-                                .addGroup(paneMemberDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(lblGender)
-                                    .addComponent(lblMail)
-                                    .addGroup(paneMemberDataLayout.createSequentialGroup()
-                                        .addComponent(lblLName)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtfieldLName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneMemberDataLayout.createSequentialGroup()
-                                        .addGroup(paneMemberDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(paneMemberDataLayout.createSequentialGroup()
-                                                .addComponent(lblPostCode)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneMemberDataLayout.createSequentialGroup()
-                                                .addGap(0, 0, Short.MAX_VALUE)
-                                                .addComponent(lblCountry)
-                                                .addGap(21, 21, 21)))
-                                        .addGroup(paneMemberDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtfieldCountry, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                            .addComponent(txtfieldPostCode)
-                                            .addComponent(txtfieldMail)
-                                            .addGroup(paneMemberDataLayout.createSequentialGroup()
-                                                .addComponent(radioFemale)
-                                                .addGap(10, 10, 10)
-                                                .addComponent(radioMale))))
-                                    .addGroup(paneMemberDataLayout.createSequentialGroup()
-                                        .addComponent(lblMemberNr)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtfieldMemberNr))))
-                            .addGroup(paneMemberDataLayout.createSequentialGroup()
-                                .addGap(27, 27, 27)
-                                .addGroup(paneMemberDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtFieldTeam)
-                                    .addComponent(txtFieldSports))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(paneMemberDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnTeams, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnAddSport, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)))))
-                    .addGroup(paneMemberDataLayout.createSequentialGroup()
-                        .addComponent(lblRole)
-                        .addGap(58, 58, 58)
-                        .addComponent(radioAdmin)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(radioCaretaker)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(radioDepHead)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(radioTrainer)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(radioPlayer)))
-                .addContainerGap(128, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneMemberDataLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnApplyChange))
-        );
-        paneMemberDataLayout.setVerticalGroup(
-            paneMemberDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(paneMemberDataLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(paneMemberDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(paneMemberDataLayout.createSequentialGroup()
-                        .addGroup(paneMemberDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtfieldFName)
-                            .addComponent(txtfieldLName)
-                            .addGroup(paneMemberDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(lblFName)
-                                .addComponent(lblLName)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(paneMemberDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(paneMemberDataLayout.createSequentialGroup()
-                                .addGroup(paneMemberDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lblAddress)
-                                    .addComponent(lblPostCode)
-                                    .addComponent(txtfieldPostCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(paneMemberDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lblCity)
-                                    .addComponent(lblCountry)
-                                    .addComponent(txtfieldCountry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(paneMemberDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lblPhone)
-                                    .addComponent(lblMail)
-                                    .addComponent(txtfieldMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(paneMemberDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblBirthDate)
-                                    .addGroup(paneMemberDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(lblGender)
-                                        .addComponent(radioFemale)
-                                        .addComponent(radioMale))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneMemberDataLayout.createSequentialGroup()
-                                .addGroup(paneMemberDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtfieldAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtfieldStreetNr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtfieldCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtfieldPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(dateBirthday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(28, 28, 28)
-                        .addGroup(paneMemberDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblEntryDate, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(dateEntry, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(paneMemberDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblMemberNr)
-                        .addComponent(txtfieldMemberNr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(38, 38, 38)
-                .addGroup(paneMemberDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(paneMemberDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(radioTrainer)
-                        .addComponent(radioPlayer)
-                        .addComponent(radioCaretaker)
-                        .addComponent(radioDepHead))
-                    .addGroup(paneMemberDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblRole)
-                        .addComponent(radioAdmin)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(paneMemberDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblSport)
-                    .addComponent(txtFieldSports, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAddSport))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(paneMemberDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTeam)
-                    .addComponent(txtFieldTeam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTeams))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnApplyChange))
-        );
 
         javax.swing.GroupLayout paneSearchLayout = new javax.swing.GroupLayout(paneSearch);
         paneSearch.setLayout(paneSearchLayout);
         paneSearchLayout.setHorizontalGroup(
             paneSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneSearchLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(paneSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 828, Short.MAX_VALUE)
                     .addGroup(paneSearchLayout.createSequentialGroup()
-                        .addComponent(txtfieldSearchMemb, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSearch)
-                        .addGap(0, 557, Short.MAX_VALUE))
-                    .addComponent(paneMemberData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addGroup(paneSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 840, Short.MAX_VALUE)
+                            .addGroup(paneSearchLayout.createSequentialGroup()
+                                .addComponent(txtfieldSearchMemb, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSearch)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(personDataPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(membershipDataPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(paneSearchLayout.createSequentialGroup()
+                .addGap(343, 343, 343)
+                .addComponent(btnApplyChange, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         paneSearchLayout.setVerticalGroup(
             paneSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -447,8 +140,12 @@ public class SearchMemberForm
                     .addComponent(btnSearch))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(personDataPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(paneMemberData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(membershipDataPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnApplyChange)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -460,22 +157,11 @@ public class SearchMemberForm
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(paneSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(paneSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtfieldPostCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfieldPostCodeActionPerformed
-    }//GEN-LAST:event_txtfieldPostCodeActionPerformed
-
-    private void radioAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioAdminActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_radioAdminActionPerformed
-
-    private void radioFemaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioFemaleActionPerformed
-        genderActionPerformed(evt);
-    }//GEN-LAST:event_radioFemaleActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         if (txtfieldSearchMemb.getText() == null)
@@ -518,16 +204,11 @@ public class SearchMemberForm
         }
     }//GEN-LAST:event_btnSearchActionPerformed
 
-    private void tableMemberValueChanged(ListSelectionEvent e)
-    {
-        controller.setSelectedMember(matchingMembers.get(tabMember.getSelectedRow()));
-        updateDetailPane();
-    }
-
-    private void btnApplyChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApplyChangeActionPerformed
+    private void btnApplyChangeActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnApplyChangeActionPerformed
+    {//GEN-HEADEREND:event_btnApplyChangeActionPerformed
         if (dataExists)
         {
-            updateMemberData();
+            save();
             //TODO: Throw exception in case of an error !!!!!
         }
         else
@@ -536,424 +217,106 @@ public class SearchMemberForm
         }
     }//GEN-LAST:event_btnApplyChangeActionPerformed
 
-    private void radioMaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioMaleActionPerformed
-        genderActionPerformed(evt);
-    }//GEN-LAST:event_radioMaleActionPerformed
-
-    private void radioTrainerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioTrainerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_radioTrainerActionPerformed
-
-    private void radioPlayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioPlayerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_radioPlayerActionPerformed
-
-    private void radioCaretakerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioCaretakerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_radioCaretakerActionPerformed
-
-    private void radioDepHeadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioDepHeadActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_radioDepHeadActionPerformed
-
-    private void radioFemalePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_radioFemalePropertyChange
-        // TODO add your handling code here:
-    }//GEN-LAST:event_radioFemalePropertyChange
-
-    private void radioMalePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_radioMalePropertyChange
-        // TODO add your handling code here:
-    }//GEN-LAST:event_radioMalePropertyChange
-
-    private void btnAddSportActionPerformed(java.awt.event.ActionEvent evt)
+    private void tableMemberValueChanged(ListSelectionEvent e)
     {
-        try
-        {
-            if (radioTrainer.isSelected() || radioPlayer.isSelected())
-            {
-                //open new frame which enables selection of more sports
-                new SelectSportsHelper(availableSports, selectedSports, this);
-            }
-            else
-            {
-                JOptionPane.showMessageDialog(null, "Member is no player or trainer!");
-            }
-        }
-        catch (Exception e)
-        {
-            JOptionPane.showMessageDialog(null, "Service currently not available. Sorry!");
-        }
+        IMemberDto member = matchingMembers.get(tabMember.getSelectedRow());
+
+//        personDataPanel1.setMember(member);
+     //   membershipDataPanel1.setMember(member);
     }
 
-    private void btnTeamsActionPerformed(java.awt.event.ActionEvent evt)
+    //  private void btnAddSportActionPerformed(java.awt.event.ActionEvent evt)
+    //  {
+//        try
+//        {
+//            if (radioTrainer.isSelected() || radioPlayer.isSelected())
+//            {
+//                //open new frame which enables selection of more sports
+//                new SelectSportsHelper(availableSports, selectedSports, this);
+//            }
+//            else
+//            {
+//                JOptionPane.showMessageDialog(null, "Member is no player or trainer!");
+//            }
+//        }
+//        catch (Exception e)
+//        {
+//            JOptionPane.showMessageDialog(null, "Service currently not available. Sorry!");
+//        }
+//    }
+    // private void btnTeamsActionPerformed(java.awt.event.ActionEvent evt)
+    //  {
+//        try
+//        {
+//            new SelectTeamsHelper(selectedSports, this, false);
+//        }
+//        catch (Exception e)
+//        {
+//            JOptionPane.showMessageDialog(null, "Service currently not available. Sorry!");
+//        }
+//    }
+//
+//    public void setTxtFieldSports(List<ITypeOfSportDto> selection)
+//    {
+//        if (selection.isEmpty())
+//        {
+//            txtFieldSports.setText("");
+//            return;
+//        }
+//
+//        this.selectedSports = selection;
+//
+//        StringBuilder sb = new StringBuilder(selectedSports.size());
+//        for (ITypeOfSportDto s : selectedSports)
+//        {
+//            sb.append(s);
+//            sb.append(", ");
+//        }
+//
+//        txtFieldSports.setText(sb.toString().substring(sb.length() - 2, sb.length()));
+    //  }
+//    private void updateDetailPane()
+//    {
+//        dataExists = true;
+//
+//        IMemberDto selectedMember = controller.getSelectedMember();
+//
+//
+//        txtfieldMemberNr.setText(member.getId().toString());
+//        dateEntry.setDate(member.getMemberFrom());
+//    }
+    private void save()
     {
-        try
-        {
-            new SelectTeamsHelper(selectedSports, this);
-        }
-        catch (Exception e)
-        {
-            JOptionPane.showMessageDialog(null, "Service currently not available. Sorry!");
-        }
+//        IMemberDto selectedMember = personDataPanel1.getMember();
+
+      //  controller.setNewMember(selectedMember, address);
+
+     //   if(selectedMember.isRole("Player"))
+    //    {
+    //        controller.setNewPlayer(selectedMember, address, membershipDataPanel1.getPlayerTeams());
+     //   }
+     //         if(selectedMember.isRole("Trainer"))
+     //   {
+      //      controller.setNewTrainer(selectedMember, address, membershipDataPanel1.getTrainerTeams());
+     //   }
     }
 
-    @Override
-    public void setTxtFieldSports(List<ITypeOfSportDto> selection)
-    {
-        if (selection.isEmpty())
-        {
-            txtFieldSports.setText("");
-            return;
-        }
-
-        this.selectedSports = selection;
-
-        StringBuilder sb = new StringBuilder(selectedSports.size());
-        for (ITypeOfSportDto s : selectedSports)
-        {
-            sb.append(s);
-            sb.append(", ");
-        }
-
-        txtFieldSports.setText(sb.toString().substring(sb.length() - 2, sb.length()));
-    }
-
-    @Override
-    public void setTxtFieldTeams(List<IClubTeamDto> selected)
-    {
-        if (selected.isEmpty())
-        {
-            txtFieldTeam.setText("");
-            return;
-        }
-
-        this.selectedTeams = selected;
-
-        StringBuilder sb = new StringBuilder(selectedTeams.size());
-
-        for (IClubTeamDto ct : selectedTeams)
-        {
-            sb.append(ct);
-            sb.append(", ");
-        }
-
-        txtFieldTeam.setText(sb.toString().substring(0, sb.length() - 2));
-    }
-
-    private void setSelectedSports(IRoleDto role)
-    {
-        List<Integer> typeOfSportsID = null;
-
-        if (role instanceof ITrainerDto)
-        {
-            ITrainerDto tmp = (ITrainerDto) role;
-            typeOfSportsID = tmp.getTypeOfSportList();
-        }
-        else
-        {
-            IPlayerDto tmp = (IPlayerDto) role;
-            typeOfSportsID = tmp.getTypeOfSportList();
-        }
-
-        //add members sports to his/her selectedSportsList
-        for (ITypeOfSportDto tos : availableSports)
-        {
-            for (Integer i : typeOfSportsID)
-            {
-                if ((tos.getId()).equals(i))
-                {
-                    selectedSports.add(tos);
-                }
-            }
-        }
-    }
-
-    private List<Integer> getSelectedSports()
-    {
-        List<Integer> tosIDs = new LinkedList<>();
-
-        for (ITypeOfSportDto tos : availableSports)
-        {
-            for (ITypeOfSportDto s : selectedSports)
-            {
-                if (s.equals(tos))
-                {
-                    tosIDs.add(tos.getId());
-                }
-            }
-        }
-        return tosIDs;
-    }
-
-    private void updateDetailPane()
-    {
-        dataExists = true;
-
-        List<Integer> sports = new LinkedList<>();
-        List<Integer> clubTeamIDList = new LinkedList<>();
-
-        IMemberDto selectedMember = controller.getSelectedMember();
-
-        for (IRoleDto role : controller.getRoles(selectedMember.getId()))
-        {
-            if (role instanceof ITrainerDto)
-            {
-                for (Integer t : ((ITrainerDto) role).getTypeOfSportList())
-                {
-                    if (!sports.contains(t))
-                    {
-                        sports.add(t);
-                    }
-                }
-                for (Integer t : ((ITrainerDto) role).getClubTeamList())
-                {
-                    if (!clubTeamIDList.contains(t))
-                    {
-                        clubTeamIDList.add(t);
-                    }
-                }
-            }
-            else if (role instanceof IPlayerDto)
-            {
-                for (Integer t : ((IPlayerDto) role).getTypeOfSportList())
-                {
-                    if (!sports.contains(t))
-                    {
-                        sports.add(t);
-                    }
-                }
-                for (Integer t : ((IPlayerDto) role).getClubTeamList())
-                {
-                    if (!clubTeamIDList.contains(t))
-                    {
-                        clubTeamIDList.add(t);
-                    }
-                }
-            }
-        }
-
-        StringBuilder builder = new StringBuilder();
-
-        for (ITypeOfSportDto t : controller.getTypeOfSports(sports))
-        {
-            builder.append(t);
-            builder.append(", ");
-
-        }
-
-        txtFieldSports.setText(builder.toString().substring(0, builder.length() - 2));
-
-        setSelectedTeams(clubTeamIDList);
-        setTxtFieldTeams(selectedTeams);
-
-        txtfieldMemberNr.setText(selectedMember.getId().toString());
-        txtfieldFName.setText(selectedMember.getPrename());
-        txtfieldLName.setText(selectedMember.getLastname());
-        txtfieldMail.setText(selectedMember.getEmailAddress());
-        txtfieldPhone.setText(selectedMember.getTelephonenumber());
-
-        address = controller.getAddress(selectedMember.getAddress());
-        txtfieldAddress.setText(address.getStreet());
-        txtfieldStreetNr.setText(Integer.toString(address.getStreetNumber()));
-        String postCode = Integer.toString(address.getPostalCode());
-        txtfieldPostCode.setText(postCode);
-        txtfieldCity.setText(address.getVillage());
-
-        country = controller.getCountry(selectedMember.getNationality());
-        txtfieldCountry.setText(country.getName());
-
-        radioFemale.setSelected(selectedMember.getGender());
-        radioMale.setSelected(!selectedMember.getGender());
-
-        dateEntry.setDate(selectedMember.getMemberFrom());
-        dateBirthday.setDate(selectedMember.getDateOfBirth());
-
-        for (IRoleDto role : controller.getRoles(controller.getSelectedMember().getId()))
-        {
-            if (role instanceof IAdminDto)
-            {
-                radioAdmin.setSelected(true);
-                disableExtendedRadioSelection();
-            }
-            else if (role instanceof ICaretakerDto)
-            {
-                radioCaretaker.setSelected(true);
-            }
-            else if (role instanceof IDepartmentHeadDto)
-            {
-                radioDepHead.setSelected(true);
-            }
-            else if (role instanceof ITrainerDto)
-            {
-                radioTrainer.setSelected(true);
-                setSelectedSports(role);
-
-                // setTxtFieldSports(controller.getTypeOfSports(((ITrainerDto) role).getTypeOfSportList()));
-            }
-            else if (role instanceof IPlayerDto)
-            {
-                radioPlayer.setSelected(true);
-                setSelectedSports(role);
-
-                //    setTxtFieldSports(controller.getTypeOfSports(((IPlayerDto) role).getTypeOfSportList()));
-            }
-        }
-    }
-
-    private void updateMemberData()
-    {
-        IMemberDto selectedMember = controller.getSelectedMember();
-
-        selectedMember.setPrename(txtfieldFName.getText());
-        selectedMember.setLastname(txtfieldLName.getText());
-        selectedMember.setDateOfBirth(dateBirthday.getDate());
-        selectedMember.setMemberFrom(dateEntry.getDate());
-        selectedMember.setTelephonenumber(txtfieldPhone.getText());
-        selectedMember.setEmailAddress(txtfieldMail.getText());
-
-        address.setStreet(txtfieldAddress.getText());
-        address.setStreetNumber(Integer.parseInt(txtfieldStreetNr.getText()));
-        address.setPostalCode(Integer.parseInt(txtfieldPostCode.getText()));
-        address.setVillage(txtfieldCity.getText());
-        country.setName(txtfieldCountry.getText());
-        selectedMember.setNationality(country.getId());
-
-        selectedMember.setGender(radioFemale.isSelected());
-
-
-        //get selected roles
-        if (adminPermission)
-        {
-            if (radioAdmin.isSelected())
-            {
-                roles.add(new AdminDto());
-            }
-            if (radioCaretaker.isSelected())
-            {
-                roles.add(new CaretakerDto());
-            }
-            if (radioDepHead.isSelected())
-            {
-                roles.add(new DepartmentHeadDto());
-            }
-            if (radioTrainer.isSelected())
-            {
-                ITrainerDto trainer = new TrainerDto();
-                roles.add(trainer);
-                trainer.setTypeOfSportList(getSelectedSports());
-                trainer.setClubTeamList(getSelectedTeams());
-            }
-        }
-
-        if (radioPlayer.isSelected())
-        {
-            IPlayerDto player = new PlayerDto();
-            roles.add(player);
-            player.setTypeOfSportList(getSelectedSports());
-            //player.setClubTeamList(getSelectedTeams());
-        }
-
-        List<Integer> roleInt = new LinkedList<>();
-        for (IRoleDto role : roles)
-        {
-            roleInt.add(role.getId());
-        }
-        selectedMember.setRoleList(roleInt);
-
-
-        //controller.setNewMember(selectedMember, address, clubTeam, roles.get(roles.size() - 1));
-    }
-
-    @Override
-    public List<IClubTeamDto> getClubTeams(ITypeOfSportDto sport)
-    {
-        return controller.getClubTeamsByTypeOfSport(sport);
-    }
-
-    private void setSelectedTeams(List<Integer> clubTeamIDs)
-    {
-        selectedTeams = controller.getClubTeams(clubTeamIDs);
-    }
-
-    private List<Integer> getSelectedTeams()
-    {
-        List<Integer> clubTeamIDs = new LinkedList<>();
-
-        for (IClubTeamDto c : selectedTeams)
-        {
-            clubTeamIDs.add(c.getId());
-        }
-        return clubTeamIDs;
-    }
-
-    private void genderActionPerformed(ActionEvent evt)
-    {
-        if (evt.getSource() == radioFemale)
-        {
-            radioMale.setEnabled(!radioFemale.isSelected());
-        }
-        else
-        {
-            radioFemale.setEnabled(!radioMale.isSelected());
-        }
-    }
-
-    private void disableExtendedRadioSelection()
-    {
-        radioAdmin.setEnabled(false);
-        radioCaretaker.setEnabled(false);
-        radioDepHead.setEnabled(false);
-        radioTrainer.setEnabled(false);
-    }
-
+//    public List<IClubTeamDto> getClubTeams(ITypeOfSportDto sport)
+//    {
+//        return controller.getClubTeamsByTypeOfSport(sport);
+//    }
     public JPanel getPanel()
     {
         return paneSearch;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddSport;
     private javax.swing.JButton btnApplyChange;
     private javax.swing.JButton btnSearch;
-    private javax.swing.JButton btnTeams;
-    private com.toedter.calendar.JDateChooser dateBirthday;
-    private com.toedter.calendar.JDateChooser dateEntry;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblAddress;
-    private javax.swing.JLabel lblBirthDate;
-    private javax.swing.JLabel lblCity;
-    private javax.swing.JLabel lblCountry;
-    private javax.swing.JLabel lblEntryDate;
-    private javax.swing.JLabel lblFName;
-    private javax.swing.JLabel lblGender;
-    private javax.swing.JLabel lblLName;
-    private javax.swing.JLabel lblMail;
-    private javax.swing.JLabel lblMemberNr;
-    private javax.swing.JLabel lblPhone;
-    private javax.swing.JLabel lblPostCode;
-    private javax.swing.JLabel lblRole;
-    private javax.swing.JLabel lblSport;
-    private javax.swing.JLabel lblTeam;
-    private javax.swing.JPanel paneMemberData;
+    private presentation.forms.member.MembershipDataPanel membershipDataPanel2;
     private javax.swing.JPanel paneSearch;
-    private javax.swing.JRadioButton radioAdmin;
-    private javax.swing.JRadioButton radioCaretaker;
-    private javax.swing.JRadioButton radioDepHead;
-    private javax.swing.JRadioButton radioFemale;
-    private javax.swing.JRadioButton radioMale;
-    private javax.swing.JRadioButton radioPlayer;
-    private javax.swing.JRadioButton radioTrainer;
+    private presentation.forms.member.PersonDataPanel personDataPanel1;
     private javax.swing.JTable tabMember;
-    private javax.swing.JTextField txtFieldSports;
-    private javax.swing.JTextField txtFieldTeam;
-    private javax.swing.JTextField txtfieldAddress;
-    private javax.swing.JTextField txtfieldCity;
-    private javax.swing.JTextField txtfieldCountry;
-    private javax.swing.JTextField txtfieldFName;
-    private javax.swing.JTextField txtfieldLName;
-    private javax.swing.JTextField txtfieldMail;
-    private javax.swing.JTextField txtfieldMemberNr;
-    private javax.swing.JTextField txtfieldPhone;
-    private javax.swing.JTextField txtfieldPostCode;
     private javax.swing.JTextField txtfieldSearchMemb;
-    private javax.swing.JTextField txtfieldStreetNr;
     // End of variables declaration//GEN-END:variables
 }

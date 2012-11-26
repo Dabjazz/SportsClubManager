@@ -6,7 +6,7 @@ package com.rmi.client.mapper;
 
 import contract.dto.*;
 import contract.rmi.services.ISearchChangeMemberRmiService;
-import contract.useCaseController.ISearchChangeMember;
+import contract.useCaseController.*;
 import java.rmi.RemoteException;
 import java.util.*;
 import java.util.logging.*;
@@ -239,6 +239,36 @@ public class SearchChangeMember
         try
         {
             return service.getTypeOfSports();
+        }
+        catch (RemoteException ex)
+        {
+            Logger.getLogger(SearchChangeMember.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
+
+    @Override
+    public IMemberController getMemberController()
+    {
+        try
+        {
+            return service.getMemberController();
+        }
+        catch (RemoteException ex)
+        {
+            Logger.getLogger(SearchChangeMember.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
+
+    @Override
+    public IMembershipController getMembershipController()
+    {
+         try
+        {
+            return service.getMembershipController();
         }
         catch (RemoteException ex)
         {

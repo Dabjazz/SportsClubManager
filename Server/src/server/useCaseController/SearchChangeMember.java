@@ -6,7 +6,7 @@ package server.useCaseController;
 
 import contract.dto.*;
 import contract.dto.mapper.*;
-import contract.useCaseController.ISearchChangeMember;
+import contract.useCaseController.*;
 import java.rmi.RemoteException;
 import java.util.*;
 import java.util.logging.*;
@@ -21,6 +21,9 @@ public class SearchChangeMember
 {
     private static SearchChangeMember INSTANCE;
     private IMemberDto member;
+    private DtoFactory dtoFactory = new DtoFactory();
+    private IMemberController memberController = new MemberController();
+    private IMembershipController membershipController = new MembershipController();
 
     private SearchChangeMember()
     {
@@ -42,7 +45,7 @@ public class SearchChangeMember
         try
         {
             List<IMemberDto> resultIMembers = new LinkedList<>();
-            List<IMemberDto> memberList = DtoFactory.getMemberMapper().getAll();
+            List<IMemberDto> memberList = dtoFactory.getMemberMapper().getAll();
             for (IMemberDto member : memberList)
             {
                 if (member.getLastname().toLowerCase().contains(searchInput.toLowerCase())
@@ -66,7 +69,7 @@ public class SearchChangeMember
     {
         try
         {
-            return DtoFactory.getMemberMapper().getById(id);
+            return dtoFactory.getMemberMapper().getById(id);
         }
         catch (RemoteException | IdNotFoundException ex)
         {
@@ -82,10 +85,10 @@ public class SearchChangeMember
         List<IRoleDto> roleList = new ArrayList<>();
         try
         {
-            IMemberDto member = DtoFactory.getMemberMapper().getById(memberId);
+            IMemberDto member = dtoFactory.getMemberMapper().getById(memberId);
             for (Integer role : member.getRoleList())
             {
-                roleList.add(DtoFactory.getRoleMapper().getById(role));
+                roleList.add(dtoFactory.getRoleMapper().getById(role));
             }
         }
         catch (RemoteException | IdNotFoundException ex)
@@ -101,13 +104,13 @@ public class SearchChangeMember
         try
         {
             //Auch nicht wirklich korrekt!!!!
-            List<IDepartmentDto> depList = DtoFactory.getDepartmentMapper().getAll();
+            List<IDepartmentDto> depList = dtoFactory.getDepartmentMapper().getAll();
             for (IDepartmentDto dep : depList)
             {
                 List<IClubTeamDto> clubList = new ArrayList<>();
                 for (Integer club : dep.getClubTeamList())
                 {
-                    clubList.add(DtoFactory.getClubTeamMapper().getById(club));
+                    clubList.add(dtoFactory.getClubTeamMapper().getById(club));
                 }
 
                 for (IClubTeamDto team : clubList)
@@ -131,7 +134,7 @@ public class SearchChangeMember
     {
         try
         {
-            return DtoFactory.getAddressMapper().getById(addressId);
+            return dtoFactory.getAddressMapper().getById(addressId);
         }
         catch (RemoteException | IdNotFoundException ex)
         {
@@ -145,7 +148,7 @@ public class SearchChangeMember
     {
         try
         {
-            return DtoFactory.getCountryMapper().getById(countryID);
+            return dtoFactory.getCountryMapper().getById(countryID);
         }
         catch (RemoteException | IdNotFoundException ex)
         {
@@ -159,7 +162,7 @@ public class SearchChangeMember
     {
         try
         {
-            return DtoFactory.getDepartmentMapper().getAll();
+            return dtoFactory.getDepartmentMapper().getAll();
         }
         catch (RemoteException | NotFoundException ex)
         {
@@ -176,7 +179,7 @@ public class SearchChangeMember
         {
             for (Integer team : clubTeams)
             {
-                teamList.add(DtoFactory.getClubTeamMapper().getById(team));
+                teamList.add(dtoFactory.getClubTeamMapper().getById(team));
             }
         }
         catch (RemoteException | IdNotFoundException ex)
@@ -213,7 +216,7 @@ public class SearchChangeMember
         {
             for (Integer sportID : sportsList)
             {
-                typeOfSportReturnList.add(DtoFactory.getTypeOfSportMapper().getById(sportID));
+                typeOfSportReturnList.add(dtoFactory.getTypeOfSportMapper().getById(sportID));
 
             }
         }
@@ -229,7 +232,7 @@ public class SearchChangeMember
     {
         try
         {
-            return DtoFactory.getTypeOfSportMapper().getAll();
+            return dtoFactory.getTypeOfSportMapper().getAll();
         }
         catch (RemoteException | NotFoundException ex)
         {
@@ -257,12 +260,24 @@ public class SearchChangeMember
         List<IClubTeamDto> cTeams = null;
         try
         {
-            cTeams = DtoFactory.getClubTeamMapper().getClubTeamsByTypeOfSport(sport);
+            cTeams = dtoFactory.getClubTeamMapper().getClubTeamsByTypeOfSport(sport);
         }
         catch (RemoteException | ClubTeamNotFoundException ex)
         {
             Logger.getLogger(SearchChangeMember.class.getName()).log(Level.SEVERE, null, ex);
         }
         return cTeams;
+    }
+
+    @Override
+    public IMemberController getMemberController()
+    {
+        return memberController;
+    }
+
+    @Override
+    public IMembershipController getMembershipController()
+    {
+        return membershipController;
     }
 }

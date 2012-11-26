@@ -5,6 +5,7 @@
 package contract.rmi.services;
 
 import contract.dto.*;
+import contract.useCaseController.*;
 import java.rmi.*;
 import java.util.List;
 
@@ -62,4 +63,10 @@ public interface ISearchChangeMemberRmiService
 
     List<ITypeOfSportDto> getTypeOfSports()
             throws RemoteException;     //new added
+
+    IMembershipController getMembershipController()
+            throws RemoteException;
+
+    IMemberController getMemberController()
+            throws RemoteException;
 }

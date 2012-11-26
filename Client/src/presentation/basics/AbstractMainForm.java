@@ -31,18 +31,21 @@ public class AbstractMainForm
     {
         // setSize(x, y);
     }
-
-    public void setTxtFieldSports(List<ITypeOfSportDto> selected)
-    {
-        // handle in code
-    }
-
-  
-    public void setTxtFieldTeams(List<IClubTeamDto> selected){
-        //handle in code
-    }
-    
-    public List<IClubTeamDto> getClubTeams(ITypeOfSportDto sport){
-      return null;
-    }
+//    public void setTxtFieldSports(List<ITypeOfSportDto> selected)
+//    {
+//        // handle in code
+//    }
+//
+//    public void setPlayerClubTeams(List<IClubTeamDto> selected)
+//    {
+//    }
+//
+//    public void setTrainerClubTeams(List<IClubTeamDto> selected)
+//    {
+//    }
+//
+//    public List<IClubTeamDto> getClubTeams(ITypeOfSportDto sport)
+//    {
+//        return null;
+//    }
 }

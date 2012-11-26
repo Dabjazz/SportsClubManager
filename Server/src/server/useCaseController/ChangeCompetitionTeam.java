@@ -20,6 +20,7 @@ public class ChangeCompetitionTeam
         implements IChangeCompetitionTeam
 {
     private static IChangeCompetitionTeam INSTANCE;
+    private DtoFactory dtoFactory = new DtoFactory();
 
     private ChangeCompetitionTeam()
     {
@@ -39,7 +40,7 @@ public class ChangeCompetitionTeam
     {
         try
         {
-            return DtoFactory.getCompetitionMapper().getAll();
+            return dtoFactory.getCompetitionMapper().getAll();
         }
         catch (RemoteException | NotFoundException ex)
         {
@@ -57,7 +58,7 @@ public class ChangeCompetitionTeam
         {
             for (Integer teamId : Teams)
             {
-                clubTeamList.add(DtoFactory.getClubTeamMapper().getById(teamId));
+                clubTeamList.add(dtoFactory.getClubTeamMapper().getById(teamId));
             }
         }
         catch (RemoteException | IdNotFoundException ex)
@@ -82,7 +83,7 @@ public class ChangeCompetitionTeam
         }
         try
         {
-            DtoFactory.getCompetitionMapper().set(competition);
+            dtoFactory.getCompetitionMapper().set(competition);
         }
         catch (RemoteException ex)
         {
@@ -95,7 +96,7 @@ public class ChangeCompetitionTeam
     {
         try
         {
-            return DtoFactory.getClubTeamMapper().getAll();
+            return dtoFactory.getClubTeamMapper().getAll();
         }
         catch (RemoteException | NotFoundException ex)
         {
@@ -120,7 +121,7 @@ public class ChangeCompetitionTeam
         {
             for (Integer player : players)
             {
-                playerList.add(DtoFactory.getPlayerMapper().getById(player));
+                playerList.add(dtoFactory.getPlayerMapper().getById(player));
             }
         }
         catch (RemoteException | IdNotFoundException ex)

@@ -26,7 +26,7 @@ public class AddMatchResults
         implements IAddMatchResults
 {
     private static AddMatchResults singleton = null;
-    DtoFactory access;
+    DtoFactory access = new DtoFactory();
 
     private AddMatchResults()
     {
@@ -48,7 +48,7 @@ public class AddMatchResults
     {
         try
         {
-            return DtoFactory.getCompetitionMapper().getAll();
+            return access.getCompetitionMapper().getAll();
         }
         catch (RemoteException | NotFoundException ex)
         {
@@ -67,7 +67,7 @@ public class AddMatchResults
             for (Integer id : team)
             {
 
-                teamList.add(DtoFactory.getTeamMapper().getById(id));
+                teamList.add(access.getTeamMapper().getById(id));
             }
         }
         catch (RemoteException | IdNotFoundException ex)
@@ -88,7 +88,7 @@ public class AddMatchResults
         {
             for (Integer id : match)
             {
-                matchList.add(DtoFactory.getMatchMapper().getById(id));
+                matchList.add(access.getMatchMapper().getById(id));
             }
         }
         catch (RemoteException | IdNotFoundException ex)
@@ -103,9 +103,9 @@ public class AddMatchResults
     {
         try
         {
-            Integer matchresultId = DtoFactory.getMatchresultMapper().set(matchresult);
+            Integer matchresultId = access.getMatchresultMapper().set(matchresult);
             match.setMatchresult(matchresultId);
-            DtoFactory.getMatchMapper().set(match);
+            access.getMatchMapper().set(match);
         }
         catch (RemoteException ex)
         {

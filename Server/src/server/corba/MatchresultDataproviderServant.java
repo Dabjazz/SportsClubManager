@@ -27,6 +27,7 @@ public class MatchresultDataproviderServant
         extends MatchresultDataproviderPOA
 {
     private ORB orb;
+    private DtoFactory dtoFactory = new DtoFactory();
 
     public void setORB(ORB orb_val)
     {
@@ -40,9 +41,9 @@ public class MatchresultDataproviderServant
         {
             List<MatchresultCorba> results = new LinkedList<>();
 
-            ITypeOfSportDto t = DtoFactory.getTypeOfSportMapper().getByName(typeOfSport);
+            ITypeOfSportDto t = dtoFactory.getTypeOfSportMapper().getByName(typeOfSport);
 
-            ILeagueDto l = DtoFactory.getLeagueMapper().getByName(league, t);
+            ILeagueDto l = dtoFactory.getLeagueMapper().getByName(league, t);
 
             Date date = new SimpleDateFormat("dd.MM.yyyy").parse(competitiondate);
 
@@ -50,7 +51,7 @@ public class MatchresultDataproviderServant
             {
                 for (int matchId : competition.getMatchList())
                 {
-                    IMatchDto match = DtoFactory.getMatchMapper().getById(matchId);
+                    IMatchDto match = dtoFactory.getMatchMapper().getById(matchId);
                     IMatchresultDto matchresult = match.getMatchresult();
 
                     results.add(new MatchresultCorba(matchresult.getId(), match.getDateFrom().toString(), match.getHometeam().getName(), match.getForeignteam().getName(), matchresult.getPointsHometeam(), matchresult.getPointsForeignteam()));
@@ -84,7 +85,7 @@ public class MatchresultDataproviderServant
     {
         try
         {
-            IMatchresultDto m = DtoFactory.getMatchresultMapper().getById(matchresult.Id);
+            IMatchresultDto m = dtoFactory.getMatchresultMapper().getById(matchresult.Id);
 
             return m.IsFinal();
         }

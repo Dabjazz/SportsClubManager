@@ -17,6 +17,7 @@ public class LoginController
         implements ILogin
 {
     private static LoginController INSTANCE;
+    private DtoFactory dtoFactory = new DtoFactory();
 
     private LoginController()
     {
@@ -37,7 +38,7 @@ public class LoginController
     {
         try
         {
-            IMemberMapper m = DtoFactory.getMemberMapper();
+            IMemberMapper m = dtoFactory.getMemberMapper();
             return m.getMemberByUsername(userData.getUsername());
         }
         catch (RemoteException | NotFoundException ex)

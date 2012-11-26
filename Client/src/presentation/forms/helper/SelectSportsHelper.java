@@ -125,7 +125,7 @@ public class SelectSportsHelper
             selSports.add((ITypeOfSportDto) o);
         }
 
-        parent.setTxtFieldSports(selSports);
+//        parent.setTxtFieldSports(selSports);
 
         setVisible(false);
         dispose();

@@ -31,17 +31,17 @@ public interface IMemberDto
     Date getMemberTo();
 
     Integer getNationality();
-    
+
     String getPrename();
 
     List<Integer> getRoleList();
 
     String getTelephonenumber();
-    
+
     String getUsername();
-    
+
     void setUsername(String username);
-    
+
     void setAddress(Integer address);
 
     void setDateOfBirth(Date dateOfBirth);
@@ -63,4 +63,6 @@ public interface IMemberDto
     void setRoleList(List<Integer> roleList);
 
     void setTelephonenumber(String telephonenumber);
+
+    boolean isRole(String player);
 }

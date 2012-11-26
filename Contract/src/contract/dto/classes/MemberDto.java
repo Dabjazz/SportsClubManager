@@ -1,15 +1,16 @@
 package contract.dto.classes;
 
-import contract.dto.IMemberDto;
+import contract.dto.*;
+import contract.dto.mapper.*;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.rmi.*;
+import java.util.*;
+import java.util.logging.*;
 
 public class MemberDto
         implements Serializable, IMemberDto
 {
+    public static IDtoFactory dtoFactory;
     private static HashMap<contract.domain.IMember, MemberDto> members = new HashMap<>();
 
     public static IMemberDto copy(contract.domain.IMember member)
@@ -216,5 +217,30 @@ public class MemberDto
     public void setUsername(String username)
     {
         this.username = username;
+    }
+
+    @Override
+    public boolean isRole(String roleName)
+    {
+        try
+        {
+            for (Integer role : this.getRoleList())
+            {
+                if (dtoFactory.getRoleMapper().getById(role).getName().equals(roleName))
+                {
+                    return true;
+                }
+
+            }
+        }
+        catch (IdNotFoundException ex)
+        {
+            Logger.getLogger(MemberDto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (RemoteException ex)
+        {
+            Logger.getLogger(MemberDto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 }

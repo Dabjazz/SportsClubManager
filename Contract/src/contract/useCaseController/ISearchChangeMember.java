@@ -8,7 +8,6 @@ import contract.dto.*;
 import java.util.List;
 
 /**
-
  @author Lucia
  */
 public interface ISearchChangeMember
@@ -44,4 +43,8 @@ public interface ISearchChangeMember
     public IMemberDto getSelectedMember();
 
     public List<ITypeOfSportDto> getTypeOfSports();
+
+    public IMemberController getMemberController();
+
+    public IMembershipController getMembershipController();
 }

@@ -6,11 +6,11 @@ package server.dto.mapper;
 
 import contract.domain.*;
 import contract.dto.IMemberDto;
+import contract.dto.classes.MemberDto;
 import contract.dto.mapper.*;
 import java.util.*;
 import java.util.logging.*;
 import server.domain.DomainFacade;
-import contract.dto.classes.MemberDto;
 
 /**
 
@@ -157,7 +157,14 @@ public class MemberMapper
 
         for (int i : value.getRoleList())
         {
-            //TODO 
+            try
+            {
+                roleList.add(DomainFacade.getInstance().getByID(IRole.class, i));
+            }
+            catch (CouldNotFetchException ex)
+            {
+                Logger.getLogger(MemberMapper.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         member.setRoleList(roleList);

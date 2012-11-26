@@ -20,6 +20,7 @@ public class NewMember
         implements INewMember
 {
     private static INewMember INSTANCE;
+    private DtoFactory dtoFactory = new DtoFactory();
 
     private NewMember()
     {
@@ -50,9 +51,9 @@ public class NewMember
     {
         try
         {
-            Integer adressId = DtoFactory.getAddressMapper().set(address);
+            Integer adressId = dtoFactory.getAddressMapper().set(address);
             member.setAddress(adressId);
-            DtoFactory.getMemberMapper().set(member);
+            dtoFactory.getMemberMapper().set(member);
             return member;
         }
         catch (RemoteException ex)
@@ -67,7 +68,7 @@ public class NewMember
     {
         try
         {
-            return DtoFactory.getDepartmentMapper().getAll();
+            return dtoFactory.getDepartmentMapper().getAll();
         }
         catch (RemoteException | NotFoundException ex)
         {
@@ -84,7 +85,7 @@ public class NewMember
         {
             for (Integer team : clubTeams)
             {
-                clubTeamList.add(DtoFactory.getClubTeamMapper().getById(team));
+                clubTeamList.add(dtoFactory.getClubTeamMapper().getById(team));
             }
 
         }
@@ -103,7 +104,7 @@ public class NewMember
         {
             for (Integer sportID : typOfSportsList)
             {
-                typeOfSportReturnList.add(DtoFactory.getTypeOfSportMapper().getById(sportID));
+                typeOfSportReturnList.add(dtoFactory.getTypeOfSportMapper().getById(sportID));
 
             }
         }
@@ -120,7 +121,7 @@ public class NewMember
         List<IClubTeamDto> ret = new LinkedList<>();
         try
         {
-            ret = DtoFactory.getClubTeamMapper().getClubTeamsByTypeOfSport(sport);
+            ret = dtoFactory.getClubTeamMapper().getClubTeamsByTypeOfSport(sport);
 
         }
         catch (ClubTeamNotFoundException | RemoteException ex)
@@ -174,7 +175,7 @@ public class NewMember
         {
             try
             {
-                return DtoFactory.getTypeOfSportMapper().getAll();
+                return dtoFactory.getTypeOfSportMapper().getAll();
             }
             catch (NotFoundException ex)
             {

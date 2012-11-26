@@ -6,11 +6,11 @@ package server.dto.mapper;
 
 import contract.domain.*;
 import contract.dto.ICaretakerDto;
+import contract.dto.classes.CaretakerDto;
 import contract.dto.mapper.*;
 import java.util.*;
 import java.util.logging.*;
 import server.domain.DomainFacade;
-import contract.dto.classes.CaretakerDto;
 
 /**
 

@@ -6,18 +6,17 @@ package server.dto.mapper;
 
 import contract.domain.*;
 import contract.dto.ICountryDto;
+import contract.dto.classes.CountryDto;
 import contract.dto.mapper.*;
 import java.util.*;
 import java.util.logging.*;
 import server.domain.DomainFacade;
-import contract.dto.classes.CountryDto;
 
 /**
-
  @author Thomas
  */
 public class CountryMapper
-        implements IMapper<ICountryDto>
+        implements ICountryMapper
 {
     private static CountryMapper controller;
 
@@ -40,7 +39,7 @@ public class CountryMapper
     {
     }
 
-    public static IMapper<ICountryDto> getInstance()
+    public static ICountryMapper getInstance()
     {
         if (controller == null)
         {
@@ -142,5 +141,22 @@ public class CountryMapper
     public ICountryDto getNew()
     {
         return new CountryDto();
+    }
+
+    @Override
+    public ICountryDto getByName(String name)
+            throws IdNotFoundException
+    {
+        try
+        {
+            contract.domain.ICountry a = DomainFacade.getInstance().getByName(contract.domain.ICountry.class, name);
+            return CountryDto.copy(a);
+
+        }
+        catch (Exception ex)
+        {
+
+            throw new IdNotFoundException();
+        }
     }
 }

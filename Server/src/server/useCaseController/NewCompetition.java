@@ -19,7 +19,8 @@ import server.dto.mapper.DtoFactory;
  */
 public class NewCompetition implements INewCompetition{
     private static INewCompetition INSTANCE;
-    
+        private DtoFactory dtoFactory = new DtoFactory();
+
     public static INewCompetition getInstance() {
         if(INSTANCE == null)
         {
@@ -31,7 +32,7 @@ public class NewCompetition implements INewCompetition{
     @Override
     public void setCompetition(ICompetitionDto competition, IMemberDto member) {
         try { 
-            List<IDepartmentDto> departmentList = DtoFactory.getDepartmentMapper().getAll();
+            List<IDepartmentDto> departmentList = dtoFactory.getDepartmentMapper().getAll();
             for(IDepartmentDto dep : departmentList)
             {
                 List<Integer> sportList = dep.getTypeOfSportList();
@@ -42,9 +43,9 @@ public class NewCompetition implements INewCompetition{
                         List<Integer> userRolesIds = member.getRoleList();
                         for(Integer role : userRolesIds)
                         {
-                            if(DtoFactory.getRoleMapper().getById(role).getId() == dep.getDepartmentHead())
+                            if(dtoFactory.getRoleMapper().getById(role).getId() == dep.getDepartmentHead())
                             {
-                                DtoFactory.getCompetitionMapper().set(competition);
+                                dtoFactory.getCompetitionMapper().set(competition);
                             }
                         }                   
                     }
@@ -58,7 +59,7 @@ public class NewCompetition implements INewCompetition{
     @Override
     public List<ITeamDto> getTeams() {
         try {
-            return DtoFactory.getTeamMapper().getAll();
+            return dtoFactory.getTeamMapper().getAll();
         } catch (RemoteException | NotFoundException ex) {
             Logger.getLogger(NewCompetition.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -6,6 +6,7 @@ package server.rmi.controller;
 
 import contract.dto.*;
 import contract.rmi.services.ISearchChangeMemberRmiService;
+import contract.useCaseController.*;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
@@ -123,5 +124,19 @@ public class SearchChangeMemberRmiService
             throws RemoteException
     {
         return SearchChangeMember.getInstance().getTypeOfSports();
+    }
+
+    @Override
+    public IMembershipController getMembershipController()
+            throws RemoteException
+    {
+        return SearchChangeMember.getInstance().getMembershipController();
+    }
+
+    @Override
+    public IMemberController getMemberController()
+            throws RemoteException
+    {
+        return SearchChangeMember.getInstance().getMemberController();
     }
 }

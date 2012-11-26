@@ -20,6 +20,7 @@ public class ShowCompetition
         implements IShowCompetition
 {
     private static ShowCompetition INSTANCE;
+    private DtoFactory dtoFactory = new DtoFactory();
 
     private ShowCompetition()
     {
@@ -39,7 +40,7 @@ public class ShowCompetition
     {
         try
         {
-            return DtoFactory.getCompetitionMapper().getAll();
+            return dtoFactory.getCompetitionMapper().getAll();
         }
         catch (RemoteException | NotFoundException ex)
         {
@@ -57,7 +58,7 @@ public class ShowCompetition
         {
             for (Integer id : matches)
             {
-                matchList.add(DtoFactory.getMatchMapper().getById(id));
+                matchList.add(dtoFactory.getMatchMapper().getById(id));
             }
         }
         catch (RemoteException | IdNotFoundException ex)
@@ -76,7 +77,7 @@ public class ShowCompetition
         {
             for (Integer playerID : team.getPlayerList())
             {
-                playerList.add(DtoFactory.getPlayerMapper().getById(playerID));
+                playerList.add(dtoFactory.getPlayerMapper().getById(playerID));
             }
         }
         catch (RemoteException | IdNotFoundException ex)
