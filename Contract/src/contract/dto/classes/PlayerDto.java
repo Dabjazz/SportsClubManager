@@ -72,4 +72,9 @@ public class PlayerDto
     {
         return clubTeamList;
     }
+    
+    @Override
+    public String toString() {
+        return getName();
+    }
 }

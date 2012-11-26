@@ -43,17 +43,6 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblCompetitionSel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblSelTeam" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="comboCompetition" pref="200" max="32767" attributes="0"/>
-                              <Component id="comboTeam" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
                       <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                           <Component id="btnSave" min="-2" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
@@ -75,6 +64,22 @@
                               </Group>
                           </Group>
                       </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblCompetitionSel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblSelTeam" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="comboCompetition" pref="200" max="32767" attributes="0"/>
+                              <Component id="comboTeam" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="btnGetTeams" max="32767" attributes="0"/>
+                              <Component id="btnShow" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
                   <EmptySpace pref="362" max="32767" attributes="0"/>
               </Group>
@@ -87,13 +92,15 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblCompetitionSel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="comboCompetition" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnGetTeams" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="comboTeam" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblSelTeam" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnShow" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
@@ -104,7 +111,7 @@
                           <Component id="lblMembers" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
                                   <Component id="btnAdd" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
@@ -116,7 +123,7 @@
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="btnSave" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="186" max="32767" attributes="0"/>
+                  <EmptySpace pref="162" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -133,9 +140,6 @@
               <Connection code="new javax.swing.DefaultComboBoxModel(getCompetitionList())" type="code"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboCompetitionActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblSelTeam">
           <Properties>
@@ -148,9 +152,6 @@
               <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;&quot; })" type="code"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboTeamActionPerformed"/>
-          </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="scrollTeam">
           <AuxValues>
@@ -161,14 +162,8 @@
           <SubComponents>
             <Component class="javax.swing.JList" name="listTeam">
               <Properties>
-                <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-                  <StringArray count="5">
-                    <StringItem index="0" value="Item 1"/>
-                    <StringItem index="1" value="Item 2"/>
-                    <StringItem index="2" value="Item 3"/>
-                    <StringItem index="3" value="Item 4"/>
-                    <StringItem index="4" value="Item 5"/>
-                  </StringArray>
+                <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="new javax.swing.AbstractListModel() {&#xa;    String[] strings = { &quot;&quot; };&#xa;    public int getSize() { return strings.length; }&#xa;    public Object getElementAt(int i) { return strings[i]; }&#xa;}" type="code"/>
                 </Property>
               </Properties>
             </Component>
@@ -196,14 +191,8 @@
           <SubComponents>
             <Component class="javax.swing.JList" name="listCompTeam">
               <Properties>
-                <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-                  <StringArray count="5">
-                    <StringItem index="0" value="Item 1"/>
-                    <StringItem index="1" value="Item 2"/>
-                    <StringItem index="2" value="Item 3"/>
-                    <StringItem index="3" value="Item 4"/>
-                    <StringItem index="4" value="Item 5"/>
-                  </StringArray>
+                <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="new javax.swing.AbstractListModel() {&#xa;    String[] strings = { &quot;&quot; };&#xa;    public int getSize() { return strings.length; }&#xa;    public Object getElementAt(int i) { return strings[i]; }&#xa;}" type="code"/>
                 </Property>
               </Properties>
             </Component>
@@ -228,6 +217,22 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSaveActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnShow">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Show"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnShowActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnGetTeams">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Find Teams"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGetTeamsActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

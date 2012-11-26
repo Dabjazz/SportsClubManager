@@ -7,8 +7,8 @@ package presentation.forms.competition;
 import com.ServiceClient;
 import com.ServiceNotAvailableException;
 import contract.dto.*;
+import contract.dto.classes.ClubTeamDto;
 import contract.useCaseController.IChangeCompetitionTeam;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.AbstractListModel;
@@ -27,14 +27,11 @@ public class ChangeCompetitionTeamForm extends AbstractMainForm {
     IMemberDto user;
     ServiceClient client;
     IChangeCompetitionTeam controller;
-    ICompetitionDto competition;
-    List<IClubTeamDto> cTeams;
-    IClubTeamDto team;
-    List<IPlayerDto> teamMember;
-    List<IPlayerDto> oldTeam;
-    List<IPlayerDto> newTeam;
-    HashMap<String, ICompetitionDto> compMap;
-    HashMap<String, IClubTeamDto> teamMap;
+    ICompetitionDto competition;    
+    List<IClubTeamDto> cTeams;  //for ComboBox
+    IClubTeamDto formerTeam;    
+    List<IPlayerDto> allPlayers;
+    List<IPlayerDto> newPlayerList;
 
     /**
      * Creates new form AddTeamMember
@@ -44,8 +41,6 @@ public class ChangeCompetitionTeamForm extends AbstractMainForm {
         this.client = client;
         this.user = user;
         controller = this.client.getChangeCompetitionTeamService();
-        compMap = new HashMap<>();
-        teamMap = new HashMap<>();
         initComponents();
     }
 
@@ -72,6 +67,8 @@ public class ChangeCompetitionTeamForm extends AbstractMainForm {
         jLabel1 = new javax.swing.JLabel();
         btnRemove = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
+        btnShow = new javax.swing.JButton();
+        btnGetTeams = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(845, 549));
@@ -79,23 +76,13 @@ public class ChangeCompetitionTeamForm extends AbstractMainForm {
         lblCompetitionSel.setText("Competition");
 
         comboCompetition.setModel(new javax.swing.DefaultComboBoxModel(getCompetitionList()));
-        comboCompetition.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboCompetitionActionPerformed(evt);
-            }
-        });
 
         lblSelTeam.setText("Team");
 
         comboTeam.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "" }));
-        comboTeam.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboTeamActionPerformed(evt);
-            }
-        });
 
         listTeam.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = { "" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -111,7 +98,7 @@ public class ChangeCompetitionTeamForm extends AbstractMainForm {
         });
 
         listCompTeam.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = { "" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -133,6 +120,20 @@ public class ChangeCompetitionTeamForm extends AbstractMainForm {
             }
         });
 
+        btnShow.setText("Show");
+        btnShow.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnShowActionPerformed(evt);
+            }
+        });
+
+        btnGetTeams.setText("Find Teams");
+        btnGetTeams.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGetTeamsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelChangeTeamLayout = new javax.swing.GroupLayout(panelChangeTeam);
         panelChangeTeam.setLayout(panelChangeTeamLayout);
         panelChangeTeamLayout.setHorizontalGroup(
@@ -140,14 +141,6 @@ public class ChangeCompetitionTeamForm extends AbstractMainForm {
             .addGroup(panelChangeTeamLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelChangeTeamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelChangeTeamLayout.createSequentialGroup()
-                        .addGroup(panelChangeTeamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblCompetitionSel)
-                            .addComponent(lblSelTeam))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelChangeTeamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(comboCompetition, 0, 200, Short.MAX_VALUE)
-                            .addComponent(comboTeam, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(panelChangeTeamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(btnSave)
                         .addGroup(panelChangeTeamLayout.createSequentialGroup()
@@ -162,7 +155,19 @@ public class ChangeCompetitionTeamForm extends AbstractMainForm {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addGroup(panelChangeTeamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel1)
-                                .addComponent(scrollCompTeam, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(scrollCompTeam, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(panelChangeTeamLayout.createSequentialGroup()
+                        .addGroup(panelChangeTeamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblCompetitionSel)
+                            .addComponent(lblSelTeam))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelChangeTeamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(comboCompetition, 0, 200, Short.MAX_VALUE)
+                            .addComponent(comboTeam, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelChangeTeamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnGetTeams, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnShow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(362, Short.MAX_VALUE))
         );
         panelChangeTeamLayout.setVerticalGroup(
@@ -171,12 +176,14 @@ public class ChangeCompetitionTeamForm extends AbstractMainForm {
                 .addContainerGap()
                 .addGroup(panelChangeTeamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCompetitionSel)
-                    .addComponent(comboCompetition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboCompetition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGetTeams))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelChangeTeamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboTeam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblSelTeam))
-                .addGap(27, 27, 27)
+                    .addComponent(lblSelTeam)
+                    .addComponent(btnShow))
+                .addGap(45, 45, 45)
                 .addGroup(panelChangeTeamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(panelChangeTeamLayout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -194,7 +201,7 @@ public class ChangeCompetitionTeamForm extends AbstractMainForm {
                             .addComponent(scrollTeam, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSave)
-                .addContainerGap(186, Short.MAX_VALUE))
+                .addContainerGap(162, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -210,21 +217,6 @@ public class ChangeCompetitionTeamForm extends AbstractMainForm {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void comboCompetitionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCompetitionActionPerformed
-        comboTeam.setModel(new DefaultComboBoxModel(getTeamList()));
-    }//GEN-LAST:event_comboCompetitionActionPerformed
-
-    private void comboTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTeamActionPerformed
-        team = teamMap.get(comboTeam.getSelectedItem());        
-        setTeamMemberList();
-
-        IClubTeamDto compTeam = controller.getCompetitionTeam(team);
-        List<Integer> playerInt = compTeam.getPlayerList();
-        oldTeam = controller.getPlayers(playerInt);
-        newTeam = controller.getPlayers(playerInt);
-        setCompTeamList();
-    }//GEN-LAST:event_comboTeamActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         //List Models
@@ -244,8 +236,8 @@ public class ChangeCompetitionTeamForm extends AbstractMainForm {
         }
         for (int i = cTeamModel.getSize(); i < cTeam.length; i++) {
             cTeam[i] = origSel[i - cTeamModel.getSize()];
-            newTeam.add((IPlayerDto) origSel[i - cTeamModel.getSize()]);
-            teamMember.remove((IPlayerDto) origSel[i-cTeamModel.getSize()]);   //remove from available team member list
+            newPlayerList.add((IPlayerDto) origSel[i - cTeamModel.getSize()]);
+            allPlayers.remove((IPlayerDto) origSel[i-cTeamModel.getSize()]);   //remove from available team member list
             
             tmpOrig.remove(origSel[i - cTeamModel.getSize()]);
         }
@@ -280,8 +272,8 @@ public class ChangeCompetitionTeamForm extends AbstractMainForm {
         }
 
         for (int i = 0; i < cTeamSel.length; i++) {
-            teamMember.add((IPlayerDto) cTeamSel[i]);
-            newTeam.remove((IPlayerDto) cTeamSel[i]);  //remove from new team list
+            allPlayers.add((IPlayerDto) cTeamSel[i]);
+            newPlayerList.remove((IPlayerDto) cTeamSel[i]);  //remove from new team list
         }
 
         Object[] nTeam = tmpTeam.toArray();
@@ -291,88 +283,73 @@ public class ChangeCompetitionTeamForm extends AbstractMainForm {
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        IClubTeamDto oldCompTeam = controller.getCompetitionTeam(team);   
-        IClubTeamDto newCompTeam = oldCompTeam;
+        IClubTeamDto newCompetitioTeam = formerTeam; //keep trainers and competitions this way /*new ClubTeamDto();*/
         
-        List<Integer> newPlayInt = new LinkedList<>();
-        for(IPlayerDto player: newTeam){
-            newPlayInt.add(player.getId());
-        }                
-        newCompTeam.setPlayerList(newPlayInt);        
+        List<Integer> newTeamPlayerIDs = new LinkedList<>();
+        for(IPlayerDto p : newPlayerList){
+            newTeamPlayerIDs.add(p.getId());
+        }        
+        newCompetitioTeam.setPlayerList(newTeamPlayerIDs);
         
-        controller.setCompetitonTeam(competition, oldCompTeam, newCompTeam);
+        controller.setCompetitonTeam(competition, formerTeam, newCompetitioTeam);
     }//GEN-LAST:event_btnSaveActionPerformed
 
-    private void setTeamMemberList() {
-        List<Integer> playerInt = team.getPlayerList();
-        teamMember = controller.getPlayers(playerInt);
-        final String[] players = new String[teamMember.size()];
+    private void btnShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowActionPerformed
+        IClubTeamDto completeTeam = (IClubTeamDto)comboTeam.getSelectedItem();
+        setTeamPlayerList(completeTeam);
 
-        for (int i = 0; i < players.length; i++) {
-            players[i] = teamMember.get(i).toString();
-        }
+        formerTeam = controller.getCompetitionTeam(completeTeam);
+        newPlayerList = controller.getPlayers(formerTeam.getPlayerList());
+        setCompetitionTeamList();
+    }//GEN-LAST:event_btnShowActionPerformed
+
+    private void btnGetTeamsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGetTeamsActionPerformed
+        comboTeam.setModel(new DefaultComboBoxModel(getTeamList()));
+    }//GEN-LAST:event_btnGetTeamsActionPerformed
+
+    private void setTeamPlayerList(IClubTeamDto team) {
+        allPlayers = controller.getPlayers(team.getPlayerList());
 
         listTeam.setModel(new AbstractListModel() {
-            String[] strings = players;
+            Object[] objects = allPlayers.toArray(); /*players;*/ 
 
             @Override
             public int getSize() {
-                return strings.length;
+                return objects.length;
             }
 
             @Override
             public Object getElementAt(int i) {
-                return strings[i];
+                return objects[i];
             }
         });
     }
     
-    private void setCompTeamList() {
-
-        final String[] topTeam = new String[newTeam.size()];
-        for (int i = 0; i < topTeam.length; i++) {
-            topTeam[i] = newTeam.get(i).toString();
-        }
-
+    private void setCompetitionTeamList() {        
         listCompTeam.setModel(new AbstractListModel() {
-            String[] strings = topTeam;
+            Object[] objects = newPlayerList.toArray(); 
 
             @Override
             public int getSize() {
-                return strings.length;
+                return objects.length;
             }
 
             @Override
             public Object getElementAt(int i) {
-                return strings[i];
+                return objects[i];
             }
         });
     }
     
-    private String[] getCompetitionList() {
+    private Object[] getCompetitionList() {
         List<ICompetitionDto> compList = controller.getCompetition();
-        String[] compArray = new String[compList.size()];
-
-        for (int i = 0; i < compList.size(); i++) {
-            compArray[i] = compList.get(i).getName();
-            compMap.put(compArray[i], compList.get(i));
-        }        
-        return compArray;
+        return compList.toArray();
     }
 
-    private String[] getTeamList() {
-        competition = compMap.get(comboCompetition.getSelectedItem());     
+    private Object[] getTeamList() {
+        competition = (ICompetitionDto)comboCompetition.getSelectedItem();
         cTeams = controller.getClubTeams(competition.getTeamList());
-        String[] cTeamArray = new String[cTeams.size()];
-
-        for (int i = 0; i < cTeamArray.length; i++) {
-            if (cTeams.get(i).getName() == null) {
-                cTeams.get(i).setName("Masterteam");                
-            }
-            cTeamArray[i] = cTeams.get(i).getName();
-            teamMap.put(cTeamArray[i], cTeams.get(i));
-        }
-        return cTeamArray;
+        return cTeams.toArray();
     }
     
     public JPanel getPanel(){
@@ -381,8 +358,10 @@ public class ChangeCompetitionTeamForm extends AbstractMainForm {
         
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnGetTeams;
     private javax.swing.JButton btnRemove;
     private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnShow;
     private javax.swing.JComboBox comboCompetition;
     private javax.swing.JComboBox comboTeam;
     private javax.swing.JLabel jLabel1;
