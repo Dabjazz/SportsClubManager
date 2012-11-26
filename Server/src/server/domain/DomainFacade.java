@@ -18,7 +18,7 @@ public class DomainFacade
 
     private DomainFacade()
     {
-        session = HibernateUtil.getSessionFactory().openSession();
+        session = HibernateUtil.getSessionFactory().getCurrentSession();
     }
 
     public static DomainFacade getInstance()
