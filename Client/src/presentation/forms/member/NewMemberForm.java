@@ -489,8 +489,7 @@ public class NewMemberForm
             sb.append(", ");
         }
        
-        
-        txtFieldTeam.setText(sb.toString().substring(sb.length() -2,sb.length()));
+        txtFieldTeam.setText(sb.toString().substring(0, sb.length() -2));
 
     }
 
