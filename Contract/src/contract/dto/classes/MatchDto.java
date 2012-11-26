@@ -1,14 +1,11 @@
 package contract.dto.classes;
 
-import java.io.Serializable;
-import java.util.*;
 import contract.dto.IMatchDto;
 import contract.dto.IMatchresultDto;
 import contract.dto.ITeamDto;
-import contract.dto.mapper.IdNotFoundException;
-import java.rmi.RemoteException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.HashMap;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class MatchDto
