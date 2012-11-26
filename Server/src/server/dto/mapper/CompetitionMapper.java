@@ -12,7 +12,7 @@ import contract.domain.CouldNotDeleteException;
 import contract.domain.CouldNotFetchException;
 import java.util.*;
 import java.util.logging.*;
-import server.dto.classes.CompetitionDto;
+import contract.dto.classes.CompetitionDto;
 import contract.dto.ICompetitionDto;
 import server.domain.DomainFacade;
 

@@ -10,11 +10,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import presentation.basics.AbstractForm;
 import presentation.basics.AbstractMainForm;
-import presentation.forms.dto.*;
+import contract.dto.classes.*;
 import presentation.forms.helper.SelectSportsHelper;
 import presentation.forms.helper.SelectTeamsHelper;
-import server.dto.classes.AddressDto;
-import server.dto.classes.MemberDto;
+import contract.dto.classes.AddressDto;
+import contract.dto.classes.MemberDto;
 
 /**
  *
@@ -510,7 +510,7 @@ public class NewMemberForm
     }
 
     private void setMemberData() {
-        member = new Member();
+        member = new MemberDto();
         member.setPrename(txtfieldFName.getText());
         member.setLastname(txtfieldLName.getText());
         member.setDateOfBirth(dateChooserBirth.getDate());
@@ -518,13 +518,13 @@ public class NewMemberForm
         member.setTelephonenumber(txtfieldPhone.getText());
         member.setEmailAddress(txtfieldMail.getText());
 
-        address = new Address();
+        address = new AddressDto();
         address.setStreet(txtfieldAddress.getText());
         address.setPostalCode(Integer.parseInt(txtfieldPostCode.getText()));
         address.setVillage(txtfieldCity.getText());
         member.setAddress(address.getId());
 
-        country = new Country();
+        country = new CountryDto();
         country.setName(txtfieldCountry.getText());
         member.setNationality(country.getId());
 
@@ -540,16 +540,16 @@ public class NewMemberForm
 
         if (adminPermission) {
             if (radioAdmin.isSelected()) {
-                membersRoles.add(new Admin());
+                membersRoles.add(new AdminDto());
             }
             if (radioCaretaker.isSelected()) {
-                membersRoles.add(new Caretaker());
+                membersRoles.add(new CaretakerDto());
             }
             if (radioDeptHead.isSelected()) {
-                membersRoles.add(new DepartmentHead());
+                membersRoles.add(new DepartmentHeadDto());
             }
             if (radioTrainer.isSelected()) {
-                ITrainerDto trainer = new Trainer();
+                ITrainerDto trainer = new TrainerDto();
                 membersRoles.add(trainer);
                 trainer.setTypeOfSportList(getSelectedSports());
                 trainer.setClubTeamList(getSelectedTeams());
@@ -557,7 +557,7 @@ public class NewMemberForm
         }
 
         if (radioPlayer.isSelected()) {
-            IPlayerDto player = new Player();
+            IPlayerDto player = new PlayerDto();
             membersRoles.add(player);
             player.setTypeOfSportList(getSelectedSports());
             player.setClubTeamList(getSelectedTeams());

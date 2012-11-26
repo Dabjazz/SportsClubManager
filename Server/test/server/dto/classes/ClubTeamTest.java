@@ -4,6 +4,8 @@
  */
 package server.dto.classes;
 
+import contract.dto.classes.TeamDto;
+import contract.dto.classes.ClubTeamDto;
 import contract.dto.IClubTeamDto;
 import java.util.*;
 import org.junit.*;

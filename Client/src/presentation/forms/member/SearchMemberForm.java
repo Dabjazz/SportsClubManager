@@ -3,6 +3,7 @@ package presentation.forms.member;
 import com.ServiceClient;
 import com.ServiceNotAvailableException;
 import contract.dto.*;
+import contract.dto.classes.*;
 import contract.useCaseController.ISearchChangeMember;
 import java.awt.event.ActionEvent;
 import java.nio.channels.SelectionKey;
@@ -11,7 +12,6 @@ import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.TableModel;
 import presentation.basics.*;
-import presentation.forms.dto.*;
 import presentation.forms.helper.SelectSportsHelper;
 import presentation.forms.helper.SelectTeamsHelper;
 
@@ -729,16 +729,16 @@ public class SearchMemberForm
         //get selected roles
         if (adminPermission) {
             if (radioAdmin.isSelected()) {
-                roles.add(new Admin());
+                roles.add(new AdminDto());
             }
             if (radioCaretaker.isSelected()) {
-                roles.add(new Caretaker());
+                roles.add(new CaretakerDto());
             }
             if (radioDepHead.isSelected()) {
-                roles.add(new DepartmentHead());
+                roles.add(new DepartmentHeadDto());
             }
             if (radioTrainer.isSelected()) {
-                ITrainerDto trainer = new Trainer();
+                ITrainerDto trainer = new TrainerDto();
                 roles.add(trainer);
                 trainer.setTypeOfSportList(getSelectedSports());
                 trainer.setClubTeamList(getSelectedTeams());

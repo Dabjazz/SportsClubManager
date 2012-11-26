@@ -4,6 +4,7 @@
  */
 package server.dto.classes;
 
+import contract.dto.classes.PlayerDto;
 import java.util.*;
 import org.junit.*;
 import contract.dto.IPlayerDto;

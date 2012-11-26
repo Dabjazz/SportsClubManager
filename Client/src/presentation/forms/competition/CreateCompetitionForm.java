@@ -6,17 +6,20 @@ package presentation.forms.competition;
 
 import com.ServiceClient;
 import com.ServiceNotAvailableException;
-import com.sun.xml.internal.ws.api.pipe.Tube;
 import contract.dto.*;
+import contract.dto.classes.AddressDto;
+import contract.dto.classes.CompetitionDto;
+import contract.dto.classes.CountryDto;
+import contract.dto.classes.MatchDto;
 import contract.useCaseController.INewCompetition;
-import java.rmi.RemoteException;
-import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.*;
-import presentation.basics.*;
-import presentation.forms.dto.*;
-import server.dto.mapper.DtoFactory;
+import java.util.LinkedList;
+import java.util.List;
+import javax.swing.AbstractListModel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import presentation.basics.AbstractForm;
+import presentation.basics.AbstractMainForm;
 
 /**
  * @author Lucia
@@ -484,33 +487,29 @@ public class CreateCompetitionForm
     }//GEN-LAST:event_btnAddMatchActionPerformed
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-        try {
-            setMatchTeamList();
-            confirmed = true;
-            btnAddMatch.setEnabled(true);
-            listSelectMatch.setEnabled(true);
-            match = new LinkedList<>();
+        setMatchTeamList();
+        confirmed = true;
+        btnAddMatch.setEnabled(true);
+        listSelectMatch.setEnabled(true);
+        match = new LinkedList<>();
 
-            competition = new Competition();
-            competition.setName(txtfieldName.getText());
-            competition.setDescription(txtfieldLocation.getText());
-            competition.setDateFrom(dateDateFrom.getDate());
-            competition.setDateTo(dateDateTo.getDate());
-            competition.setPayment(Double.parseDouble(txtfieldFee.getText()));
-            competition.setTeamList(getSelectedTeams(listSelectTeams));
+        competition = new CompetitionDto();
+        competition.setName(txtfieldName.getText());
+        competition.setDescription(txtfieldLocation.getText());
+        competition.setDateFrom(dateDateFrom.getDate());
+        competition.setDateTo(dateDateTo.getDate());
+        competition.setPayment(Double.parseDouble(txtfieldFee.getText()));
+        competition.setTeamList(getSelectedTeams(listSelectTeams));
 
-            //Set Competitions address
-            IAddressDto address = DtoFactory.getAddressMapper().getNew();
-            address.setVillage(txtfieldcity.getText());
-            address.setPostalCode(Integer.parseInt(txtfieldplz.getText()));
-            ICountryDto country = DtoFactory.getCountryMapper().getNew();
-            country.setName(txtfieldCountry.getText());
-            address.setCountry(country.getId());
+        //Set Competitions address
+        IAddressDto address = new AddressDto();
+        address.setVillage(txtfieldcity.getText());
+        address.setPostalCode(Integer.parseInt(txtfieldplz.getText()));
+        ICountryDto country = new CountryDto();
+        country.setName(txtfieldCountry.getText());
+        address.setCountry(country.getId());
 
-            competition.setAddress(address.getId());
-        } catch (RemoteException ex) {
-            Logger.getLogger(CreateCompetitionForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        competition.setAddress(address.getId());
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     private String[] getTeamsList() {
@@ -568,7 +567,7 @@ public class CreateCompetitionForm
     }
 
     private void updateMatchTables() {
-        IMatchDto newMatch = new Match();
+        IMatchDto newMatch = new MatchDto();
         newMatch.setCompetition(competition.getId());
         newMatch.setHometeam(getTeamID(txtfieldTeamA.getText()));
         newMatch.setForeignteam(getTeamID(txtfieldTeamB.getText()));

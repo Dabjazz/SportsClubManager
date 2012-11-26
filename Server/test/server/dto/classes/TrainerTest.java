@@ -4,6 +4,7 @@
  */
 package server.dto.classes;
 
+import contract.dto.classes.TrainerDto;
 import contract.dto.ITrainerDto;
 import java.util.*;
 import org.junit.*;

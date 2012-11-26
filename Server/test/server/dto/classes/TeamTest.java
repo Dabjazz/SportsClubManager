@@ -4,6 +4,7 @@
  */
 package server.dto.classes;
 
+import contract.dto.classes.TeamDto;
 import contract.dto.ITeamDto;
 import java.util.*;
 import org.easymock.EasyMock;

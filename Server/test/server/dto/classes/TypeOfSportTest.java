@@ -4,6 +4,7 @@
  */
 package server.dto.classes;
 
+import contract.dto.classes.TypeOfSportDto;
 import java.util.*;
 import org.easymock.EasyMock;
 import org.junit.*;

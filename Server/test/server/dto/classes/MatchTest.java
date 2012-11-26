@@ -4,6 +4,7 @@
  */
 package server.dto.classes;
 
+import contract.dto.classes.MatchDto;
 import java.util.Date;
 import org.easymock.EasyMock;
 import org.junit.*;

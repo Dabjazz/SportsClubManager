@@ -4,6 +4,7 @@
  */
 package contract.dto;
 
+import contract.domain.ILeague;
 import java.util.List;
 
 /**
@@ -32,4 +33,6 @@ public interface ITeamDto
     void setMatchList(List<Integer> matchList);
 
     void setName(String name);
+
+    public void setLeague(ILeague league);
 }

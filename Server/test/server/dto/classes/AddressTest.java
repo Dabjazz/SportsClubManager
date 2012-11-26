@@ -4,6 +4,7 @@
  */
 package server.dto.classes;
 
+import contract.dto.classes.AddressDto;
 import contract.dto.IAddressDto;
 import java.util.Random;
 import org.easymock.EasyMock;

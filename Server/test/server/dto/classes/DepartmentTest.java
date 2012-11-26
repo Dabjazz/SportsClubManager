@@ -4,6 +4,7 @@
  */
 package server.dto.classes;
 
+import contract.dto.classes.DepartmentDto;
 import java.util.*;
 import org.junit.*;
 import contract.dto.IDepartmentDto;
