@@ -22,4 +22,6 @@ public interface INewMember
     void setNewPlayer(IMemberDto member, IAddressDto address, List<IClubTeamDto> clubTeamList);
 
     void setNewTrainer(IMemberDto member, IAddressDto address, List<IClubTeamDto> clubTeamList);
+    
+    List<ITypeOfSportDto> getAllSports();
 }

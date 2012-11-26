@@ -43,7 +43,8 @@ public class ShowCompetitionForm extends AbstractMainForm {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         paneShowCompetition = new javax.swing.JPanel();
         comboCompetition = new javax.swing.JComboBox();
@@ -53,13 +54,16 @@ public class ShowCompetitionForm extends AbstractMainForm {
         lblYourMembers = new javax.swing.JLabel();
         scrollMembers = new javax.swing.JScrollPane();
         tableOurMembers = new javax.swing.JTable();
+        showBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(848, 549));
 
         comboCompetition.setModel(new javax.swing.DefaultComboBoxModel(getCompetitions()));
-        comboCompetition.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        comboCompetition.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 comboCompetitionActionPerformed(evt);
             }
         });
@@ -67,18 +71,22 @@ public class ShowCompetitionForm extends AbstractMainForm {
         lblCompetition.setText("Competition");
 
         tableCompetition.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+            new Object [][]
+            {
                 {null, null, null},
                 {null, null, null},
                 {null, null, null},
                 {null, null, null}
             },
-            new String [] {
+            new String []
+            {
                 "Team A", "Team B", "Result"
             }
         ));
-        tableCompetition.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent e){
+        tableCompetition.getSelectionModel().addListSelectionListener(new ListSelectionListener()
+        {
+            public void valueChanged(ListSelectionEvent e)
+            {
                 tableCompetitionValueChanged(e);
             }
         });
@@ -90,17 +98,28 @@ public class ShowCompetitionForm extends AbstractMainForm {
         lblYourMembers.setText("Announced members from your department");
 
         tableOurMembers.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+            new Object [][]
+            {
                 {null, null},
                 {null, null},
                 {null, null},
                 {null, null}
             },
-            new String [] {
+            new String []
+            {
                 "First Name", "Last Name"
             }
         ));
         scrollMembers.setViewportView(tableOurMembers);
+
+        showBtn.setText("Show");
+        showBtn.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                showBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout paneShowCompetitionLayout = new javax.swing.GroupLayout(paneShowCompetition);
         paneShowCompetition.setLayout(paneShowCompetitionLayout);
@@ -116,7 +135,9 @@ public class ShowCompetitionForm extends AbstractMainForm {
                             .addGroup(paneShowCompetitionLayout.createSequentialGroup()
                                 .addComponent(lblCompetition)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comboCompetition, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(comboCompetition, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(showBtn))
                             .addComponent(lblYourMembers))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -127,7 +148,8 @@ public class ShowCompetitionForm extends AbstractMainForm {
                 .addContainerGap()
                 .addGroup(paneShowCompetitionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboCompetition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCompetition))
+                    .addComponent(lblCompetition)
+                    .addComponent(showBtn))
                 .addGap(18, 18, 18)
                 .addComponent(scrollCompetition, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -160,11 +182,20 @@ public class ShowCompetitionForm extends AbstractMainForm {
         }
     }//GEN-LAST:event_comboCompetitionActionPerformed
 
+    private void showBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_showBtnActionPerformed
+    {//GEN-HEADEREND:event_showBtnActionPerformed
+        competition = (ICompetitionDto) comboCompetition.getSelectedItem(); //set competition new
+        compMatches = controller.getMatchs(competition.getMatchList());     //competitions matches
+        
+        if (competition != null) {
+            setNewCompTable();
+        }
+    }//GEN-LAST:event_showBtnActionPerformed
+
     private Object[] getCompetitions() {
         if (controller.getCompetitions() != null) {
             List<ICompetitionDto> compDtos = controller.getCompetitions();
-            
-            return controller.getCompetitions().toArray();
+            return compDtos.toArray();
         } else {
             JOptionPane.showMessageDialog(null, "There are currently no competitions!");
             return new Object[0];
@@ -241,16 +272,7 @@ public class ShowCompetitionForm extends AbstractMainForm {
     public JPanel getPanel() {
         return paneShowCompetition;
     }
-//    private Object[] getAllCompetitions() {        
-//        List<ICompetitionDto> compList = controller.getCompetitions();
-//        String[] compArray = new String[compList.size()];
-//
-//        for (int i = 0; i < compArray.length; i++) {
-//            compArray[i] = compList.get(i).getName();
-//        }
-//         
-//        return compArray;
-//    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox comboCompetition;
     private javax.swing.JLabel lblCompetition;
@@ -258,6 +280,7 @@ public class ShowCompetitionForm extends AbstractMainForm {
     private javax.swing.JPanel paneShowCompetition;
     private javax.swing.JScrollPane scrollCompetition;
     private javax.swing.JScrollPane scrollMembers;
+    private javax.swing.JButton showBtn;
     private javax.swing.JTable tableCompetition;
     private javax.swing.JTable tableOurMembers;
     // End of variables declaration//GEN-END:variables

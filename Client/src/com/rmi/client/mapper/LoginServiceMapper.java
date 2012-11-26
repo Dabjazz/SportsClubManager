@@ -4,17 +4,13 @@
  */
 package com.rmi.client.mapper;
 
-import contract.dto.*;
+import contract.dto.IMemberDto;
+import contract.dto.IUserDataDto;
 import contract.rmi.services.ILoginRmiService;
 import contract.useCaseController.ILogin;
 import java.rmi.RemoteException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.logging.*;
-import presentation.forms.dto.Address;
-import presentation.forms.dto.Country;
-import presentation.forms.dto.Member;
-import presentation.forms.dto.Role;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *

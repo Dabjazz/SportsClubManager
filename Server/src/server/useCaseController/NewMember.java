@@ -114,6 +114,7 @@ public class NewMember
         return typeOfSportReturnList;
     }
 
+    @Override
     public List<IClubTeamDto> getClubTeamsByTypeOfSport(ITypeOfSportDto sport)
     {
         List<IClubTeamDto> ret = new LinkedList<>();
@@ -165,4 +166,27 @@ public class NewMember
             clubTeamDto.setTrainerList(players);
         }
     }
+
+    @Override
+    public List<ITypeOfSportDto> getAllSports()
+    {
+        try
+        {
+            try
+            {
+                return DtoFactory.getTypeOfSportMapper().getAll();
+            }
+            catch (NotFoundException ex)
+            {
+                Logger.getLogger(NewMember.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        catch (RemoteException ex)
+        {
+            Logger.getLogger(NewMember.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    
 }

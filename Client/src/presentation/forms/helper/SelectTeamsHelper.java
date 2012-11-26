@@ -49,7 +49,7 @@ public class SelectTeamsHelper extends javax.swing.JFrame {
         panelSetTeams.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Set Teams", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 
         listTeams.setModel(new javax.swing.AbstractListModel() {
-            Object[] strings = getTeamsArray();
+            Object[] strings = new Object[]{" "};
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -171,6 +171,7 @@ public class SelectTeamsHelper extends javax.swing.JFrame {
     private Object[] getTeamsArray(){
         ITypeOfSportDto tos = (ITypeOfSportDto) comboSports.getSelectedItem();
         List<IClubTeamDto> clubTeamOfSport = parent.getClubTeams(tos);
+        
         return clubTeamOfSport.toArray();
     }
        

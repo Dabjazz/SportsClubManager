@@ -74,3 +74,9 @@ PresentationAdapter/nbproject/private/private.xml
 PresentationService/nbproject/private/private.xml
 
 RMITest/nbproject/private/private.xml
+
+JavaMessagingSender/nbproject/private/private.properties
+
+JavaMessagingClient/nbproject/private/private.properties
+/JavaMessagingClient/nbproject/private/
+/JavaMessagingSender/nbproject/private/

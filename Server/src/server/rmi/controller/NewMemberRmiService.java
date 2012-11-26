@@ -72,4 +72,10 @@ public class NewMemberRmiService
     {
         return NewMember.getInstance().getClubTeamsByTypeOfSport(sport);
     }
+
+    @Override
+    public List<ITypeOfSportDto> getAllSports() throws RemoteException
+    {
+        return NewMember.getInstance().getAllSports();
+    }
 }

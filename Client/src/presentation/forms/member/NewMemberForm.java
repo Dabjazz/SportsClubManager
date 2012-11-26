@@ -3,18 +3,18 @@ package presentation.forms.member;
 import com.ServiceClient;
 import com.ServiceNotAvailableException;
 import contract.dto.*;
-import contract.dto.mapper.NotFoundException;
 import contract.useCaseController.INewMember;
-import java.rmi.RemoteException;
-import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.*;
-import presentation.basics.*;
-import presentation.forms.dto.*;
+import java.util.LinkedList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import presentation.basics.AbstractForm;
+import presentation.basics.AbstractMainForm;
+import contract.dto.classes.*;
 import presentation.forms.helper.SelectSportsHelper;
 import presentation.forms.helper.SelectTeamsHelper;
-import server.dto.mapper.DtoFactory;
+import contract.dto.classes.AddressDto;
+import contract.dto.classes.MemberDto;
 
 /**
  *
@@ -438,21 +438,12 @@ public class NewMemberForm
         return tosIDs;
     }
 
-    // TODO add getAvailableSports by logged in user 
     private List<Integer> loadSportsList() {
         LinkedList<Integer> ids = new LinkedList<>();
-        try {
-            //   TODO: return controller.getAvailableSportsList(user);
-            List<ITypeOfSportDto> allSportDtos = DtoFactory.getTypeOfSportMapper().getAll();
-                        
-            for(ITypeOfSportDto dto : allSportDtos){
-                ids.add(dto.getId());
-            }
+        List<ITypeOfSportDto> allSports = controller.getAllSports();
 
-        } catch (NotFoundException ex) {
-            Logger.getLogger(NewMemberForm.class.getName()).log(Level.SEVERE, null, ex);
-        }catch (RemoteException ex) {
-            Logger.getLogger(NewMemberForm.class.getName()).log(Level.SEVERE, null, ex);
+        for(ITypeOfSportDto dto : allSports){
+            ids.add(dto.getId());
         }
         return ids;
     }
@@ -482,6 +473,13 @@ public class NewMemberForm
 
     @Override
     public void setTxtFieldTeams(List<IClubTeamDto> selected) {
+        
+        if(selected.isEmpty())
+        {
+            txtFieldTeam.setText("");
+            return;
+        }
+        
         this.selectedTeams = selected;
 
         StringBuilder sb = new StringBuilder(selectedTeams.size());
@@ -490,9 +488,9 @@ public class NewMemberForm
             sb.append(ct);
             sb.append(", ");
         }
-        sb.delete(sb.length() - 2, sb.length());    //TODO check if this works 
-
-        txtFieldTeam.setText(sb.toString());
+       
+        
+        txtFieldTeam.setText(sb.toString().substring(sb.length() -2,sb.length()));
 
     }
 
@@ -503,6 +501,7 @@ public class NewMemberForm
 
     private List<Integer> getSelectedTeams() {
         List<Integer> clubTeamIDs = new LinkedList<>();
+        if(selectedTeams == null) return null;
 
         for (IClubTeamDto c : selectedTeams) {
             clubTeamIDs.add(c.getId());
@@ -511,7 +510,7 @@ public class NewMemberForm
     }
 
     private void setMemberData() {
-        member = new Member();
+        member = new MemberDto();
         member.setPrename(txtfieldFName.getText());
         member.setLastname(txtfieldLName.getText());
         member.setDateOfBirth(dateChooserBirth.getDate());
@@ -519,13 +518,13 @@ public class NewMemberForm
         member.setTelephonenumber(txtfieldPhone.getText());
         member.setEmailAddress(txtfieldMail.getText());
 
-        address = new Address();
+        address = new AddressDto();
         address.setStreet(txtfieldAddress.getText());
         address.setPostalCode(Integer.parseInt(txtfieldPostCode.getText()));
         address.setVillage(txtfieldCity.getText());
         member.setAddress(address.getId());
 
-        country = new Country();
+        country = new CountryDto();
         country.setName(txtfieldCountry.getText());
         member.setNationality(country.getId());
 
@@ -541,16 +540,16 @@ public class NewMemberForm
 
         if (adminPermission) {
             if (radioAdmin.isSelected()) {
-                membersRoles.add(new Admin());
+                membersRoles.add(new AdminDto());
             }
             if (radioCaretaker.isSelected()) {
-                membersRoles.add(new Caretaker());
+                membersRoles.add(new CaretakerDto());
             }
             if (radioDeptHead.isSelected()) {
-                membersRoles.add(new DepartmentHead());
+                membersRoles.add(new DepartmentHeadDto());
             }
             if (radioTrainer.isSelected()) {
-                ITrainerDto trainer = new Trainer();
+                ITrainerDto trainer = new TrainerDto();
                 membersRoles.add(trainer);
                 trainer.setTypeOfSportList(getSelectedSports());
                 trainer.setClubTeamList(getSelectedTeams());
@@ -558,7 +557,7 @@ public class NewMemberForm
         }
 
         if (radioPlayer.isSelected()) {
-            IPlayerDto player = new Player();
+            IPlayerDto player = new PlayerDto();
             membersRoles.add(player);
             player.setTypeOfSportList(getSelectedSports());
             player.setClubTeamList(getSelectedTeams());

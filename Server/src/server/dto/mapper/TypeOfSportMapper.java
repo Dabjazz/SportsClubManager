@@ -10,7 +10,7 @@ import contract.dto.mapper.*;
 import java.util.*;
 import java.util.logging.*;
 import server.domain.DomainFacade;
-import server.dto.classes.TypeOfSportDto;
+import contract.dto.classes.TypeOfSportDto;
 
 /**
 
@@ -71,8 +71,10 @@ public class TypeOfSportMapper
         try
         {
             List<ITypeOfSportDto> result = new LinkedList<>();
+            DomainFacade instance = DomainFacade.getInstance();
+            List<ITypeOfSport> all = instance.getAll(contract.domain.ITypeOfSport.class);
 
-            for (contract.domain.ITypeOfSport a : DomainFacade.getInstance().getAll(contract.domain.ITypeOfSport.class))
+            for (contract.domain.ITypeOfSport a : all)
             {
                 result.add(TypeOfSportDto.copy(a));
             }

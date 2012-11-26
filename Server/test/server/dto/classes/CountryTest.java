@@ -4,6 +4,7 @@
  */
 package server.dto.classes;
 
+import contract.dto.classes.CountryDto;
 import java.util.Random;
 import org.easymock.EasyMock;
 import org.junit.*;

@@ -50,6 +50,14 @@ public class ClubTeam
         super(idTeam);
     }
 
+    @Override
+    public String toString()
+    {
+        return getName();
+    }
+    
+    
+    
     @XmlTransient
     @Override
     public List<IPlayer> getPlayerList()

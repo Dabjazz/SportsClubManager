@@ -10,7 +10,7 @@ import contract.dto.mapper.*;
 import java.util.*;
 import java.util.logging.*;
 import server.domain.DomainFacade;
-import server.dto.classes.AdminDto;
+import contract.dto.classes.AdminDto;
 
 /**
  @author Thomas

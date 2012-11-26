@@ -3,6 +3,7 @@ package presentation.forms.competition;
 import com.ServiceClient;
 import com.ServiceNotAvailableException;
 import contract.dto.*;
+import contract.dto.classes.*;
 import contract.useCaseController.IAddMatchResults;
 import java.sql.Date;
 import java.util.HashMap;
@@ -13,9 +14,6 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JPanel;
 import presentation.basics.AbstractForm;
 import presentation.basics.AbstractMainForm;
-import presentation.forms.dto.Match;
-import presentation.forms.dto.Matchresult;
-import presentation.forms.dto.Team;
 
 /**
  *
@@ -219,13 +217,13 @@ public class AddCompetitionResultsForm
         competition = competitionMap.get(comboCompetition.getSelectedItem().toString());    //search competition
         //4 TESTS ONLY
         matchList = new LinkedList<>();
-        IMatchDto match1 = new Match();
+        IMatchDto match1 = new MatchDto();
         match1.setForeignteam(1);
         match1.setHometeam(2);
         match1.setDateFrom(new Date(2012, 1, 1));
         match1.setDateTo(new Date(2012, 1, 1));
         match1.setCompetition(competition.getId());
-        IMatchDto match2 = new Match();
+        IMatchDto match2 = new MatchDto();
         match2.setForeignteam(5);
         match2.setHometeam(3);
         match2.setDateFrom(new Date(2012, 1, 1));
@@ -234,10 +232,10 @@ public class AddCompetitionResultsForm
         matchList.add(match1);
         
         teamList = new LinkedList<>();
-        ITeamDto team1 = new Team();
+        ITeamDto team1 = new TeamDto();
         team1.setName("TestTeam1");
         teamList.add(team1);
-        ITeamDto team2 = new Team();
+        ITeamDto team2 = new TeamDto();
         team2.setName("TestTeam2");
         teamList.add(team2);
         
@@ -281,7 +279,7 @@ public class AddCompetitionResultsForm
     }//GEN-LAST:event_listMatchesValueChanged
 
     private void btnAddResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddResultActionPerformed
-        IMatchresultDto result = new Matchresult();
+        IMatchresultDto result = new MatchresultDto();
         result.setPointsHometeam(new Double(spinTeamA.getValue().toString()));
         result.setPointsForeignteam(new Double(spinTeamB.getValue().toString()));
         //TODO: Set Final true

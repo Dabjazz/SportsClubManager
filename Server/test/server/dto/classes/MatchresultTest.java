@@ -4,6 +4,7 @@
  */
 package server.dto.classes;
 
+import contract.dto.classes.MatchresultDto;
 import java.util.Random;
 import org.junit.*;
 import contract.dto.IMatchresultDto;

@@ -11,7 +11,7 @@ import contract.dto.mapper.*;
 import java.util.*;
 import java.util.logging.*;
 import server.domain.DomainFacade;
-import server.dto.classes.ClubTeamDto;
+import contract.dto.classes.ClubTeamDto;
 
 /**
 
@@ -156,10 +156,13 @@ public class ClubTeamMapper
         return new ClubTeamDto();
     }
     
+    @Override
     public List<IClubTeamDto> getClubTeamsByTypeOfSport(ITypeOfSportDto sport) throws ClubTeamNotFoundException{
+        if(sport == null) return null;
         try {
             List<IClubTeamDto> ret  = new LinkedList<>();
-            List<server.domain.classes.ClubTeam> clubTeams = DomainFacade.getInstance().getClubTeamsByTypeOfSport(DomainFacade.getInstance().getByID(contract.domain.ITypeOfSport.class, sport.getId()));
+            ITypeOfSport byID = DomainFacade.getInstance().getByID(contract.domain.ITypeOfSport.class, sport.getId());
+            List<server.domain.classes.ClubTeam> clubTeams = DomainFacade.getInstance().getClubTeamsByTypeOfSport(byID);
             for(server.domain.classes.ClubTeam c : clubTeams){
                 ret.add(ClubTeamDto.copy(c));
             }

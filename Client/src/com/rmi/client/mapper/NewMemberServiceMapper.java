@@ -131,5 +131,19 @@ public class NewMemberServiceMapper
             }
             return null;
         }
+
+        @Override
+        public List<ITypeOfSportDto> getAllSports()
+        {
+            try
+            {
+                return service.getAllSports();
+            }
+            catch (RemoteException ex)
+            {
+                Logger.getLogger(NewMemberServiceMapper.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return null;
+        }
     }
 }

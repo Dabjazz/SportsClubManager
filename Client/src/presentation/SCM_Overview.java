@@ -2,17 +2,14 @@ package presentation;
 
 import com.ServiceClient;
 import com.ServiceNotAvailableException;
-import contract.dto.IMemberDto;
+import contract.dto.*;
+import contract.dto.classes.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.*;
 import javax.swing.WindowConstants;
 import presentation.basics.AbstractForm;
 import presentation.forms.competition.*;
-import presentation.forms.dto.Address;
-import presentation.forms.dto.Country;
-import presentation.forms.dto.Member;
-import presentation.forms.dto.Role;
 import presentation.forms.member.*;
 
 /**
@@ -33,22 +30,22 @@ public class SCM_Overview
         this.rmiClient = rmiClient;
         if (user == null) {
             //ONLY FOR TESTING
-            user = new Member();
+            user = new MemberDto();
 
-            Address adr = new Address();
+            IAddressDto adr = new AddressDto();
             adr.setStreet("Radetzkystraße");
             adr.setStreetNumber(6);
             adr.setVillage("Hohenems");
             adr.setPostalCode(6845);
-            Country c = new Country();
+            ICountryDto c = new CountryDto();
             c.setName("Austria");
             adr.setCountry(1);
 
-            Role role1 = new Role();
+            IRoleDto role1 = new RoleDto();
             role1.setName("Admin");
-            Role role2 = new Role();
+            IRoleDto role2 = new RoleDto();
             role2.setName("Player");
-            Role role3 = new Role();
+            IRoleDto role3 = new RoleDto();
             role3.setName("Trainer");
 
             List<Integer> roles = new LinkedList<>();
