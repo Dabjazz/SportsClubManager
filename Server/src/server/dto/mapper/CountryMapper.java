@@ -56,13 +56,11 @@ public class CountryMapper
     {
         try
         {
-            contract.domain.ICountry a = DomainFacade.getInstance().getByID(contract.domain.ICountry.class, id);
+            ICountry a = DomainFacade.getInstance().getByID(ICountry.class, id);
             return CountryDto.copy(a);
-
         }
         catch (Exception ex)
         {
-
             throw new IdNotFoundException();
         }
     }

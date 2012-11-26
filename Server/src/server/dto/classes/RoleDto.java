@@ -4,6 +4,7 @@
  */
 package server.dto.classes;
 
+import contract.domain.IRole;
 import contract.dto.IRoleDto;
 import java.util.*;
 
@@ -24,7 +25,7 @@ abstract class RoleDto
     {
     }
 
-    public static <T extends RoleDto> T copy(contract.domain.IRole domainRole, T role)
+    public static <T extends RoleDto> T copy(IRole domainRole, T role)
     {
         role.setId(domainRole.getId());
         role.setName(domainRole.getName());

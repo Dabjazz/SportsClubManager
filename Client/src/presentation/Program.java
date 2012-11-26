@@ -51,17 +51,18 @@ public class Program
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                LoginFrame frame = new LoginFrame();
+        java.awt.EventQueue.invokeLater(
+                new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        LoginFrame frame = new LoginFrame();
 
-                frame.addDialogListener(new LoginDialogListener());
-                frame.setVisible(true);
-            }
-        ;
+                        frame.addDialogListener(new LoginDialogListener());
+                        frame.setVisible(true);
+                    }
+                ;
     }
 
 );

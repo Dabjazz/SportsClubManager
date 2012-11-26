@@ -118,8 +118,6 @@ public class SearchChangeMember
                     }
                 }
             }
-
-
         }
         catch (RemoteException | IdNotFoundException | NotFoundException ex)
         {
@@ -147,7 +145,7 @@ public class SearchChangeMember
     {
         try
         {
-            DtoFactory.getCountryMapper().getById(countryID);
+            return DtoFactory.getCountryMapper().getById(countryID);
         }
         catch (RemoteException | IdNotFoundException ex)
         {
@@ -196,13 +194,13 @@ public class SearchChangeMember
     }
 
     @Override
-    public void setNewTrainer(IMemberDto member, IAddressDto address,  List<IClubTeamDto> clubTeam)
+    public void setNewTrainer(IMemberDto member, IAddressDto address, List<IClubTeamDto> clubTeam)
     {
         NewMember.getInstance().setNewTrainer(member, address, clubTeam);
     }
 
     @Override
-    public void setNewPlayer(IMemberDto member, IAddressDto address,  List<IClubTeamDto> clubTeam)
+    public void setNewPlayer(IMemberDto member, IAddressDto address, List<IClubTeamDto> clubTeam)
     {
         NewMember.getInstance().setNewPlayer(member, address, clubTeam);
     }
@@ -224,6 +222,21 @@ public class SearchChangeMember
             Logger.getLogger(NewMember.class.getName()).log(Level.SEVERE, null, ex);
         }
         return typeOfSportReturnList;
+    }
+
+    @Override
+    public List<ITypeOfSportDto> getTypeOfSports()
+    {
+        try
+        {
+            return DtoFactory.getTypeOfSportMapper().getAll();
+        }
+        catch (RemoteException | NotFoundException ex)
+        {
+            Logger.getLogger(SearchChangeMember.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
     }
 
     @Override

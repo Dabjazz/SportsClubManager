@@ -5,7 +5,6 @@ import java.util.*;
 import presentation.basics.AbstractMainForm;
 
 /**
-
  @author Lucia
  */
 public class SelectSportsHelper

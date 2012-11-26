@@ -4,13 +4,8 @@
  */
 package server.dto.mapper;
 
-import contract.dto.mapper.IdNotFoundException;
-import contract.dto.mapper.IMapper;
-import contract.dto.mapper.NotFoundException;
-import contract.dto.IRoleDto;
-import contract.dto.ITrainerDto;
-import contract.dto.IPlayerDto;
-import contract.dto.IDepartmentHeadDto;
+import contract.dto.*;
+import contract.dto.mapper.*;
 import java.util.*;
 
 /**
@@ -52,6 +47,24 @@ public class RoleMapper
         try
         {
             IRoleDto r = TrainerMapper.getInstance().getById(id);
+            return r;
+        }
+        catch (IdNotFoundException e)
+        {
+        }
+
+        try
+        {
+            IRoleDto r = CaretakerMapper.getInstance().getById(id);
+            return r;
+        }
+        catch (IdNotFoundException e)
+        {
+        }
+
+        try
+        {
+            IRoleDto r = AdminMapper.getInstance().getById(id);
             return r;
         }
         catch (IdNotFoundException e)

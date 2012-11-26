@@ -13,8 +13,8 @@ import server.domain.DomainFacade;
 import server.dto.classes.DepartmentHeadDto;
 
 /**
- *
- * @author Thomas
+
+ @author Thomas
  */
 public class DepartmentHeadMapper
         implements IMapper<IDepartmentHeadDto>
@@ -56,7 +56,13 @@ public class DepartmentHeadMapper
     {
         try
         {
-            contract.domain.IDepartmentHead a = DomainFacade.getInstance().getByID(contract.domain.IDepartmentHead.class,id);
+            contract.domain.IDepartmentHead a = DomainFacade.getInstance().getByID(contract.domain.IDepartmentHead.class, id);
+
+            if (a == null)
+            {
+                throw new IdNotFoundException();
+            }
+
             return DepartmentHeadDto.copy(a);
         }
         catch (CouldNotFetchException ex)
@@ -66,7 +72,8 @@ public class DepartmentHeadMapper
     }
 
     @Override
-    public List<IDepartmentHeadDto> getAll() throws NotFoundException
+    public List<IDepartmentHeadDto> getAll()
+            throws NotFoundException
     {
         try
         {

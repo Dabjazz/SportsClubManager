@@ -56,4 +56,10 @@ public interface ISearchChangeMemberRmiService
 
     void setSelectedMember(IMemberDto selectedMember)
             throws RemoteException;     //new added
+
+    List<IClubTeamDto> getClubTeamsByTypeOfSport(ITypeOfSportDto sport)
+            throws RemoteException;     //new added
+
+    List<ITypeOfSportDto> getTypeOfSports()
+            throws RemoteException;     //new added
 }
