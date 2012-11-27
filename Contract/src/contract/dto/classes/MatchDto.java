@@ -9,8 +9,8 @@ import java.util.*;
 import java.util.logging.*;
 
 public class MatchDto
-        implements Serializable, IMatchDto
-{
+        implements Serializable, IMatchDto {
+
     private int id;
     private Date dateFrom;
     private Date dateTo;
@@ -20,32 +20,25 @@ public class MatchDto
     private Integer hometeam;
     public IDtoFactory dtoFactory;
 
-    public MatchDto()
-    {
+    public MatchDto() {
     }
 
-    MatchDto(int id)
-    {
+    MatchDto(int id) {
         this.id = id;
     }
 
     @Override
-    public Integer getId()
-    {
+    public Integer getId() {
         return id;
     }
     private static HashMap<IMatch, MatchDto> matchs = new HashMap<>();
 
-    public static MatchDto copy(IMatch match, IDtoFactory dtoFactory)
-    {
+    public static MatchDto copy(IMatch match, IDtoFactory dtoFactory) {
         MatchDto a;
 
-        if (matchs.containsKey(match))
-        {
+        if (matchs.containsKey(match)) {
             a = matchs.get(match);
-        }
-        else
-        {
+        } else {
             a = new MatchDto();
 
             a.setDateFrom(match.getDateFrom());
@@ -64,50 +57,40 @@ public class MatchDto
     }
 
     @Override
-    public Date getDateFrom()
-    {
+    public Date getDateFrom() {
         return dateFrom;
     }
 
     @Override
-    public void setDateFrom(Date dateFrom)
-    {
+    public void setDateFrom(Date dateFrom) {
         this.dateFrom = dateFrom;
     }
 
     @Override
-    public Date getDateTo()
-    {
+    public Date getDateTo() {
         return dateTo;
     }
 
     @Override
-    public void setDateTo(Date dateTo)
-    {
+    public void setDateTo(Date dateTo) {
         this.dateTo = dateTo;
     }
 
     @Override
-    public Integer getCompetition()
-    {
+    public Integer getCompetition() {
         return competition;
     }
 
     @Override
-    public void setCompetition(Integer competition)
-    {
+    public void setCompetition(Integer competition) {
         this.competition = competition;
     }
 
     @Override
-    public IMatchresultDto getMatchresult()
-    {
-        try
-        {
+    public IMatchresultDto getMatchresult() {
+        try {
             return dtoFactory.getMatchresultMapper().getById(matchresult);
-        }
-        catch (RemoteException | IdNotFoundException ex)
-        {
+        } catch (RemoteException | IdNotFoundException ex) {
             Logger.getLogger(MatchDto.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -115,20 +98,15 @@ public class MatchDto
     }
 
     @Override
-    public void setMatchresult(Integer matchresult)
-    {
+    public void setMatchresult(Integer matchresult) {
         this.matchresult = matchresult;
     }
 
     @Override
-    public ITeamDto getForeignteam()
-    {
-        try
-        {
+    public ITeamDto getForeignteam() {
+        try {
             return dtoFactory.getTeamMapper().getById(foreignteam);
-        }
-        catch (IdNotFoundException | RemoteException ex)
-        {
+        } catch (IdNotFoundException | RemoteException ex) {
             Logger.getLogger(MatchDto.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -136,21 +114,16 @@ public class MatchDto
     }
 
     @Override
-    public void setForeignteam(Integer foreignteam)
-    {
+    public void setForeignteam(Integer foreignteam) {
         this.foreignteam = foreignteam;
     }
 
     @Override
-    public ITeamDto getHometeam()
-    {
-        try
-        {
+    public ITeamDto getHometeam() {
+        try {
             IMapper<ITeamDto> m = dtoFactory.getTeamMapper();
             return m.getById(hometeam);
-        }
-        catch (IdNotFoundException | RemoteException ex)
-        {
+        } catch (IdNotFoundException | RemoteException ex) {
             Logger.getLogger(MatchDto.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -158,8 +131,17 @@ public class MatchDto
     }
 
     @Override
-    public void setHometeam(Integer hometeam)
-    {
+    public void setHometeam(Integer hometeam) {
         this.hometeam = hometeam;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getHometeam().getName());
+        sb.append(" : ");
+        sb.append(getForeignteam().getName());
+
+        return sb.toString();
     }
 }

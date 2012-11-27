@@ -53,7 +53,7 @@ public class AddMatchResultsServiceMapper implements RmiServiceToServiceMapper<I
             }
             return null;
             
-            //once used to TEST
+            // <editor-fold defaultstate="collapsed" desc="4 Test Uses Only">
 //            List<ICompetitionDto> compList = new LinkedList<>();
 //            List<Integer> ids = new LinkedList<>();
 //            ids.add(1);
@@ -72,6 +72,7 @@ public class AddMatchResultsServiceMapper implements RmiServiceToServiceMapper<I
 //            c.setDateTo(d);
 //            compList.add(c);
 //            return compList;
+            // </editor-fold> 
         }
 
         @Override
