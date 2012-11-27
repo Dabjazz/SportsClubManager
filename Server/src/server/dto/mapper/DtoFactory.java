@@ -15,18 +15,6 @@ import java.rmi.RemoteException;
 public class DtoFactory
         implements IDtoFactory
 {
-    public DtoFactory()
-    {
-        init();
-    }
-
-    private void init()
-    {
-        MemberDto.dtoFactory = this;
-        LeagueDto.dtoFactory = this;
-       // MatchDto.dtoFactory = this;
-    }
-
     @Override
     public IAdminMapper getAdminMapper()
             throws RemoteException
@@ -150,8 +138,8 @@ public class DtoFactory
     public IMapper<IMatchDto> getMatchMapper()
             throws RemoteException
     {
-        MatchMapper m = (MatchMapper)MatchMapper.getInstance(this);
-        
+        MatchMapper m = (MatchMapper) MatchMapper.getInstance();
+
         return m;
     }
 }

@@ -20,18 +20,16 @@ public class MatchMapper
         implements IMapper<IMatchDto>
 {
     private static MatchMapper controller;
-    IDtoFactory dtoFactory;
 
-    MatchMapper(IDtoFactory dtoFactory)
+    MatchMapper()
     {
-        this.dtoFactory = dtoFactory;
     }
 
-    public static IMapper<IMatchDto> getInstance(IDtoFactory dtoFactory)
+    public static IMapper<IMatchDto> getInstance()
     {
         if (controller == null)
         {
-            controller = new MatchMapper(dtoFactory);
+            controller = new MatchMapper();
         }
 
         return controller;
@@ -47,7 +45,6 @@ public class MatchMapper
         }
         catch (Exception ex)
         {
-
             throw new IdNotFoundException();
         }
     }
@@ -59,7 +56,7 @@ public class MatchMapper
         try
         {
             contract.domain.IMatch a = DomainFacade.getInstance().getByID(contract.domain.IMatch.class, id);
-            return MatchDto.copy(a, dtoFactory);
+            return MatchDto.copy(a);
 
         }
         catch (Exception ex)
@@ -79,7 +76,7 @@ public class MatchMapper
 
             for (contract.domain.IMatch a : DomainFacade.getInstance().getAll(contract.domain.IMatch.class))
             {
-                result.add(MatchDto.copy(a, dtoFactory));
+                result.add(MatchDto.copy(a));
             }
 
             return result;
@@ -131,9 +128,9 @@ public class MatchMapper
         match.setDateFrom(value.getDateFrom());
         match.setDateTo(value.getDateTo());
 
-        match.setForeignteam(new TeamMapper().getDomainById(value.getForeignteam().getId()));
-        match.setHometeam(new TeamMapper().getDomainById(value.getHometeam().getId()));
-        match.setMatchresult(new MatchresultMapper().getDomainById(value.getMatchresult().getId()));
+        match.setForeignteam(new TeamMapper().getDomainById(value.getForeignteam()));
+        match.setHometeam(new TeamMapper().getDomainById(value.getHometeam()));
+        match.setMatchresult(new MatchresultMapper().getDomainById(value.getMatchresult()));
 
         return match;
     }

@@ -16,27 +16,27 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author Lins Christian (christian.lins87@gmail.com)
- */
-public class AddMatchResultsServiceMapper implements RmiServiceToServiceMapper<IAddMatchResultsRmiService, IAddMatchResults>
-{
 
+ @author Lins Christian (christian.lins87@gmail.com)
+ */
+public class AddMatchResultsServiceMapper
+        implements RmiServiceToServiceMapper<IAddMatchResultsRmiService, IAddMatchResults>
+{
     @Override
     public IAddMatchResults getService(IAddMatchResultsRmiService rmiService)
     {
         AddMatchResults n = new AddMatchResults();
         n.setService(rmiService);
-        return n;        
+        return n;
     }
-    
-    
-    private static class AddMatchResults implements IAddMatchResults{
-        
+
+    private static class AddMatchResults
+            implements IAddMatchResults
+    {
         private IAddMatchResultsRmiService service;
-        
-        
-        public void setService(IAddMatchResultsRmiService service) {
+
+        public void setService(IAddMatchResultsRmiService service)
+        {
             this.service = service;
         }
 
@@ -52,7 +52,7 @@ public class AddMatchResultsServiceMapper implements RmiServiceToServiceMapper<I
                 Logger.getLogger(AddMatchResultsServiceMapper.class.getName()).log(Level.SEVERE, null, ex);
             }
             return null;
-            
+
             // <editor-fold defaultstate="collapsed" desc="4 Test Uses Only">
 //            List<ICompetitionDto> compList = new LinkedList<>();
 //            List<Integer> ids = new LinkedList<>();
@@ -115,6 +115,20 @@ public class AddMatchResultsServiceMapper implements RmiServiceToServiceMapper<I
                 Logger.getLogger(AddMatchResultsServiceMapper.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
+        @Override
+        public ITeamDto getTeam(Integer hometeam)
+        {
+            try
+            {
+                return service.getTeam(hometeam);
+            }
+            catch (RemoteException ex)
+            {
+                Logger.getLogger(AddMatchResultsServiceMapper.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            return null;
+        }
     }
 }

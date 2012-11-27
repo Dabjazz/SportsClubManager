@@ -12,12 +12,16 @@ import java.util.List;
 import server.useCaseController.ChangeCompetitionTeam;
 
 /**
- *
- * @author Lins Christian (christian.lins87@gmail.com)
+
+ @author Lins Christian (christian.lins87@gmail.com)
  */
-public class ChangeCompetitionTeamRmiService extends UnicastRemoteObject implements IChangeCompetitionTeamRmiService
+public class ChangeCompetitionTeamRmiService
+        extends UnicastRemoteObject
+        implements IChangeCompetitionTeamRmiService
 {
-    public ChangeCompetitionTeamRmiService() throws RemoteException {
+    public ChangeCompetitionTeamRmiService()
+            throws RemoteException
+    {
         super();
     }
 
@@ -40,15 +44,16 @@ public class ChangeCompetitionTeamRmiService extends UnicastRemoteObject impleme
     }
 
     @Override
-    public IClubTeamDto getCompetitionTeam(IClubTeamDto team) throws RemoteException
+    public IClubTeamDto getCompetitionTeam(IClubTeamDto team)
+            throws RemoteException
     {
         return ChangeCompetitionTeam.getInstance().getCompetitionTeam(team);
     }
 
     @Override
-    public List<IPlayerDto> getPlayers(List<Integer> players) throws RemoteException
+    public List<IPlayerDto> getPlayers(List<Integer> players)
+            throws RemoteException
     {
         return ChangeCompetitionTeam.getInstance().getPlayers(players);
     }
-    
 }

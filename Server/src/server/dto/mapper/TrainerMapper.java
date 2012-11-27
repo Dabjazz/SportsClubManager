@@ -6,7 +6,7 @@ package server.dto.mapper;
 
 import contract.dto.mapper.IRoleMapper;
 import contract.domain.*;
-import contract.dto.ITrainerDto;
+import contract.dto.*;
 import contract.dto.mapper.*;
 import java.util.*;
 import java.util.logging.*;

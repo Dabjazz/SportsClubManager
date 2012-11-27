@@ -1,9 +1,12 @@
 package contract.dto.classes;
 
 import contract.domain.*;
-import contract.dto.IPlayerDto;
+import contract.dto.*;
+import contract.dto.mapper.IdNotFoundException;
 import java.io.Serializable;
+import java.rmi.RemoteException;
 import java.util.*;
+import java.util.logging.*;
 
 public class PlayerDto
         extends RoleDto
@@ -12,6 +15,7 @@ public class PlayerDto
     private List<Integer> typeOfSportList;
     private List<Integer> clubTeamList;
     private static HashMap<IPlayer, PlayerDto> players = new HashMap<>();
+    public IDtoFactory dtoFactory;
 
     public static PlayerDto copy(IPlayer player)
     {
@@ -70,11 +74,5 @@ public class PlayerDto
     public List<Integer> getClubTeamList()
     {
         return clubTeamList;
-    }
-
-    @Override
-    public String toString()
-    {
-        return getName();
     }
 }

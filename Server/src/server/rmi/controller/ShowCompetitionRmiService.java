@@ -45,4 +45,26 @@ public class ShowCompetitionRmiService
     {
         return ShowCompetition.getInstance().getPlayer(team);
     }
+
+    @Override
+    public IMatchresultDto getMatchresult(Integer matchresult)
+            throws RemoteException
+    {
+        return ShowCompetition.getInstance().getMatchresult(matchresult);
+
+    }
+
+    @Override
+    public IClubTeamDto getClubTeam(Integer hometeam)
+            throws RemoteException
+    {
+        return ShowCompetition.getInstance().getClubTeam(hometeam);
+    }
+
+    @Override
+    public ITeamDto getTeam(Integer hometeam)
+            throws RemoteException
+    {
+        return ShowCompetition.getInstance().getTeam(hometeam);
+    }
 }

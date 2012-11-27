@@ -77,5 +77,51 @@ public class ShowCompetitionServiceMapper
             }
             return null;
         }
+        
+        
+        @Override
+        public ITeamDto getTeam(Integer hometeam)
+        {
+            try
+            {
+                return service.getTeam(hometeam);
+            }
+            catch (RemoteException ex)
+            {
+                Logger.getLogger(AddMatchResultsServiceMapper.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            return null;
+        }
+
+        @Override
+        public IClubTeamDto getClubTeam(Integer hometeam)
+        {
+           try
+            {
+                return service.getClubTeam(hometeam);
+            }
+            catch (RemoteException ex)
+            {
+                Logger.getLogger(AddMatchResultsServiceMapper.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            return null;
+        }
+
+        @Override
+        public IMatchresultDto getMatchresult(Integer matchresult)
+        {
+           try
+            {
+                return service.getMatchresult(matchresult);
+            }
+            catch (RemoteException ex)
+            {
+                Logger.getLogger(AddMatchResultsServiceMapper.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            return null;
+        }
     }
 }

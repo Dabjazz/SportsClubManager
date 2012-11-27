@@ -5,10 +5,10 @@
 package server.dto.mapper;
 
 import contract.domain.*;
-import contract.dto.ITeamDto;
+import contract.dto.*;
 import contract.dto.classes.TeamDto;
 import contract.dto.mapper.*;
-import java.rmi.*;
+import java.rmi.RemoteException;
 import java.util.*;
 import java.util.logging.*;
 import server.domain.DomainFacade;

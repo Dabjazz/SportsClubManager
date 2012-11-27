@@ -21,7 +21,7 @@ public class RoleMapper
     {
     }
 
-    public static IMapper<IRoleDto> getInstance()
+    public static IMapper<IRoleDto> getInstance( )
     {
         if (controller == null)
         {

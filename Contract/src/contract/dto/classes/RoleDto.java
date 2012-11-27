@@ -19,6 +19,7 @@ public class RoleDto
     private String description;
     private List<Integer> permissionList;
     private Integer member;
+public String toString;
 
     public RoleDto()
     {
@@ -26,6 +27,7 @@ public class RoleDto
 
     public static <T extends RoleDto> T copy(contract.domain.IRole domainRole, T role)
     {
+        role.toString = domainRole.getMember().getPrename() + " " +domainRole.getMember().getLastname();
         role.setId(domainRole.getId());
         role.setName(domainRole.getName());
         role.setDescription(domainRole.getDesciption());
@@ -104,6 +106,6 @@ public class RoleDto
     @Override
     public String toString()
     {
-        return this.name;
+        return toString;
     }
 }

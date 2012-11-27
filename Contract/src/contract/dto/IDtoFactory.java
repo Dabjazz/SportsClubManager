@@ -12,9 +12,9 @@ import java.rmi.RemoteException;
 
  @author Thomas
  */
-public interface IDtoFactory extends Serializable
+public interface IDtoFactory
+        extends Serializable
 {
-
     IMapper<IAddressDto> getAddressMapper()
             throws RemoteException;
 
@@ -68,5 +68,4 @@ public interface IDtoFactory extends Serializable
 
     ITypeOfSportMapper getTypeOfSportMapper()
             throws RemoteException;
-    
 }

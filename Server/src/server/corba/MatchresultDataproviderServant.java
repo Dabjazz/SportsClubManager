@@ -4,13 +4,9 @@
  */
 package server.corba;
 
+import contract.dto.*;
 import contract.dto.mapper.IdNotFoundException;
 import contract.dto.mapper.NotFoundException;
-import contract.dto.ITypeOfSportDto;
-import contract.dto.ILeagueDto;
-import contract.dto.IMatchDto;
-import contract.dto.ICompetitionDto;
-import contract.dto.IMatchresultDto;
 import java.rmi.RemoteException;
 import java.text.*;
 import java.util.*;
@@ -52,15 +48,17 @@ public class MatchresultDataproviderServant
                 for (int matchId : competition.getMatchList())
                 {
                     IMatchDto match = dtoFactory.getMatchMapper().getById(matchId);
-                    IMatchresultDto matchresult = match.getMatchresult();
+                    IMatchresultDto matchresult = dtoFactory.getMatchresultMapper().getById(match.getMatchresult());
+                    ITeamDto hTeam = dtoFactory.getTeamMapper().getById(match.getHometeam());
+                    ITeamDto fTeam = dtoFactory.getTeamMapper().getById(match.getForeignteam());
 
-                    results.add(new MatchresultCorba(matchresult.getId(), match.getDateFrom().toString(), match.getHometeam().getName(), match.getForeignteam().getName(), matchresult.getPointsHometeam(), matchresult.getPointsForeignteam()));
+                    results.add(new MatchresultCorba(matchresult.getId(), match.getDateFrom().toString(), hTeam.getName(), fTeam.getName(), matchresult.getPointsHometeam(), matchresult.getPointsForeignteam()));
                 }
             }
-            
+
             MatchresultCorba[] array = new MatchresultCorba[results.size()];
-            
-          
+
+
             for (int i = 0; i < results.size(); i++)
             {
                 array[i] = results.get(i);

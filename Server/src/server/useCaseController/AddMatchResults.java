@@ -32,8 +32,6 @@ public class AddMatchResults
     {
     }
 
-    ;
-    
     public static AddMatchResults getInstance()
     {
         if (singleton == null)
@@ -111,5 +109,20 @@ public class AddMatchResults
         {
             Logger.getLogger(AddMatchResults.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @Override
+    public ITeamDto getTeam(Integer hometeam)
+    {
+        try
+        {
+            return access.getTeamMapper().getById(hometeam);
+        }
+        catch (IdNotFoundException | RemoteException ex)
+        {
+            Logger.getLogger(AddMatchResults.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
     }
 }

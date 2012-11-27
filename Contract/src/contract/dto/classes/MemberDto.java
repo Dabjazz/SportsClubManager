@@ -239,4 +239,10 @@ public class MemberDto
         }
         return false;
     }
+
+    @Override
+    public String toString()
+    {
+        return prename + " " + lastname;
+    }
 }
