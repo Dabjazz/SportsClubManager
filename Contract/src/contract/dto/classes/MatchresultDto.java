@@ -79,4 +79,9 @@ public class MatchresultDto
     {
         return this.fin;
     }
+
+    @Override
+    public void setFinal(boolean fin) {
+        this.fin = fin;
+    }
 }

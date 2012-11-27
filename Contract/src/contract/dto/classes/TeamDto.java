@@ -142,4 +142,10 @@ public class TeamDto
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+    
+    @Override
+    public String toString()
+    {
+        return this.name;
+    }
 }

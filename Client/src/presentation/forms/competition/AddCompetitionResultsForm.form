@@ -53,48 +53,46 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="lblSelectCompetition" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblMatch" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblTeam" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="comboCompetition" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="comboTeams" max="32767" attributes="0"/>
-                                          <Component id="scrollMatch" alignment="1" min="-2" pref="200" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
+                              <Component id="lblSelectCompetition" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblMatch" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblTeam" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="comboCompetition" min="-2" pref="200" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="btnShow" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="txtfieldTeamA" min="-2" pref="200" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="comboTeams" max="32767" attributes="0"/>
+                                      <Component id="scrollMatch" alignment="1" min="-2" pref="200" max="-2" attributes="0"/>
+                                  </Group>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="spinTeamA" min="-2" pref="40" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="lblVS" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="spinTeamB" min="-2" pref="40" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="textfieldTeamB" min="-2" pref="200" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="204" max="-2" attributes="0"/>
-                                  <Component id="btnAddResult" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnAddTeamFilter" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="98" max="-2" attributes="0"/>
-                          <Component id="checkBoxFinished" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtfieldTeamA" min="-2" pref="200" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="spinTeamA" min="-2" pref="40" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="lblVS" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="spinTeamB" min="-2" pref="40" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="textfieldTeamB" min="-2" pref="200" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="btnAddResult" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="334" max="32767" attributes="0"/>
+                  <EmptySpace pref="243" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -105,13 +103,15 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblSelectCompetition" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="comboCompetition" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnShow" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblTeam" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="comboTeams" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnAddTeamFilter" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="lblMatch" min="-2" max="-2" attributes="0"/>
                       <Component id="scrollMatch" min="-2" pref="220" max="-2" attributes="0"/>
@@ -123,12 +123,9 @@
                       <Component id="lblVS" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="spinTeamB" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="textfieldTeamB" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnAddResult" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="checkBoxFinished" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="btnAddResult" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="145" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="205" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -140,9 +137,6 @@
               <Connection code="new javax.swing.DefaultComboBoxModel(getAllCompetitions())" type="code"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboCompetitionActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblSelectCompetition">
           <Properties>
@@ -159,7 +153,7 @@
             <Component class="javax.swing.JList" name="listMatches">
               <Properties>
                 <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="new javax.swing.AbstractListModel() {&#xa;    String[] strings = { &quot;&quot; };&#xa;    public int getSize() { return strings.length; }&#xa;    public Object getElementAt(int i) { return strings[i]; }&#xa;}" type="code"/>
+                  <Connection code="new javax.swing.AbstractListModel() {&#xa;    Object[] objects = { &quot;&quot; };&#xa;    public int getSize() { return objects.length; }&#xa;    public Object getElementAt(int i) { return objects[i]; }&#xa;}" type="code"/>
                 </Property>
               </Properties>
               <Events>
@@ -211,16 +205,21 @@
               <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;&quot; })" type="code"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboTeamsActionPerformed"/>
-          </Events>
         </Component>
-        <Component class="javax.swing.JCheckBox" name="checkBoxFinished">
+        <Component class="javax.swing.JButton" name="btnShow">
           <Properties>
-            <Property name="text" type="java.lang.String" value="last result of this competition (with this all result entries are made)"/>
+            <Property name="text" type="java.lang.String" value="Show Matches"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxFinishedActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnShowActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnAddTeamFilter">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Find Team"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddTeamFilterActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

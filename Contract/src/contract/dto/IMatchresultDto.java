@@ -20,4 +20,6 @@ public interface IMatchresultDto
     void setPointsHometeam(double pointsHometeam);
 
     public boolean IsFinal();
+    
+    void setFinal(boolean fin);
 }

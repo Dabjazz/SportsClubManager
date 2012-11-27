@@ -5,9 +5,6 @@ import com.ServiceNotAvailableException;
 import contract.dto.*;
 import contract.dto.classes.*;
 import contract.useCaseController.IAddMatchResults;
-import java.sql.Date;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import javax.swing.AbstractListModel;
 import javax.swing.DefaultComboBoxModel;
@@ -25,13 +22,11 @@ public class AddCompetitionResultsForm
     ServiceClient client;
     IAddMatchResults controller;
     ICompetitionDto competition;
+    ITeamDto team;
+    IMatchDto match;
     List<ITeamDto> teamList;
     List<IMatchDto> matchList;
-    IMatchDto match;
     IMemberDto user;
-    HashMap<String, ICompetitionDto> competitionMap;
-    HashMap<String, ITeamDto> teamMap;
-    HashMap<String, IMatchDto> matchMap;
 
     /**
      * Creates new form MatchResultEntr
@@ -68,7 +63,8 @@ public class AddCompetitionResultsForm
         btnAddResult = new javax.swing.JButton();
         lblTeam = new javax.swing.JLabel();
         comboTeams = new javax.swing.JComboBox();
-        checkBoxFinished = new javax.swing.JCheckBox();
+        btnShow = new javax.swing.JButton();
+        btnAddTeamFilter = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Add Match Results");
@@ -78,18 +74,13 @@ public class AddCompetitionResultsForm
         paneMatchResults.setPreferredSize(new java.awt.Dimension(848, 549));
 
         comboCompetition.setModel(new javax.swing.DefaultComboBoxModel(getAllCompetitions()));
-        comboCompetition.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboCompetitionActionPerformed(evt);
-            }
-        });
 
         lblSelectCompetition.setText("Select Competition");
 
         listMatches.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+            Object[] objects = { "" };
+            public int getSize() { return objects.length; }
+            public Object getElementAt(int i) { return objects[i]; }
         });
         listMatches.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -116,16 +107,18 @@ public class AddCompetitionResultsForm
         lblTeam.setText("Team");
 
         comboTeams.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "" }));
-        comboTeams.addActionListener(new java.awt.event.ActionListener() {
+
+        btnShow.setText("Show Matches");
+        btnShow.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboTeamsActionPerformed(evt);
+                btnShowActionPerformed(evt);
             }
         });
 
-        checkBoxFinished.setText("last result of this competition (with this all result entries are made)");
-        checkBoxFinished.addActionListener(new java.awt.event.ActionListener() {
+        btnAddTeamFilter.setText("Find Team");
+        btnAddTeamFilter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxFinishedActionPerformed(evt);
+                btnAddTeamFilterActionPerformed(evt);
             }
         });
 
@@ -134,38 +127,38 @@ public class AddCompetitionResultsForm
         paneMatchResultsLayout.setHorizontalGroup(
             paneMatchResultsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneMatchResultsLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(paneMatchResultsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(paneMatchResultsLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(paneMatchResultsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblSelectCompetition)
+                            .addComponent(lblMatch)
+                            .addComponent(lblTeam))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(paneMatchResultsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(paneMatchResultsLayout.createSequentialGroup()
-                                .addGroup(paneMatchResultsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblSelectCompetition)
-                                    .addComponent(lblMatch)
-                                    .addComponent(lblTeam))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(paneMatchResultsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(comboCompetition, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(paneMatchResultsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(comboTeams, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(scrollMatch, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(comboCompetition, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnShow))
                             .addGroup(paneMatchResultsLayout.createSequentialGroup()
-                                .addComponent(txtfieldTeamA, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(paneMatchResultsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(comboTeams, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(scrollMatch, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(spinTeamA, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblVS)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(spinTeamB, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textfieldTeamB, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(paneMatchResultsLayout.createSequentialGroup()
-                                .addGap(204, 204, 204)
-                                .addComponent(btnAddResult))))
+                                .addComponent(btnAddTeamFilter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(paneMatchResultsLayout.createSequentialGroup()
-                        .addGap(98, 98, 98)
-                        .addComponent(checkBoxFinished)))
-                .addContainerGap(334, Short.MAX_VALUE))
+                        .addComponent(txtfieldTeamA, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(spinTeamA, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblVS)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(spinTeamB, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textfieldTeamB, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAddResult)))
+                .addContainerGap(243, Short.MAX_VALUE))
         );
         paneMatchResultsLayout.setVerticalGroup(
             paneMatchResultsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,12 +166,14 @@ public class AddCompetitionResultsForm
                 .addContainerGap()
                 .addGroup(paneMatchResultsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblSelectCompetition)
-                    .addComponent(comboCompetition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboCompetition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnShow))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(paneMatchResultsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTeam)
-                    .addComponent(comboTeams, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13)
+                    .addComponent(comboTeams, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAddTeamFilter))
+                .addGap(11, 11, 11)
                 .addGroup(paneMatchResultsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblMatch)
                     .addComponent(scrollMatch, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -188,12 +183,9 @@ public class AddCompetitionResultsForm
                     .addComponent(spinTeamA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblVS)
                     .addComponent(spinTeamB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textfieldTeamB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(checkBoxFinished)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnAddResult)
-                .addGap(145, 145, 145))
+                    .addComponent(textfieldTeamB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAddResult))
+                .addGap(205, 205, 205))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -212,114 +204,45 @@ public class AddCompetitionResultsForm
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void comboCompetitionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCompetitionActionPerformed
-                
-        competition = competitionMap.get(comboCompetition.getSelectedItem().toString());    //search competition
-        //4 TESTS ONLY
-        matchList = new LinkedList<>();
-        IMatchDto match1 = new MatchDto();
-        match1.setForeignteam(1);
-        match1.setHometeam(2);
-        match1.setDateFrom(new Date(2012, 1, 1));
-        match1.setDateTo(new Date(2012, 1, 1));
-        match1.setCompetition(competition.getId());
-        IMatchDto match2 = new MatchDto();
-        match2.setForeignteam(5);
-        match2.setHometeam(3);
-        match2.setDateFrom(new Date(2012, 1, 1));
-        match2.setDateTo(new Date(2012, 1, 1));
-        match2.setCompetition(competition.getId());
-        matchList.add(match1);
-        
-        teamList = new LinkedList<>();
-        ITeamDto team1 = new TeamDto();
-        team1.setName("TestTeam1");
-        teamList.add(team1);
-        ITeamDto team2 = new TeamDto();
-        team2.setName("TestTeam2");
-        teamList.add(team2);
-        
-        //UNCOMMENT LATER & TEST
-//        matchList = controller.getMatchList(competition.getMatchList());
-//        teamList = controller.getTeamList(competition.getTeamList());
-
-        setListMatches();
-        setComboTeams();
-    }//GEN-LAST:event_comboCompetitionActionPerformed
-
-    private void comboTeamsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTeamsActionPerformed
-        String name = comboTeams.getSelectedItem().toString();
-
-        if (!name.equals("Teams")) {
-            ITeamDto team = teamMap.get(name);
-            
-            //JUST Commet to avoid TESTING failure
-            //List<IMatchDto> matches = controller.getMatchList(team.getMatchList());
-            //setListMatches(matches);
-            setListMatches(matchList);
-        }
-    }//GEN-LAST:event_comboTeamsActionPerformed
-
     private void listMatchesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listMatchesValueChanged
-        String selMatch = (String) listMatches.getSelectedValue();
-
-        String[] array = selMatch.split(" ");
-        String home = array[0];
-        String foreign = array[2];
-
-        for (IMatchDto m : matchList) {
-            if (m.getHometeam().getName().equals(home)) {
-                if (m.getForeignteam().getName().equals(foreign)) {
-                    match = m;
-                }
-            }
-        }
-        txtfieldTeamA.setText(home);
-        textfieldTeamB.setText(foreign);
+        match = (IMatchDto)listMatches.getSelectedValue();
+        txtfieldTeamA.setText(match.getHometeam().getName());
+        textfieldTeamB.setText(match.getForeignteam().getName());
     }//GEN-LAST:event_listMatchesValueChanged
 
     private void btnAddResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddResultActionPerformed
         IMatchresultDto result = new MatchresultDto();
         result.setPointsHometeam(new Double(spinTeamA.getValue().toString()));
         result.setPointsForeignteam(new Double(spinTeamB.getValue().toString()));
-        //TODO: Set Final true
-              
+        result.setFinal(true);
+
         controller.setMatchResult(match, result); //TODO: Throws error
     }//GEN-LAST:event_btnAddResultActionPerformed
 
-    private void checkBoxFinishedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxFinishedActionPerformed
-//        if(checkBoxFinished.isSelected()){
-//            competition.isFinal();
-//        }
-    }//GEN-LAST:event_checkBoxFinishedActionPerformed
+    private void btnShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowActionPerformed
+        competition = (ICompetitionDto) comboCompetition.getSelectedItem();
 
-    private String[] getAllCompetitions() {
+        matchList = controller.getMatchList(competition.getMatchList());
+        teamList = controller.getTeamList(competition.getTeamList());
+
+        setListMatches();
+        setComboTeams();
+    }//GEN-LAST:event_btnShowActionPerformed
+
+    private void btnAddTeamFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddTeamFilterActionPerformed
+        team = (ITeamDto) comboTeams.getSelectedItem();
+        matchList = controller.getMatchList(team.getMatchList());
+        setListMatches(matchList);
+
+    }//GEN-LAST:event_btnAddTeamFilterActionPerformed
+    
+    private Object[] getAllCompetitions() {
         List<ICompetitionDto> compList = controller.getCompetitionList();
-        competitionMap = new HashMap<>();
-        String[] compArray = new String[compList.size() + 1];
-        compArray[0] = "Select Competition";
-                
-        int j = 0;  int i = 0;        
-        while(i < compArray.length-1){
-            j = i; i++;
-            compArray[i] = compList.get(j).getName();
-            competitionMap.put(compArray[i], compList.get(j));
-        }
-        return compArray;
+        return compList.toArray();
     }
 
-    private String[] getTeams() {
-        String[] array = new String[teamList.size() + 1];
-        array[0] = "Select Team";
-        teamMap = new HashMap<>();
-
-        int j = 0; int i = 0;        
-        while(i < array.length-1){
-            j = i; i++; 
-            array[i] = teamList.get(j).getName();
-            teamMap.put(array[i], teamList.get(j));
-        }
-        return array;
+    private Object[] getTeams() {
+        return teamList.toArray();
     }
 
     private void setComboTeams() {
@@ -327,49 +250,35 @@ public class AddCompetitionResultsForm
     }
 
     private void setListMatches() {
-        final String[] array = new String[matchList.size()];
-        matchMap = new HashMap<>();
-        
-        for (int i = 0; i < array.length; i++) {
-            array[i] = matchList.get(i).getHometeam().getName() + " : " + matchList.get(i).getForeignteam().getName();
-            matchMap.put(array[i], matchList.get(i));
-        }
-
         listMatches.setModel(new AbstractListModel() {
-            String[] strings = array;
+            Object[] objects = matchList.toArray();
 
             @Override
             public int getSize() {
-                return strings.length;
+                return objects.length;
             }
 
             @Override
             public Object getElementAt(int i) {
-                return strings[i];
+                return objects[i];
             }
         });
     }
 
     private void setListMatches(List<IMatchDto> matches) {
-        final String[] array = new String[matches.size()];
-        matchMap.clear();
-
-        for (int i = 0; i < array.length; i++) {
-            array[i] = matches.get(i).getHometeam().getName() + " : " + matches.get(i).getForeignteam().getName();
-            matchMap.put(array[i], matches.get(i));
-        }
+        final List<IMatchDto> tmpMatches = matches;
 
         listMatches.setModel(new AbstractListModel() {
-            String[] strings = array;
+            Object[] objects = tmpMatches.toArray();
 
             @Override
             public int getSize() {
-                return strings.length;
+                return objects.length;
             }
 
             @Override
             public Object getElementAt(int i) {
-                return strings[i];
+                return objects[i];
             }
         });
     }
@@ -379,7 +288,8 @@ public class AddCompetitionResultsForm
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddResult;
-    private javax.swing.JCheckBox checkBoxFinished;
+    private javax.swing.JButton btnAddTeamFilter;
+    private javax.swing.JButton btnShow;
     private javax.swing.JComboBox comboCompetition;
     private javax.swing.JComboBox comboTeams;
     private javax.swing.JLabel lblMatch;
