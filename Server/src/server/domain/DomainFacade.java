@@ -203,16 +203,16 @@ public class DomainFacade
         }
     }
 
-    public League getLeageByNameAndTypeOfSport(TypeOfSport t, String leaguename) throws CouldNotFetchException
+    public League getLeageByNameAndTypeOfSport(ITypeOfSport t, String leaguename) throws CouldNotFetchException
     {
         try
         {
             session.beginTransaction();
             Query q = session.createQuery("Select league From League as league"
                     + " inner join league.typeOfSport as sport"
-                    + " where sport = :sport and"
+                    + " where sport.id = :sport and"
                     + " league.name = :leaguename");
-            q.setParameter("sport", t);
+            q.setParameter("sport", t.getId());
             q.setParameter("leaguename", leaguename);
             return (League) q.uniqueResult();
         }

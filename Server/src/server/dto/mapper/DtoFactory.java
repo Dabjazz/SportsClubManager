@@ -18,6 +18,8 @@ public class DtoFactory
     public DtoFactory()
     {
         MemberDto.dtoFactory = this;
+        LeagueDto.dtoFactory = this;
+        MatchDto.dtoFactory = this;
     }
 
     @Override

@@ -145,8 +145,9 @@ public class LeagueMapper
     {
         try
         {
-            server.domain.classes.TypeOfSport sport = (server.domain.classes.TypeOfSport) TypeOfSportMapper.getInstance().getDomainById(typeOfSport.getId());
-            return LeagueDto.copy(DomainFacade.getInstance().getLeageByNameAndTypeOfSport(sport, league));
+            ITypeOfSport sport = TypeOfSportMapper.getInstance().getDomainById(typeOfSport.getId());
+            ILeague l = DomainFacade.getInstance().getLeageByNameAndTypeOfSport(sport, league);
+            return LeagueDto.copy(l);
         }
         catch (CouldNotFetchException | IdNotFoundException ex)
         {

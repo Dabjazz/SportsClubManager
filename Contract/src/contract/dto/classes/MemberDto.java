@@ -1,9 +1,9 @@
 package contract.dto.classes;
 
 import contract.dto.*;
-import contract.dto.mapper.*;
+import contract.dto.mapper.IdNotFoundException;
 import java.io.Serializable;
-import java.rmi.*;
+import java.rmi.RemoteException;
 import java.util.*;
 import java.util.logging.*;
 

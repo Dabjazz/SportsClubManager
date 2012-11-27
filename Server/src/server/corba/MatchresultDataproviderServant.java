@@ -47,7 +47,7 @@ public class MatchresultDataproviderServant
 
             Date date = new SimpleDateFormat("dd.MM.yyyy").parse(competitiondate);
 
-            for (ICompetitionDto competition : l.getCompetitionList(date))
+            for (ICompetitionDto competition : l.getCompetitionsByDate(date))
             {
                 for (int matchId : competition.getMatchList())
                 {
@@ -57,8 +57,16 @@ public class MatchresultDataproviderServant
                     results.add(new MatchresultCorba(matchresult.getId(), match.getDateFrom().toString(), match.getHometeam().getName(), match.getForeignteam().getName(), matchresult.getPointsHometeam(), matchresult.getPointsForeignteam()));
                 }
             }
+            
+            MatchresultCorba[] array = new MatchresultCorba[results.size()];
+            
+          
+            for (int i = 0; i < results.size(); i++)
+            {
+                array[i] = results.get(i);
+            }
 
-            return new MatchresultListCorba((MatchresultCorba[]) results.toArray());
+            return new MatchresultListCorba(array);
         }
         catch (NotFoundException ex)
         {

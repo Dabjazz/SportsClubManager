@@ -1,9 +1,11 @@
 package contract.dto.classes;
 
-import contract.dto.ILeagueDto;
-import contract.dto.ICompetitionDto;
+import contract.dto.*;
+import contract.dto.mapper.*;
 import java.io.Serializable;
+import java.rmi.*;
 import java.util.*;
+import java.util.logging.*;
 
 public class LeagueDto
         implements Serializable, ILeagueDto
@@ -13,6 +15,7 @@ public class LeagueDto
     private String description;
     private List<Integer> teamList = new LinkedList<>();
     private List<Integer> competitions = new LinkedList<>();
+    public static IDtoFactory dtoFactory;
 
     public LeagueDto()
     {
@@ -100,18 +103,37 @@ public class LeagueDto
     @Override
     public List<Integer> getCompetitions()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return competitions;
     }
 
     @Override
     public void setCompetitions(List<Integer> competitions)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.competitions = competitions;
     }
 
     @Override
-    public List<ICompetitionDto> getCompetitionList(Date date)
+    public List<ICompetitionDto> getCompetitionsByDate(Date date)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        List<ICompetitionDto> result = new LinkedList<>();
+
+        for (int c : competitions)
+        {
+            try
+            {
+                ICompetitionDto competitionDto = dtoFactory.getCompetitionMapper().getById(c);
+
+                if (competitionDto.getDateFrom().getDate() == date.getDate())
+                {
+                    result.add(competitionDto);
+                }
+            }
+            catch (RemoteException | IdNotFoundException ex)
+            {
+                Logger.getLogger(LeagueDto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return result;
     }
 }
