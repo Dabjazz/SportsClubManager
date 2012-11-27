@@ -46,7 +46,7 @@ public class NewMember
     {
         addMember(member, address);
     }
-
+        
     private IMemberDto addMember(IMemberDto member, IAddressDto address)
     {
         try

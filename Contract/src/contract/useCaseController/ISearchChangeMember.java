@@ -40,11 +40,11 @@ public interface ISearchChangeMember
 
     void setSelectedMember(IMemberDto get);
 
-    public IMemberDto getSelectedMember();
+    IMemberDto getSelectedMember();
 
-    public List<ITypeOfSportDto> getTypeOfSports();
+    List<ITypeOfSportDto> getTypeOfSports();
 
-    public IMemberController getMemberController();
+    IMemberController getMemberController();
 
-    public IMembershipController getMembershipController();
+    IMembershipController getMembershipController();
 }

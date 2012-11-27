@@ -5,13 +5,14 @@
 package contract.dto;
 
 import contract.dto.mapper.*;
+import java.io.*;
 import java.rmi.RemoteException;
 
 /**
 
  @author Thomas
  */
-public interface IDtoFactory
+public interface IDtoFactory extends Serializable
 {
 
     IMapper<IAddressDto> getAddressMapper()

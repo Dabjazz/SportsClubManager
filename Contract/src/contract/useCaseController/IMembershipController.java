@@ -5,6 +5,7 @@
 package contract.useCaseController;
 
 import contract.dto.*;
+import java.io.*;
 import java.util.List;
 
 /**
@@ -12,6 +13,7 @@ import java.util.List;
  @author Thomas
  */
 public interface IMembershipController
+        extends Serializable
 {
     List<IRoleDto> getRoles(Integer id);
 

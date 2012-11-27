@@ -4,9 +4,9 @@
  */
 package presentation.forms.member;
 
-import contract.dto.IMemberDto;
+import contract.dto.*;
 import contract.dto.classes.MemberDto;
-import contract.useCaseController.IMemberController;
+import contract.useCaseController.*;
 import java.awt.event.ActionEvent;
 
 /**
@@ -56,7 +56,15 @@ public class PersonDataPanel
         radioFemale.setSelected(member.getGender());
         radioMale.setSelected(!member.getGender());
 
-        txtfieldNationality.setText(controller.getAddressController().getCountryById(member.getNationality()).getName());
+        IAddressController ac = controller.getAddressController();
+        ICountryDto c = ac.getCountryById(member.getNationality());
+        String countryName = c + "";
+        txtfieldNationality.setText(countryName);
+    }
+    
+    public IAddressDto getAddress()
+    {
+        return addressPanel1.getAddress();
     }
 
     /**

@@ -5,12 +5,14 @@
 package contract.useCaseController;
 
 import contract.dto.ICountryDto;
+import java.io.Serializable;
 
 /**
 
  @author Thomas
  */
 public interface IAddressController
+        extends Serializable
 {
     ICountryDto getCountryByName(String text);
 

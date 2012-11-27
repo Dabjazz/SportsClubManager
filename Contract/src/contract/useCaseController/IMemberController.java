@@ -4,11 +4,13 @@
  */
 package contract.useCaseController;
 
+import java.io.Serializable;
+
 /**
 
  @author Thomas
  */
-public interface IMemberController
+public interface IMemberController extends Serializable
 {
-         IAddressController getAddressController();
+    IAddressController getAddressController();
 }

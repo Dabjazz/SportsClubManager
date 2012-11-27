@@ -13,7 +13,6 @@ import java.util.logging.*;
 import server.dto.mapper.DtoFactory;
 
 /**
-
  @author EnjoX
  */
 public class SearchChangeMember
@@ -192,7 +191,6 @@ public class SearchChangeMember
     @Override
     public void setNewMember(IMemberDto member, IAddressDto address)
     {
-
         NewMember.getInstance().setNewMember(member, address);
     }
 

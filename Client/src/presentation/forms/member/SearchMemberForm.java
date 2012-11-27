@@ -20,9 +20,9 @@ public class SearchMemberForm
     ServiceClient client;
     ISearchChangeMember controller;
     IMemberDto user;
-   // List<IRoleDto> roles;
+    // List<IRoleDto> roles;
     //IAddressDto address;
-   // ICountryDto country;
+    // ICountryDto country;
     //  IClubTeamDto clubTeam;
     // private List<ITypeOfSportDto> typeOfSports;
 //    private List<ITypeOfSportDto> availableSports;
@@ -43,9 +43,9 @@ public class SearchMemberForm
         controller = this.client.getSearchChangeMemberService();
         initComponents();
 
-       // personDataPanel1.setController(controller.getMemberController());
-      //  membershipDataPanel1.setController(controller.getMembershipController());
-        // availableSports = controller.getTypeOfSports();
+        personDataPanel1.setController(controller.getMemberController());
+        membershipDataPanel2.setController(controller.getMembershipController());
+        //availableSports = controller.getTypeOfSports();
     }
 
     /**
@@ -221,8 +221,8 @@ public class SearchMemberForm
     {
         IMemberDto member = matchingMembers.get(tabMember.getSelectedRow());
 
-//        personDataPanel1.setMember(member);
-     //   membershipDataPanel1.setMember(member);
+        personDataPanel1.setMember(member);
+        membershipDataPanel2.setMember(member);
     }
 
     //  private void btnAddSportActionPerformed(java.awt.event.ActionEvent evt)
@@ -287,18 +287,14 @@ public class SearchMemberForm
 //    }
     private void save()
     {
-//        IMemberDto selectedMember = personDataPanel1.getMember();
+        IMemberDto selectedMember = personDataPanel1.getMember();
+        IMemberDto anotherSelectedMember = membershipDataPanel2.getMember();
 
-      //  controller.setNewMember(selectedMember, address);
+        selectedMember.setMemberFrom(anotherSelectedMember.getMemberFrom());
+        // Wird vielleicht mal benötigt selectedMember.setMemberTo(anotherSelectedMember.getMemberTo());
+        selectedMember.setRoleList(anotherSelectedMember.getRoleList());
 
-     //   if(selectedMember.isRole("Player"))
-    //    {
-    //        controller.setNewPlayer(selectedMember, address, membershipDataPanel1.getPlayerTeams());
-     //   }
-     //         if(selectedMember.isRole("Trainer"))
-     //   {
-      //      controller.setNewTrainer(selectedMember, address, membershipDataPanel1.getTrainerTeams());
-     //   }
+        controller.setNewMember(selectedMember, personDataPanel1.getAddress());
     }
 
 //    public List<IClubTeamDto> getClubTeams(ITypeOfSportDto sport)
