@@ -86,4 +86,9 @@ public class RmiServiceClientFactory
     {
         return new AddressRmiService();
     }
+
+    @Override
+    public IAddMemberToTeamRmiService getAddMemberToTeamRmiService() throws RemoteException {
+        return new AddMemberToTeamRmiService();
+    }
 }

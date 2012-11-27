@@ -1,9 +1,12 @@
 package presentation.forms.member;
 
 import com.ServiceClient;
+import com.ServiceNotAvailableException;
 import contract.dto.IClubTeamDto;
+import contract.dto.IDepartmentHeadDto;
 import contract.dto.IMemberDto;
 import contract.dto.IPlayerDto;
+import contract.useCaseController.IAddMemberToTeam;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.AbstractListModel;
@@ -21,18 +24,19 @@ public class AddToATeamForm extends AbstractMainForm {
     ServiceClient client;
     IMemberDto user;
     IClubTeamDto clubTeam;
+    IDepartmentHeadDto departmentHeadDto;
     List<IPlayerDto> availablePlayers;
     List<IPlayerDto> teamPlayers;
-//    IAddToTeam controller;
+    IAddMemberToTeam controller;
 
     /**
      * Creates new form AddMemberToTeam
      */
-    public AddToATeamForm(AbstractForm form, ServiceClient client, IMemberDto user) {
+    public AddToATeamForm(AbstractForm form, ServiceClient client, IMemberDto user) throws ServiceNotAvailableException {
         super(form);
         this.client = client;
         this.user = user;
-        //controller = client.getAddToTeamService();
+        controller = client.getAddMemberToTeamService();
         initComponents();
     }
 
@@ -251,20 +255,19 @@ public class AddToATeamForm extends AbstractMainForm {
 
         //TODO: add to the team or call controlller
         clubTeam.setPlayerList(playerIDs);
-        //TODO: controller.updateTeam(clubTeam);
+        TODO: controller.updateClubTeam(clubTeam);
 
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowActionPerformed
         clubTeam = (IClubTeamDto) comboTeam.getSelectedItem();
 
-        //TODO: setListAvailable(controller.getAvailablePlayer(clubTeam));
-        //TODO: setListPlayer(controller.getTeamPlayer(clubTeam.getPlayerList()));
+        setListAvailable(controller.getPotentialPlayer(clubTeam));
+        setListPlayer(controller.getTeamPlayer(clubTeam));
     }//GEN-LAST:event_btnShowActionPerformed
 
     private Object[] getClubTeams() {
-        //TODO: get ClubTeams from Controller
-        List<IClubTeamDto> clubTeamList = new LinkedList<>(); //controller.getClubTeams();
+        List<IClubTeamDto> clubTeamList = controller.getClubTeams(user);
 
         return clubTeamList.toArray();
     }

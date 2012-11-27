@@ -10,6 +10,9 @@ public interface ServiceClient
 {
     IAddMatchResults getAddMatchResultsService()
             throws ServiceNotAvailableException;
+    
+    IAddMemberToTeam getAddMemberToTeamService()
+            throws ServiceNotAvailableException;
 
     IChangeCompetitionTeam getChangeCompetitionTeamService()
             throws ServiceNotAvailableException;
