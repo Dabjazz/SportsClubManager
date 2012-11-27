@@ -5,7 +5,7 @@
 package server.dto.mapper;
 
 import contract.domain.*;
-import contract.dto.IMatchDto;
+import contract.dto.*;
 import contract.dto.mapper.*;
 import java.util.*;
 import java.util.logging.*;
@@ -20,16 +20,18 @@ public class MatchMapper
         implements IMapper<IMatchDto>
 {
     private static MatchMapper controller;
+    IDtoFactory dtoFactory;
 
-    MatchMapper()
+    MatchMapper(IDtoFactory dtoFactory)
     {
+        this.dtoFactory = dtoFactory;
     }
 
-    public static IMapper<IMatchDto> getInstance()
+    public static IMapper<IMatchDto> getInstance(IDtoFactory dtoFactory)
     {
         if (controller == null)
         {
-            controller = new MatchMapper();
+            controller = new MatchMapper(dtoFactory);
         }
 
         return controller;
@@ -57,7 +59,7 @@ public class MatchMapper
         try
         {
             contract.domain.IMatch a = DomainFacade.getInstance().getByID(contract.domain.IMatch.class, id);
-            return MatchDto.copy(a);
+            return MatchDto.copy(a, dtoFactory);
 
         }
         catch (Exception ex)
@@ -77,7 +79,7 @@ public class MatchMapper
 
             for (contract.domain.IMatch a : DomainFacade.getInstance().getAll(contract.domain.IMatch.class))
             {
-                result.add(MatchDto.copy(a));
+                result.add(MatchDto.copy(a, dtoFactory));
             }
 
             return result;

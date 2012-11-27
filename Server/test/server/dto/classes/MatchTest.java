@@ -87,9 +87,9 @@ public class MatchTest
 
         EasyMock.replay(expected);
 
-        MatchDto a = MatchDto.copy(expected);
-
-        Assert.assertTrue(a instanceof IMatchDto);
+        // MatchDto a = MatchDto.copy(expected);
+        Assert.fail();
+        //  Assert.assertTrue(a instanceof IMatchDto);
     }
 
     @Test

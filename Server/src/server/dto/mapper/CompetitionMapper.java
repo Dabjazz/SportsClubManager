@@ -14,6 +14,7 @@ import java.util.*;
 import java.util.logging.*;
 import contract.dto.classes.CompetitionDto;
 import contract.dto.ICompetitionDto;
+import java.rmi.*;
 import server.domain.DomainFacade;
 
 /**
@@ -126,30 +127,41 @@ public class CompetitionMapper
     private server.domain.classes.Competition createDomain(ICompetitionDto value)
             throws IdNotFoundException
     {
-        server.domain.classes.Competition competition = new server.domain.classes.Competition(value.getId());
-
-        competition.setDateFrom(value.getDateFrom());
-        competition.setDateTo(value.getDateTo());
-        competition.setPayment(value.getPayment());
-
-        List< contract.domain.IMatch> matchList = new LinkedList<>();
-        List< contract.domain.ITeam> teamList = new LinkedList<>();
-
-        for (int i : value.getMatchList())
+        try
         {
-            matchList.add(new MatchMapper().getDomainById(i));
+            server.domain.classes.Competition competition = new server.domain.classes.Competition(value.getId());
+
+            competition.setDateFrom(value.getDateFrom());
+            competition.setDateTo(value.getDateTo());
+            competition.setPayment(value.getPayment());
+
+            List< contract.domain.IMatch> matchList = new LinkedList<>();
+            List< contract.domain.ITeam> teamList = new LinkedList<>();
+
+            MatchMapper m = (MatchMapper) new DtoFactory().getMatchMapper();
+
+            for (int i : value.getMatchList())
+            {
+                matchList.add(m.getDomainById(i));
+            }
+
+            for (int i : value.getTeamList())
+            {
+                teamList.add(new TeamMapper().getDomainById(i));
+            }
+
+            competition.setMatchList(matchList);
+
+            competition.setTeamList(teamList);
+
+            return competition;
+        }
+        catch (RemoteException ex)
+        {
+            Logger.getLogger(CompetitionMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        for (int i : value.getTeamList())
-        {
-            teamList.add(new TeamMapper().getDomainById(i));
-        }
-
-        competition.setMatchList(matchList);
-
-        competition.setTeamList(teamList);
-
-        return competition;
+        return null;
     }
 
     @Override

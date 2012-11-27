@@ -17,9 +17,14 @@ public class DtoFactory
 {
     public DtoFactory()
     {
+        init();
+    }
+
+    private void init()
+    {
         MemberDto.dtoFactory = this;
         LeagueDto.dtoFactory = this;
-        MatchDto.dtoFactory = this;
+       // MatchDto.dtoFactory = this;
     }
 
     @Override
@@ -145,6 +150,8 @@ public class DtoFactory
     public IMapper<IMatchDto> getMatchMapper()
             throws RemoteException
     {
-        return MatchMapper.getInstance();
+        MatchMapper m = (MatchMapper)MatchMapper.getInstance(this);
+        
+        return m;
     }
 }

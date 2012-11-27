@@ -6,11 +6,12 @@ package server.dto.mapper;
 
 import contract.domain.*;
 import contract.dto.ITeamDto;
+import contract.dto.classes.TeamDto;
 import contract.dto.mapper.*;
+import java.rmi.*;
 import java.util.*;
 import java.util.logging.*;
 import server.domain.DomainFacade;
-import contract.dto.classes.TeamDto;
 
 /**
 
@@ -115,29 +116,40 @@ public class TeamMapper
     private server.domain.classes.Team createDomain(ITeamDto value)
             throws IdNotFoundException
     {
-        server.domain.classes.Team team = new server.domain.classes.Team(value.getId());
-
-        List<Integer> competitions = value.getCompetitionList();
-        List<Integer> matches = value.getMatchList();
-
-        team.setDescription(value.getDescription());
-        team.setName(value.getName());
-        team.setLeague(new LeagueMapper().getDomainById(value.getLeague()));
-
-        LinkedList<contract.domain.ICompetition> c = new LinkedList<>();
-        for (int id : competitions)
+        try
         {
-            c.add(new CompetitionMapper().getDomainById(id));
-        }
-        team.setCompetitionList(c);
+            server.domain.classes.Team team = new server.domain.classes.Team(value.getId());
 
-        LinkedList<contract.domain.IMatch> m = new LinkedList<>();
-        for (int id : matches)
-        {
-            m.add(new MatchMapper().getDomainById(id));
+            List<Integer> competitions = value.getCompetitionList();
+            List<Integer> matches = value.getMatchList();
+
+            team.setDescription(value.getDescription());
+            team.setName(value.getName());
+            team.setLeague(new LeagueMapper().getDomainById(value.getLeague()));
+
+            LinkedList<contract.domain.ICompetition> c = new LinkedList<>();
+            for (int id : competitions)
+            {
+                c.add(new CompetitionMapper().getDomainById(id));
+            }
+            team.setCompetitionList(c);
+
+            MatchMapper matchmapper = (MatchMapper) new DtoFactory().getMatchMapper();
+
+            LinkedList<contract.domain.IMatch> m = new LinkedList<>();
+            for (int id : matches)
+            {
+                m.add(matchmapper.getDomainById(id));
+            }
+            team.setMatchList(m);
+            return team;
         }
-        team.setMatchList(m);
-        return team;
+        catch (RemoteException ex)
+        {
+            Logger.getLogger(TeamMapper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
     }
 
     @Override
