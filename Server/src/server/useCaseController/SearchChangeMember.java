@@ -21,8 +21,6 @@ public class SearchChangeMember
     private static SearchChangeMember INSTANCE;
     private IMemberDto member;
     private DtoFactory dtoFactory = new DtoFactory();
-    private IMemberController memberController = new MemberController();
-    private IMembershipController membershipController = new MembershipController();
 
     private SearchChangeMember()
     {
@@ -265,17 +263,5 @@ public class SearchChangeMember
             Logger.getLogger(SearchChangeMember.class.getName()).log(Level.SEVERE, null, ex);
         }
         return cTeams;
-    }
-
-    @Override
-    public IMemberController getMemberController()
-    {
-        return memberController;
-    }
-
-    @Override
-    public IMembershipController getMembershipController()
-    {
-        return membershipController;
     }
 }

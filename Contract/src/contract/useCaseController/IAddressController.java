@@ -4,7 +4,7 @@
  */
 package contract.useCaseController;
 
-import contract.dto.ICountryDto;
+import contract.dto.*;
 import java.io.Serializable;
 
 /**
@@ -17,4 +17,6 @@ public interface IAddressController
     ICountryDto getCountryByName(String text);
 
     ICountryDto getCountryById(int country);
+
+    IAddressDto getById(Integer address);
 }

@@ -4,9 +4,9 @@
  */
 package server.useCaseController;
 
-import contract.dto.ICountryDto;
+import contract.dto.*;
 import contract.dto.mapper.IdNotFoundException;
-import contract.useCaseController.IAddressController;
+import contract.useCaseController.*;
 import java.rmi.RemoteException;
 import java.util.logging.*;
 import server.dto.mapper.DtoFactory;
@@ -18,6 +18,16 @@ import server.dto.mapper.DtoFactory;
 public class AddressController
         implements IAddressController
 {
+    private static IAddressController INSTANCE;
+
+    public static IAddressController getInstance()
+    {
+        if (INSTANCE == null)
+        {
+            INSTANCE = new AddressController();
+        }
+        return INSTANCE;
+    }
     private DtoFactory dtoFactory = new DtoFactory();
 
     @Override
@@ -32,6 +42,21 @@ public class AddressController
             Logger.getLogger(AddressController.class.getName()).log(Level.SEVERE, null, ex);
         }
         catch (IdNotFoundException ex)
+        {
+            Logger.getLogger(AddressController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
+
+    @Override
+    public IAddressDto getById(Integer id)
+    {
+        try
+        {
+            return dtoFactory.getAddressMapper().getById(id);
+        }
+        catch (RemoteException | IdNotFoundException ex)
         {
             Logger.getLogger(AddressController.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -6,7 +6,7 @@ package server.useCaseController;
 
 import contract.dto.*;
 import contract.dto.mapper.*;
-import contract.useCaseController.IMembershipController;
+import contract.useCaseController.*;
 import java.rmi.*;
 import java.util.*;
 import java.util.logging.*;
@@ -19,6 +19,17 @@ import server.dto.mapper.*;
 public class MembershipController
         implements IMembershipController
 {
+    private static IMembershipController INSTANCE;
+
+    public static IMembershipController getInstance()
+    {
+        if (INSTANCE == null)
+        {
+            INSTANCE = new MembershipController();
+        }
+        return INSTANCE;
+    }
+    
     DtoFactory dtoFactory = new DtoFactory();
 
     @Override

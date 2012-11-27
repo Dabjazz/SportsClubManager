@@ -13,6 +13,7 @@ import contract.rmi.services.*;
 import contract.useCaseController.*;
 import java.net.MalformedURLException;
 import java.rmi.*;
+import java.util.logging.*;
 
 /**
 
@@ -158,5 +159,41 @@ public class RmiServiceClientImpl
         {
             throw new ServiceNotAvailableException("Service Login not available", ex);
         }
+    }
+
+    @Override
+    public IAddressController getAddressService()
+            throws ServiceNotAvailableException
+    {
+        try
+        {
+            IAddressRmiService rmiService = rmiServiceClient.getAddressService();
+            AddressServiceMapper map = new AddressServiceMapper();
+            return map.getService(rmiService);
+        }
+        catch (RemoteException ex)
+        {
+            Logger.getLogger(SearchChangeMember.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
+
+    @Override
+    public IMembershipController getMembershipService()
+            throws ServiceNotAvailableException
+    {
+        try
+        {
+            IMembershipRmiService rmiService = rmiServiceClient.getMembershipService();
+            MembershipServiceMapper map = new MembershipServiceMapper();
+            return map.getService(rmiService);
+        }
+        catch (RemoteException ex)
+        {
+            Logger.getLogger(SearchChangeMember.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
     }
 }

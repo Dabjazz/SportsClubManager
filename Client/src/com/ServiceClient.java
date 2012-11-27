@@ -28,4 +28,10 @@ public interface ServiceClient
 
     ILogin getLoginService()
             throws ServiceNotAvailableException;
+
+    IAddressController getAddressService()
+            throws ServiceNotAvailableException;
+
+    IMembershipController getMembershipService()
+            throws ServiceNotAvailableException;
 }

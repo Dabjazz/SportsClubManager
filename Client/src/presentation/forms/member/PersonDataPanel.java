@@ -16,12 +16,12 @@ public class PersonDataPanel
         extends javax.swing.JPanel
 {
     private IMemberDto member;
-    private IMemberController controller;
+    private IAddressController controller;
 
-    public void setController(IMemberController controller)
+    public void setController(IAddressController controller)
     {
         this.controller = controller;
-        addressPanel1.setController(controller.getAddressController());
+        addressPanel1.setController(controller);
     }
 
     public IMemberDto getMember()
@@ -38,7 +38,7 @@ public class PersonDataPanel
         member.setEmailAddress(txtfieldMail.getText());
 
         member.setGender(radioFemale.isSelected());
-        member.setNationality(controller.getAddressController().getCountryByName(txtfieldNationality.getText()).getId());
+        member.setNationality(controller.getCountryByName(txtfieldNationality.getText()).getId());
 
         return member;
     }
@@ -56,12 +56,13 @@ public class PersonDataPanel
         radioFemale.setSelected(member.getGender());
         radioMale.setSelected(!member.getGender());
 
-        IAddressController ac = controller.getAddressController();
-        ICountryDto c = ac.getCountryById(member.getNationality());
+        ICountryDto c = controller.getCountryById(member.getNationality());
         String countryName = c + "";
         txtfieldNationality.setText(countryName);
+        
+        this.addressPanel1.setAddress(controller.getById(member.getAddress()));
     }
-    
+
     public IAddressDto getAddress()
     {
         return addressPanel1.getAddress();

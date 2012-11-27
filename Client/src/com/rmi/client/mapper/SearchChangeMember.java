@@ -247,34 +247,4 @@ public class SearchChangeMember
 
         return null;
     }
-
-    @Override
-    public IMemberController getMemberController()
-    {
-        try
-        {
-            return service.getMemberController();
-        }
-        catch (RemoteException ex)
-        {
-            Logger.getLogger(SearchChangeMember.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return null;
-    }
-
-    @Override
-    public IMembershipController getMembershipController()
-    {
-         try
-        {
-            return service.getMembershipController();
-        }
-        catch (RemoteException ex)
-        {
-            Logger.getLogger(SearchChangeMember.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return null;
-    }
 }
