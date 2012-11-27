@@ -18,6 +18,9 @@ public interface RmiServiceClient
 {
     public IAddMatchResultsRmiService getAddMatchResultsService()
             throws RemoteException;
+    
+    public IAddMemberToTeamRmiService getAddMemberToTeamRmiService()
+            throws RemoteException;
 
     public IChangeCompetitionTeamRmiService getChangeCompetitionTeamService()
             throws RemoteException;

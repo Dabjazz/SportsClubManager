@@ -196,4 +196,16 @@ public class RmiServiceClientImpl
 
         return null;
     }
+
+    @Override
+    public IAddMemberToTeam getAddMemberToTeamService() throws ServiceNotAvailableException {
+        try {
+            IAddMemberToTeamRmiService rmiService = rmiServiceClient.getAddMemberToTeamRmiService();
+            AddMemberToTeamServiceMapper map = new AddMemberToTeamServiceMapper();
+            return map.getService(rmiService);
+        } catch (RemoteException ex) {
+            Logger.getLogger(RmiServiceClientImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }
