@@ -206,8 +206,8 @@ public class AddCompetitionResultsForm
 
     private void listMatchesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listMatchesValueChanged
         match = (IMatchDto)listMatches.getSelectedValue();
-        txtfieldTeamA.setText(match.getHometeam().getName());
-        textfieldTeamB.setText(match.getForeignteam().getName());
+        txtfieldTeamA.setText(controller.getTeam(match.getHometeam()).getName());
+        textfieldTeamB.setText(controller.getTeam(match.getForeignteam()).getName());
     }//GEN-LAST:event_listMatchesValueChanged
 
     private void btnAddResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddResultActionPerformed

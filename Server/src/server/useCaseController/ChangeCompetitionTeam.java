@@ -56,12 +56,20 @@ public class ChangeCompetitionTeam
 
         try
         {
+            IClubTeamMapper ctMapper = dtoFactory.getClubTeamMapper();
             for (Integer teamId : Teams)
             {
-                clubTeamList.add(dtoFactory.getClubTeamMapper().getById(teamId));
+                try
+                {
+                    IClubTeamDto ct = ctMapper.getById(teamId);
+                    clubTeamList.add(ct);
+                }
+                catch (IdNotFoundException ex)
+                {
+                }
             }
         }
-        catch (RemoteException | IdNotFoundException ex)
+        catch (RemoteException ex)
         {
             Logger.getLogger(ChangeCompetitionTeam.class.getName()).log(Level.SEVERE, null, ex);
         }

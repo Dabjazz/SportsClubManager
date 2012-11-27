@@ -4,17 +4,15 @@
  */
 package server.dto.mapper;
 
-import contract.dto.mapper.IdNotFoundException;
-import contract.dto.mapper.IMapper;
-import contract.dto.mapper.NotFoundException;
-import contract.domain.CouldNotSaveException;
-import contract.domain.CouldNotDeleteException;
-import contract.domain.CouldNotFetchException;
+import com.sun.org.apache.bcel.internal.generic.*;
+import contract.domain.*;
+import contract.dto.*;
+import contract.dto.ICompetitionDto;
+import contract.dto.classes.CompetitionDto;
+import contract.dto.mapper.*;
+import java.rmi.RemoteException;
 import java.util.*;
 import java.util.logging.*;
-import contract.dto.classes.CompetitionDto;
-import contract.dto.ICompetitionDto;
-import java.rmi.*;
 import server.domain.DomainFacade;
 
 /**
@@ -40,12 +38,12 @@ public class CompetitionMapper
         return controller;
     }
 
-    public contract.domain.ICompetition getDomainById(Integer id)
+    public ICompetition getDomainById(Integer id)
             throws IdNotFoundException
     {
         try
         {
-            contract.domain.ICompetition a = DomainFacade.getInstance().getByID(contract.domain.ICompetition.class, id);
+            ICompetition a = DomainFacade.getInstance().getByID(ICompetition.class, id);
             return a;
         }
         catch (Exception ex)
@@ -61,7 +59,7 @@ public class CompetitionMapper
     {
         try
         {
-            contract.domain.ICompetition a = DomainFacade.getInstance().getByID(contract.domain.ICompetition.class, id);
+            ICompetition a = DomainFacade.getInstance().getByID(ICompetition.class, id);
             return CompetitionDto.copy(a);
         }
         catch (Exception ex)
@@ -79,7 +77,7 @@ public class CompetitionMapper
         {
             List<ICompetitionDto> result = new LinkedList<>();
 
-            for (contract.domain.ICompetition a : DomainFacade.getInstance().getAll(contract.domain.ICompetition.class))
+            for (ICompetition a : DomainFacade.getInstance().getAll(ICompetition.class))
             {
                 result.add(CompetitionDto.copy(a));
             }
@@ -131,12 +129,20 @@ public class CompetitionMapper
         {
             server.domain.classes.Competition competition = new server.domain.classes.Competition(value.getId());
 
+            competition.setName(value.getName());
+            competition.setDescription(value.getDescription());
+            AddressMapper am = (AddressMapper) new DtoFactory().getAddressMapper();
+            competition.setAddress(am.getDomainById(value.getAddress()));
+
+            LeagueMapper lm = (LeagueMapper) new DtoFactory().getLeagueMapper();
+            competition.setLeague(lm.getDomainById(value.getLeague()));
+
             competition.setDateFrom(value.getDateFrom());
             competition.setDateTo(value.getDateTo());
             competition.setPayment(value.getPayment());
 
-            List< contract.domain.IMatch> matchList = new LinkedList<>();
-            List< contract.domain.ITeam> teamList = new LinkedList<>();
+            List< IMatch> matchList = new LinkedList<>();
+            List< ITeam> teamList = new LinkedList<>();
 
             MatchMapper m = (MatchMapper) new DtoFactory().getMatchMapper();
 

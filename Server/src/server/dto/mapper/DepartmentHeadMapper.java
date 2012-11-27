@@ -5,7 +5,7 @@
 package server.dto.mapper;
 
 import contract.domain.*;
-import contract.dto.IDepartmentHeadDto;
+import contract.dto.*;
 import contract.dto.classes.DepartmentHeadDto;
 import contract.dto.mapper.*;
 import java.util.*;
@@ -22,11 +22,11 @@ public class DepartmentHeadMapper
 {
     private static DepartmentHeadMapper controller;
 
-    DepartmentHeadMapper()
+    DepartmentHeadMapper( )
     {
     }
 
-    public static IDepartmentHeadMapper getInstance()
+    public static IDepartmentHeadMapper getInstance( )
     {
         if (controller == null)
         {

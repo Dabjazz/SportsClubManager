@@ -5,13 +5,12 @@
 package server.dto.mapper;
 
 import contract.domain.*;
-import contract.dto.ILeagueDto;
-import contract.dto.ITypeOfSportDto;
+import contract.dto.*;
+import contract.dto.classes.LeagueDto;
 import contract.dto.mapper.*;
 import java.util.*;
 import java.util.logging.*;
 import server.domain.DomainFacade;
-import contract.dto.classes.LeagueDto;
 
 /**
 

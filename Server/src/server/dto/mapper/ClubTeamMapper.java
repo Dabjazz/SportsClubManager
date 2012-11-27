@@ -5,13 +5,12 @@
 package server.dto.mapper;
 
 import contract.domain.*;
-import contract.dto.IClubTeamDto;
-import contract.dto.ITypeOfSportDto;
+import contract.dto.*;
+import contract.dto.classes.ClubTeamDto;
 import contract.dto.mapper.*;
 import java.util.*;
 import java.util.logging.*;
 import server.domain.DomainFacade;
-import contract.dto.classes.ClubTeamDto;
 
 /**
 
@@ -22,11 +21,11 @@ public class ClubTeamMapper
 {
     private static ClubTeamMapper controller;
 
-    ClubTeamMapper()
+    ClubTeamMapper( )
     {
     }
 
-    public static IClubTeamMapper getInstance()
+    public static IClubTeamMapper getInstance( )
     {
         if (controller == null)
         {
@@ -62,7 +61,6 @@ public class ClubTeamMapper
         }
         catch (Exception ex)
         {
-
             throw new IdNotFoundException();
         }
     }
@@ -155,22 +153,31 @@ public class ClubTeamMapper
     {
         return new ClubTeamDto();
     }
-    
+
     @Override
-    public List<IClubTeamDto> getClubTeamsByTypeOfSport(ITypeOfSportDto sport) throws ClubTeamNotFoundException{
-        if(sport == null) return null;
-        try {
-            List<IClubTeamDto> ret  = new LinkedList<>();
+    public List<IClubTeamDto> getClubTeamsByTypeOfSport(ITypeOfSportDto sport)
+            throws ClubTeamNotFoundException
+    {
+        if (sport == null)
+        {
+            return null;
+        }
+        try
+        {
+            List<IClubTeamDto> ret = new LinkedList<>();
             ITypeOfSport byID = DomainFacade.getInstance().getByID(contract.domain.ITypeOfSport.class, sport.getId());
             List<server.domain.classes.ClubTeam> clubTeams = DomainFacade.getInstance().getClubTeamsByTypeOfSport(byID);
-            for(server.domain.classes.ClubTeam c : clubTeams){
+            for (server.domain.classes.ClubTeam c : clubTeams)
+            {
                 ret.add(ClubTeamDto.copy(c));
             }
             return ret;
-            
-        } catch (CouldNotFetchException e) {
+
+        }
+        catch (CouldNotFetchException e)
+        {
             throw new ClubTeamNotFoundException(e.getMessage());
         }
-        
+
     }
 }

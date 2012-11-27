@@ -5,7 +5,7 @@
 package server.dto.mapper;
 
 import contract.domain.*;
-import contract.dto.ITypeOfSportDto;
+import contract.dto.*;
 import contract.dto.mapper.*;
 import java.util.*;
 import java.util.logging.*;
@@ -21,11 +21,11 @@ public class TypeOfSportMapper
 {
     private static TypeOfSportMapper controller;
 
-    TypeOfSportMapper()
+    TypeOfSportMapper( )
     {
     }
 
-    public static TypeOfSportMapper getInstance()
+    public static TypeOfSportMapper getInstance( )
     {
         if (controller == null)
         {

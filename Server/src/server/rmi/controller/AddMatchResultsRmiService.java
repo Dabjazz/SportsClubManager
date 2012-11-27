@@ -15,39 +15,51 @@ import contract.rmi.services.IAddMatchResultsRmiService;
 import server.useCaseController.AddMatchResults;
 
 /**
- *
- * @author Lins Christian (christian.lins87@gmail.com)
+
+ @author Lins Christian (christian.lins87@gmail.com)
  */
-public class AddMatchResultsRmiService extends UnicastRemoteObject implements IAddMatchResultsRmiService
+public class AddMatchResultsRmiService
+        extends UnicastRemoteObject
+        implements IAddMatchResultsRmiService
 {
-    
-    public AddMatchResultsRmiService() throws RemoteException {
+    public AddMatchResultsRmiService()
+            throws RemoteException
+    {
         super();
     }
-    
 
     @Override
-    public List<ICompetitionDto> getCompetitionList() throws RemoteException
+    public List<ICompetitionDto> getCompetitionList()
+            throws RemoteException
     {
         return AddMatchResults.getInstance().getCompetitionList();
     }
 
     @Override
-    public List<ITeamDto> getTeamList(List<Integer> team) throws RemoteException
+    public List<ITeamDto> getTeamList(List<Integer> team)
+            throws RemoteException
     {
-         return AddMatchResults.getInstance().getTeamList(team);
+        return AddMatchResults.getInstance().getTeamList(team);
     }
 
     @Override
-    public List<IMatchDto> getMatchList(List<Integer> match) throws RemoteException
+    public List<IMatchDto> getMatchList(List<Integer> match)
+            throws RemoteException
     {
-         return AddMatchResults.getInstance().getMatchList(match);
+        return AddMatchResults.getInstance().getMatchList(match);
     }
 
     @Override
-    public void setMatchResult(IMatchDto match, IMatchresultDto matchresult) throws RemoteException
+    public void setMatchResult(IMatchDto match, IMatchresultDto matchresult)
+            throws RemoteException
     {
-         AddMatchResults.getInstance().setMatchResult(match, matchresult);
+        AddMatchResults.getInstance().setMatchResult(match, matchresult);
     }
-    
+
+    @Override
+    public ITeamDto getTeam(Integer hometeam)
+            throws RemoteException
+    {
+        return AddMatchResults.getInstance().getTeam(hometeam);
+    }
 }

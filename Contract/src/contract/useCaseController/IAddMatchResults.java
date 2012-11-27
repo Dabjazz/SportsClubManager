@@ -20,4 +20,6 @@ public interface IAddMatchResults
     List<IMatchDto> getMatchList(List<Integer> match);
 
     void setMatchResult(IMatchDto match, IMatchresultDto matchresult);
+
+    ITeamDto getTeam(Integer hometeam);
 }
