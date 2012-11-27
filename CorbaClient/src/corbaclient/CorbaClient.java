@@ -13,7 +13,6 @@ import org.omg.CosNaming.*;
 import org.omg.CosNaming.NamingContextPackage.*;
 
 /**
-
  @author Thomas
  */
 public class CorbaClient

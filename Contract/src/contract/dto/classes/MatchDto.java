@@ -2,7 +2,7 @@ package contract.dto.classes;
 
 import contract.domain.IMatch;
 import contract.dto.*;
-import contract.dto.mapper.IdNotFoundException;
+import contract.dto.mapper.*;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.*;
@@ -18,7 +18,7 @@ public class MatchDto
     private Integer matchresult;
     private Integer foreignteam;
     private Integer hometeam;
-    public static IDtoFactory dtoFactory;
+    public IDtoFactory dtoFactory;
 
     public MatchDto()
     {
@@ -36,7 +36,7 @@ public class MatchDto
     }
     private static HashMap<IMatch, MatchDto> matchs = new HashMap<>();
 
-    public static MatchDto copy(IMatch match)
+    public static MatchDto copy(IMatch match, IDtoFactory dtoFactory)
     {
         MatchDto a;
 
@@ -57,6 +57,8 @@ public class MatchDto
 
             matchs.put(match, a);
         }
+
+        a.dtoFactory = dtoFactory;
 
         return a;
     }
@@ -144,7 +146,8 @@ public class MatchDto
     {
         try
         {
-            return dtoFactory.getTeamMapper().getById(hometeam);
+            IMapper<ITeamDto> m = dtoFactory.getTeamMapper();
+            return m.getById(hometeam);
         }
         catch (IdNotFoundException | RemoteException ex)
         {

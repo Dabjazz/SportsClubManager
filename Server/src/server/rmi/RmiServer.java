@@ -50,11 +50,15 @@ public class RmiServer
             //LocateRegistry.createRegistry(port);
             Runtime.getRuntime().exec("rmiregistry");
             // set the codebase
-            
+
             String policy = RmiServer.class.getProtectionDomain().getClassLoader().getResource("client.policy").getFile();
             String cb = "file://" + RmiServer.class.getProtectionDomain().getCodeSource().getLocation().getFile();
             cb += " file://" + RmiServiceClient.class.getProtectionDomain().getCodeSource().getLocation().getFile();
+            cb += " file://" + server.rmi.controller.LoginRmiService.class.getProtectionDomain().getCodeSource().getLocation().getFile();
+            cb += " file://" + server.dto.mapper.DtoFactory.class.getProtectionDomain().getCodeSource().getLocation().getFile();
             cb += " file://" + contract.dto.IAddressDto.class.getProtectionDomain().getCodeSource().getLocation().getFile();
+            cb += " file://" + contract.dto.mapper.IMapper.class.getProtectionDomain().getCodeSource().getLocation().getFile();
+            cb += " file://" + contract.dto.classes.AddressDto.class.getProtectionDomain().getCodeSource().getLocation().getFile();
             cb += " file://" + UserData.class.getProtectionDomain().getCodeSource().getLocation().getFile();
             System.setProperty("java.rmi.server.codebase", cb);
 
