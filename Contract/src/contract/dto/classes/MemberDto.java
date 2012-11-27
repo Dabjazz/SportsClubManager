@@ -1,5 +1,6 @@
 package contract.dto.classes;
 
+import contract.domain.*;
 import contract.dto.*;
 import contract.dto.mapper.IdNotFoundException;
 import java.io.Serializable;
@@ -11,9 +12,9 @@ public class MemberDto
         implements Serializable, IMemberDto
 {
     public static IDtoFactory dtoFactory;
-    private static HashMap<contract.domain.IMember, MemberDto> members = new HashMap<>();
+    private static HashMap<IMember, MemberDto> members = new HashMap<>();
 
-    public static IMemberDto copy(contract.domain.IMember member)
+    public static IMemberDto copy(IMember member)
     {
         MemberDto a;
 
@@ -39,7 +40,7 @@ public class MemberDto
             a.setNationality(member.getNationality().getId());
             a.setAddress(member.getAddress().getId());
             a.setUsername(member.getUsername());
-            for (contract.domain.IRole c : member.getRoleList())
+            for (IRole c : member.getRoleList())
             {
                 a.roleList.add(c.getId());
             }
@@ -230,14 +231,9 @@ public class MemberDto
                 {
                     return true;
                 }
-
             }
         }
-        catch (IdNotFoundException ex)
-        {
-            Logger.getLogger(MemberDto.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        catch (RemoteException ex)
+        catch (IdNotFoundException | RemoteException ex)
         {
             Logger.getLogger(MemberDto.class.getName()).log(Level.SEVERE, null, ex);
         }

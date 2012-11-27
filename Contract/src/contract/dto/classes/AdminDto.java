@@ -4,8 +4,9 @@
  */
 package contract.dto.classes;
 
-import java.util.HashMap;
+import contract.domain.IAdmin;
 import contract.dto.IAdminDto;
+import java.util.HashMap;
 
 /**
  @author Thomas
@@ -21,9 +22,9 @@ public class AdminDto
         this.setName("Admin");
         this.setDescription("Admin");
     }
-    private static HashMap<contract.domain.IAdmin, AdminDto> admins = new HashMap<>();
+    private static HashMap<IAdmin, AdminDto> admins = new HashMap<>();
 
-    public static AdminDto copy(contract.domain.IAdmin admin)
+    public static AdminDto copy(IAdmin admin)
     {
         AdminDto a;
 

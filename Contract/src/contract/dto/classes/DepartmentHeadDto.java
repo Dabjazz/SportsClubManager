@@ -1,5 +1,6 @@
 package contract.dto.classes;
 
+import contract.domain.*;
 import contract.dto.IDepartmentHeadDto;
 import java.io.Serializable;
 import java.util.*;
@@ -9,9 +10,9 @@ public class DepartmentHeadDto
         implements Serializable, IDepartmentHeadDto
 {
     private List<Integer> departmentList = new LinkedList<>();
-    private static HashMap<contract.domain.IDepartmentHead, DepartmentHeadDto> departmentHeads = new HashMap<>();
+    private static HashMap<IDepartmentHead, DepartmentHeadDto> departmentHeads = new HashMap<>();
 
-    public static DepartmentHeadDto copy(contract.domain.IDepartmentHead departmentHead)
+    public static DepartmentHeadDto copy(IDepartmentHead departmentHead)
     {
         DepartmentHeadDto a;
 
@@ -25,7 +26,7 @@ public class DepartmentHeadDto
 
             List<Integer> l = new LinkedList<>();
 
-            for (contract.domain.IDepartment t : departmentHead.getDepartmentList())
+            for (IDepartment t : departmentHead.getDepartmentList())
             {
                 l.add(t.getId());
             }

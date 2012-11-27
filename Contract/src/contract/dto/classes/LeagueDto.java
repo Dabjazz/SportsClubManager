@@ -1,9 +1,10 @@
 package contract.dto.classes;
 
+import contract.domain.*;
 import contract.dto.*;
-import contract.dto.mapper.*;
+import contract.dto.mapper.IdNotFoundException;
 import java.io.Serializable;
-import java.rmi.*;
+import java.rmi.RemoteException;
 import java.util.*;
 import java.util.logging.*;
 
@@ -31,9 +32,9 @@ public class LeagueDto
     {
         return id;
     }
-    private static HashMap<contract.domain.ILeague, LeagueDto> leagues = new HashMap<>();
+    private static HashMap<ILeague, LeagueDto> leagues = new HashMap<>();
 
-    public static LeagueDto copy(contract.domain.ILeague league)
+    public static LeagueDto copy(ILeague league)
     {
         LeagueDto a;
 
@@ -48,12 +49,12 @@ public class LeagueDto
             a.setName(league.getName());
             a.setDescription(league.getDescription());
 
-            for (contract.domain.ICompetition c : league.getCompetitions())
+            for (ICompetition c : league.getCompetitions())
             {
                 a.competitions.add(c.getId());
             }
 
-            for (contract.domain.ITeam d : league.getTeamList())
+            for (ITeam d : league.getTeamList())
             {
                 a.teamList.add(d.getId());
             }

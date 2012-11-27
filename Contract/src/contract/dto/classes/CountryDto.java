@@ -1,11 +1,11 @@
 package contract.dto.classes;
 
-import java.io.Serializable;
-import java.util.*;
+import contract.domain.ICountry;
 import contract.dto.ICountryDto;
+import java.io.Serializable;
+import java.util.HashMap;
 
 /**
-
  @author Markus Mohanty <markus.mo at gmx.net>
  */
 public class CountryDto
@@ -22,7 +22,7 @@ public class CountryDto
     private String italiano;
     private String portugues;
 
-  public  CountryDto()
+    public CountryDto()
     {
     }
 
@@ -36,9 +36,9 @@ public class CountryDto
     {
         return id;
     }
-    private static HashMap<contract.domain.ICountry, CountryDto> countries = new HashMap<>();
+    private static HashMap<ICountry, CountryDto> countries = new HashMap<>();
 
-    public static CountryDto copy(contract.domain.ICountry country)
+    public static CountryDto copy(ICountry country)
     {
         CountryDto a;
 

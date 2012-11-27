@@ -1,12 +1,9 @@
 package contract.dto.classes;
 
-import contract.domain.ICompetition;
-import contract.domain.ILeague;
-import contract.domain.IMatch;
+import contract.domain.*;
+import contract.dto.IClubTeamDto;
 import java.io.Serializable;
 import java.util.*;
-import contract.dto.IClubTeamDto;
-import contract.dto.ICompetitionDto;
 
 public class ClubTeamDto
         extends TeamDto
@@ -19,9 +16,9 @@ public class ClubTeamDto
     public ClubTeamDto() {
         super();
     }
-    private static HashMap<contract.domain.IClubTeam, ClubTeamDto> clubTeams = new HashMap<>();
+    private static HashMap<IClubTeam, ClubTeamDto> clubTeams = new HashMap<>();
 
-    public static ClubTeamDto copy(contract.domain.IClubTeam clubTeam) {
+    public static ClubTeamDto copy(IClubTeam clubTeam) {
         ClubTeamDto a;
 
         if (clubTeams.containsKey(clubTeam)) {
@@ -59,7 +56,7 @@ public class ClubTeamDto
             // department list
             List<Integer> departmentList = new LinkedList<>();
 
-            for (contract.domain.IDepartment t : clubTeam.getDepartmentList()) {
+            for (IDepartment t : clubTeam.getDepartmentList()) {
                 departmentList.add(t.getId());
             }
             a.setDepartmentList(departmentList);
@@ -67,7 +64,7 @@ public class ClubTeamDto
             // trainer list
             List<Integer> trainerList = new LinkedList<>();
 
-            for (contract.domain.ITrainer t : clubTeam.getTrainerList()) {
+            for (ITrainer t : clubTeam.getTrainerList()) {
                 trainerList.add(t.getId());
             }
             a.setTrainerList(trainerList);
@@ -75,7 +72,7 @@ public class ClubTeamDto
             // player list
             List<Integer> playerList = new LinkedList<>();
 
-            for (contract.domain.IPlayer t : clubTeam.getPlayerList()) {
+            for (IPlayer t : clubTeam.getPlayerList()) {
                 playerList.add(t.getId());
             }
             a.setPlayerList(playerList);

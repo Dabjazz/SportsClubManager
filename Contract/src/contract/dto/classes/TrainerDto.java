@@ -1,8 +1,8 @@
 package contract.dto.classes;
 
+import contract.dto.ITrainerDto;
 import java.io.Serializable;
 import java.util.*;
-import contract.dto.ITrainerDto;
 
 public class TrainerDto
         extends RoleDto

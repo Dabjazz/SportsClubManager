@@ -1,5 +1,6 @@
 package contract.dto.classes;
 
+import contract.domain.IPermission;
 import java.io.Serializable;
 import java.util.HashMap;
 import contract.dto.IPermissionDto;
@@ -10,7 +11,7 @@ public class PermissionDto
     private int id;
     private String name;
     private String description;
-    private static HashMap<contract.domain.IPermission, PermissionDto> competitions = new HashMap<>();
+    private static HashMap<IPermission, PermissionDto> competitions = new HashMap<>();
 
     public PermissionDto()
     {
@@ -21,7 +22,7 @@ public class PermissionDto
         this.id = id;
     }
 
-    public static PermissionDto copy(contract.domain.IPermission permission)
+    public static PermissionDto copy(IPermission permission)
     {
         PermissionDto a;
 

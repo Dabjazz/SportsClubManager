@@ -1,5 +1,6 @@
 package contract.dto.classes;
 
+import contract.domain.IAddress;
 import contract.dto.IAddressDto;
 import java.io.Serializable;
 import java.util.HashMap;
@@ -13,14 +14,14 @@ public class AddressDto
     private String village;
     private int postalCode;
     private int country;
-    private static HashMap<contract.domain.IAddress, AddressDto> addresses = new HashMap<>();
+    private static HashMap<IAddress, AddressDto> addresses = new HashMap<>();
 
     AddressDto(int id)
     {
         this.id = id;
     }
 
-    public static AddressDto copy(contract.domain.IAddress address)
+    public static AddressDto copy(IAddress address)
     {
         AddressDto a;
 

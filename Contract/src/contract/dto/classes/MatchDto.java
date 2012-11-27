@@ -1,12 +1,12 @@
 package contract.dto.classes;
 
+import contract.domain.IMatch;
 import contract.dto.*;
 import contract.dto.mapper.IdNotFoundException;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.*;
 import java.util.logging.*;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class MatchDto
         implements Serializable, IMatchDto
@@ -34,9 +34,9 @@ public class MatchDto
     {
         return id;
     }
-    private static HashMap<contract.domain.IMatch, MatchDto> matchs = new HashMap<>();
+    private static HashMap<IMatch, MatchDto> matchs = new HashMap<>();
 
-    public static MatchDto copy(contract.domain.IMatch match)
+    public static MatchDto copy(IMatch match)
     {
         MatchDto a;
 

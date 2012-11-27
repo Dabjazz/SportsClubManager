@@ -4,6 +4,7 @@
  */
 package contract.dto.classes;
 
+import contract.domain.ICaretaker;
 import contract.dto.ICaretakerDto;
 import java.util.HashMap;
 
@@ -21,9 +22,9 @@ public class CaretakerDto
         this.setName("Caretaker");
         this.setDescription("Caretaker");
     }
-    private static HashMap<contract.domain.ICaretaker, CaretakerDto> admins = new HashMap<>();
+    private static HashMap<ICaretaker, CaretakerDto> admins = new HashMap<>();
 
-    public static CaretakerDto copy(contract.domain.ICaretaker admin)
+    public static CaretakerDto copy(ICaretaker admin)
     {
         CaretakerDto a;
 

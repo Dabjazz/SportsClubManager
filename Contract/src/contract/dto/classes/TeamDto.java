@@ -1,9 +1,9 @@
 package contract.dto.classes;
 
 import contract.domain.ILeague;
+import contract.dto.ITeamDto;
 import java.io.Serializable;
 import java.util.*;
-import contract.dto.ITeamDto;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class TeamDto

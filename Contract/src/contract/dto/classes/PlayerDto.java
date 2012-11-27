@@ -1,6 +1,6 @@
 package contract.dto.classes;
 
-import contract.domain.IClubTeam;
+import contract.domain.*;
 import contract.dto.IPlayerDto;
 import java.io.Serializable;
 import java.util.*;
@@ -10,11 +10,10 @@ public class PlayerDto
         implements Serializable, IPlayerDto
 {
     private List<Integer> typeOfSportList;
-    private List<Integer> memberList;
     private List<Integer> clubTeamList;
-    private static HashMap<contract.domain.IPlayer, PlayerDto> players = new HashMap<>();
+    private static HashMap<IPlayer, PlayerDto> players = new HashMap<>();
 
-    public static PlayerDto copy(contract.domain.IPlayer player)
+    public static PlayerDto copy(IPlayer player)
     {
         PlayerDto a;
 
@@ -28,7 +27,7 @@ public class PlayerDto
 
             List<Integer> l = new LinkedList<>();
 
-            for (contract.domain.ITypeOfSport t : player.getTypeOfSportList())
+            for (ITypeOfSport t : player.getTypeOfSportList())
             {
                 l.add(t.getId());
             }
@@ -72,9 +71,10 @@ public class PlayerDto
     {
         return clubTeamList;
     }
-    
+
     @Override
-    public String toString() {
+    public String toString()
+    {
         return getName();
     }
 }

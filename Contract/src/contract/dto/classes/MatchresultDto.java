@@ -1,8 +1,9 @@
 package contract.dto.classes;
 
+import contract.domain.IMatchresult;
+import contract.dto.IMatchresultDto;
 import java.io.Serializable;
 import java.util.HashMap;
-import contract.dto.IMatchresultDto;
 
 public class MatchresultDto
         implements Serializable, IMatchresultDto
@@ -20,9 +21,9 @@ public class MatchresultDto
     {
         this.id = id;
     }
-    private static HashMap<contract.domain.IMatchresult, MatchresultDto> matchresults = new HashMap<>();
+    private static HashMap<IMatchresult, MatchresultDto> matchresults = new HashMap<>();
 
-    public static MatchresultDto copy(contract.domain.IMatchresult matchresult)
+    public static MatchresultDto copy(IMatchresult matchresult)
     {
         MatchresultDto a;
 
