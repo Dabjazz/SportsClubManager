@@ -39,6 +39,7 @@ public class RmiServiceClientImpl
         try
         {
             rmiServiceClient = (RmiServiceClient) Naming.lookup("rmi://" + host + ":" + port + "/CommunicationFactory");
+            System.out.println("RMI service client fetched");
         }
         catch (NotBoundException | MalformedURLException | RemoteException ex)
         {
