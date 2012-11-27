@@ -11,20 +11,17 @@ import server.utils.HibernateUtil;
  *
  * @author Markus Mohanty <markus.mo at gmx.net>
  */
-public class DomainFacade
-{
+public class DomainFacade {
+
     private static DomainFacade instance;
     private static Session session;
 
-    private DomainFacade()
-    {
-        session = HibernateUtil.getSessionFactory().getCurrentSession();
+    private DomainFacade() {
+        session = HibernateUtil.getSessionFactory().openSession();
     }
 
-    public static DomainFacade getInstance()
-    {
-        if (instance == null)
-        {
+    public static DomainFacade getInstance() {
+        if (instance == null) {
             instance = new DomainFacade();
         }
         return instance;
@@ -37,8 +34,7 @@ public class DomainFacade
      * @param to end of time span
      * @return all competitions between a timespan given
      */
-    public ArrayList<Competition> getCompetitionsByDate(Date From, Date to)
-    {
+    public ArrayList<Competition> getCompetitionsByDate(Date From, Date to) {
         session.beginTransaction();
         Query query = session.createQuery("From Competition where dateFrom >= :From and dateTo <= :to");
         query.setParameter("From", From);
@@ -46,17 +42,13 @@ public class DomainFacade
         return (ArrayList<Competition>) query.list();
     }
 
-    public Member getMemberByUsername(String username) throws CouldNotFetchException
-    {
-        try
-        {
+    public Member getMemberByUsername(String username) throws CouldNotFetchException {
+        try {
             session.beginTransaction();
             Query q = session.createQuery("From Member where Username = :Username");
             q.setParameter("Username", username);
             return (Member) q.uniqueResult();
-        }
-        catch (HibernateException ex)
-        {
+        } catch (HibernateException ex) {
             throw new CouldNotFetchException(ex.getMessage());
         }
     }
@@ -67,13 +59,12 @@ public class DomainFacade
      * @param sport the sport the department belongs to
      * @return the department of the sport
      */
-    public Department getDepartmentsBySport(TypeOfSport sport)
-    {
+    public Department getDepartmentsBySport(TypeOfSport sport) {
         session.beginTransaction();
         Query q = session.createQuery("Select dep From Department as dep"
                 + " inner join dep.typeOfSports as sport"
                 + " where sport = :sport");
-        
+
         q.setParameter("sport", sport);
         return (Department) q.uniqueResult();
     }
@@ -84,8 +75,7 @@ public class DomainFacade
      * @param competition the competition the matches are in
      * @return all matches of the competition given
      */
-    public ArrayList<Match> getMatchesByCompetition(Competition competition)
-    {
+    public ArrayList<Match> getMatchesByCompetition(Competition competition) {
         session.beginTransaction();
         Query query = session.createQuery("From Match where competition = :competition");
         query.setParameter("competition", competition);
@@ -99,8 +89,7 @@ public class DomainFacade
      * @param lastname the lastname of the member
      * @return a member with the firstname and lastname given
      */
-    public Member getMemberByName(String firstname, String lastname)
-    {
+    public Member getMemberByName(String firstname, String lastname) {
         session.beginTransaction();
         Query query = session.createQuery("From Member "
                 + "where prename = :firstname and lastname = :lastname");
@@ -117,21 +106,16 @@ public class DomainFacade
      * @param name name of the object
      * @return a object with a name given
      */
-    public <T> T getByName(Class<T> clazz, String name)
-    {
+    public <T> T getByName(Class<T> clazz, String name) {
         session.beginTransaction();
         return (T) session.createCriteria(clazz).add(Restrictions.eq("name", name)).uniqueResult();
     }
 
-    public <T> T getByID(Class<T> clazz, Integer id) throws CouldNotFetchException
-    {
-        try
-        {
+    public <T> T getByID(Class<T> clazz, Integer id) throws CouldNotFetchException {
+        try {
             session.beginTransaction();
             return (T) session.createCriteria(clazz).add(Restrictions.eq("id", id)).uniqueResult();
-        }
-        catch (HibernateException ex)
-        {
+        } catch (HibernateException ex) {
             throw new CouldNotFetchException(ex.getMessage());
         }
     }
@@ -145,18 +129,18 @@ public class DomainFacade
      * @throws CouldNotSaveException
      */
     public <T extends IDomain> Integer set(T expected)
-            throws CouldNotSaveException
-    {
-        try
-        {
+            throws CouldNotSaveException {
+        try {
             Transaction t = session.beginTransaction();
-            session.saveOrUpdate(expected);
+            if (expected.getId() != null) {
+                session.merge(expected);
+            } else {
+                session.saveOrUpdate(expected);
+            }
             t.commit();
 
             return expected.getId();
-        }
-        catch (HibernateException ex)
-        {
+        } catch (HibernateException ex) {
             throw new CouldNotSaveException(ex);
         }
     }
@@ -169,16 +153,12 @@ public class DomainFacade
      * @throws CouldNotDeleteException
      */
     public <T> void delete(T expected)
-            throws CouldNotDeleteException
-    {
-        try
-        {
+            throws CouldNotDeleteException {
+        try {
             Transaction t = session.beginTransaction();
             session.delete(expected);
             t.commit();
-        }
-        catch (HibernateException ex)
-        {
+        } catch (HibernateException ex) {
             throw new CouldNotDeleteException(ex);
         }
     }
@@ -190,23 +170,17 @@ public class DomainFacade
      * @param clazz the class instance of the table, i.e. Table.class
      * @return a list of entries
      */
-    public <T extends IDomain> List<T> getAll(Class<T> clazz) throws CouldNotFetchException
-    {
-        try
-        {
+    public <T extends IDomain> List<T> getAll(Class<T> clazz) throws CouldNotFetchException {
+        try {
             session.beginTransaction();
             return (List<T>) session.createCriteria(clazz).list();
-        }
-        catch (HibernateException ex)
-        {
+        } catch (HibernateException ex) {
             throw new CouldNotFetchException(ex.getMessage());
         }
     }
 
-    public League getLeageByNameAndTypeOfSport(ITypeOfSport t, String leaguename) throws CouldNotFetchException
-    {
-        try
-        {
+    public League getLeageByNameAndTypeOfSport(ITypeOfSport t, String leaguename) throws CouldNotFetchException {
+        try {
             session.beginTransaction();
             Query q = session.createQuery("Select league From League as league"
                     + " inner join league.typeOfSport as sport"
@@ -215,14 +189,12 @@ public class DomainFacade
             q.setParameter("sport", t.getId());
             q.setParameter("leaguename", leaguename);
             return (League) q.uniqueResult();
-        }
-        catch (HibernateException ex)
-        {
+        } catch (HibernateException ex) {
             throw new CouldNotFetchException(ex.getMessage());
         }
     }
-    
-    public List<ClubTeam> getClubTeamsByTypeOfSport(ITypeOfSport sport) throws CouldNotFetchException{
+
+    public List<ClubTeam> getClubTeamsByTypeOfSport(ITypeOfSport sport) throws CouldNotFetchException {
         try {
             session.beginTransaction();
             Query q = session.createQuery("Select team From ClubTeam as team"
@@ -230,9 +202,7 @@ public class DomainFacade
                     + " where sport = :tsport");
             q.setParameter("tsport", sport);
             return q.list();
-        } 
-        catch (HibernateException e) 
-        {
+        } catch (HibernateException e) {
             throw new CouldNotFetchException(e.getMessage());
         }
     }

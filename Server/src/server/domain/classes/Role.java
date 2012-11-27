@@ -21,11 +21,11 @@ public class Role
     @Id
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
+    protected Integer id;
     @Column(name = "Name")
-    private String name;
+    protected String name;
     @Column(name = "Description")
-    private String description;
+    protected String description;
     @JoinTable(name = "Role_has_Permission", joinColumns =
     {
         @JoinColumn(name = "Role_idRole", referencedColumnName = "id")
@@ -34,10 +34,10 @@ public class Role
         @JoinColumn(name = "Permission_idPermission", referencedColumnName = "id")
     })
     @ManyToMany(fetch = FetchType.LAZY)
-    private List<Permission> permissionList;
+    protected List<Permission> permissionList;
     @JoinColumn(name="MemberId",referencedColumnName="id")
     @ManyToOne
-    private Member member;
+    protected Member member;
 
     public Role()
     {

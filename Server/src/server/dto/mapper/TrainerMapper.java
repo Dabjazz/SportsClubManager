@@ -4,6 +4,7 @@
  */
 package server.dto.mapper;
 
+import contract.dto.mapper.IRoleMapper;
 import contract.domain.*;
 import contract.dto.ITrainerDto;
 import contract.dto.mapper.*;
@@ -11,13 +12,14 @@ import java.util.*;
 import java.util.logging.*;
 import server.domain.DomainFacade;
 import contract.dto.classes.TrainerDto;
+import server.domain.classes.Role;
 
 /**
 
  @author Thomas
  */
 public class TrainerMapper
-        implements IMapper<ITrainerDto>
+        implements ITrainerMapper
 {
     private static TrainerMapper controller;
 
@@ -25,7 +27,7 @@ public class TrainerMapper
     {
     }
 
-    public static IMapper<ITrainerDto> getInstance()
+    public static ITrainerMapper getInstance()
     {
         if (controller == null)
         {
@@ -157,5 +159,30 @@ public class TrainerMapper
     public ITrainerDto getNew()
     {
         return new TrainerDto();
+    }
+
+    @Override
+    public ITrainerDto getMemberById(Integer id) throws IdNotFoundException {
+        ITrainerDto dto = null;
+        try
+        {
+            List<Role> all = DomainFacade.getInstance().getAll(server.domain.classes.Role.class);
+            for(Role r : all)
+            {
+                if(r.getMember().getId() == id)
+                {
+                    if(r instanceof server.domain.classes.Trainer)
+                    {
+                        dto=TrainerDto.copy((server.domain.classes.Trainer)r);
+                    }
+                }
+            }
+
+            return dto;
+        }
+        catch (CouldNotFetchException ex)
+        {
+            throw new IdNotFoundException();
+        }
     }
 }

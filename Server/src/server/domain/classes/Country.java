@@ -23,21 +23,21 @@ public class Country
     @Basic(optional = false)
     @Column(name = "Name")
     private String name;
-    @Column(name = "Alpha3")
+    @Column(name = "Alpha3",nullable=true)
     private String alpha3;
-    @Column(name = "Alpha2")
+    @Column(name = "Alpha2",nullable=true)
     private String alpha2;
-    @Column(name = "TLD")
+    @Column(name = "TLD", nullable=true)
     private String tld;
-    @Column(name = "Deutsch")
+    @Column(name = "Deutsch", nullable=true)
     private String deutsch;
-    @Column(name = "Espanol")
+    @Column(name = "Espanol", nullable=true)
     private String espanol;
-    @Column(name = "Francaise")
+    @Column(name = "Francaise", nullable=true)
     private String francaise;
-    @Column(name = "Italiano")
+    @Column(name = "Italiano", nullable=true)
     private String italiano;
-    @Column(name = "Portugues")
+    @Column(name = "Portugues", nullable=true)
     private String portugues;
 
     public Country()

@@ -28,14 +28,14 @@ public class DtoFactory
     }
 
     @Override
-    public IMapper<IAdminDto> getAdminMapper()
+    public IAdminMapper getAdminMapper()
             throws RemoteException
     {
         return AdminMapper.getInstance();
     }
 
     @Override
-    public IMapper<ICaretakerDto> getCaretakerMapper()
+    public ICaretakerMapper getCaretakerMapper()
             throws RemoteException
     {
         return CaretakerMapper.getInstance();
@@ -105,14 +105,14 @@ public class DtoFactory
     }
 
     @Override
-    public IMapper<ITrainerDto> getTrainerMapper()
+    public ITrainerMapper getTrainerMapper()
             throws RemoteException
     {
         return TrainerMapper.getInstance();
     }
 
     @Override
-    public IMapper<IDepartmentHeadDto> getDepartmentHeadMapper()
+    public IDepartmentHeadMapper getDepartmentHeadMapper()
             throws RemoteException
     {
         return DepartmentHeadMapper.getInstance();
@@ -133,7 +133,7 @@ public class DtoFactory
     }
 
     @Override
-    public IMapper<IPlayerDto> getPlayerMapper()
+    public IPlayerMapper getPlayerMapper()
             throws RemoteException
     {
         return PlayerMapper.getInstance();

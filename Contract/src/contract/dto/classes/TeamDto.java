@@ -7,8 +7,8 @@ import java.util.*;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class TeamDto
-        implements Serializable, ITeamDto
-{
+        implements Serializable, ITeamDto {
+
     private int id;
     private String name;
     private String description;
@@ -17,32 +17,25 @@ public class TeamDto
     private Integer league;
     private static HashMap<contract.domain.ITeam, TeamDto> teams = new HashMap<>();
 
-    public TeamDto()
-    {
+    public TeamDto() {
     }
 
-    public static TeamDto copy(contract.domain.ITeam team)
-    {
+    public static TeamDto copy(contract.domain.ITeam team) {
         TeamDto a;
 
-        if (teams.containsKey(team))
-        {
+        if (teams.containsKey(team)) {
             a = teams.get(team);
-        }
-        else
-        {
+        } else {
             a = new TeamDto();
 
             a.setName(team.getName());
             a.setDescription(team.getDescription());
             a.setLeague(team.getLeague().getId());
-            for (contract.domain.ICompetition c : team.getCompetitionList())
-            {
+            for (contract.domain.ICompetition c : team.getCompetitionList()) {
                 a.competitionList.add(c.getId());
             }
 
-            for (contract.domain.IMatch c : team.getMatchList())
-            {
+            for (contract.domain.IMatch c : team.getMatchList()) {
                 a.matchList.add(c.getId());
             }
 
@@ -53,10 +46,9 @@ public class TeamDto
     }
 
     public static contract.domain.ITeam copy(ITeamDto team,
-                                                               contract.domain.ILeague league,
-                                                               List<contract.domain.ICompetition> competitionList,
-                                                               List<contract.domain.IMatch> matchList)
-    {
+            contract.domain.ILeague league,
+            List<contract.domain.ICompetition> competitionList,
+            List<contract.domain.IMatch> matchList) {
 //        contract.domain.ITeam a = new server.domain.classes.Team(team.getId());
 //
 //        a.setName(team.getName());
@@ -72,80 +64,67 @@ public class TeamDto
     }
 
     @Override
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
     @Override
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
     @Override
-    public String getDescription()
-    {
+    public String getDescription() {
         return description;
     }
 
     @Override
-    public void setDescription(String description)
-    {
+    public void setDescription(String description) {
         this.description = description;
     }
 
     @Override
-    public List<Integer> getCompetitionList()
-    {
+    public List<Integer> getCompetitionList() {
         return competitionList;
     }
 
     @Override
-    public void setCompetitionList(List<Integer> competitionList)
-    {
+    public void setCompetitionList(List<Integer> competitionList) {
         this.competitionList = competitionList;
     }
 
     @Override
-    public List<Integer> getMatchList()
-    {
+    public List<Integer> getMatchList() {
         return matchList;
     }
 
     @Override
-    public void setMatchList(List<Integer> matchList)
-    {
+    public void setMatchList(List<Integer> matchList) {
         this.matchList = matchList;
     }
 
     @Override
-    public Integer getLeague()
-    {
+    public Integer getLeague() {
         return league;
     }
 
     @Override
-    public void setLeague(Integer league)
-    {
+    public void setLeague(Integer league) {
         this.league = league;
     }
 
     @Override
-    public Integer getId()
-    {
+    public Integer getId() {
         return id;
     }
 
     @Override
-    public void setLeague(ILeague league)
-    {
+    public void setLeague(ILeague league) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     @Override
-    public String toString()
-    {
+    public String toString() {
         return this.name;
     }
 }

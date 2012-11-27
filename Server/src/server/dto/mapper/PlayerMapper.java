@@ -1,19 +1,21 @@
 package server.dto.mapper;
 
+import contract.dto.mapper.IRoleMapper;
 import contract.domain.*;
 import contract.dto.IPlayerDto;
+import contract.dto.classes.PlayerDto;
 import contract.dto.mapper.*;
 import java.util.*;
 import java.util.logging.*;
 import server.domain.DomainFacade;
-import contract.dto.classes.PlayerDto;
+import server.domain.classes.Role;
 
 /**
 
  @author Thomas
  */
 public class PlayerMapper
-        implements IMapper<IPlayerDto>
+        implements IPlayerMapper
 {
     private static PlayerMapper controller;
 
@@ -21,7 +23,7 @@ public class PlayerMapper
     {
     }
 
-    public static IMapper<IPlayerDto> getInstance()
+    public static IPlayerMapper getInstance()
     {
         if (controller == null)
         {
@@ -145,5 +147,30 @@ public class PlayerMapper
     public IPlayerDto getNew()
     {
         return new PlayerDto();
+    }
+
+    @Override
+    public IPlayerDto getMemberById(Integer id) throws IdNotFoundException {
+        IPlayerDto dto = null;
+        try
+        {
+            List<Role> all = DomainFacade.getInstance().getAll(server.domain.classes.Role.class);
+            for(Role r : all)
+            {
+                if(r.getMember().getId() == id)
+                {
+                    if(r instanceof server.domain.classes.Player)
+                    {
+                        dto=PlayerDto.copy((server.domain.classes.Player)r);
+                    }
+                }
+            }
+
+            return dto;
+        }
+        catch (CouldNotFetchException ex)
+        {
+            throw new IdNotFoundException();
+        }
     }
 }

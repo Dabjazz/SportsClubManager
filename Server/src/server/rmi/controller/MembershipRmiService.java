@@ -10,6 +10,8 @@ import contract.useCaseController.*;
 import java.rmi.*;
 import java.rmi.server.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import server.useCaseController.*;
 
 /**
@@ -29,24 +31,62 @@ public class MembershipRmiService
     @Override
     public List<ITypeOfSportDto> getTypeOfSports(List<Integer> sports)
     {
-        return MembershipController.getInstance().getTypeOfSports(sports);
+        List<ITypeOfSportDto> list = new LinkedList<>();
+       
+        try {
+            list = MembershipController.getInstance().getTypeOfSports(sports);
+        } catch (NetworkFailureException ex) {
+            Logger.getLogger(MembershipRmiService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return list;
     }
 
     @Override
     public List<ITypeOfSportDto> getAllSports()
     {
-        return MembershipController.getInstance().getAllSports();
+        List<ITypeOfSportDto> list = new LinkedList<>();
+        try {
+            list =  MembershipController.getInstance().getAllSports();
+        } catch (NetworkFailureException ex) {
+            Logger.getLogger(MembershipRmiService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
     }
 
     @Override
     public List<IRoleDto> getRoles(Integer id)
     {
-        return MembershipController.getInstance().getRoles(id);
+        List<IRoleDto> list = new LinkedList<>();
+        try {
+            list = MembershipController.getInstance().getRoles(id);
+        } catch (NetworkFailureException ex) {
+            Logger.getLogger(MembershipRmiService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
     }
 
     @Override
     public List<IClubTeamDto> getClubTeams(List<Integer> playerList)
     {
-        return MembershipController.getInstance().getClubTeams(playerList);
+        List<IClubTeamDto> list = new LinkedList<>();
+        try {
+            list =  MembershipController.getInstance().getClubTeams(playerList);
+        } catch (NetworkFailureException ex) {
+            Logger.getLogger(MembershipRmiService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    @Override
+    public IRoleDto setRole(IMemberDto member, String departmentHead, boolean selected)
+    {
+        IRoleDto setRole = null;
+        try {
+            setRole = MembershipController.getInstance().setRole(member, departmentHead, selected);
+        } catch (NetworkFailureException ex) {
+            Logger.getLogger(MembershipRmiService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return setRole;
     }
 }

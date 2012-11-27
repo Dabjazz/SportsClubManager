@@ -6,18 +6,19 @@ package server.dto.mapper;
 
 import contract.domain.*;
 import contract.dto.IDepartmentHeadDto;
+import contract.dto.classes.DepartmentHeadDto;
 import contract.dto.mapper.*;
 import java.util.*;
 import java.util.logging.*;
 import server.domain.DomainFacade;
-import contract.dto.classes.DepartmentHeadDto;
+import server.domain.classes.Role;
 
 /**
  *
  * @author Thomas
  */
 public class DepartmentHeadMapper
-        implements IMapper<IDepartmentHeadDto>
+        implements IDepartmentHeadMapper
 {
     private static DepartmentHeadMapper controller;
 
@@ -25,7 +26,7 @@ public class DepartmentHeadMapper
     {
     }
 
-    public static IMapper<IDepartmentHeadDto> getInstance()
+    public static IDepartmentHeadMapper getInstance()
     {
         if (controller == null)
         {
@@ -145,5 +146,30 @@ public class DepartmentHeadMapper
     public IDepartmentHeadDto getNew()
     {
         return new DepartmentHeadDto();
+    }
+
+    @Override
+    public IDepartmentHeadDto getMemberById(Integer id) throws IdNotFoundException {
+        IDepartmentHeadDto dto = null;
+        try
+        {
+            List<Role> all = DomainFacade.getInstance().getAll(server.domain.classes.Role.class);
+            for(Role r : all)
+            {
+                if(r.getMember().getId() == id)
+                {
+                    if(r instanceof server.domain.classes.DepartmentHead)
+                    {
+                        dto=DepartmentHeadDto.copy((server.domain.classes.DepartmentHead)r);
+                    }
+                }
+            }
+
+            return dto;
+        }
+        catch (CouldNotFetchException ex)
+        {
+            throw new IdNotFoundException();
+        }
     }
 }

@@ -6,17 +6,18 @@ package server.dto.mapper;
 
 import contract.domain.*;
 import contract.dto.IAdminDto;
+import contract.dto.classes.AdminDto;
 import contract.dto.mapper.*;
 import java.util.*;
 import java.util.logging.*;
 import server.domain.DomainFacade;
-import contract.dto.classes.AdminDto;
+import server.domain.classes.Role;
 
 /**
  @author Thomas
  */
 public class AdminMapper
-        implements IMapper<IAdminDto>
+        implements IAdminMapper
 {
     private static AdminMapper controller;
 
@@ -24,7 +25,7 @@ public class AdminMapper
     {
     }
 
-    public static IMapper<IAdminDto> getInstance()
+    public static IAdminMapper getInstance()
     {
         if (controller == null)
         {
@@ -131,5 +132,31 @@ public class AdminMapper
     public IAdminDto getNew()
     {
         return new AdminDto();
+    }
+
+    @Override
+    public IAdminDto getMemberById(Integer id) throws IdNotFoundException {
+        
+        IAdminDto dto = null;
+        try
+        {
+            List<Role> all = DomainFacade.getInstance().getAll(server.domain.classes.Role.class);
+            for(Role r : all)
+            {
+                if(r.getMember().getId() == id)
+                {
+                    if(r instanceof server.domain.classes.Admin)
+                    {
+                        dto=AdminDto.copy((server.domain.classes.Admin)r);
+                    }
+                }
+            }
+
+            return dto;
+        }
+        catch (CouldNotFetchException ex)
+        {
+            throw new IdNotFoundException();
+        }
     }
 }

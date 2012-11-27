@@ -26,4 +26,7 @@ public interface IMembershipRmiService
 
     public List<IClubTeamDto> getClubTeams(List<Integer> playerList)
             throws RemoteException;
+    
+    public IRoleDto setRole(IMemberDto member, String departmentHead, boolean selected)
+            throws RemoteException;
 }

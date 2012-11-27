@@ -206,15 +206,8 @@ public class SearchMemberForm
 
     private void btnApplyChangeActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnApplyChangeActionPerformed
     {//GEN-HEADEREND:event_btnApplyChangeActionPerformed
-        if (dataExists)
-        {
-            save();
-            //TODO: Throw exception in case of an error !!!!!
-        }
-        else
-        {
-            JOptionPane.showMessageDialog(parent, "There is no data to change!");
-        }
+        save();
+            //TODO: Throw exception in case of an error !!!!!        
     }//GEN-LAST:event_btnApplyChangeActionPerformed
 
     private void tableMemberValueChanged(ListSelectionEvent e)

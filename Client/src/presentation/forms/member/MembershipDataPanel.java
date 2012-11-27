@@ -7,120 +7,84 @@ package presentation.forms.member;
 import contract.dto.*;
 import contract.dto.classes.*;
 import contract.useCaseController.IMembershipController;
+import contract.useCaseController.NetworkFailureException;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import presentation.forms.helper.SelectTeamsHelper;
 
 /**
-
- @author Thomas
+ *
+ * @author Thomas
  */
 public class MembershipDataPanel
-        extends javax.swing.JPanel
-{
+        extends javax.swing.JPanel {
+
     private IMemberDto member;
     private List<ITypeOfSportDto> selectedSports = new LinkedList<>();
     private List<IClubTeamDto> selectedTrainerTeams;
     private List<IClubTeamDto> selectedPlayerTeams;
     private IMembershipController controller;
 
-    public IMembershipController getController()
-    {
+    public IMembershipController getController() {
         return controller;
     }
 
-    public void setController(IMembershipController controller)
-    {
+    public void setController(IMembershipController controller) {
         this.controller = controller;
     }
 
-    public IMemberDto getMember()
-    {
-        List<IRoleDto> roles = new LinkedList<>();
+    public IMemberDto getMember() {
+        try {
+            List<IRoleDto> roles = new LinkedList<>();
 
-        if (radioAdmin.isSelected())
-        {
-            IRoleDto r = new AdminDto();
-            r.setMember(member.getId());
+            controller.setRole(member, "Admin", radioAdmin.isSelected());
+            controller.setRole(member, "Caretaker", radioCaretaker.isSelected());
+            controller.setRole(member, "DepartmentHead", radioDepHead.isSelected());
+            ITrainerDto trainer = (ITrainerDto) controller.setRole(member, "Trainer", radioTrainer.isSelected());
+            IPlayerDto player = (IPlayerDto) controller.setRole(member, "Player", radioPlayer.isSelected());
 
-            roles.add(r);
-        }
-        if (radioCaretaker.isSelected())
-        {
-            IRoleDto r = new CaretakerDto();
-            r.setMember(member.getId());
-
-            roles.add(r);
-        }
-        if (radioDepHead.isSelected())
-        {
-            IRoleDto r = new DepartmentHeadDto();
-            r.setMember(member.getId());
-
-            roles.add(r);
-        }
-        if (radioTrainer.isSelected())
-        {
-            ITrainerDto trainer = new TrainerDto();
-            trainer.setMember(member.getId());
             trainer.setTypeOfSportList(getSelectedSports());
             trainer.setClubTeamList(getSelectedTeamIds(selectedTrainerTeams));
 
-            roles.add(trainer);
-        }
-        if (radioPlayer.isSelected())
-        {
-            IPlayerDto player = new PlayerDto();
-            player.setMember(member.getId());
             player.setTypeOfSportList(getSelectedSports());
             player.setClubTeamList(getSelectedTeamIds(selectedPlayerTeams));
 
-            roles.add(player);
-        }
+            member.setMemberFrom(dateEntry.getDate());
 
-        List<Integer> roleInt = new LinkedList<>();
-        for (IRoleDto role : roles)
-        {
-            roleInt.add(role.getId());
+        } catch (NetworkFailureException ex) {
+            Logger.getLogger(MembershipDataPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
-        member.setRoleList(roleInt);
-        member.setMemberFrom(dateEntry.getDate());
 
         return member;
     }
 
-    public void setMember(IMemberDto member)
-    {
-        for (IRoleDto role : controller.getRoles(member.getId()))
-        {
-            if (role instanceof IAdminDto)
-            {
-                radioAdmin.setSelected(true);
-                disableExtendedRadioSelection();
+    public void setMember(IMemberDto member) {
+        try {
+            for (IRoleDto role : controller.getRoles(member.getId())) {
+                if (role instanceof IAdminDto) {
+                    radioAdmin.setSelected(true);
+                    disableExtendedRadioSelection();
+                } else if (role instanceof ICaretakerDto) {
+                    radioCaretaker.setSelected(true);
+                } else if (role instanceof IDepartmentHeadDto) {
+                    radioDepHead.setSelected(true);
+                } else if (role instanceof ITrainerDto) {
+                    radioTrainer.setSelected(true);
+                    setSelectedSports(role);
+                } else if (role instanceof IPlayerDto) {
+                    radioPlayer.setSelected(true);
+                    setSelectedSports(role);
+                }
             }
-            else if (role instanceof ICaretakerDto)
-            {
-                radioCaretaker.setSelected(true);
-            }
-            else if (role instanceof IDepartmentHeadDto)
-            {
-                radioDepHead.setSelected(true);
-            }
-            else if (role instanceof ITrainerDto)
-            {
-                radioTrainer.setSelected(true);
-                setSelectedSports(role);
-            }
-            else if (role instanceof IPlayerDto)
-            {
-                radioPlayer.setSelected(true);
-                setSelectedSports(role);
-            }
+        } catch (NetworkFailureException ex) {
+            Logger.getLogger(MembershipDataPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         txtfieldMemberNr.setText(member.getId() + "");
         dateEntry.setDate(member.getMemberFrom());
-        
+
         updateSelectedClubTeamList(member);
         updateSelectedTypeOfSportList(member);
 
@@ -129,143 +93,124 @@ public class MembershipDataPanel
         this.member = member;
     }
 
-    private void updateSelectedClubTeamList(IMemberDto selectedMember)
-    {
-        List<Integer> trainerList = new LinkedList<>();
-        List<Integer> playerList = new LinkedList<>();
+    private void updateSelectedClubTeamList(IMemberDto selectedMember) {
+        try {
+            List<Integer> trainerList = new LinkedList<>();
+            List<Integer> playerList = new LinkedList<>();
 
-        for (IRoleDto role : controller.getRoles(selectedMember.getId()))
-        {
-            if (role instanceof ITrainerDto)
-            {
-                for (Integer t : ((ITrainerDto) role).getClubTeamList())
-                {
-                    trainerList.add(t);
+            for (IRoleDto role : controller.getRoles(selectedMember.getId())) {
+                if (role instanceof ITrainerDto) {
+                    for (Integer t : ((ITrainerDto) role).getClubTeamList()) {
+                        trainerList.add(t);
+                    }
+                } else if (role instanceof IPlayerDto) {
+                    for (Integer t : ((IPlayerDto) role).getClubTeamList()) {
+                        playerList.add(t);
+                    }
                 }
             }
-            else if (role instanceof IPlayerDto)
-            {
-                for (Integer t : ((IPlayerDto) role).getClubTeamList())
-                {
-                    playerList.add(t);
-                }
-            }
+
+            selectedTrainerTeams = controller.getClubTeams(trainerList);
+            selectedPlayerTeams = controller.getClubTeams(playerList);
+        } catch (NetworkFailureException ex) {
+            Logger.getLogger(MembershipDataPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        selectedTrainerTeams = controller.getClubTeams(trainerList);
-        selectedPlayerTeams = controller.getClubTeams(playerList);
     }
 
-    private void updateSelectedTypeOfSportList(IMemberDto selectedMember)
-    {
+    private void updateSelectedTypeOfSportList(IMemberDto selectedMember) {
+        try {
+            List<Integer> sports = new LinkedList<>();
 
-        List<Integer> sports = new LinkedList<>();
-
-        for (IRoleDto role : controller.getRoles(selectedMember.getId()))
-        {
-            if (role instanceof ITrainerDto)
-            {
-                for (Integer t : ((ITrainerDto) role).getTypeOfSportList())
-                {
-                    if (sports.contains(t))
-                    {
-                        continue;
-                    }
-                    sports.add(t);
-                }
-            }
-            else if (role instanceof IPlayerDto)
-            {
-                for (Integer t : ((IPlayerDto) role).getTypeOfSportList())
-                {
-                    if (!sports.contains(t))
-                    {
+            for (IRoleDto role : controller.getRoles(selectedMember.getId())) {
+                if (role instanceof ITrainerDto) {
+                    for (Integer t : ((ITrainerDto) role).getTypeOfSportList()) {
+                        if (sports.contains(t)) {
+                            continue;
+                        }
                         sports.add(t);
                     }
+                } else if (role instanceof IPlayerDto) {
+                    for (Integer t : ((IPlayerDto) role).getTypeOfSportList()) {
+                        if (!sports.contains(t)) {
+                            sports.add(t);
+                        }
+                    }
                 }
             }
-        }
 
-        StringBuilder builder = new StringBuilder();
+            StringBuilder builder = new StringBuilder();
 
-        for (ITypeOfSportDto t : controller.getTypeOfSports(sports))
-        {
-            builder.append(t);
-            builder.append(", ");
-        }
-
-        txtFieldSports.setText(builder.toString().substring(0, builder.length() - 2));
-    }
-
-    private void setSelectedSports(IRoleDto role)
-    {
-        List<Integer> typeOfSportsID = null;
-
-        if (role instanceof ITrainerDto)
-        {
-            ITrainerDto tmp = (ITrainerDto) role;
-            typeOfSportsID = tmp.getTypeOfSportList();
-        }
-        else
-        {
-            IPlayerDto tmp = (IPlayerDto) role;
-            typeOfSportsID = tmp.getTypeOfSportList();
-        }
-
-        //add members sports to his/her selectedSportsList
-        for (ITypeOfSportDto tos : controller.getAllSports())
-        {
-            for (Integer i : typeOfSportsID)
-            {
-                if ((tos.getId()).equals(i))
-                {
-                    selectedSports.add(tos);
-                }
+            for (ITypeOfSportDto t : controller.getTypeOfSports(sports)) {
+                builder.append(t);
+                builder.append(", ");
             }
+
+            txtFieldSports.setText(builder.toString().substring(0, builder.length() - 2));
+        } catch (NetworkFailureException ex) {
+            Logger.getLogger(MembershipDataPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    private List<Integer> getSelectedSports()
-    {
+    private void setSelectedSports(IRoleDto role) {
+        try {
+            List<Integer> typeOfSportsID = null;
+
+            if (role instanceof ITrainerDto) {
+                ITrainerDto tmp = (ITrainerDto) role;
+                typeOfSportsID = tmp.getTypeOfSportList();
+            } else {
+                IPlayerDto tmp = (IPlayerDto) role;
+                typeOfSportsID = tmp.getTypeOfSportList();
+            }
+
+            //add members sports to his/her selectedSportsList
+            for (ITypeOfSportDto tos : controller.getAllSports()) {
+                for (Integer i : typeOfSportsID) {
+                    if ((tos.getId()).equals(i)) {
+                        selectedSports.add(tos);
+                    }
+                }
+            }
+        } catch (NetworkFailureException ex) {
+            Logger.getLogger(MembershipDataPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private List<Integer> getSelectedSports() {
         List<Integer> tosIDs = new LinkedList<>();
-
-        for (ITypeOfSportDto tos : controller.getAllSports())
-        {
-            for (ITypeOfSportDto s : selectedSports)
-            {
-                if (s.equals(tos))
-                {
-                    tosIDs.add(tos.getId());
+        try {
+            for (ITypeOfSportDto tos : controller.getAllSports()) {
+                for (ITypeOfSportDto s : selectedSports) {
+                    if (s.equals(tos)) {
+                        tosIDs.add(tos.getId());
+                    }
                 }
             }
+        } catch (NetworkFailureException ex) {
+            Logger.getLogger(MembershipDataPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
         return tosIDs;
     }
 
-    private List<Integer> getSelectedTeamIds(List<IClubTeamDto> teams)
-    {
+    private List<Integer> getSelectedTeamIds(List<IClubTeamDto> teams) {
         List<Integer> result = new LinkedList<>();
 
-        for (IClubTeamDto team : teams)
-        {
+        for (IClubTeamDto team : teams) {
             result.add(team.getId());
         }
 
         return result;
     }
 
-    private void disableExtendedRadioSelection()
-    {
+    private void disableExtendedRadioSelection() {
         radioAdmin.setEnabled(false);
         radioCaretaker.setEnabled(false);
         radioDepHead.setEnabled(false);
         radioTrainer.setEnabled(false);
     }
 
-    public void setPlayerClubTeams(List<IClubTeamDto> selected)
-    {
-        if (selected.isEmpty())
-        {
+    public void setPlayerClubTeams(List<IClubTeamDto> selected) {
+        if (selected.isEmpty()) {
             txtFieldPlayerClubTeam.setText("");
             return;
         }
@@ -274,8 +219,7 @@ public class MembershipDataPanel
 
         StringBuilder sb = new StringBuilder(selectedPlayerTeams.size());
 
-        for (IClubTeamDto ct : selectedPlayerTeams)
-        {
+        for (IClubTeamDto ct : selectedPlayerTeams) {
             sb.append(ct);
             sb.append(", ");
         }
@@ -283,10 +227,8 @@ public class MembershipDataPanel
         txtFieldPlayerClubTeam.setText(sb.toString().substring(0, sb.length() - 2));
     }
 
-    public void setTrainerClubTeams(List<IClubTeamDto> selected)
-    {
-        if (selected.isEmpty())
-        {
+    public void setTrainerClubTeams(List<IClubTeamDto> selected) {
+        if (selected.isEmpty()) {
             txtFieldTrainerClubTeam.setText("");
             return;
         }
@@ -295,8 +237,7 @@ public class MembershipDataPanel
 
         StringBuilder sb = new StringBuilder(selectedTrainerTeams.size());
 
-        for (IClubTeamDto ct : selectedTrainerTeams)
-        {
+        for (IClubTeamDto ct : selectedTrainerTeams) {
             sb.append(ct);
             sb.append(", ");
         }
@@ -305,23 +246,20 @@ public class MembershipDataPanel
     }
 
     /**
-     Creates new form MembershipDataPanel
+     * Creates new form MembershipDataPanel
      */
-    public MembershipDataPanel()
-    {
+    public MembershipDataPanel() {
         initComponents();
     }
 
     /**
-     This method is called from within the constructor to
-     initialize the form.
-     WARNING: Do NOT modify this code. The content of this method is
-     always regenerated by the Form Editor.
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         txtfieldMemberNr = new javax.swing.JTextField();
         btnAddSport = new javax.swing.JButton();
@@ -347,28 +285,22 @@ public class MembershipDataPanel
 
         btnAddSport.setText("Select Sport(s)");
         btnAddSport.setInheritsPopupMenu(true);
-        btnAddSport.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        btnAddSport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddSportActionPerformed(evt);
             }
         });
 
         btnTeams.setText("Select Team(s)");
-        btnTeams.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        btnTeams.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTeamsActionPerformed(evt);
             }
         });
 
         btnTeams1.setText("Select Team(s)");
-        btnTeams1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        btnTeams1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTeams1ActionPerformed(evt);
             }
         });
@@ -388,46 +320,36 @@ public class MembershipDataPanel
         lblRole.setText("Role");
 
         radioAdmin.setText("Admin");
-        radioAdmin.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        radioAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioAdminActionPerformed(evt);
             }
         });
 
         radioCaretaker.setText("Caretaker");
-        radioCaretaker.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        radioCaretaker.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioCaretakerActionPerformed(evt);
             }
         });
 
         radioDepHead.setText("Department Head");
-        radioDepHead.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        radioDepHead.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioDepHeadActionPerformed(evt);
             }
         });
 
         radioTrainer.setText("Trainer");
-        radioTrainer.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        radioTrainer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioTrainerActionPerformed(evt);
             }
         });
 
         radioPlayer.setText("Player");
-        radioPlayer.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        radioPlayer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioPlayerActionPerformed(evt);
             }
         });
@@ -540,12 +462,9 @@ public class MembershipDataPanel
 
     private void btnTeams1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnTeams1ActionPerformed
     {//GEN-HEADEREND:event_btnTeams1ActionPerformed
-        try
-        {
+        try {
             new SelectTeamsHelper(selectedSports, true);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Service currently not available. Sorry!");
         }
     }//GEN-LAST:event_btnTeams1ActionPerformed
@@ -596,13 +515,11 @@ public class MembershipDataPanel
     private javax.swing.JTextField txtfieldMemberNr;
     // End of variables declaration//GEN-END:variables
 
-    List<IClubTeamDto> getPlayerTeams()
-    {
+    List<IClubTeamDto> getPlayerTeams() {
         return selectedPlayerTeams;
     }
 
-    List<IClubTeamDto> getTrainerTeams()
-    {
+    List<IClubTeamDto> getTrainerTeams() {
         return selectedTrainerTeams;
     }
 }
