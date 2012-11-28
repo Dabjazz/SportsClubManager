@@ -15,18 +15,13 @@ import java.util.List;
 public interface IAddMatchResultsRmiService
         extends Remote
 {
-    List<ICompetitionDto> getCompetitionList()
-            throws RemoteException;
+    List<ICompetitionDto> getCompetitionList() throws RemoteException;
 
-    List<ITeamDto> getTeamList(List<Integer> team)
-            throws RemoteException;
+    List<IMatchDto> getMatchList(List<Integer> match) throws RemoteException;
 
-    List<IMatchDto> getMatchList(List<Integer> match)
-            throws RemoteException;
+    ITeamDto getTeam(Integer hometeam) throws RemoteException;
 
-    void setMatchResult(IMatchDto match, IMatchresultDto matchresult)
-            throws RemoteException;
+    List<ITeamDto> getTeamList(List<Integer> team) throws RemoteException;
 
-    public ITeamDto getTeam(Integer hometeam)
-            throws RemoteException;
+    void setMatchResult(IMatchDto match, IMatchresultDto matchresult) throws RemoteException;
 }
