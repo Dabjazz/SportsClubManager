@@ -15,11 +15,14 @@ import java.util.List;
 public interface IMembershipController
         extends Serializable
 {
-    List<IRoleDto> getRoles(Integer id);
+    List<IRoleDto> getRoles(Integer id) throws NetworkFailureException;
 
-    List<ITypeOfSportDto> getTypeOfSports(List<Integer> sports);
+    List<ITypeOfSportDto> getTypeOfSports(List<Integer> sports) throws NetworkFailureException;
 
-    List<IClubTeamDto> getClubTeams(List<Integer> playerList);
+    List<IClubTeamDto> getClubTeams(List<Integer> playerList) throws NetworkFailureException;
 
-    List<ITypeOfSportDto> getAllSports();
+    List<ITypeOfSportDto> getAllSports() throws NetworkFailureException;
+
+    IRoleDto setRole(IMemberDto member, String departmentHead, boolean selected) throws NetworkFailureException;
+
 }

@@ -63,10 +63,4 @@ public interface ISearchChangeMemberRmiService
 
     List<ITypeOfSportDto> getTypeOfSports()
             throws RemoteException;     //new added
-
-    IMembershipController getMembershipController()
-            throws RemoteException;
-
-    IMemberController getMemberController()
-            throws RemoteException;
 }

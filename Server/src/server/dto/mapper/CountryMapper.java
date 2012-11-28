@@ -26,6 +26,9 @@ public class CountryMapper
         try
         {
             contract.domain.ICountry a = DomainFacade.getInstance().getByID(contract.domain.ICountry.class, id);
+            if(a == null){
+                throw new IdNotFoundException();
+            }
             return a;
         }
         catch (Exception ex)

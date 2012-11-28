@@ -1,12 +1,15 @@
 package presentation.forms.member;
 
 import com.ServiceClient;
+import com.ServiceNotAvailableException;
 import contract.dto.IClubTeamDto;
+import contract.dto.IDepartmentHeadDto;
 import contract.dto.IMemberDto;
 import contract.dto.IPlayerDto;
-import java.util.HashMap;
+import contract.useCaseController.IAddMemberToTeam;
 import java.util.LinkedList;
 import java.util.List;
+import javax.swing.AbstractListModel;
 import javax.swing.JPanel;
 import javax.swing.ListModel;
 import presentation.basics.AbstractForm;
@@ -17,24 +20,23 @@ import presentation.basics.AbstractMainForm;
  * @author Lucia
  */
 public class AddToATeamForm extends AbstractMainForm {
-    
+
     ServiceClient client;
     IMemberDto user;
     IClubTeamDto clubTeam;
-    HashMap<Object, IPlayerDto> memberMap;
-    HashMap<String, IClubTeamDto> clubTeamMap;
-//    IAddToTeam controller;
+    IDepartmentHeadDto departmentHeadDto;
+    List<IPlayerDto> availablePlayers;
+    List<IPlayerDto> teamPlayers;
+    IAddMemberToTeam controller;
 
     /**
      * Creates new form AddMemberToTeam
      */
-    public AddToATeamForm(AbstractForm form, ServiceClient client, IMemberDto user) {
+    public AddToATeamForm(AbstractForm form, ServiceClient client, IMemberDto user) throws ServiceNotAvailableException {
         super(form);
         this.client = client;
         this.user = user;
-        memberMap = new HashMap<>();
-        clubTeamMap = new HashMap<>();
-        //controller = client.getAddToTeamService();
+        controller = client.getAddMemberToTeamService();
         initComponents();
     }
 
@@ -58,16 +60,12 @@ public class AddToATeamForm extends AbstractMainForm {
         jScrollPane2 = new javax.swing.JScrollPane();
         listPlayer = new javax.swing.JList();
         btnSave = new javax.swing.JButton();
+        btnShow = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(848, 546));
 
         comboTeam.setModel(new javax.swing.DefaultComboBoxModel(getClubTeams()));
-        comboTeam.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboTeamActionPerformed(evt);
-            }
-        });
 
         lblAvailable.setText("Available Members");
 
@@ -88,34 +86,31 @@ public class AddToATeamForm extends AbstractMainForm {
         });
 
         listAvailable.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = { "" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
-        });
-        listAvailable.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                listAvailableValueChanged(evt);
-            }
         });
         jScrollPane1.setViewportView(listAvailable);
 
         listPlayer.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = { "" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
         listPlayer.setEnabled(false);
-        listPlayer.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                listPlayerValueChanged(evt);
-            }
-        });
         jScrollPane2.setViewportView(listPlayer);
 
         btnSave.setText("Save");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSaveActionPerformed(evt);
+            }
+        });
+
+        btnShow.setText("Show");
+        btnShow.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnShowActionPerformed(evt);
             }
         });
 
@@ -126,7 +121,10 @@ public class AddToATeamForm extends AbstractMainForm {
             .addGroup(thePanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(thePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(comboTeam, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(thePanelLayout.createSequentialGroup()
+                        .addComponent(comboTeam, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnShow))
                     .addGroup(thePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(btnSave)
                         .addGroup(thePanelLayout.createSequentialGroup()
@@ -147,7 +145,9 @@ public class AddToATeamForm extends AbstractMainForm {
             thePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, thePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(comboTeam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(thePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboTeam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnShow))
                 .addGroup(thePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(thePanelLayout.createSequentialGroup()
                         .addGap(159, 159, 159)
@@ -165,7 +165,7 @@ public class AddToATeamForm extends AbstractMainForm {
                             .addComponent(jScrollPane2))))
                 .addGap(26, 26, 26)
                 .addComponent(btnSave)
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -183,123 +183,137 @@ public class AddToATeamForm extends AbstractMainForm {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
-                
-        //List Models
-        ListModel playerModel = listPlayer.getModel();
-        ListModel allMembersModel = listAvailable.getModel();
+          //List Models
+        ListModel teamPlayerModel = listPlayer.getModel();
+        ListModel availableModel = listAvailable.getModel();
 
-        //arrays to store teams, list to save new state of competition team                            
-        Object[] destPlayer = listPlayer.getSelectedValues();                  
-        Object[] selMember = new Object[allMembersModel.getSize() + destPlayer.length];  
-        List<Object> tmpPlayer = new LinkedList<>();
+        //arrays to store players, list to save new state of team                           
+        Object[] selFromTeam = listPlayer.getSelectedValues();                  //team
+        Object[] available = new Object[availableModel.getSize() + selFromTeam.length];  //members
+        List<Object> tmpTeam = new LinkedList<>();
 
-        //Competition Team before removing
-        for (int i = 0; i < playerModel.getSize(); i++) {
-            tmpPlayer.add(playerModel.getElementAt(i));
+        //team before removing
+        for (int i = 0; i < teamPlayerModel.getSize(); i++) {
+            tmpTeam.add(teamPlayerModel.getElementAt(i));
         }
         //add team data to teamlist
-        for (int i = 0; i < allMembersModel.getSize(); i++) {
-            selMember[i] = allMembersModel.getElementAt(i);
+        for (int i = 0; i < availableModel.getSize(); i++) {
+            available[i] = availableModel.getElementAt(i);
         }
-        //add selected from compTeam to Team
-        for (int i = allMembersModel.getSize(); i < selMember.length; i++) {
-            selMember[i] = destPlayer[i - allMembersModel.getSize()];
-            tmpPlayer.remove(destPlayer[i - allMembersModel.getSize()]);
+        //add selected from team to available
+        for (int i = availableModel.getSize(); i < available.length; i++) {
+            available[i] = selFromTeam[i - availableModel.getSize()];
+            tmpTeam.remove(selFromTeam[i - availableModel.getSize()]);
         }
 
-//        for (int i = 0; i < destPlayer.length; i++) {
-//            teamMember.add((IPlayerDto) destPlayer[i]);
-//            newTeam.remove((IPlayerDto) destPlayer[i]);  //remove from new team list
-//        }
+        for (int i = 0; i < selFromTeam.length; i++) {
+            availablePlayers.add((IPlayerDto) selFromTeam[i]);
+            teamPlayers.remove((IPlayerDto) selFromTeam[i]);  //update teamplayer list
+        }
 
-        Object[] nTeam = tmpPlayer.toArray();
-
+        Object[] nTeam = tmpTeam.toArray();
         listPlayer.setListData(nTeam);
-        listAvailable.setListData(selMember);
+        listAvailable.setListData(available);
     }//GEN-LAST:event_btnRemoveActionPerformed
 
-    private void comboTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTeamActionPerformed
-        clubTeam = clubTeamMap.get(comboTeam.getSelectedItem().toString());
-    }//GEN-LAST:event_comboTeamActionPerformed
-
-    private void listAvailableValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listAvailableValueChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_listAvailableValueChanged
-
-    private void listPlayerValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listPlayerValueChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_listPlayerValueChanged
-
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        
         //List Models
-        ListModel destination = listPlayer.getModel();
-        ListModel allMembersModel = listAvailable.getModel();
+        ListModel teamPlayerModel = listPlayer.getModel();
+        ListModel availableModel = listAvailable.getModel();
 
         //arrays to store teams, list to save new state of origin
-        Object[] selMember = listAvailable.getSelectedValues();
-        Object[] destPlayer = new Object[destination.getSize() + selMember.length];
-        List<Object> tmpOrig = new LinkedList<>();
+        Object[] selFromAvailable = listAvailable.getSelectedValues();
+        Object[] tPlayer = new Object[teamPlayerModel.getSize() + selFromAvailable.length];
+        List<Object> tmpAvailable = new LinkedList<>();
 
-        for (int i = 0; i < allMembersModel.getSize(); i++) {
-            tmpOrig.add(allMembersModel.getElementAt(i));
+        for (int i = 0; i < availableModel.getSize(); i++) {
+            tmpAvailable.add(availableModel.getElementAt(i));
         }
-        for (int i = 0; i < destination.getSize(); i++) {
-            destPlayer[i] = destination.getElementAt(i);
+        for (int i = 0; i < teamPlayerModel.getSize(); i++) {
+            tPlayer[i] = teamPlayerModel.getElementAt(i);
         }
-        for (int i = destination.getSize(); i < destPlayer.length; i++) {            
-            destPlayer[i] = selMember[i - destination.getSize()];
-//            newTeam.add((IPlayerDto) origSel[i - destination.getSize()]);
-//            teamMember.remove((IPlayerDto) origSel[i-destination.getSize()]);   //remove from available team member list
-            
-            tmpOrig.remove(selMember[i - destination.getSize()]);
-        }
-        Object[] newOrigSel = tmpOrig.toArray();
+        for (int i = teamPlayerModel.getSize(); i < tPlayer.length; i++) {
+            tPlayer[i] = selFromAvailable[i - teamPlayerModel.getSize()];
+            teamPlayers.add((IPlayerDto) selFromAvailable[i - teamPlayerModel.getSize()]);
+            availablePlayers.remove((IPlayerDto) selFromAvailable[i - teamPlayerModel.getSize()]);   //remove from available team member list
 
-        listPlayer.setListData(destPlayer);
+            tmpAvailable.remove(selFromAvailable[i - teamPlayerModel.getSize()]);
+        }
+        Object[] newOrigSel = tmpAvailable.toArray();
+
+        listPlayer.setListData(tPlayer);
         listAvailable.setListData(newOrigSel);
-                
+
     }//GEN-LAST:event_btnAddActionPerformed
-       
+
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        Object[] finalTeam = listPlayer.getSelectedValues();
-        List<IPlayerDto> playerList = new LinkedList<>(); 
-        
-        for(Object o : finalTeam){
-            playerList.add(memberMap.get(o));
-        }
-        
+
         LinkedList<Integer> playerIDs = new LinkedList<>();
-        for(IPlayerDto p : playerList){
+        for (IPlayerDto p : teamPlayers) {
             playerIDs.add(p.getId());
         }
-        
+
         //TODO: add to the team or call controlller
         clubTeam.setPlayerList(playerIDs);
-     
+        TODO: controller.updateClubTeam(clubTeam);
+
     }//GEN-LAST:event_btnSaveActionPerformed
 
-    private String [] getClubTeams(){
-        List<IClubTeamDto> clubTeamList = null;
-        //TODO: add Controller
-        //List<IClubTeamDto> clubTeamList = controller.getClubTeams();
-        String[] array = new String[clubTeamList.size()];
-        
-        for(int i = 0; i < clubTeamList.size(); i++){
-            array[i] = clubTeamList.get(i).getName();
-            clubTeamMap.put(array[i], clubTeamList.get(i));
-        }
-        return array;
+    private void btnShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowActionPerformed
+        clubTeam = (IClubTeamDto) comboTeam.getSelectedItem();
+
+        setListAvailable(controller.getPotentialPlayer(clubTeam));
+        setListPlayer(controller.getTeamPlayer(clubTeam));
+    }//GEN-LAST:event_btnShowActionPerformed
+
+    private Object[] getClubTeams() {
+        List<IClubTeamDto> clubTeamList = controller.getClubTeams(user);
+
+        return clubTeamList.toArray();
     }
-    
-    public JPanel getPanel(){
+
+    private void setListAvailable(final List<IPlayerDto> available) {
+        availablePlayers = available;
+        listAvailable.setModel(new AbstractListModel() {
+            Object[] objects = available.toArray();
+
+            @Override
+            public int getSize() {
+                return objects.length;
+            }
+
+            @Override
+            public Object getElementAt(int i) {
+                return objects[i];
+            }
+        });
+    }
+
+    private void setListPlayer(final List<IPlayerDto> team) {
+        teamPlayers = team;
+        listPlayer.setModel(new AbstractListModel() {
+            Object[] objects = team.toArray();
+
+            @Override
+            public int getSize() {
+                return objects.length;
+            }
+
+            @Override
+            public Object getElementAt(int i) {
+                return objects[i];
+            }
+        });
+    }
+
+    public JPanel getPanel() {
         return thePanel;
     }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnRemove;
     private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnShow;
     private javax.swing.JComboBox comboTeam;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

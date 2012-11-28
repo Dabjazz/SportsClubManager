@@ -26,4 +26,7 @@ public interface IAddMatchResultsRmiService
 
     void setMatchResult(IMatchDto match, IMatchresultDto matchresult)
             throws RemoteException;
+
+    public ITeamDto getTeam(Integer hometeam)
+            throws RemoteException;
 }

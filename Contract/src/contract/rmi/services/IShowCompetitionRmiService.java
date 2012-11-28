@@ -22,4 +22,13 @@ public interface IShowCompetitionRmiService
 
     List<IPlayerDto> getPlayer(IClubTeamDto team)
             throws RemoteException;
+
+    IMatchresultDto getMatchresult(Integer matchresult)
+            throws RemoteException;
+
+    IClubTeamDto getClubTeam(Integer hometeam)
+            throws RemoteException;
+
+    ITeamDto getTeam(Integer hometeam)
+            throws RemoteException;
 }

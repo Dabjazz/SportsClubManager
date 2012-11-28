@@ -43,8 +43,4 @@ public interface ISearchChangeMember
     IMemberDto getSelectedMember();
 
     List<ITypeOfSportDto> getTypeOfSports();
-
-    IMemberController getMemberController();
-
-    IMembershipController getMembershipController();
 }

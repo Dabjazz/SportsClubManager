@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import server.domain.DomainFacade;
 import server.domain.classes.Competition;
 import server.domain.classes.League;
+import server.domain.classes.Member;
 import server.domain.classes.TypeOfSport;
 
 /**
@@ -71,7 +72,7 @@ public class HibernateTestDatabase
             DomainFacade.getInstance().getCompetitionsByDate(new Date(), new Date(1387584000));
             
             System.out.println("getMemberByName");
-            DomainFacade.getInstance().getMemberByName("Markus", "Mohanty");
+            Member memberByName = DomainFacade.getInstance().getMemberByName("Markus", "Mohanty");
             
             System.out.println("getMemberByUsername");
             DomainFacade.getInstance().getMemberByUsername("mmo7528");
@@ -81,7 +82,7 @@ public class HibernateTestDatabase
             
             System.out.println("getMatchesByCompetition");
             DomainFacade.getInstance().getMatchesByCompetition(competition);
-            
+           
         } catch (CouldNotFetchException ex)
         {
             Logger.getLogger(HibernateTestDatabase.class.getName()).log(Level.SEVERE,

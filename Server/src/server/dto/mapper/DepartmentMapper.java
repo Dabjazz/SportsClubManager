@@ -5,12 +5,12 @@
 package server.dto.mapper;
 
 import contract.domain.*;
-import contract.dto.IDepartmentDto;
+import contract.dto.*;
+import contract.dto.classes.DepartmentDto;
 import contract.dto.mapper.*;
 import java.util.*;
 import java.util.logging.*;
 import server.domain.DomainFacade;
-import contract.dto.classes.DepartmentDto;
 
 /**
  @author Thomas
@@ -20,11 +20,11 @@ public class DepartmentMapper
 {
     private static DepartmentMapper controller;
 
-    DepartmentMapper()
+    DepartmentMapper( )
     {
     }
 
-    public static IMapper<IDepartmentDto> getInstance()
+    public static IMapper<IDepartmentDto> getInstance( )
     {
         if (controller == null)
         {

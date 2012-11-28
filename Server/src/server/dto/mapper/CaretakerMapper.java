@@ -11,13 +11,14 @@ import contract.dto.mapper.*;
 import java.util.*;
 import java.util.logging.*;
 import server.domain.DomainFacade;
+import server.domain.classes.Role;
 
 /**
 
  @author Thomas
  */
 public class CaretakerMapper
-        implements IMapper<ICaretakerDto>
+        implements ICaretakerMapper
 {
     private static CaretakerMapper controller;
 
@@ -25,7 +26,7 @@ public class CaretakerMapper
     {
     }
 
-    public static IMapper<ICaretakerDto> getInstance()
+    public static ICaretakerMapper getInstance()
     {
         if (controller == null)
         {
@@ -143,4 +144,31 @@ public class CaretakerMapper
     {
         return new CaretakerDto();
     }
+
+    @Override
+    public ICaretakerDto getMemberById(Integer id) throws IdNotFoundException 
+    {
+        ICaretakerDto caretakerDto = null;
+        try
+        {
+            List<Role> all = DomainFacade.getInstance().getAll(server.domain.classes.Role.class);
+            for(Role r : all)
+            {
+                if(r.getMember().getId() == id)
+                {
+                    if(r instanceof server.domain.classes.Caretaker)
+                    {
+                        caretakerDto=CaretakerDto.copy((server.domain.classes.Caretaker)r);
+                    }
+                }
+            }
+
+            return caretakerDto;
+        }
+        catch (CouldNotFetchException ex)
+        {
+            throw new IdNotFoundException();
+        }
+    }
+
 }

@@ -35,9 +35,9 @@ public class AddressMapper
     {
         try
         {
-            return DomainFacade.getInstance().getByID(contract.domain.IAddress.class, id);
+            return DomainFacade.getInstance().getByID(server.domain.classes.Address.class, id);
         }
-        catch (Exception ex)
+        catch (CouldNotFetchException ex)
         {
             throw new IdNotFoundException();
         }

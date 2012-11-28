@@ -10,6 +10,9 @@ public interface ServiceClient
 {
     IAddMatchResults getAddMatchResultsService()
             throws ServiceNotAvailableException;
+    
+    IAddMemberToTeam getAddMemberToTeamService()
+            throws ServiceNotAvailableException;
 
     IChangeCompetitionTeam getChangeCompetitionTeamService()
             throws ServiceNotAvailableException;
@@ -27,5 +30,11 @@ public interface ServiceClient
             throws ServiceNotAvailableException;
 
     ILogin getLoginService()
+            throws ServiceNotAvailableException;
+
+    IAddressController getAddressService()
+            throws ServiceNotAvailableException;
+
+    IMembershipController getMembershipService()
             throws ServiceNotAvailableException;
 }

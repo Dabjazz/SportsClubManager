@@ -4,13 +4,11 @@
  */
 package com.rmi.client.mapper;
 
-import contract.dto.IMemberDto;
-import contract.dto.IUserDataDto;
+import contract.dto.*;
 import contract.rmi.services.ILoginRmiService;
 import contract.useCaseController.ILogin;
 import java.rmi.RemoteException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.logging.*;
 
 /**
  *

@@ -18,4 +18,10 @@ public interface IShowCompetition
     List<IMatchDto> getMatchs(List<Integer> matches);
 
     List<IPlayerDto> getPlayer(IClubTeamDto team);
+
+    IClubTeamDto getClubTeam(Integer hometeam);
+
+    ITeamDto getTeam(Integer hometeam);
+
+    IMatchresultDto getMatchresult(Integer matchresult);
 }

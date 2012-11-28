@@ -15,27 +15,15 @@ import java.rmi.RemoteException;
 public class DtoFactory
         implements IDtoFactory
 {
-    public DtoFactory()
-    {
-        init();
-    }
-
-    private void init()
-    {
-        MemberDto.dtoFactory = this;
-        LeagueDto.dtoFactory = this;
-       // MatchDto.dtoFactory = this;
-    }
-
     @Override
-    public IMapper<IAdminDto> getAdminMapper()
+    public IAdminMapper getAdminMapper()
             throws RemoteException
     {
         return AdminMapper.getInstance();
     }
 
     @Override
-    public IMapper<ICaretakerDto> getCaretakerMapper()
+    public ICaretakerMapper getCaretakerMapper()
             throws RemoteException
     {
         return CaretakerMapper.getInstance();
@@ -105,14 +93,14 @@ public class DtoFactory
     }
 
     @Override
-    public IMapper<ITrainerDto> getTrainerMapper()
+    public ITrainerMapper getTrainerMapper()
             throws RemoteException
     {
         return TrainerMapper.getInstance();
     }
 
     @Override
-    public IMapper<IDepartmentHeadDto> getDepartmentHeadMapper()
+    public IDepartmentHeadMapper getDepartmentHeadMapper()
             throws RemoteException
     {
         return DepartmentHeadMapper.getInstance();
@@ -133,7 +121,7 @@ public class DtoFactory
     }
 
     @Override
-    public IMapper<IPlayerDto> getPlayerMapper()
+    public IPlayerMapper getPlayerMapper()
             throws RemoteException
     {
         return PlayerMapper.getInstance();
@@ -150,8 +138,8 @@ public class DtoFactory
     public IMapper<IMatchDto> getMatchMapper()
             throws RemoteException
     {
-        MatchMapper m = (MatchMapper)MatchMapper.getInstance(this);
-        
+        MatchMapper m = (MatchMapper) MatchMapper.getInstance();
+
         return m;
     }
 }

@@ -4,7 +4,7 @@ import com.ServiceClient;
 import com.ServiceNotAvailableException;
 import contract.dto.*;
 import contract.useCaseController.IShowCompetition;
-import java.util.List;
+import java.util.*;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.*;
@@ -21,8 +21,8 @@ public class ShowCompetitionForm
     ServiceClient client;
     IShowCompetition controller;
     ICompetitionDto competition;
-    List<IClubTeamDto> clubTeams;
-    List<IMatchDto> compMatches;
+    List<IClubTeamDto> clubTeams = new LinkedList<>();
+    List<IMatchDto> compMatches= new LinkedList<>();
     IClubTeamDto cTeam;
     IMemberDto user;
 
@@ -218,9 +218,11 @@ public class ShowCompetitionForm
             int i = 0;
             IMatchDto tmp = compMatches.get(row);     //get next match from list
 
-            tableModel.setValueAt(tmp.getHometeam().getName(), row, 0);
-            tableModel.setValueAt(tmp.getForeignteam().getName(), row, 1);
-            tableModel.setValueAt(tmp.getMatchresult().getPointsHometeam() + " : " + tmp.getMatchresult().getPointsForeignteam(), row, 2);
+            tableModel.setValueAt(controller.getTeam(tmp.getHometeam()).getName(), row, 0);
+            tableModel.setValueAt(controller.getTeam(tmp.getForeignteam()).getName(), row, 1);
+
+            IMatchresultDto result = controller.getMatchresult(tmp.getMatchresult());
+            tableModel.setValueAt(result.getPointsHometeam() + " : " + result.getPointsForeignteam(), row, 2);
         }
         tableCompetition.setModel(tableModel);
     }
@@ -267,13 +269,18 @@ public class ShowCompetitionForm
 
         for (IMatchDto m : compMatches)
         {
-            if (m.getForeignteam() instanceof IClubTeamDto)
+            IClubTeamDto fteam = controller.getClubTeam(m.getForeignteam());
+
+            if (fteam != null)
             {
-                clubTeams.add((IClubTeamDto) m.getForeignteam());
+                clubTeams.add(fteam);
             }
-            if (m.getHometeam() instanceof IClubTeamDto)
+
+            IClubTeamDto hteam = controller.getClubTeam(m.getHometeam());
+
+            if (hteam != null)
             {
-                clubTeams.add((IClubTeamDto) m.getHometeam());
+                clubTeams.add(hteam);
             }
         }
     }

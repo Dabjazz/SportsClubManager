@@ -2,11 +2,8 @@ package contract.dto.classes;
 
 import contract.domain.IMatch;
 import contract.dto.*;
-import contract.dto.mapper.*;
 import java.io.Serializable;
-import java.rmi.RemoteException;
 import java.util.*;
-import java.util.logging.*;
 
 public class MatchDto
         implements Serializable, IMatchDto
@@ -18,7 +15,6 @@ public class MatchDto
     private Integer matchresult;
     private Integer foreignteam;
     private Integer hometeam;
-    public IDtoFactory dtoFactory;
 
     public MatchDto()
     {
@@ -36,7 +32,7 @@ public class MatchDto
     }
     private static HashMap<IMatch, MatchDto> matchs = new HashMap<>();
 
-    public static MatchDto copy(IMatch match, IDtoFactory dtoFactory)
+    public static MatchDto copy(IMatch match)
     {
         MatchDto a;
 
@@ -57,8 +53,6 @@ public class MatchDto
 
             matchs.put(match, a);
         }
-
-        a.dtoFactory = dtoFactory;
 
         return a;
     }
@@ -100,18 +94,9 @@ public class MatchDto
     }
 
     @Override
-    public IMatchresultDto getMatchresult()
+    public Integer getMatchresult()
     {
-        try
-        {
-            return dtoFactory.getMatchresultMapper().getById(matchresult);
-        }
-        catch (RemoteException | IdNotFoundException ex)
-        {
-            Logger.getLogger(MatchDto.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return null;
+        return matchresult;
     }
 
     @Override
@@ -121,18 +106,9 @@ public class MatchDto
     }
 
     @Override
-    public ITeamDto getForeignteam()
+    public Integer getForeignteam()
     {
-        try
-        {
-            return dtoFactory.getTeamMapper().getById(foreignteam);
-        }
-        catch (IdNotFoundException | RemoteException ex)
-        {
-            Logger.getLogger(MatchDto.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return null;
+        return foreignteam;
     }
 
     @Override
@@ -142,19 +118,9 @@ public class MatchDto
     }
 
     @Override
-    public ITeamDto getHometeam()
+    public Integer getHometeam()
     {
-        try
-        {
-            IMapper<ITeamDto> m = dtoFactory.getTeamMapper();
-            return m.getById(hometeam);
-        }
-        catch (IdNotFoundException | RemoteException ex)
-        {
-            Logger.getLogger(MatchDto.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return null;
+        return hometeam;
     }
 
     @Override
@@ -162,4 +128,14 @@ public class MatchDto
     {
         this.hometeam = hometeam;
     }
+//
+//    @Override
+//    public String toString() {
+//        StringBuilder sb = new StringBuilder();
+//        sb.append(getHometeam().getName());
+//        sb.append(" : ");
+//        sb.append(getForeignteam().getName());
+//
+//        return sb.toString();
+//    }
 }

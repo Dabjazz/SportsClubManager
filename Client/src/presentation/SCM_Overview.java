@@ -346,12 +346,16 @@ public class SCM_Overview
     }//GEN-LAST:event_btnChangeTeamActionPerformed
 
     private void btnAddToTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToTeamActionPerformed
-        paneMemberMain.removeAll();
-        paneMemberMain = new AddToATeamForm(null, rmiClient, user).getPanel();
+        try {
+            paneMemberMain.removeAll();
+            paneMemberMain = new AddToATeamForm(null, rmiClient, user).getPanel();
 
-        tabMember.setRightComponent(paneMemberMain);
-        tabMember.validate();
-        tabMember.repaint();
+            tabMember.setRightComponent(paneMemberMain);
+            tabMember.validate();
+            tabMember.repaint();
+        } catch (ServiceNotAvailableException ex) {
+            Logger.getLogger(SCM_Overview.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnAddToTeamActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddResult;

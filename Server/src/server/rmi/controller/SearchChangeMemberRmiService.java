@@ -125,18 +125,4 @@ public class SearchChangeMemberRmiService
     {
         return SearchChangeMember.getInstance().getTypeOfSports();
     }
-
-    @Override
-    public IMembershipController getMembershipController()
-            throws RemoteException
-    {
-        return SearchChangeMember.getInstance().getMembershipController();
-    }
-
-    @Override
-    public IMemberController getMemberController()
-            throws RemoteException
-    {
-        return SearchChangeMember.getInstance().getMemberController();
-    }
 }

@@ -48,8 +48,7 @@ public class CountryDto
         }
         else
         {
-            a = new CountryDto();
-
+            a = new CountryDto(country.getId());
             a.setName(country.getName());
             a.setAlpha3(country.getAlpha3());
             a.setAlpha2(country.getAlpha2());
@@ -177,6 +176,6 @@ public class CountryDto
     @Override
     public String toString()
     {
-        return this.getDeutsch();
+        return this.getName();
     }
 }
