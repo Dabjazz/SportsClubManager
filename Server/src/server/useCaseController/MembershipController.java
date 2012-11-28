@@ -99,7 +99,6 @@ public class MembershipController
 
     @Override
     public IRoleDto setRole(IMemberDto member, String role, boolean selected) {
-        IRoleDto aDto = null;
         try {
 
             switch (role) {
@@ -108,11 +107,11 @@ public class MembershipController
                         try {
                             return dtoFactory.getAdminMapper().getMemberById(member.getId());
                         } catch (IdNotFoundException ex) {
-                            aDto = new AdminDto();
+                            AdminDto aDto = new AdminDto();
                             aDto.setName("Admin");
                             aDto.setMember(member.getId());
                             dtoFactory.getAdminMapper().set((IAdminDto) aDto);
-
+                            return aDto;
                         }
                     }
                     break;
@@ -122,10 +121,11 @@ public class MembershipController
                         try {
                             return dtoFactory.getDepartmentHeadMapper().getMemberById(member.getId());
                         } catch (IdNotFoundException ex) {
-                            aDto = new DepartmentHeadDto();
+                            DepartmentHeadDto aDto = new DepartmentHeadDto();
                             aDto.setName("Department Head");
                             aDto.setMember(member.getId());
                             dtoFactory.getDepartmentHeadMapper().set((IDepartmentHeadDto) aDto);
+                            return aDto;
                         }
                     }
                     break;
@@ -135,10 +135,11 @@ public class MembershipController
                         try {
                             return dtoFactory.getCaretakerMapper().getMemberById(member.getId());
                         } catch (IdNotFoundException ex) {
-                            aDto = new CaretakerDto();
+                            CaretakerDto aDto = new CaretakerDto();
                             aDto.setName("Caretaker");
                             aDto.setMember(member.getId());
                             dtoFactory.getCaretakerMapper().set((ICaretakerDto) aDto);
+                            return aDto;
                         }
                     }
                     break;
@@ -148,10 +149,11 @@ public class MembershipController
                         try {
                             return dtoFactory.getTrainerMapper().getMemberById(member.getId());
                         } catch (IdNotFoundException ex) {
-                            aDto = new TrainerDto();
+                            TrainerDto aDto = new TrainerDto();
                             aDto.setName("Trainer");
                             aDto.setMember(member.getId());
                             dtoFactory.getTrainerMapper().set((ITrainerDto) aDto);
+                            return aDto;
                         }
                     }
                     break;
@@ -161,10 +163,11 @@ public class MembershipController
                         try {
                             return dtoFactory.getPlayerMapper().getMemberById(member.getId());
                         } catch (IdNotFoundException ex) {
-                            aDto = new PlayerDto();
+                            PlayerDto aDto = new PlayerDto();
                             aDto.setName("Player");
                             aDto.setMember(member.getId());
                             dtoFactory.getPlayerMapper().set((IPlayerDto) aDto);
+                            return aDto;
                         }
                     }
                     break;
@@ -173,6 +176,6 @@ public class MembershipController
         } catch (RemoteException ex1) {
             Logger.getLogger(MembershipController.class.getName()).log(Level.SEVERE, null, ex1);
         }
-        return aDto;
+        return null;
     }
 }

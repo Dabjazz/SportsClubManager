@@ -5,7 +5,6 @@
 package presentation.forms.member;
 
 import contract.dto.*;
-import contract.dto.classes.*;
 import contract.useCaseController.IMembershipController;
 import contract.useCaseController.NetworkFailureException;
 import java.util.*;
@@ -45,10 +44,11 @@ public class MembershipDataPanel
             ITrainerDto trainer = (ITrainerDto) controller.setRole(member, "Trainer", radioTrainer.isSelected());
             IPlayerDto player = (IPlayerDto) controller.setRole(member, "Player", radioPlayer.isSelected());
 
-            trainer.setTypeOfSportList(getSelectedSports());
-            trainer.setClubTeamList(getSelectedTeamIds(selectedTrainerTeams));
+            List<Integer> selSports = getSelectedSports();
+            trainer.setTypeOfSportList(selSports);
+            player.setTypeOfSportList(selSports);
 
-            player.setTypeOfSportList(getSelectedSports());
+            trainer.setClubTeamList(getSelectedTeamIds(selectedTrainerTeams));
             player.setClubTeamList(getSelectedTeamIds(selectedPlayerTeams));
 
             member.setMemberFrom(dateEntry.getDate());

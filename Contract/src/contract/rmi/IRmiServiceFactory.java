@@ -45,6 +45,6 @@ public interface IRmiServiceFactory
     IAddressRmiService getAddressService()
             throws RemoteException;
 
-    public IPermissionControllerService getPermissionController()
+     IPermissionControllerService getPermissionController()
             throws RemoteException;
 }

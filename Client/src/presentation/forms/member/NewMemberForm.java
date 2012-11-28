@@ -1,20 +1,18 @@
 package presentation.forms.member;
 
-import com.contract.IUseCaseControllerFactory;
 import com.ServiceNotAvailableException;
+import com.contract.IUseCaseControllerFactory;
 import contract.dto.*;
+import contract.dto.classes.*;
 import contract.useCaseController.INewMemberController;
+import contract.useCaseController.IPermissionController;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import presentation.basics.AbstractForm;
 import presentation.basics.AbstractMainForm;
-import contract.dto.classes.*;
 import presentation.forms.helper.SelectSportsHelper;
-import presentation.forms.helper.SelectTeamsHelper;
-import contract.dto.classes.AddressDto;
-import contract.dto.classes.MemberDto;
 
 /**
 
@@ -26,6 +24,7 @@ public class NewMemberForm
     //Controler and contract
     IUseCaseControllerFactory client;
     INewMemberController controller;
+    IPermissionController permissionController;
     IMemberDto member;
     IMemberDto user;
     IRoleDto role;
@@ -50,13 +49,18 @@ public class NewMemberForm
 
         this.client = client;
         this.user = user;
-//        adminPermission = getUserPermission(user);
-//        if (!adminPermission)
-//        {
-//            disableExtendedRadioSelection();
-//        }
-        this.selectedSports = new LinkedList<>();
         controller = this.client.getNewMemberController();
+        
+        permissionController = this.client.getPermissionController();
+        
+        //find out users permission
+        adminPermission = permissionController.hasPermission("Admin");
+        if (!adminPermission)
+        {
+            disableExtendedRadioSelection();
+        }
+        this.selectedSports = new LinkedList<>();
+        
     }
 
     /**
@@ -648,12 +652,6 @@ public class NewMemberForm
         radioTrainer.setEnabled(false);
     }
     
-//    private boolean getUserPermission(IMemberDto user) {
-//       
-//        List<Integer> roleIDs = user.getRoleList();
-//        
-//    }
-
     public JPanel getPanel()
     {
         return paneNewMember;

@@ -158,7 +158,7 @@ public class PlayerMapper
             List<Role> all = DomainFacade.getInstance().getAll(server.domain.classes.Role.class);
             for (Role r : all)
             {
-                if (r.getMember().getId() == id)
+                if (r.getMember().getId().equals(id))
                 {
                     if (r instanceof server.domain.classes.Player)
                     {

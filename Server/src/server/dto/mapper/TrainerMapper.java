@@ -4,7 +4,6 @@
  */
 package server.dto.mapper;
 
-import contract.dto.mapper.IRoleMapper;
 import contract.domain.*;
 import contract.dto.*;
 import contract.dto.mapper.*;
@@ -169,7 +168,8 @@ public class TrainerMapper
             List<Role> all = DomainFacade.getInstance().getAll(server.domain.classes.Role.class);
             for(Role r : all)
             {
-                if(r.getMember().getId() == id)
+                IMember member = r.getMember();
+                if(member.getId().equals(id))
                 {
                     if(r instanceof server.domain.classes.Trainer)
                     {
