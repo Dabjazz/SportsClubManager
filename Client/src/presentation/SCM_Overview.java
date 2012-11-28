@@ -1,6 +1,6 @@
 package presentation;
 
-import com.ServiceClient;
+import com.contract.IUseCaseControllerFactory;
 import com.ServiceNotAvailableException;
 import contract.dto.*;
 import contract.dto.classes.*;
@@ -19,13 +19,13 @@ import presentation.forms.member.*;
 public class SCM_Overview
         extends AbstractForm {
 
-    private ServiceClient rmiClient;
+    private IUseCaseControllerFactory rmiClient;
     private IMemberDto user;
 
     /**
      * Creates new form SCM_Overview
      */
-    public SCM_Overview(AbstractForm form, ServiceClient rmiClient, IMemberDto user) {
+    public SCM_Overview(AbstractForm form, IUseCaseControllerFactory rmiClient, IMemberDto user) {
         super(form);
         this.rmiClient = rmiClient;
         if (user == null) {

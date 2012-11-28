@@ -1,8 +1,8 @@
 package com;
 
-import com.ServiceClient;
+import com.contract.IUseCaseControllerFactory;
 import com.CommunicationProblemException;
-import com.rmi.client.RmiServiceClientImpl;
+import com.rmi.client.RmiUseCaseControllerFactory;
 
 
 /*
@@ -15,9 +15,9 @@ import com.rmi.client.RmiServiceClientImpl;
  */
 public class ServiceClientFactory
 {
-    public static ServiceClient getRmiServiceClient(String host, int port)
+    public static IUseCaseControllerFactory getRmiServiceClient(String host, int port)
             throws CommunicationProblemException
     {
-        return new RmiServiceClientImpl(host, port);
+        return new RmiUseCaseControllerFactory(host, port);
     }
 }

@@ -1,12 +1,12 @@
 package presentation.forms.member;
 
-import com.ServiceClient;
+import com.contract.IUseCaseControllerFactory;
 import com.ServiceNotAvailableException;
 import contract.dto.IClubTeamDto;
 import contract.dto.IDepartmentHeadDto;
 import contract.dto.IMemberDto;
 import contract.dto.IPlayerDto;
-import contract.useCaseController.IAddMemberToTeam;
+import contract.useCaseController.IAddMemberToTeamController;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.AbstractListModel;
@@ -21,22 +21,22 @@ import presentation.basics.AbstractMainForm;
  */
 public class AddToATeamForm extends AbstractMainForm {
 
-    ServiceClient client;
+    IUseCaseControllerFactory client;
     IMemberDto user;
     IClubTeamDto clubTeam;
     IDepartmentHeadDto departmentHeadDto;
     List<IPlayerDto> availablePlayers;
     List<IPlayerDto> teamPlayers;
-    IAddMemberToTeam controller;
+    IAddMemberToTeamController controller;
 
     /**
      * Creates new form AddMemberToTeam
      */
-    public AddToATeamForm(AbstractForm form, ServiceClient client, IMemberDto user) throws ServiceNotAvailableException {
+    public AddToATeamForm(AbstractForm form, IUseCaseControllerFactory client, IMemberDto user) throws ServiceNotAvailableException {
         super(form);
         this.client = client;
         this.user = user;
-        controller = client.getAddMemberToTeamService();
+        controller = client.getAddMemberToTeamController();
         initComponents();
     }
 

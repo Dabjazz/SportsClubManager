@@ -4,11 +4,21 @@
  */
 package server.rmi;
 
-import contract.rmi.RmiServiceClient;
+import server.rmi.service.AddMatchResultsRmiService;
+import server.rmi.service.AddMemberToTeamRmiService;
+import server.rmi.service.SearchChangeMemberRmiService;
+import server.rmi.service.NewMemberRmiService;
+import server.rmi.service.ShowCompetitionRmiService;
+import server.rmi.service.LoginRmiService;
+import server.rmi.service.MembershipRmiService;
+import server.rmi.service.AddressRmiService;
+import server.rmi.service.PermissionControllerRmiService;
+import server.rmi.service.ChangeCompetitionTeamRmiService;
+import server.rmi.service.NewCompetitionRmiService;
+import contract.rmi.IRmiServiceFactory;
 import contract.rmi.services.*;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import server.rmi.controller.*;
 
 /**
 
@@ -16,7 +26,7 @@ import server.rmi.controller.*;
  */
 public class RmiServiceClientFactory
         extends UnicastRemoteObject
-        implements RmiServiceClient
+        implements IRmiServiceFactory
 {
     public RmiServiceClientFactory()
             throws RemoteException
@@ -88,7 +98,16 @@ public class RmiServiceClientFactory
     }
 
     @Override
-    public IAddMemberToTeamRmiService getAddMemberToTeamRmiService() throws RemoteException {
+    public IAddMemberToTeamRmiService getAddMemberToTeamRmiService()
+            throws RemoteException
+    {
         return new AddMemberToTeamRmiService();
+    }
+
+    @Override
+    public IPermissionControllerService getPermissionController()
+            throws RemoteException
+    {
+        return new PermissionControllerRmiService();
     }
 }

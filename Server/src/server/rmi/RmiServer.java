@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.rmi.Naming;
 import java.util.logging.*;
 import ldap.UserData;
-import contract.rmi.RmiServiceClient;
+import contract.rmi.IRmiServiceFactory;
 
 /**
  runnable rmi-server
@@ -53,8 +53,8 @@ public class RmiServer
 
             String policy = RmiServer.class.getProtectionDomain().getClassLoader().getResource("client.policy").getFile();
             String cb = "file://" + RmiServer.class.getProtectionDomain().getCodeSource().getLocation().getFile();
-            cb += " file://" + RmiServiceClient.class.getProtectionDomain().getCodeSource().getLocation().getFile();
-            cb += " file://" + server.rmi.controller.LoginRmiService.class.getProtectionDomain().getCodeSource().getLocation().getFile();
+            cb += " file://" + IRmiServiceFactory.class.getProtectionDomain().getCodeSource().getLocation().getFile();
+            cb += " file://" + server.rmi.service.LoginRmiService.class.getProtectionDomain().getCodeSource().getLocation().getFile();
             cb += " file://" + server.dto.mapper.DtoFactory.class.getProtectionDomain().getCodeSource().getLocation().getFile();
             cb += " file://" + contract.dto.IAddressDto.class.getProtectionDomain().getCodeSource().getLocation().getFile();
             cb += " file://" + contract.dto.mapper.IMapper.class.getProtectionDomain().getCodeSource().getLocation().getFile();
@@ -65,7 +65,7 @@ public class RmiServer
             System.setProperty("java.security.policy", policy);
             System.setSecurityManager(new SecurityManager());
 
-            RmiServiceClient rmiServiceFactory = new RmiServiceClientFactory();
+            IRmiServiceFactory rmiServiceFactory = new RmiServiceClientFactory();
             Naming.rebind("rmi://localhost:" + port + "/CommunicationFactory", rmiServiceFactory);
             isRunning = true;
             System.out.println("rmi server is running on port " + port);

@@ -1,8 +1,9 @@
 package presentation.forms.member;
 
+import com.contract.IUseCaseControllerFactory;
 import com.*;
 import contract.dto.IMemberDto;
-import contract.useCaseController.ISearchChangeMember;
+import contract.useCaseController.ISearchChangeMemberController;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.event.*;
@@ -17,8 +18,8 @@ public class SearchMemberForm
 {
     private boolean dataExists;
 //    private boolean adminPermission;
-    ServiceClient client;
-    ISearchChangeMember controller;
+    IUseCaseControllerFactory client;
+    ISearchChangeMemberController controller;
     IMemberDto user;
     // List<IRoleDto> roles;
     //IAddressDto address;
@@ -34,17 +35,17 @@ public class SearchMemberForm
     /**
      Creates new form SearchMemb
      */
-    public SearchMemberForm(AbstractForm form, ServiceClient client, IMemberDto user)
+    public SearchMemberForm(AbstractForm form, IUseCaseControllerFactory client, IMemberDto user)
             throws ServiceNotAvailableException
     {
         super(form);
         this.client = client;
         this.user = user;
-        controller = this.client.getSearchChangeMemberService();
+        controller = this.client.getSearchChangeMemberController();
         initComponents();
 
-        personDataPanel1.setController(this.client.getAddressService());
-        membershipDataPanel2.setController(this.client.getMembershipService());
+        personDataPanel1.setController(this.client.getAddressController());
+        membershipDataPanel2.setController(this.client.getMembershipController());
         //availableSports = controller.getTypeOfSports();
     }
 

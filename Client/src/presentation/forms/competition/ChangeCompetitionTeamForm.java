@@ -4,19 +4,13 @@
  */
 package presentation.forms.competition;
 
-import com.ServiceClient;
-import com.ServiceNotAvailableException;
+import com.contract.IUseCaseControllerFactory;
+import com.*;
 import contract.dto.*;
-import contract.dto.classes.ClubTeamDto;
-import contract.useCaseController.IChangeCompetitionTeam;
-import java.util.LinkedList;
-import java.util.List;
-import javax.swing.AbstractListModel;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JPanel;
-import javax.swing.ListModel;
-import presentation.basics.AbstractForm;
-import presentation.basics.AbstractMainForm;
+import contract.useCaseController.IChangeCompetitionTeamController;
+import java.util.*;
+import javax.swing.*;
+import presentation.basics.*;
 
 /**
 
@@ -26,8 +20,8 @@ public class ChangeCompetitionTeamForm
         extends AbstractMainForm
 {
     IMemberDto user;
-    ServiceClient client;
-    IChangeCompetitionTeam controller;
+    IUseCaseControllerFactory client;
+    IChangeCompetitionTeamController controller;
     ICompetitionDto competition;
     List<IClubTeamDto> cTeams;  //for ComboBox
     IClubTeamDto formerTeam;
@@ -37,13 +31,13 @@ public class ChangeCompetitionTeamForm
     /**
      Creates new form AddTeamMember
      */
-    public ChangeCompetitionTeamForm(AbstractForm form, ServiceClient client, IMemberDto user)
+    public ChangeCompetitionTeamForm(AbstractForm form, IUseCaseControllerFactory client, IMemberDto user)
             throws ServiceNotAvailableException
     {
         super(form);
         this.client = client;
         this.user = user;
-        controller = this.client.getChangeCompetitionTeamService();
+        controller = this.client.getChangeCompetitionTeamController();
         initComponents();
     }
 
@@ -54,7 +48,8 @@ public class ChangeCompetitionTeamForm
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         panelChangeTeam = new javax.swing.JPanel();
         lblCompetitionSel = new javax.swing.JLabel();
@@ -78,13 +73,14 @@ public class ChangeCompetitionTeamForm
 
         lblCompetitionSel.setText("Competition");
 
-        comboCompetition.setModel(new javax.swing.DefaultComboBoxModel(getCompetitionList()));
+        comboCompetition.setModel(new javax.swing.DefaultComboBoxModel(controller.getCompetition().toArray()));
 
         lblSelTeam.setText("Team");
 
         comboTeam.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "" }));
 
-        listTeam.setModel(new javax.swing.AbstractListModel() {
+        listTeam.setModel(new javax.swing.AbstractListModel()
+        {
             String[] strings = { "" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -94,13 +90,16 @@ public class ChangeCompetitionTeamForm
         lblMembers.setText("Team Members");
 
         btnAdd.setText("Add >");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnAdd.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnAddActionPerformed(evt);
             }
         });
 
-        listCompTeam.setModel(new javax.swing.AbstractListModel() {
+        listCompTeam.setModel(new javax.swing.AbstractListModel()
+        {
             String[] strings = { "" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -110,29 +109,37 @@ public class ChangeCompetitionTeamForm
         jLabel1.setText("Current Competition Team");
 
         btnRemove.setText("< Remove");
-        btnRemove.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnRemove.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnRemoveActionPerformed(evt);
             }
         });
 
         btnSave.setText("Save Team");
-        btnSave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnSave.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnSaveActionPerformed(evt);
             }
         });
 
         btnShow.setText("Show");
-        btnShow.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnShow.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnShowActionPerformed(evt);
             }
         });
 
         btnGetTeams.setText("Find Teams");
-        btnGetTeams.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnGetTeams.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnGetTeamsActionPerformed(evt);
             }
         });
@@ -223,18 +230,20 @@ public class ChangeCompetitionTeamForm
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         //List Models
-        ListModel cTeamModel = listCompTeam.getModel();
         ListModel origModel = listTeam.getModel();
 
         //arrays to store teams, list to save new state of origin
         Object[] origSel = listTeam.getSelectedValues();
-        Object[] cTeam = new Object[cTeamModel.getSize() + origSel.length];
         List<Object> tmpOrig = new LinkedList<>();
 
         for (int i = 0; i < origModel.getSize(); i++)
         {
             tmpOrig.add(origModel.getElementAt(i));
         }
+
+        ListModel cTeamModel = listCompTeam.getModel();
+        Object[] cTeam = new Object[cTeamModel.getSize() + origSel.length];
+
         for (int i = 0; i < cTeamModel.getSize(); i++)
         {
             cTeam[i] = cTeamModel.getElementAt(i);
@@ -307,24 +316,35 @@ public class ChangeCompetitionTeamForm
 
     private void btnShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowActionPerformed
         IClubTeamDto completeTeam = (IClubTeamDto) comboTeam.getSelectedItem();
-        setTeamPlayerList(completeTeam);
+        List<IPlayerDto> playerList = controller.getPlayers(completeTeam.getPlayerList());
 
         formerTeam = controller.getCompetitionTeam(completeTeam);
         newPlayerList = controller.getPlayers(formerTeam.getPlayerList());
-        setCompetitionTeamList();
+        setNeededPLayerList();
+
+        List<IPlayerDto> notNeededPlayerList = new LinkedList<>();
+
+        for (IPlayerDto player : playerList)
+        {
+            if (!newPlayerList.contains(player))
+            {
+                notNeededPlayerList.add(player);
+            }
+        }
+
+        setNotNeededPlayerList(notNeededPlayerList);
+
     }//GEN-LAST:event_btnShowActionPerformed
 
     private void btnGetTeamsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGetTeamsActionPerformed
         comboTeam.setModel(new DefaultComboBoxModel(getTeamList()));
     }//GEN-LAST:event_btnGetTeamsActionPerformed
 
-    private void setTeamPlayerList(IClubTeamDto team)
+    private void setNotNeededPlayerList(final List<IPlayerDto> players)
     {
-        allPlayers = controller.getPlayers(team.getPlayerList());
-
         listTeam.setModel(new AbstractListModel()
         {
-            Object[] objects = allPlayers.toArray(); /*players;*/
+            Object[] objects = players.toArray(); /*players;*/
 
 
             @Override
@@ -341,7 +361,7 @@ public class ChangeCompetitionTeamForm
         });
     }
 
-    private void setCompetitionTeamList()
+    private void setNeededPLayerList()
     {
         listCompTeam.setModel(new AbstractListModel()
         {
@@ -359,12 +379,6 @@ public class ChangeCompetitionTeamForm
                 return objects[i];
             }
         });
-    }
-
-    private Object[] getCompetitionList()
-    {
-        List<ICompetitionDto> compList = controller.getCompetition();
-        return compList.toArray();
     }
 
     private Object[] getTeamList()

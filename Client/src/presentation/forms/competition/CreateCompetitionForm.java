@@ -4,14 +4,14 @@
  */
 package presentation.forms.competition;
 
-import com.ServiceClient;
+import com.contract.IUseCaseControllerFactory;
 import com.ServiceNotAvailableException;
 import contract.dto.*;
 import contract.dto.classes.AddressDto;
 import contract.dto.classes.CompetitionDto;
 import contract.dto.classes.CountryDto;
 import contract.dto.classes.MatchDto;
-import contract.useCaseController.INewCompetition;
+import contract.useCaseController.INewCompetitionController;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.AbstractListModel;
@@ -27,8 +27,8 @@ import presentation.basics.AbstractMainForm;
 public class CreateCompetitionForm
         extends AbstractMainForm {
 
-    ServiceClient client;
-    INewCompetition controller;
+    IUseCaseControllerFactory client;
+    INewCompetitionController controller;
     ICompetitionDto competition;
     List<IMatchDto> match;
     IMemberDto user;
@@ -41,12 +41,12 @@ public class CreateCompetitionForm
     /**
      * Creates new form NewMatch
      */
-    public CreateCompetitionForm(AbstractForm parent, ServiceClient client, IMemberDto user)
+    public CreateCompetitionForm(AbstractForm parent, IUseCaseControllerFactory client, IMemberDto user)
             throws ServiceNotAvailableException {
         super(parent);
         this.client = client;
         this.user = user;
-        controller = this.client.getNewCompetitionService();
+        controller = this.client.getNewCompetitionController();
         initComponents();
     }
 

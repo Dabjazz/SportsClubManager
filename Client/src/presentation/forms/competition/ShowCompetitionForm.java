@@ -1,9 +1,9 @@
 package presentation.forms.competition;
 
-import com.ServiceClient;
+import com.contract.IUseCaseControllerFactory;
 import com.ServiceNotAvailableException;
 import contract.dto.*;
-import contract.useCaseController.IShowCompetition;
+import contract.useCaseController.IShowCompetitionController;
 import java.util.*;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -18,8 +18,8 @@ import presentation.basics.*;
 public class ShowCompetitionForm
         extends AbstractMainForm
 {
-    ServiceClient client;
-    IShowCompetition controller;
+    IUseCaseControllerFactory client;
+    IShowCompetitionController controller;
     ICompetitionDto competition;
     List<IClubTeamDto> clubTeams = new LinkedList<>();
     List<IMatchDto> compMatches= new LinkedList<>();
@@ -29,13 +29,13 @@ public class ShowCompetitionForm
     /**
      Creates new form ShowMatchInfo
      */
-    public ShowCompetitionForm(AbstractForm form, ServiceClient client, IMemberDto user)
+    public ShowCompetitionForm(AbstractForm form, IUseCaseControllerFactory client, IMemberDto user)
             throws ServiceNotAvailableException
     {
         super(form);
         this.client = client;
         this.user = user;
-        controller = this.client.getShowCompetitionService();
+        controller = this.client.getShowCompetitionController();
         initComponents();
     }
 

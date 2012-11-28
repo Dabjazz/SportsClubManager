@@ -1,9 +1,9 @@
 package presentation.forms.member;
 
-import com.ServiceClient;
+import com.contract.IUseCaseControllerFactory;
 import com.ServiceNotAvailableException;
 import contract.dto.*;
-import contract.useCaseController.INewMember;
+import contract.useCaseController.INewMemberController;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -24,8 +24,8 @@ public class NewMemberForm
         extends AbstractMainForm
 {
     //Controler and contract
-    ServiceClient client;
-    INewMember controller;
+    IUseCaseControllerFactory client;
+    INewMemberController controller;
     IMemberDto member;
     IMemberDto user;
     IRoleDto role;
@@ -42,7 +42,7 @@ public class NewMemberForm
     /**
      Creates new form NewMemb
      */
-    public NewMemberForm(AbstractForm form, ServiceClient client, IMemberDto user)
+    public NewMemberForm(AbstractForm form, IUseCaseControllerFactory client, IMemberDto user)
             throws ServiceNotAvailableException
     {
         super(form);
@@ -56,7 +56,7 @@ public class NewMemberForm
             disableExtendedRadioSelection();
         }
         this.selectedSports = new LinkedList<>();
-        controller = this.client.getNewMemberService();
+        controller = this.client.getNewMemberController();
     }
 
     /**

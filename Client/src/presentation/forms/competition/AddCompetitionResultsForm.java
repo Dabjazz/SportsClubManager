@@ -1,10 +1,10 @@
 package presentation.forms.competition;
 
-import com.ServiceClient;
+import com.contract.IUseCaseControllerFactory;
 import com.ServiceNotAvailableException;
 import contract.dto.*;
 import contract.dto.classes.*;
-import contract.useCaseController.IAddMatchResults;
+import contract.useCaseController.IAddMatchResultsController;
 import java.util.List;
 import javax.swing.AbstractListModel;
 import javax.swing.DefaultComboBoxModel;
@@ -19,8 +19,8 @@ import presentation.basics.AbstractMainForm;
 public class AddCompetitionResultsForm
         extends AbstractMainForm {
 
-    ServiceClient client;
-    IAddMatchResults controller;
+    IUseCaseControllerFactory client;
+    IAddMatchResultsController controller;
     ICompetitionDto competition;
     ITeamDto team;
     IMatchDto match;
@@ -31,12 +31,12 @@ public class AddCompetitionResultsForm
     /**
      * Creates new form MatchResultEntr
      */
-    public AddCompetitionResultsForm(AbstractForm form, ServiceClient client, IMemberDto user)
+    public AddCompetitionResultsForm(AbstractForm form, IUseCaseControllerFactory client, IMemberDto user)
             throws ServiceNotAvailableException {
         super(form);
         this.client = client;
         this.user = user;
-        controller = this.client.getAddMatchResultsService();
+        controller = this.client.getAddMatchResultsController();
         initComponents();
     }
 

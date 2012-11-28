@@ -4,7 +4,7 @@
  */
 package presentation;
 
-import com.ServiceClient;
+import com.contract.IUseCaseControllerFactory;
 import com.ServiceNotAvailableException;
 import com.CommunicationProblemException;
 import contract.dto.*;
@@ -41,8 +41,8 @@ public class LoginDialogListener
         {
             JOptionPane.showMessageDialog(null, "Access granted!");
 
-            ServiceClient client = com.ServiceClientFactory.getRmiServiceClient(userData.getIP(), 1099);
-            ILogin loginService = client.getLoginService();
+            IUseCaseControllerFactory client = com.ServiceClientFactory.getRmiServiceClient(userData.getIP(), 1099);
+            ILogin loginService = client.getLoginController();
             IMemberDto user = loginService.getMemberByUserData(userData);
             SCM_Overview manager = new SCM_Overview(null, client, user);
             manager.setVisible(true);
