@@ -4,21 +4,10 @@
  */
 package com.rmi.client;
 
-import com.contract.IUseCaseControllerFactory;
-import com.rmi.client.serviceMapper.PermissionControllerServiceMapper;
-import com.rmi.client.serviceMapper.MembershipControllerServiceMapper;
-import com.rmi.client.serviceMapper.NewCompetitionServiceMapper;
-import com.rmi.client.serviceMapper.ChangeCompetitionTeamServiceMapper;
-import com.rmi.client.serviceMapper.SearchChangeMemberServiceMapper;
-import com.rmi.client.serviceMapper.LoginServiceMapper;
-import com.rmi.client.serviceMapper.AddMemberToTeamServiceMapper;
-import com.rmi.client.serviceMapper.AddMatchResultsServiceMapper;
-import com.rmi.client.serviceMapper.NewMemberServiceMapper;
-import com.rmi.client.serviceMapper.AddressControllerServiceMapper;
-import com.rmi.client.serviceMapper.ShowCompetitionServiceMapper;
 import com.*;
+import com.contract.IUseCaseControllerFactory;
+import com.rmi.client.serviceMapper.*;
 import contract.rmi.IRmiServiceFactory;
-import contract.rmi.services.*;
 import contract.useCaseController.*;
 import java.net.MalformedURLException;
 import java.rmi.*;

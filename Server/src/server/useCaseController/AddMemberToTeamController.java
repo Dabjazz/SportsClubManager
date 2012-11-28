@@ -10,22 +10,16 @@ import java.util.List;
 import server.dto.mapper.DtoFactory;
 
 /**
- *
- * @author Lucia
+
+ @author Lucia
  */
-public class AddMemberToTeamController implements IAddMemberToTeamController{
-    
+public class AddMemberToTeamController
+        implements IAddMemberToTeamController
+{
     private static AddMemberToTeamController singleton = null;
     DtoFactory dtoFactory = new DtoFactory();
 
-<<<<<<< HEAD:Server/src/server/useCaseController/AddMemberToTeamController.java
     public static AddMemberToTeamController getInstance()
-=======
-    public AddMemberToTeam() {
-    }
-
-    public static AddMemberToTeam getInstance()
->>>>>>> e662eec4f347c75bd564d373c69b039e61c2b2ef:Server/src/server/useCaseController/AddMemberToTeam.java
     {
         if (singleton == null)
         {
@@ -36,23 +30,26 @@ public class AddMemberToTeamController implements IAddMemberToTeamController{
 
     //TODO implement those methodes - too brainfu... right now
     @Override
-    public List<IClubTeamDto> getClubTeams(IMemberDto user) {
+    public List<IClubTeamDto> getClubTeams(IMemberDto user)
+    {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public List<IPlayerDto> getPotentialPlayer(IClubTeamDto clubTeam) {
+    public List<IPlayerDto> getPotentialPlayer(IClubTeamDto clubTeam)
+    {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public List<IPlayerDto> getTeamPlayer(IClubTeamDto clubTeam) {
+    public List<IPlayerDto> getTeamPlayer(IClubTeamDto clubTeam)
+    {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public void updateClubTeam(IClubTeamDto clubTeam) {
+    public void updateClubTeam(IClubTeamDto clubTeam)
+    {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
 }
