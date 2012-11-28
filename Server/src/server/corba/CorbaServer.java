@@ -35,6 +35,15 @@ public class CorbaServer
         try
         {
             Runtime.getRuntime().exec("orbd -ORBInitialPort 2050");
+            try
+            {
+                Thread.sleep(3000);
+            }
+            catch (InterruptedException ex)
+            {
+                Logger.getLogger(CorbaServer.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
             String[] args1 = new String[]
             {
                 "-ORBInitialPort", "2050"

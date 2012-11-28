@@ -62,8 +62,8 @@ public class RmiServer
             cb += " file://" + UserData.class.getProtectionDomain().getCodeSource().getLocation().getFile();
             System.setProperty("java.rmi.server.codebase", cb);
 
-            System.setProperty("java.security.policy", policy);
-            System.setSecurityManager(new SecurityManager());
+//            System.setProperty("java.security.policy", policy);
+//            System.setSecurityManager(new SecurityManager());
 
             RmiServiceClient rmiServiceFactory = new RmiServiceClientFactory();
             Naming.rebind("rmi://localhost:" + port + "/CommunicationFactory", rmiServiceFactory);
