@@ -50,11 +50,11 @@ public class NewMemberForm
 
         this.client = client;
         this.user = user;
-        //adminPermission = user.hasPermission();
-        if (!adminPermission)
-        {
-            disableExtendedRadioSelection();
-        }
+//        adminPermission = getUserPermission(user);
+//        if (!adminPermission)
+//        {
+//            disableExtendedRadioSelection();
+//        }
         this.selectedSports = new LinkedList<>();
         controller = this.client.getNewMemberController();
     }
@@ -482,9 +482,8 @@ public class NewMemberForm
             sb.append(s);
             sb.append(", ");
         }
-        sb.delete(sb.length() - 2, sb.length());    //TODO check if this works 
 
-        txtFieldSport.setText(sb.toString());
+        txtFieldSport.setText(sb.toString().substring(0, sb.length() - 2));
     }
 
     public void setTxtFieldTeams(List<IClubTeamDto> selected)
@@ -648,6 +647,12 @@ public class NewMemberForm
         radioDeptHead.setEnabled(false);
         radioTrainer.setEnabled(false);
     }
+    
+//    private boolean getUserPermission(IMemberDto user) {
+//       
+//        List<Integer> roleIDs = user.getRoleList();
+//        
+//    }
 
     public JPanel getPanel()
     {
@@ -694,4 +699,5 @@ public class NewMemberForm
     private javax.swing.JTextField txtfieldPhone;
     private javax.swing.JTextField txtfieldPostCode;
     // End of variables declaration//GEN-END:variables
+
 }

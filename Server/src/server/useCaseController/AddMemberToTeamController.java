@@ -18,7 +18,14 @@ public class AddMemberToTeamController implements IAddMemberToTeamController{
     private static AddMemberToTeamController singleton = null;
     DtoFactory dtoFactory = new DtoFactory();
 
+<<<<<<< HEAD:Server/src/server/useCaseController/AddMemberToTeamController.java
     public static AddMemberToTeamController getInstance()
+=======
+    public AddMemberToTeam() {
+    }
+
+    public static AddMemberToTeam getInstance()
+>>>>>>> e662eec4f347c75bd564d373c69b039e61c2b2ef:Server/src/server/useCaseController/AddMemberToTeam.java
     {
         if (singleton == null)
         {
