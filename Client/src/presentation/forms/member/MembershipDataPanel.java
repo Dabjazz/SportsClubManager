@@ -65,7 +65,7 @@ public class MembershipDataPanel
             for (IRoleDto role : controller.getRoles(member.getId())) {
                 if (role instanceof IAdminDto) {
                     radioAdmin.setSelected(true);
-                    disableExtendedRadioSelection();
+                    enableExtendedRadioSelection();
                 } else if (role instanceof ICaretakerDto) {
                     radioCaretaker.setSelected(true);
                 } else if (role instanceof IDepartmentHeadDto) {
@@ -202,11 +202,11 @@ public class MembershipDataPanel
         return result;
     }
 
-    private void disableExtendedRadioSelection() {
-        radioAdmin.setEnabled(false);
-        radioCaretaker.setEnabled(false);
-        radioDepHead.setEnabled(false);
-        radioTrainer.setEnabled(false);
+    private void enableExtendedRadioSelection() {
+        radioAdmin.setEnabled(true);
+        radioCaretaker.setEnabled(true);
+        radioDepHead.setEnabled(true);
+        radioTrainer.setEnabled(true);
     }
 
     public void setPlayerClubTeams(List<IClubTeamDto> selected) {
@@ -313,13 +313,14 @@ public class MembershipDataPanel
 
         lblSport.setText("Sport");
 
-        lblTeam.setText("Team als Trainer");
+        lblTeam.setText("Team as Trainer");
 
-        lblTeam1.setText("Team als Spieler");
+        lblTeam1.setText("Team as Player");
 
         lblRole.setText("Role");
 
         radioAdmin.setText("Admin");
+        radioAdmin.setEnabled(false);
         radioAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioAdminActionPerformed(evt);
@@ -327,6 +328,7 @@ public class MembershipDataPanel
         });
 
         radioCaretaker.setText("Caretaker");
+        radioCaretaker.setEnabled(false);
         radioCaretaker.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioCaretakerActionPerformed(evt);
@@ -334,6 +336,7 @@ public class MembershipDataPanel
         });
 
         radioDepHead.setText("Department Head");
+        radioDepHead.setEnabled(false);
         radioDepHead.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioDepHeadActionPerformed(evt);
@@ -341,6 +344,7 @@ public class MembershipDataPanel
         });
 
         radioTrainer.setText("Trainer");
+        radioTrainer.setEnabled(false);
         radioTrainer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioTrainerActionPerformed(evt);

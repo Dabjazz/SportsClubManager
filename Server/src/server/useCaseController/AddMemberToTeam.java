@@ -20,6 +20,9 @@ public class AddMemberToTeam implements IAddMemberToTeam{
     private static AddMemberToTeam singleton = null;
     DtoFactory dtoFactory = new DtoFactory();
 
+    public AddMemberToTeam() {
+    }
+
     public static AddMemberToTeam getInstance()
     {
         if (singleton == null)
@@ -32,7 +35,7 @@ public class AddMemberToTeam implements IAddMemberToTeam{
     //TODO implement those methodes - too brainfu... right now
     @Override
     public List<IClubTeamDto> getClubTeams(IMemberDto user) {
-        //throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
