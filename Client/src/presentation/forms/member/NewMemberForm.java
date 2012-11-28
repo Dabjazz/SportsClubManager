@@ -482,9 +482,8 @@ public class NewMemberForm
             sb.append(s);
             sb.append(", ");
         }
-        sb.delete(sb.length() - 2, sb.length());    //TODO check if this works 
 
-        txtFieldSport.setText(sb.toString());
+        txtFieldSport.setText(sb.toString().substring(0, sb.length() - 2));
     }
 
     public void setTxtFieldTeams(List<IClubTeamDto> selected)
