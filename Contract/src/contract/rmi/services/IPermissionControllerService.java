@@ -5,14 +5,16 @@
 package contract.rmi.services;
 
 import contract.dto.IMemberDto;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 /**
-
- @author Thomas
+ *
+ * @author Thomas
  */
 public interface IPermissionControllerService
-{
+        extends Remote {
+
     IMemberDto getMember()
             throws RemoteException;
 

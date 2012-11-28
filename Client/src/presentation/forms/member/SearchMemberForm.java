@@ -3,6 +3,7 @@ package presentation.forms.member;
 import com.contract.IUseCaseControllerFactory;
 import com.*;
 import contract.dto.IMemberDto;
+import contract.useCaseController.IPermissionController;
 import contract.useCaseController.ISearchChangeMemberController;
 import java.util.List;
 import javax.swing.*;
@@ -41,7 +42,7 @@ public class SearchMemberForm
         super(form);
         this.client = client;
         this.user = user;
-        controller = this.client.getSearchChangeMemberController();
+        controller = this.client.getSearchChangeMemberController();        
         initComponents();
 
         personDataPanel1.setController(this.client.getAddressController());
