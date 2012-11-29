@@ -4,7 +4,7 @@
  */
 package contract.ejb;
 
-import contract.ejb.business.IAddMatchResultsRemote;
+import contract.ejb.business.*;
 import contract.rmi.services.*;
 import javax.ejb.Remote;
 
@@ -16,12 +16,15 @@ import javax.ejb.Remote;
 @Remote
 public interface IEJBServiceFactoryRemote
 {
+    //TODO change all to ejb remote
+    // 6 fixed by chris (others by dominik)
+    
     public IAddMatchResultsRemote getAddMatchResultsService();
 
-    //TODO change all to ejb remote
-    public IAddMemberToTeamRmiService getAddMemberToTeamRmiService();
+    
+    public IAddMemberToTeamRemote getAddMemberToTeamService();
 
-    public IChangeCompetitionTeamRmiService getChangeCompetitionTeamService();
+    public IChangeCompetitionTeamRemote getChangeCompetitionTeamService();
 
     public INewCompetitionRmiService getNewCompetitionService();
 
@@ -31,11 +34,11 @@ public interface IEJBServiceFactoryRemote
 
     public IShowCompetitionRmiService getShowCompetitionService();
 
-    ILoginRmiService getLoginService();
+    public ILoginRemote getLoginService();
 
-    IMembershipRmiService getMembershipService();
+    public IMembershipRemote getMembershipService();
 
-    IAddressRmiService getAddressService();
+    public IAddressRemote getAddressService();
 
-     IPermissionControllerService getPermissionController();
+    public IPermissionControllerService getPermissionController();
 }

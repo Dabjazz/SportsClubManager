@@ -6,8 +6,8 @@ package com.ejb;
 
 import com.ServiceNotAvailableException;
 import com.contract.IUseCaseControllerFactory;
+import com.ejb.mapper.*;
 import contract.ejb.IEJBServiceFactoryRemote;
-import contract.ejb.business.IAddMatchResultsRemote;
 import contract.useCaseController.*;
 import javax.ejb.EJB;
 
@@ -23,23 +23,19 @@ public class EJBUseCaseControllerFactory implements IUseCaseControllerFactory
     @Override
     public IAddMatchResultsController getAddMatchResultsController() throws ServiceNotAvailableException
     {
-        IAddMatchResultsRemote addMatchResultsService = ejbFactory.getAddMatchResultsService();
-        
-        // TODO map to client interface and return (like rmi mapper)
-        return null;
-        
+        return new AddMatchResultsServiceMapper(ejbFactory.getAddMatchResultsService());
     }
 
     @Override
     public IAddMemberToTeamController getAddMemberToTeamController() throws ServiceNotAvailableException
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new AddMemberToTeamServiceMapper(ejbFactory.getAddMemberToTeamService());
     }
 
     @Override
     public IChangeCompetitionTeamController getChangeCompetitionTeamController() throws ServiceNotAvailableException
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new ChangeCompetitionTeamServiceMapper(ejbFactory.getChangeCompetitionTeamService());
     }
 
     @Override
@@ -69,19 +65,19 @@ public class EJBUseCaseControllerFactory implements IUseCaseControllerFactory
     @Override
     public ILogin getLoginController() throws ServiceNotAvailableException
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new LoginServiceMapper(ejbFactory.getLoginService());
     }
 
     @Override
     public IAddressController getAddressController() throws ServiceNotAvailableException
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new AddressControllerServiceMapper(ejbFactory.getAddressService());
     }
 
     @Override
     public IMembershipController getMembershipController() throws ServiceNotAvailableException
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new MembershipControllerServiceMapper(ejbFactory.getMembershipService());
     }
 
     @Override

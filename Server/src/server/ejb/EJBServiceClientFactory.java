@@ -5,20 +5,10 @@
 package server.ejb;
 
 import contract.ejb.IEJBServiceFactoryRemote;
-import server.rmi.service.AddMatchResultsRmiService;
-import server.rmi.service.AddMemberToTeamRmiService;
-import server.rmi.service.SearchChangeMemberRmiService;
-import server.rmi.service.NewMemberRmiService;
-import server.rmi.service.ShowCompetitionRmiService;
-import server.rmi.service.LoginRmiService;
-import server.rmi.service.MembershipRmiService;
-import server.rmi.service.AddressRmiService;
-import server.rmi.service.PermissionControllerRmiService;
-import server.rmi.service.ChangeCompetitionTeamRmiService;
-import server.rmi.service.NewCompetitionRmiService;
+import contract.ejb.business.*;
 import contract.rmi.services.*;
 import javax.ejb.Singleton;
-import server.ejb.beans.AddMatchResultsBean;
+import server.ejb.beans.*;
 
 /**
 
@@ -38,12 +28,12 @@ public class EJBServiceClientFactory implements IEJBServiceFactoryRemote
         return new AddMatchResultsBean();
     }
 
-//    @Override
-//    public IChangeCompetitionTeamRmiService getChangeCompetitionTeamService()
-//    {
-//        return new ChangeCompetitionTeamRmiService();
-//    }
-//
+    @Override
+    public IChangeCompetitionTeamRemote getChangeCompetitionTeamService()
+    {
+        return new ChangeCompetitionTeamBean();
+    }
+
 //    @Override
 //    public INewCompetitionRmiService getNewCompetitionService()
 //    {
@@ -55,60 +45,48 @@ public class EJBServiceClientFactory implements IEJBServiceFactoryRemote
 //    {
 //        return new NewMemberRmiService();
 //    }
-//
+
 //    @Override
 //    public ISearchChangeMemberRmiService getSearchChangeMemberService()
 //    {
 //        return new SearchChangeMemberRmiService();
 //    }
-//
+
 //    @Override
 //    public IShowCompetitionRmiService getShowCompetitionService()
 //    {
 //        return new ShowCompetitionRmiService();
 //    }
-//
-//    @Override
-//    public ILoginRmiService getLoginService()
-//    {
-//        return new LoginRmiService();
-//    }
-//
-//    @Override
-//    public IMembershipRmiService getMembershipService()
-//    {
-//        return new MembershipRmiService();
-//    }
-//
-//    @Override
-//    public IAddressRmiService getAddressService()
-//    {
-//        return new AddressRmiService();
-//    }
-//
-//    @Override
-//    public IAddMemberToTeamRmiService getAddMemberToTeamRmiService()
-//    {
-//        return new AddMemberToTeamRmiService();
-//    }
-//
+
+    @Override
+    public ILoginRemote getLoginService()
+    {
+        return new LoginBean();
+    }
+
+    @Override
+    public IMembershipRemote getMembershipService()
+    {
+        return new MembershipBean();
+    }
+
+    @Override
+    public IAddressRemote getAddressService()
+    {
+        return new AddressBean();
+    }
+
+    @Override
+    public IAddMemberToTeamRemote getAddMemberToTeamService()
+    {
+        return new AddMemberToTeamBean();
+    }
+
 //    @Override
 //    public IPermissionControllerService getPermissionController()
 //    {
 //        return new PermissionControllerRmiService();
 //    }
-
-    @Override
-    public IAddMemberToTeamRmiService getAddMemberToTeamRmiService()
-    {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public IChangeCompetitionTeamRmiService getChangeCompetitionTeamService()
-    {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
 
     @Override
     public INewCompetitionRmiService getNewCompetitionService()
@@ -135,26 +113,10 @@ public class EJBServiceClientFactory implements IEJBServiceFactoryRemote
     }
 
     @Override
-    public ILoginRmiService getLoginService()
-    {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public IMembershipRmiService getMembershipService()
-    {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public IAddressRmiService getAddressService()
-    {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
     public IPermissionControllerService getPermissionController()
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    
 }
