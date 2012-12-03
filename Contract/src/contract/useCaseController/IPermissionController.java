@@ -5,14 +5,12 @@
 package contract.useCaseController;
 
 import contract.dto.IMemberDto;
-import java.io.Serializable;
 
 /**
 
  @author Thomas
  */
 public interface IPermissionController
-        extends Serializable
 {
     IMemberDto getMember();
 

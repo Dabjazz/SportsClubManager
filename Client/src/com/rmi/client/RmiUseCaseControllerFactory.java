@@ -198,8 +198,7 @@ public class RmiUseCaseControllerFactory
     {
         try
         {
-            IPermissionControllerService s = rmiServiceClient.getPermissionController();
-            return new PermissionControllerServiceMapper(s);
+            return new PermissionControllerServiceMapper(rmiServiceClient.getPermissionController());
         }
         catch (RemoteException ex)
         {

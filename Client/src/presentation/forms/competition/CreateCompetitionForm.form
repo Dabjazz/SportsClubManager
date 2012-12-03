@@ -221,7 +221,7 @@
                 <Component class="javax.swing.JList" name="listSelectTeams">
                   <Properties>
                     <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="new javax.swing.AbstractListModel() {&#xa;    String[] teams = getTeamsList();&#xa;    public int getSize() { return teams.length; }&#xa;    public Object getElementAt(int i) { return teams[i]; }&#xa;}" type="code"/>
+                      <Connection code="new javax.swing.AbstractListModel() {&#xa;    Object[] teams = getTeamsList();&#xa;    public int getSize() { return teams.length; }&#xa;    public Object getElementAt(int i) { return teams[i]; }&#xa;}" type="code"/>
                     </Property>
                     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[40, 80]"/>
@@ -282,14 +282,8 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtfieldLocation">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtfieldLocationActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="txtfieldName">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtfieldNameActionPerformed"/>
-              </Events>
             </Component>
             <Component class="com.toedter.calendar.JDateChooser" name="dateDateFrom">
             </Component>
@@ -305,9 +299,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtfieldFee">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtfieldFeeActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnConfirm">
               <Properties>
@@ -413,7 +404,7 @@
                 <Component class="javax.swing.JList" name="listSelectMatch">
                   <Properties>
                     <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="new javax.swing.AbstractListModel() {&#xa;    String[] strings = { &quot;&quot; };&#xa;    public int getSize() { return strings.length; }&#xa;    public Object getElementAt(int i) { return strings[i]; }&#xa;}" type="code"/>
+                      <Connection code="new javax.swing.AbstractListModel() {&#xa;    Object[] objects = { &quot;&quot; };&#xa;    public int getSize() { return objects.length; }&#xa;    public Object getElementAt(int i) { return objects[i]; }&#xa;}" type="code"/>
                     </Property>
                     <Property name="enabled" type="boolean" value="false"/>
                     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -436,9 +427,6 @@
               <Properties>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtfieldTeamAActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lbl1">
               <Properties>
@@ -449,9 +437,6 @@
               <Properties>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtfieldTeamBActionPerformed"/>
-              </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane2">
               <AuxValues>
