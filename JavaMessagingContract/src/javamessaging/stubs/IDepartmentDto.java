@@ -2,17 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package javamessagingclient.stubs;
+package javamessaging.stubs;
 
+import java.io.*;
 import java.util.List;
 
 /**
-
  @author Thomas
  */
-public interface IDepartmentHeadDto
+public interface IDepartmentDto extends Serializable
 {
-    IMemberDto getMember();
-
-    public List<IDepartmentDto> getDepartmentList();
+    List<IClubTeamDto> getClubTeamList();
 }

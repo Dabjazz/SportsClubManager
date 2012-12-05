@@ -2,23 +2,17 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package javamessagingclient;
+package javamessagingclient.controller;
 
-import javamessagingclient.stubs.IClubTeamDto;
-import javamessagingclient.stubs.IMemberDto;
+import javamessaging.stubs.*;
 
 /**
-
  @author Thomas
  */
 public class DeleteMemberFromClubTeam
 {
-    public DeleteMemberFromClubTeam()
-    {
-    }
-
     public void deleteMemberFromClubTeam(IClubTeamDto clubTeam, IMemberDto member)
     {
-        throw new UnsupportedOperationException("Not yet implemented");
+        System.out.println("Member " + member.getUsername() + " removed from team " + clubTeam.getName());
     }
 }

@@ -2,10 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package applicationclient1;
+package javamessaging.message;
 
-import applicationclient1.contract.IMemberDepartmentMessage;
-import applicationclient1.stubs.*;
+import javamessaging.stubs.IDepartmentDto;
+import javamessaging.stubs.IMemberDto;
+import javamessaging.contract.IMemberDepartmentMessage;
 import java.io.*;
 
 /**

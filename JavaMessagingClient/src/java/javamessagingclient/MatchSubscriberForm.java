@@ -4,15 +4,16 @@
  */
 package javamessagingclient;
 
-import javamessagingclient.contract.IMatchMessage;
-import javamessagingclient.stubs.IMemberDto;
+import javamessagingclient.controller.DeleteMemberFromClubTeam;
+import javamessaging.stubs.*;
+import javamessaging.contract.*;
 import java.util.*;
+import java.util.logging.*;
 import javax.jms.*;
 import javax.swing.event.*;
-import javax.swing.table.TableModel;
+import javax.swing.table.*;
 
 /**
-
  @author Thomas
  */
 public class MatchSubscriberForm
@@ -79,10 +80,7 @@ public class MatchSubscriberForm
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][]
             {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String []
             {
@@ -185,22 +183,30 @@ public class MatchSubscriberForm
     @Override
     public void onMessage(Message message)
     {
-        IMatchMessage msg = (IMatchMessage) message;
-
-        System.out.println("received: " + msg);
-
-        if (!member.getUsername().equals(msg.getMember().getUsername()))
+        try
         {
-            return;
+            System.out.println("received message: " + message);
+
+            ObjectMessage om = (ObjectMessage) message;
+            System.out.println("received ObjectMessage: " + om);
+
+            Object o = om.getObject();
+            System.out.println("received object: " + o);
+
+            IMatchMessage msg = (IMatchMessage) o;
+            System.out.println("received matchmessage: " + msg);
+
+            if (!member.getUsername().equals(msg.getMember().getUsername()))
+            {
+                return;
+            }
+            messages.add(msg);
+            updateTable();
         }
-        messages.add(msg);
-
-        TableModel tableModel = jTable1.getModel();
-
-        tableModel.setValueAt(msg.getClubTeam(), tableModel.getRowCount() + 1, 0);
-        tableModel.setValueAt(msg.getCompetition(), tableModel.getRowCount() + 1, 1);
-
-        jTable1.setModel(tableModel);
+        catch (JMSException ex)
+        {
+            Logger.getLogger(MatchSubscriberForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
@@ -219,11 +225,37 @@ public class MatchSubscriberForm
         }
 
         selectedMessage = messages.remove(selectedMessageId);
-        jTable1.remove(selectedMessageId);
+
+        updateTable();
+
+        System.out.println("Message handeld");
+
         if (b)
         {
             return;
         }
         controller.deleteMemberFromClubTeam(selectedMessage.getClubTeam(), member);
+    }
+
+    private void updateTable()
+    {
+
+        TableModel tm = jTable1.getModel();
+
+        DefaultTableModel dm = (DefaultTableModel) jTable1.getModel();
+        dm.setRowCount(0);
+        dm.setRowCount(messages.size());
+
+        jTable1.setModel(tm);
+
+        TableModel tableModel = jTable1.getModel();
+
+        for (int i = 0; i < messages.size(); i++)
+        {
+            tableModel.setValueAt(messages.get(i).getClubTeam().getName(), i, 0);
+            tableModel.setValueAt(messages.get(i).getCompetition().getName(), i, 1);
+        }
+
+        jTable1.setModel(tableModel);
     }
 }

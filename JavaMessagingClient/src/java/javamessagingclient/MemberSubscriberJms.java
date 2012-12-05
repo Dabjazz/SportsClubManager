@@ -5,7 +5,7 @@
 package javamessagingclient;
 
 import java.util.logging.*;
-import javamessagingclient.stubs.IDepartmentHeadDto;
+import javamessaging.stubs.IDepartmentHeadDto;
 import javax.jms.*;
 import javax.naming.*;
 

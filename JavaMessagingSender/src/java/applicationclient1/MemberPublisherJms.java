@@ -4,7 +4,9 @@
  */
 package applicationclient1;
 
-import applicationclient1.stubs.*;
+import javamessaging.message.MemberDepartmentMessage;
+import javamessaging.stubs.IDepartmentDto;
+import javamessaging.stubs.IMemberDto;
 import java.io.*;
 import java.util.logging.*;
 import javax.jms.*;

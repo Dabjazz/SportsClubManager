@@ -2,13 +2,18 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package javamessagingclient.stubs;
+package javamessaging.stubs;
+
+import java.io.*;
+import java.util.List;
 
 /**
 
  @author Thomas
  */
-public interface IMemberDto
+public interface IMemberDto extends Serializable
 {
     String getUsername();
+
+    List<IRoleDto> getRoleList();
 }

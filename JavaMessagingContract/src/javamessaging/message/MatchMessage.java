@@ -2,12 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package applicationclient1;
+package javamessaging.message;
 
-import applicationclient1.contract.IMatchMessage;
-import applicationclient1.stubs.*;
 import java.io.Serializable;
-import javax.jms.Message;
+import javamessaging.contract.IMatchMessage;
+import javamessaging.stubs.*;
 
 /**
 
@@ -20,7 +19,7 @@ public class MatchMessage
     private ICompetitionDto competition;
     private IClubTeamDto clubTeam;
 
-    MatchMessage(IMemberDto member, ICompetitionDto competition, IClubTeamDto clubTeam)
+    public MatchMessage(IMemberDto member, ICompetitionDto competition, IClubTeamDto clubTeam)
     {
         this.member = member;
         this.competition = competition;

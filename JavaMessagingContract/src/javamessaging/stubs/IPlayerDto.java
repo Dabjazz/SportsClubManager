@@ -2,17 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package javamessagingclient;
+package javamessaging.stubs;
 
 /**
 
  @author Thomas
  */
-class AddMemberAddClubTeam
+public interface IPlayerDto extends IRoleDto
 {
-
-    public AddMemberAddClubTeam()
-    {
-    }
-    
+    IMemberDto getMember();
 }
