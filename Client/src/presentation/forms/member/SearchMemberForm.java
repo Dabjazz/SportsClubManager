@@ -44,7 +44,7 @@ public class SearchMemberForm
         this.user = user;
         controller = this.client.getSearchChangeMemberController();        
         initComponents();
-
+        
         personDataPanel1.setController(this.client.getAddressController());
         membershipDataPanel2.setController(this.client.getMembershipController());
         //availableSports = controller.getTypeOfSports();

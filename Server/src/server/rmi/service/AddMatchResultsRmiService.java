@@ -59,4 +59,9 @@ public class AddMatchResultsRmiService
     {
         return AddMatchResultsController.getInstance().getTeam(hometeam);
     }
+
+    @Override
+    public List<IRoleDto> getRoles(Integer memberId) throws RemoteException {
+        return  AddMatchResultsController.getInstance().getRoles(memberId);
+    }
 }

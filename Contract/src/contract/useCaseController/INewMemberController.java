@@ -9,6 +9,8 @@ import java.util.List;
  */
 public interface INewMemberController
 {
+    List<IRoleDto> getRoles(Integer memberId);
+    
     List<IDepartmentDto> getDepartments();
 
     List<IClubTeamDto> getClubTeams(List<Integer> clubTeams);

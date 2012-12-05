@@ -21,6 +21,7 @@ public class AddToATeamForm extends AbstractMainForm {
     List<IPlayerDto> availablePlayers;
     List<IPlayerDto> teamPlayers;
     IAddMemberToTeamController controller;
+    boolean permission;
 
     /**
      * Creates new form AddMemberToTeam
@@ -31,6 +32,13 @@ public class AddToATeamForm extends AbstractMainForm {
         this.user = user;
         controller = client.getAddMemberToTeamController();
         initComponents();
+        
+        //TODO: Test as soon as controller is running properly
+        String[] neededRoles = {"DepartmentHead", "Admin"};
+        if(!hasRole(neededRoles)){         
+            this.thePanel.removeAll();
+            JOptionPane.showMessageDialog(null, "Sorry, you do not have the permission to enter this area!");
+        }                   
     }
 
     /**
@@ -298,7 +306,20 @@ public class AddToATeamForm extends AbstractMainForm {
             }
         });
     }
+    
+     private boolean hasRole(String[] roleNames) {
+        List<IRoleDto> roleList = controller.getRoles(user.getId());
 
+        for (IRoleDto r : roleList) {
+            for (int i = 0; i < roleNames.length; i++) {
+                if (r.getName().equals(roleNames[i])) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
     public JPanel getPanel() {
         return thePanel;
     }

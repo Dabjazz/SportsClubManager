@@ -78,4 +78,9 @@ public class NewMemberRmiService
     {
         return NewMemberController.getInstance().getAllSports();
     }
+
+    @Override
+    public List<IRoleDto> getRoles(Integer memberId) throws RemoteException {
+        return NewMemberController.getInstance().getRoles(memberId);
+    }
 }

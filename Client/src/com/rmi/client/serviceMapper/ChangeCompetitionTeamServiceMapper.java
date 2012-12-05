@@ -107,4 +107,14 @@ public class ChangeCompetitionTeamServiceMapper
         }
         return null;
     }
+
+    @Override
+    public List<IRoleDto> getRoles(Integer memberId) {
+        try {
+            return service.getRoles(memberId);
+        } catch (RemoteException ex) {
+            Logger.getLogger(ChangeCompetitionTeamServiceMapper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }

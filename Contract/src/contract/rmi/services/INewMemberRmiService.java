@@ -12,6 +12,9 @@ import java.util.List;
 public interface INewMemberRmiService
         extends Remote
 {
+    List<IRoleDto> getRoles(Integer memberId)
+            throws RemoteException;
+    
     List<IDepartmentDto> getDepartments()
             throws RemoteException;
 

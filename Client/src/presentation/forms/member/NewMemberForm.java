@@ -24,7 +24,6 @@ public class NewMemberForm
     //Controler and contract
     IUseCaseControllerFactory client;
     INewMemberController controller;
-    IPermissionController permissionController;
     IMemberDto member;
     IMemberDto user;
     IRoleDto role;
@@ -36,7 +35,7 @@ public class NewMemberForm
     private List<ITypeOfSportDto> availableSports;
     private List<ITypeOfSportDto> selectedSports;
     private List<IClubTeamDto> selectedTeams;
-    private boolean adminPermission = false;
+    private boolean adminPermission;
 
     /**
      Creates new form NewMemb
@@ -50,18 +49,14 @@ public class NewMemberForm
         this.client = client;
         this.user = user;
         controller = this.client.getNewMemberController();
-        
-        permissionController = this.client.getPermissionController();
-        permissionController.setMember(user);
-        
+                
         //find out users permission
-        adminPermission = permissionController.hasPermission("Admin");
+        this.adminPermission = hasRole("Admin");
         if (!adminPermission)
         {
             disableExtendedRadioSelection();
         }
-        this.selectedSports = new LinkedList<>();
-        
+        this.selectedSports = new LinkedList<>();        
     }
 
     /**
@@ -603,15 +598,12 @@ public class NewMemberForm
         {
             roleInt.add(role.getId());
         }
-
         member.setRoleList(roleInt);
 
 
         if (radioTrainer.isSelected() || radioPlayer.isSelected())
         {
             member.setRoleList(roleInt);
-
-
             //TODO: übergabe clubTeam liste und role liste
             controller.setNewMember(member, address);
         }
@@ -643,6 +635,17 @@ public class NewMemberForm
         }
 
         return success;
+    }
+    
+    private boolean hasRole(String roleName){
+        List<IRoleDto> roleList = controller.getRoles(user.getId());
+        
+        for(IRoleDto r : roleList){
+            if(r.getName().equals(roleName)){
+                return true;
+            }
+        }
+        return false;
     }
 
     private void disableExtendedRadioSelection()

@@ -3,10 +3,9 @@ package presentation;
 import com.contract.IUseCaseControllerFactory;
 import com.ServiceNotAvailableException;
 import contract.dto.*;
-import contract.dto.classes.*;
-import java.util.LinkedList;
-import java.util.List;
+import contract.useCaseController.IPermissionController;
 import java.util.logging.*;
+import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 import presentation.basics.AbstractForm;
 import presentation.forms.competition.*;
@@ -20,6 +19,7 @@ public class SCM_Overview
         extends AbstractForm {
 
     private IUseCaseControllerFactory rmiClient;
+    private IPermissionController permissionController;
     private IMemberDto user;
 
     /**
@@ -27,8 +27,15 @@ public class SCM_Overview
      */
     public SCM_Overview(AbstractForm form, IUseCaseControllerFactory rmiClient, IMemberDto user) {
         super(form);
-        this.rmiClient = rmiClient;        
+        this.rmiClient = rmiClient;
         this.user = user;
+        try {
+            permissionController = this.rmiClient.getPermissionController();
+        } catch (ServiceNotAvailableException ex) {
+            Logger.getLogger(SCM_Overview.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        permissionController.setMember(user);
+
         this.setTitle("SportsClubManager");
         this.setExtendedState(this.getExtendedState() | MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -232,12 +239,16 @@ public class SCM_Overview
 
     private void btnMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMemberActionPerformed
         try {
-            paneMemberMain.removeAll();
-            paneMemberMain = new SearchMemberForm(null, rmiClient, user).getPanel();
+            if (permissionController.hasPermission("read")) {
+                paneMemberMain.removeAll();
+                paneMemberMain = new SearchMemberForm(null, rmiClient, user).getPanel();
 
-            tabMember.setRightComponent(paneMemberMain);
-            tabMember.validate();
-            tabMember.repaint();
+                tabMember.setRightComponent(paneMemberMain);
+                tabMember.validate();
+                tabMember.repaint();
+            } else {
+                JOptionPane.showMessageDialog(null, "Sorry, you do not have the permission to enter this area!");
+            }
         } catch (ServiceNotAvailableException ex) {
             Logger.getLogger(SCM_Overview.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -245,12 +256,16 @@ public class SCM_Overview
 
     private void btnShowCompetitionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowCompetitionActionPerformed
         try {
-            paneCompMain.removeAll();
-            paneCompMain = new ShowCompetitionForm(null, rmiClient, user).getPanel();
+            if (permissionController.hasPermission("read")) {
+                paneCompMain.removeAll();
+                paneCompMain = new ShowCompetitionForm(null, rmiClient, user).getPanel();
 
-            tabMatch.setRightComponent(paneCompMain);
-            tabMatch.validate();
-            tabMatch.repaint();
+                tabMatch.setRightComponent(paneCompMain);
+                tabMatch.validate();
+                tabMatch.repaint();
+            } else {
+                JOptionPane.showMessageDialog(null, "Sorry, you do not have the permission to enter this area!");
+            }
         } catch (ServiceNotAvailableException ex) {
             Logger.getLogger(SCM_Overview.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -258,12 +273,16 @@ public class SCM_Overview
 
     private void btnAddResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddResultActionPerformed
         try {
-            paneCompMain.removeAll();
-            paneCompMain = new AddCompetitionResultsForm(null, rmiClient, user).getPanel();
+            if (permissionController.hasPermission("write")) {
+                paneCompMain.removeAll();
+                paneCompMain = new AddCompetitionResultsForm(null, rmiClient, user).getPanel();
 
-            tabMatch.setRightComponent(paneCompMain);
-            tabMatch.validate();
-            tabMatch.repaint();
+                tabMatch.setRightComponent(paneCompMain);
+                tabMatch.validate();
+                tabMatch.repaint();
+            } else {
+                JOptionPane.showMessageDialog(null, "Sorry, you do not have the permission to enter this area!");
+            }
         } catch (ServiceNotAvailableException ex) {
             Logger.getLogger(SCM_Overview.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -271,12 +290,17 @@ public class SCM_Overview
 
     private void btnNewMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewMemberActionPerformed
         try {
-            paneMemberMain.removeAll();
-            paneMemberMain = new NewMemberForm(null, rmiClient, user).getPanel();
+            if (permissionController.hasPermission("write")) {
+                paneMemberMain.removeAll();
+                paneMemberMain = new NewMemberForm(null, rmiClient, user).getPanel();
 
-            tabMember.setRightComponent(paneMemberMain);
-            tabMember.validate();
-            tabMember.repaint();
+                tabMember.setRightComponent(paneMemberMain);
+                tabMember.validate();
+                tabMember.repaint();
+            } else {
+                JOptionPane.showMessageDialog(null, "Sorry, you do not have the permission to enter this area!");
+
+            }
         } catch (ServiceNotAvailableException ex) {
             Logger.getLogger(SCM_Overview.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -284,12 +308,17 @@ public class SCM_Overview
 
     private void btnCreateCompetitionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateCompetitionActionPerformed
         try {
-            paneCompMain.removeAll();
-            paneCompMain = new CreateCompetitionForm(null, rmiClient, user).getPanel();
+            if (permissionController.hasPermission("write")) {
+                paneCompMain.removeAll();
+                paneCompMain = new CreateCompetitionForm(null, rmiClient, user).getPanel();
 
-            tabMatch.setRightComponent(paneCompMain);
-            tabMatch.validate();
-            tabMatch.repaint();
+                tabMatch.setRightComponent(paneCompMain);
+                tabMatch.validate();
+                tabMatch.repaint();
+            } else {
+                JOptionPane.showMessageDialog(null, "Sorry, you do not have the permission to enter this area!");
+
+            }
         } catch (ServiceNotAvailableException ex) {
             Logger.getLogger(SCM_Overview.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -297,12 +326,16 @@ public class SCM_Overview
 
     private void btnChangeTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeTeamActionPerformed
         try {
-            paneCompMain.removeAll();
-            paneCompMain = new ChangeCompetitionTeamForm(null, rmiClient, user).getPanel();
+            if (permissionController.hasPermission("write")) {
+                paneCompMain.removeAll();
+                paneCompMain = new ChangeCompetitionTeamForm(null, rmiClient, user).getPanel();
 
-            tabMatch.setRightComponent(paneCompMain);
-            tabMatch.validate();
-            tabMatch.repaint();
+                tabMatch.setRightComponent(paneCompMain);
+                tabMatch.validate();
+                tabMatch.repaint();
+            } else {
+                JOptionPane.showMessageDialog(null, "Sorry, you do not have the permission to enter this area!");
+            }
         } catch (ServiceNotAvailableException ex) {
             Logger.getLogger(SCM_Overview.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -310,12 +343,16 @@ public class SCM_Overview
 
     private void btnAddToTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToTeamActionPerformed
         try {
-            paneMemberMain.removeAll();
-            paneMemberMain = new AddToATeamForm(null, rmiClient, user).getPanel();
+            if (permissionController.hasPermission("write")) {
+                paneMemberMain.removeAll();
+                paneMemberMain = new AddToATeamForm(null, rmiClient, user).getPanel();
 
-            tabMember.setRightComponent(paneMemberMain);
-            tabMember.validate();
-            tabMember.repaint();
+                tabMember.setRightComponent(paneMemberMain);
+                tabMember.validate();
+                tabMember.repaint();
+            } else {
+                JOptionPane.showMessageDialog(null, "Sorry, you do not have the permission to enter this area!");
+            }
         } catch (ServiceNotAvailableException ex) {
             Logger.getLogger(SCM_Overview.class.getName()).log(Level.SEVERE, null, ex);
         }
