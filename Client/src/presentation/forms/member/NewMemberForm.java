@@ -52,6 +52,7 @@ public class NewMemberForm
         controller = this.client.getNewMemberController();
         
         permissionController = this.client.getPermissionController();
+        permissionController.setMember(user);
         
         //find out users permission
         adminPermission = permissionController.hasPermission("Admin");

@@ -128,14 +128,14 @@ public class MatchDto
     {
         this.hometeam = hometeam;
     }
-//
-//    @Override
-//    public String toString() {
-//        StringBuilder sb = new StringBuilder();
-//        sb.append(getHometeam().getName());
-//        sb.append(" : ");
-//        sb.append(getForeignteam().getName());
-//
-//        return sb.toString();
-//    }
+
+    @Override
+    public String toString() {        
+        StringBuilder sb = new StringBuilder();
+        sb.append(getHometeam().toString());
+        sb.append(" : ");
+        sb.append(getForeignteam().toString());
+
+        return sb.toString();
+    }
 }

@@ -27,44 +27,7 @@ public class SCM_Overview
      */
     public SCM_Overview(AbstractForm form, IUseCaseControllerFactory rmiClient, IMemberDto user) {
         super(form);
-        this.rmiClient = rmiClient;
-        if (user == null) {
-            //ONLY FOR TESTING
-            user = new MemberDto();
-
-            IAddressDto adr = new AddressDto();
-            adr.setStreet("Radetzkystraße");
-            adr.setStreetNumber(6);
-            adr.setVillage("Hohenems");
-            adr.setPostalCode(6845);
-            ICountryDto c = new CountryDto();
-            c.setName("Austria");
-            adr.setCountry(1);
-
-            IRoleDto role1 = new RoleDto();
-            role1.setName("Admin");
-            IRoleDto role2 = new RoleDto();
-            role2.setName("Player");
-            IRoleDto role3 = new RoleDto();
-            role3.setName("Trainer");
-
-            List<Integer> roles = new LinkedList<>();
-            roles.add(role1.getId());
-            roles.add(role2.getId());
-            roles.add(role3.getId());
-
-            user.setId(1);
-            user.setPrename("Lucia");
-            user.setLastname("Amann");
-            user.setGender(true);
-            user.setEmailAddress("lucia.amann@students.fhv.at");
-            user.setUsername("lam1977");
-            user.setRoleList(roles);
-            user.setTelephonenumber("06604008041");
-            user.setAddress(123);
-            user.setNationality(1);
-        }
-
+        this.rmiClient = rmiClient;        
         this.user = user;
         this.setTitle("SportsClubManager");
         this.setExtendedState(this.getExtendedState() | MAXIMIZED_BOTH);
