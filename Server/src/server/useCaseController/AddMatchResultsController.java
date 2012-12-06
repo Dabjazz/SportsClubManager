@@ -119,4 +119,23 @@ public class AddMatchResultsController
 
         return null;
     }
+
+    @Override
+    public List<IRoleDto> getRoles(Integer memberId) {
+        //RoleMapper
+        List<IRoleDto> roleList = new ArrayList<>();
+        try
+        {
+            IMemberDto member = access.getMemberMapper().getById(memberId);
+            for (Integer role : member.getRoleList())
+            {
+                roleList.add(access.getRoleMapper().getById(role));
+            }
+        }
+        catch (RemoteException | IdNotFoundException ex)
+        {
+            Logger.getLogger(SearchChangeMemberController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return roleList;
+    }
 }

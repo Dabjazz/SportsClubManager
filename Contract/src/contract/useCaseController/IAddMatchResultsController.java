@@ -13,6 +13,8 @@ import java.util.List;
  */
 public interface IAddMatchResultsController
 {
+    List<IRoleDto> getRoles(Integer memberId);
+    
     List<ICompetitionDto> getCompetitionList();
 
     List<ITeamDto> getTeamList(List<Integer> team);

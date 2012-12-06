@@ -187,6 +187,23 @@ public class NewMemberController
         }
         return null;
     }
-    
-    
+
+    @Override
+    public List<IRoleDto> getRoles(Integer memberId) {
+        //RoleMapper
+        List<IRoleDto> roleList = new ArrayList<>();
+        try
+        {
+            IMemberDto member = dtoFactory.getMemberMapper().getById(memberId);
+            for (Integer role : member.getRoleList())
+            {
+                roleList.add(dtoFactory.getRoleMapper().getById(role));
+            }
+        }
+        catch (RemoteException | IdNotFoundException ex)
+        {
+            Logger.getLogger(SearchChangeMemberController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return roleList;
+    }
 }

@@ -11,6 +11,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import presentation.forms.helper.SelectSportsHelper;
 import presentation.forms.helper.SelectTeamsHelper;
 
 /**
@@ -454,24 +455,24 @@ public class MembershipDataPanel
                 .addGap(31, 31, 31)));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAddSportActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnAddSportActionPerformed
-    {//GEN-HEADEREND:event_btnAddSportActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAddSportActionPerformed
+    private void btnAddSportActionPerformed(java.awt.event.ActionEvent evt)
+    {        
+        new SelectSportsHelper(selectedSports, selectedSports, null);
+    }
 
-    private void btnTeamsActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnTeamsActionPerformed
-    {//GEN-HEADEREND:event_btnTeamsActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnTeamsActionPerformed
+    private void btnTeamsActionPerformed(java.awt.event.ActionEvent evt)
+    {
+        new SelectTeamsHelper(selectedSports, true);
+    }
 
-    private void btnTeams1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnTeams1ActionPerformed
-    {//GEN-HEADEREND:event_btnTeams1ActionPerformed
+    private void btnTeams1ActionPerformed(java.awt.event.ActionEvent evt)
+    {
         try {
             new SelectTeamsHelper(selectedSports, true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Service currently not available. Sorry!");
         }
-    }//GEN-LAST:event_btnTeams1ActionPerformed
+    }
 
     private void radioAdminActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_radioAdminActionPerformed
     {//GEN-HEADEREND:event_radioAdminActionPerformed

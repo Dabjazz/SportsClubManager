@@ -79,4 +79,14 @@ public class AddMemberToTeamServiceMapper
             Logger.getLogger(AddMemberToTeamServiceMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    @Override
+    public List<IRoleDto> getRoles(Integer memberId) {
+        try {
+            return service.getRoles(memberId);
+        } catch (RemoteException ex) {
+            Logger.getLogger(NewMemberServiceMapper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }

@@ -7,6 +7,7 @@ package server.rmi.service;
 import contract.dto.IClubTeamDto;
 import contract.dto.IMemberDto;
 import contract.dto.IPlayerDto;
+import contract.dto.IRoleDto;
 import contract.rmi.services.IAddMemberToTeamRmiService;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -42,6 +43,11 @@ public class AddMemberToTeamRmiService extends UnicastRemoteObject implements IA
     @Override
     public void updateClubTeam(IClubTeamDto clubTeam) throws RemoteException {
         AddMemberToTeamController.getInstance().updateClubTeam(clubTeam);
+    }
+
+    @Override
+    public List<IRoleDto> getRoles(Integer memberId) throws RemoteException {
+        return AddMemberToTeamController.getInstance().getRoles(memberId);
     }
     
 }

@@ -13,6 +13,7 @@ import java.util.List;
  */
 public interface INewCompetitionController {
     
+    List<IRoleDto> getRoles(Integer memberId);
     void setCompetition(ICompetitionDto competition, IMemberDto member);
     List<ITeamDto> getTeams();
     

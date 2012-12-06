@@ -10,6 +10,7 @@ import contract.dto.*;
 import contract.dto.classes.AddressDto;
 import contract.dto.classes.CompetitionDto;
 import contract.dto.classes.CountryDto;
+import contract.dto.classes.DepartmentHeadDto;
 import contract.dto.classes.MatchDto;
 import contract.useCaseController.INewCompetitionController;
 import java.util.LinkedList;
@@ -48,6 +49,12 @@ public class CreateCompetitionForm
         this.user = user;
         controller = this.client.getNewCompetitionController();
         initComponents();
+        
+        String[] neededRoles = {"DepartmentHeadDto", "Admin"};
+        if(!hasRole(neededRoles)){
+            this.getPanel().removeAll();
+            JOptionPane.showMessageDialog(null, "Sorry, you do not have the permission to enter this area!");
+        }
     }
 
     /**
@@ -593,6 +600,19 @@ public class CreateCompetitionForm
                 return objects[i];
             }
         });
+    }
+    
+     private boolean hasRole(String[] roleNames) {
+        List<IRoleDto> roleList = controller.getRoles(user.getId());
+
+        for (IRoleDto r : roleList) {
+            for (int i = 0; i < roleNames.length; i++) {
+                if (r.getName().equals(roleNames[i])) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

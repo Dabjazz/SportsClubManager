@@ -15,6 +15,9 @@ import java.util.List;
 public interface IAddMatchResultsRmiService
         extends Remote
 {
+    List<IRoleDto> getRoles(Integer memberId)
+            throws RemoteException;
+    
     List<ICompetitionDto> getCompetitionList()
             throws RemoteException;
 

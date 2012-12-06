@@ -8,6 +8,7 @@ import contract.useCaseController.IAddMatchResultsController;
 import java.util.List;
 import javax.swing.AbstractListModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import presentation.basics.AbstractForm;
 import presentation.basics.AbstractMainForm;
@@ -38,6 +39,12 @@ public class AddCompetitionResultsForm
         this.user = user;
         controller = this.client.getAddMatchResultsController();
         initComponents();
+        
+        String[] neededRoles = {"DepartmentHead", "Admin", "Trainer"};
+        if(!hasRole(neededRoles)){
+            this.paneMatchResults.removeAll();
+            JOptionPane.showMessageDialog(null, "Sorry, you do not have the permission to enter this area!");
+        }
     }
 
     /**
@@ -281,6 +288,19 @@ public class AddCompetitionResultsForm
                 return objects[i];
             }
         });
+    }
+    
+    private boolean hasRole(String[] roleNames) {
+        List<IRoleDto> roleList = controller.getRoles(user.getId());
+
+        for (IRoleDto r : roleList) {
+            for (int i = 0; i < roleNames.length; i++) {
+                if (r.getName().equals(roleNames[i])) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public JPanel getPanel() {

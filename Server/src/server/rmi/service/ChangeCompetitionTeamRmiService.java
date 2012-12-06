@@ -56,4 +56,9 @@ public class ChangeCompetitionTeamRmiService
     {
         return ChangeCompetitionTeamController.getInstance().getPlayers(players);
     }
+
+    @Override
+    public List<IRoleDto> getRoles(Integer memberId) throws RemoteException {
+        return ChangeCompetitionTeamController.getInstance().getRoles(memberId);
+    }
 }

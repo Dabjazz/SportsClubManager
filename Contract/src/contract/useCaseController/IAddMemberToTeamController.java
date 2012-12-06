@@ -7,6 +7,7 @@ package contract.useCaseController;
 import contract.dto.IClubTeamDto;
 import contract.dto.IMemberDto;
 import contract.dto.IPlayerDto;
+import contract.dto.IRoleDto;
 import java.util.List;
 
 /**
@@ -16,6 +17,8 @@ import java.util.List;
  * @author Lucia
  */
 public interface IAddMemberToTeamController {
+    
+    List<IRoleDto> getRoles(Integer memberId);
     
     //get all teams the department head has access to
     List<IClubTeamDto> getClubTeams(IMemberDto user);

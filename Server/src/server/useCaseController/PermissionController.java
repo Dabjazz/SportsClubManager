@@ -60,6 +60,7 @@ public class PermissionController
 
                     for (int perm : role.getPermisssionList())
                     {
+                        String tmp = permissionMapper.getById(perm).getName();
                         if (permissionMapper.getById(perm).getName().equals(permissionName))
                         {
                             return true;

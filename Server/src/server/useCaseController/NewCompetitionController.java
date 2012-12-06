@@ -8,6 +8,7 @@ import contract.dto.*;
 import contract.dto.mapper.*;
 import contract.useCaseController.INewCompetitionController;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.*;
 import server.dto.mapper.DtoFactory;
@@ -73,5 +74,24 @@ public class NewCompetitionController
             Logger.getLogger(NewCompetitionController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+    
+     @Override
+    public List<IRoleDto> getRoles(Integer memberId) {
+        //RoleMapper
+        List<IRoleDto> roleList = new ArrayList<>();
+        try
+        {
+            IMemberDto member = dtoFactory.getMemberMapper().getById(memberId);
+            for (Integer role : member.getRoleList())
+            {
+                roleList.add(dtoFactory.getRoleMapper().getById(role));
+            }
+        }
+        catch (RemoteException | IdNotFoundException ex)
+        {
+            Logger.getLogger(SearchChangeMemberController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return roleList;
     }
 }

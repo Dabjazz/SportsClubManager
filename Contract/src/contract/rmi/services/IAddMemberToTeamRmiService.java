@@ -7,6 +7,7 @@ package contract.rmi.services;
 import contract.dto.IClubTeamDto;
 import contract.dto.IMemberDto;
 import contract.dto.IPlayerDto;
+import contract.dto.IRoleDto;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
@@ -18,6 +19,9 @@ import java.util.List;
 public interface IAddMemberToTeamRmiService
         extends Remote 
 {
+    List<IRoleDto> getRoles(Integer memberId)
+            throws RemoteException;
+    
     //get all teams the department head has access to
     List<IClubTeamDto> getClubTeams(IMemberDto user)
             throws RemoteException;
