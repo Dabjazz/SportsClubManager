@@ -13,7 +13,11 @@ import java.util.List;
 public interface IClubTeam
         extends ITeam
 {
-      List<IDepartment> getDepartmentList();
+    IClubTeam getParentClubTeam();
+
+    void setParentClubTeam(IClubTeam parentClubTeam);
+
+    List<IDepartment> getDepartmentList();
 
     List<IPlayer> getPlayerList();
 

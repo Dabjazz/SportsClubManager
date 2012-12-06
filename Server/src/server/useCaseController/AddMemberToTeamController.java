@@ -73,7 +73,37 @@ public class AddMemberToTeamController
     @Override
     public List<IPlayerDto> getPotentialPlayer(IClubTeamDto clubTeam)
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        List<IPlayerDto> currentPlayerList = this.getTeamPlayer(clubTeam);
+        List<IPlayerDto> potentialPlayerList = new LinkedList<>();
+        try
+        {
+            IClubTeamDto parentClubTeam = dtoFactory.getClubTeamMapper().getById(clubTeam.getParentClubTeam());
+
+            if (parentClubTeam == null)
+            {
+                return currentPlayerList;
+            }
+
+            for (IPlayerDto playerDto : this.getTeamPlayer(parentClubTeam))
+            {
+                if(currentPlayerList.contains(playerDto))
+                {
+                    continue;
+                }
+                
+                potentialPlayerList.add(playerDto);
+            }
+        }
+        catch (RemoteException ex)
+        {
+            Logger.getLogger(AddMemberToTeamController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (IdNotFoundException ex)
+        {
+            Logger.getLogger(AddMemberToTeamController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return potentialPlayerList;
     }
 
     @Override

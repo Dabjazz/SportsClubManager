@@ -13,6 +13,10 @@ import java.util.List;
 public interface IClubTeamDto
         extends ITeamDto
 {
+    Integer getParentClubTeam();
+
+    void setParentClubTeam(Integer parentClubTeam);
+
     List<Integer> getDepartmentList();
 
     List<Integer> getPlayerList();
