@@ -41,25 +41,25 @@ public class EJBUseCaseControllerFactory implements IUseCaseControllerFactory
     @Override
     public INewCompetitionController getNewCompetitionController() throws ServiceNotAvailableException
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new NewCompetitionServiceMapper(ejbFactory.getNewCompetitionService());
     }
 
     @Override
     public INewMemberController getNewMemberController() throws ServiceNotAvailableException
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new NewMemberServiceMapper(ejbFactory.getNewMemberService());
     }
 
     @Override
     public ISearchChangeMemberController getSearchChangeMemberController() throws ServiceNotAvailableException
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new SearchChangeMemberServiceMapper(ejbFactory.getSearchChangeMemberService());
     }
 
     @Override
     public IShowCompetitionController getShowCompetitionController() throws ServiceNotAvailableException
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new ShowCompetitionServiceMapper(ejbFactory.getShowCompetitionService());
     }
 
     @Override
@@ -83,7 +83,7 @@ public class EJBUseCaseControllerFactory implements IUseCaseControllerFactory
     @Override
     public IPermissionController getPermissionController() throws ServiceNotAvailableException
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new PermissionControllerServiceMapper(ejbFactory.getPermissionController());
     }
 
     

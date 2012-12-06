@@ -34,30 +34,6 @@ public class EJBServiceClientFactory implements IEJBServiceFactoryRemote
         return new ChangeCompetitionTeamBean();
     }
 
-//    @Override
-//    public INewCompetitionRmiService getNewCompetitionService()
-//    {
-//        return new NewCompetitionRmiService();
-//    }
-//
-//    @Override
-//    public INewMemberRmiService getNewMemberService
-//    {
-//        return new NewMemberRmiService();
-//    }
-
-//    @Override
-//    public ISearchChangeMemberRmiService getSearchChangeMemberService()
-//    {
-//        return new SearchChangeMemberRmiService();
-//    }
-
-//    @Override
-//    public IShowCompetitionRmiService getShowCompetitionService()
-//    {
-//        return new ShowCompetitionRmiService();
-//    }
-
     @Override
     public ILoginRemote getLoginService()
     {
@@ -89,34 +65,31 @@ public class EJBServiceClientFactory implements IEJBServiceFactoryRemote
 //    }
 
     @Override
-    public INewCompetitionRmiService getNewCompetitionService()
-    {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public INewCompetitionRemote getNewCompetitionService() {
+        return new NewCompetitionBean();
     }
 
     @Override
-    public INewMemberRmiService getNewMemberService()
-    {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public INewMemberRemote getNewMemberService() {
+        return new NewMemberBean();
     }
 
     @Override
-    public ISearchChangeMemberRmiService getSearchChangeMemberService()
-    {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public ISearchChangeMemberRemote getSearchChangeMemberService() {
+        return new SearchChangeMemberBean();
     }
 
     @Override
-    public IShowCompetitionRmiService getShowCompetitionService()
-    {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public IShowCompetitionRemote getShowCompetitionService() {
+        return new ShowCompetitionBean();
     }
 
     @Override
-    public IPermissionControllerService getPermissionController()
-    {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public IPermissionControllerRemote getPermissionController() {
+        return new PermissionControllerBean();
     }
+
+
 
     
 }

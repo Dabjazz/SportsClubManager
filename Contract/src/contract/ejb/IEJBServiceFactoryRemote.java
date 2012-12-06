@@ -26,13 +26,13 @@ public interface IEJBServiceFactoryRemote
 
     public IChangeCompetitionTeamRemote getChangeCompetitionTeamService();
 
-    public INewCompetitionRmiService getNewCompetitionService();
+    public INewCompetitionRemote getNewCompetitionService();
 
-    public INewMemberRmiService getNewMemberService();
+    public INewMemberRemote getNewMemberService();
 
-    public ISearchChangeMemberRmiService getSearchChangeMemberService();
+    public ISearchChangeMemberRemote getSearchChangeMemberService();
 
-    public IShowCompetitionRmiService getShowCompetitionService();
+    public IShowCompetitionRemote getShowCompetitionService();
 
     public ILoginRemote getLoginService();
 
@@ -40,5 +40,5 @@ public interface IEJBServiceFactoryRemote
 
     public IAddressRemote getAddressService();
 
-    public IPermissionControllerService getPermissionController();
+    public IPermissionControllerRemote getPermissionController();
 }
