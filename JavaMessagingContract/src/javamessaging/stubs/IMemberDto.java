@@ -11,9 +11,14 @@ import java.util.List;
 
  @author Thomas
  */
-public interface IMemberDto extends Serializable
+public interface IMemberDto
+        extends Serializable
 {
     String getUsername();
+
+    String getPrename();
+
+    String getLastname();
 
     List<IRoleDto> getRoleList();
 }

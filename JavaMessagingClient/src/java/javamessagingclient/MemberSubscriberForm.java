@@ -4,14 +4,13 @@
  */
 package javamessagingclient;
 
-import javamessagingclient.controller.AddPlayerToClubTeamController;
 import java.util.*;
 import java.util.logging.*;
+import javamessaging.contract.IMemberDepartmentMessage;
 import javamessaging.stubs.*;
-import javamessaging.contract.*;
-import javamessaging.stubs.IDepartmentHeadDto;
+import javamessagingclient.controller.AddPlayerToClubTeamController;
 import javax.jms.*;
-import javax.swing.*;
+import javax.swing.JOptionPane;
 import javax.swing.event.*;
 import javax.swing.table.*;
 
@@ -35,27 +34,26 @@ public class MemberSubscriberForm
 
         this.departmentHeadDto = departmentHead;
 
-        TableModel tableModel = jTable2.getModel();
+        TableModel tableModel = clubTeamTable.getModel();
 
         for (IDepartmentDto d : this.departmentHeadDto.getDepartmentList())
         {
             for (IClubTeamDto c : d.getClubTeamList())
             {
                 clubTeams.add(c);
-                jTable2.setValueAt(c, tableModel.getRowCount() + 1, 0);
+                clubTeamTable.setValueAt(c, tableModel.getRowCount() + 1, 0);
             }
         }
-        jTable2.setModel(tableModel);
+        clubTeamTable.setModel(tableModel);
 
-        jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener()
+        playerTable.getSelectionModel().addListSelectionListener(new ListSelectionListener()
         {
             @Override
             public void valueChanged(ListSelectionEvent e)
             {
-                int selectedMessageId = jTable1.getSelectedRow();
+                int selectedMessageId = playerTable.getSelectedRow();
 
                 jButton1.setEnabled(selectedMessageId != -1);
-                jButton2.setEnabled(selectedMessageId != -1);
             }
         });
 
@@ -75,16 +73,14 @@ public class MemberSubscriberForm
     {
 
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        playerTable = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        clubTeamTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Ja");
+        jButton1.setText("OK");
         jButton1.setEnabled(false);
         jButton1.addActionListener(new java.awt.event.ActionListener()
         {
@@ -94,27 +90,7 @@ public class MemberSubscriberForm
             }
         });
 
-        jButton2.setText("Nein");
-        jButton2.setEnabled(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setText("Update");
-        jButton3.setEnabled(false);
-        jButton3.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        playerTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][]
             {
 
@@ -124,10 +100,10 @@ public class MemberSubscriberForm
                 "Vorname", "Nachname"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
-        jTable1.getColumnModel().getColumn(1).setHeaderValue("Nachname");
+        jScrollPane1.setViewportView(playerTable);
+        playerTable.getColumnModel().getColumn(1).setHeaderValue("Nachname");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        clubTeamTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][]
             {
 
@@ -137,7 +113,7 @@ public class MemberSubscriberForm
                 "Team"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(clubTeamTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -148,10 +124,7 @@ public class MemberSubscriberForm
                     .addGroup(layout.createSequentialGroup()
                         .addGap(307, 307, 307)
                         .addComponent(jButton1)
-                        .addGap(39, 39, 39)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 254, Short.MAX_VALUE)
-                        .addComponent(jButton3))
+                        .addGap(0, 409, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -167,10 +140,7 @@ public class MemberSubscriberForm
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                .addComponent(jButton1)
                 .addContainerGap())
         );
 
@@ -181,26 +151,12 @@ public class MemberSubscriberForm
     {//GEN-HEADEREND:event_jButton1ActionPerformed
         writeToDatabase(true);
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
-    {//GEN-HEADEREND:event_jButton2ActionPerformed
-        writeToDatabase(false);
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton3ActionPerformed
-    {//GEN-HEADEREND:event_jButton3ActionPerformed
-        messages.clear();
-        jTable1.removeAll();
-        subscriberJms.read(this, this);
-    }//GEN-LAST:event_jButton3ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable clubTeamTable;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable playerTable;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -221,6 +177,8 @@ public class MemberSubscriberForm
             }
 
             messages.add(msg);
+
+            updatePlayers();
         }
         catch (JMSException ex)
         {
@@ -236,7 +194,7 @@ public class MemberSubscriberForm
 
     private void writeToDatabase(boolean shouldWrite)
     {
-        int selectedMessageId = jTable1.getSelectedRow();
+        int selectedMessageId = playerTable.getSelectedRow();
 
         if (selectedMessageId == -1)
         {
@@ -244,15 +202,12 @@ public class MemberSubscriberForm
             return;
         }
 
-        IMemberDepartmentMessage selectedMessage = messages.remove(selectedMessageId);
-        jTable1.remove(selectedMessageId);
-
         if (shouldWrite)
         {
             return;
         }
 
-        int[] clubTeamIds = jTable2.getSelectedRows();
+        int[] clubTeamIds = clubTeamTable.getSelectedRows();
 
         if (clubTeamIds.length == 0)
         {
@@ -260,24 +215,37 @@ public class MemberSubscriberForm
             return;
         }
 
+        IMemberDepartmentMessage selectedMessage = messages.remove(selectedMessageId);
+        updatePlayers();
+
         for (int clubTeamId : clubTeamIds)
         {
             IClubTeamDto clubTeam = clubTeams.get(clubTeamId);
 
-            controller.addPlayerToClubTeam(clubTeam, getPlayer(selectedMessage.getMember()));
+            controller.addPlayerToClubTeam(clubTeam, selectedMessage.getMember());
         }
     }
 
-    private IPlayerDto getPlayer(IMemberDto member)
+    private void updatePlayers()
     {
-        for (IRoleDto r : member.getRoleList())
+        TableModel tm = playerTable.getModel();
+
+        DefaultTableModel dm = (DefaultTableModel) playerTable.getModel();
+        dm.setRowCount(0);
+        dm.setRowCount(messages.size());
+
+        playerTable.setModel(tm);
+
+        TableModel tableModel = playerTable.getModel();
+
+        for (int i = 0; i < messages.size(); i++)
         {
-            if (r instanceof IPlayerDto)
-            {
-                return (IPlayerDto) r;
-            }
+            IMemberDto member = messages.get(i).getMember().getMember();
+
+            tableModel.setValueAt(member.getPrename(), i, 0);
+            tableModel.setValueAt(member.getLastname(), i, 1);
         }
 
-        return null;
+        playerTable.setModel(tableModel);
     }
 }

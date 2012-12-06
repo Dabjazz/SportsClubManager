@@ -12,5 +12,7 @@ import java.util.List;
  */
 public interface IDepartmentDto extends Serializable
 {
+    String getName();
+    
     List<IClubTeamDto> getClubTeamList();
 }

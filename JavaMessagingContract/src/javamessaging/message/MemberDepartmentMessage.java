@@ -4,10 +4,9 @@
  */
 package javamessaging.message;
 
-import javamessaging.stubs.IDepartmentDto;
-import javamessaging.stubs.IMemberDto;
+import java.io.Serializable;
 import javamessaging.contract.IMemberDepartmentMessage;
-import java.io.*;
+import javamessaging.stubs.*;
 
 /**
 
@@ -16,19 +15,19 @@ import java.io.*;
 public class MemberDepartmentMessage
         implements Serializable, IMemberDepartmentMessage
 {
-    private IMemberDto member;
+    private IPlayerDto player;
     private IDepartmentDto department;
 
-    public MemberDepartmentMessage(IMemberDto member, IDepartmentDto department)
+    public MemberDepartmentMessage(IPlayerDto playerDto, IDepartmentDto department)
     {
-        this.member = member;
+        this.player = playerDto;
         this.department = department;
     }
 
     @Override
-    public IMemberDto getMember()
+    public IPlayerDto getMember()
     {
-        return member;
+        return player;
     }
 
     @Override

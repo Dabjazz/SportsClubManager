@@ -10,9 +10,12 @@ import java.util.List;
 /**
  @author Thomas
  */
-public interface IDepartmentHeadDto extends IRoleDto
+public interface IDepartmentHeadDto
+        extends IRoleDto
 {
     IMemberDto getMember();
 
     public List<IDepartmentDto> getDepartmentList();
+
+    void setDepartmentList(List<IDepartmentDto> departments);
 }

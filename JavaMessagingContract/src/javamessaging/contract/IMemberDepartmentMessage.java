@@ -13,7 +13,7 @@ import javamessaging.stubs.*;
  */
 public interface IMemberDepartmentMessage
 {
-    IMemberDto getMember();
+    IPlayerDto getMember();
     
     IDepartmentDto getDepartment();
 }

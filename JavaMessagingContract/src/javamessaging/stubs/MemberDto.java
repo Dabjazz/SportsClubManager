@@ -5,7 +5,6 @@
 package javamessaging.stubs;
 
 import java.util.*;
-import javamessaging.stubs.*;
 
 /**
 
@@ -15,10 +14,26 @@ public class MemberDto
         implements IMemberDto
 {
     private String username;
+    private String prename;
+    private String lastname;
 
-    public MemberDto(String username)
+    public MemberDto(String username, String prename, String lastname)
     {
         this.username = username;
+        this.prename = prename;
+        this.lastname = lastname;
+    }
+
+    @Override
+    public String getPrename()
+    {
+        return prename;
+    }
+
+    @Override
+    public String getLastname()
+    {
+        return lastname;
     }
 
     @Override
