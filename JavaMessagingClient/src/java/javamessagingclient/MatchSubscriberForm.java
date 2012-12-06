@@ -185,16 +185,9 @@ public class MatchSubscriberForm
     {
         try
         {
-            System.out.println("received message: " + message);
-
             ObjectMessage om = (ObjectMessage) message;
-            System.out.println("received ObjectMessage: " + om);
-
             Object o = om.getObject();
-            System.out.println("received object: " + o);
-
             IMatchMessage msg = (IMatchMessage) o;
-            System.out.println("received matchmessage: " + msg);
 
             if (!member.getUsername().equals(msg.getMember().getUsername()))
             {

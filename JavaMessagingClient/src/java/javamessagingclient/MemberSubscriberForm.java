@@ -6,6 +6,7 @@ package javamessagingclient;
 
 import javamessagingclient.controller.AddPlayerToClubTeamController;
 import java.util.*;
+import java.util.logging.*;
 import javamessaging.stubs.*;
 import javamessaging.contract.*;
 import javamessaging.stubs.IDepartmentHeadDto;
@@ -27,15 +28,15 @@ public class MemberSubscriberForm
     private AddPlayerToClubTeamController controller = new AddPlayerToClubTeamController();
     private IDepartmentHeadDto departmentHeadDto;
     private MemberSubscriberJms subscriberJms;
-    
+
     public MemberSubscriberForm(IDepartmentHeadDto departmentHead)
     {
         initComponents();
-        
+
         this.departmentHeadDto = departmentHead;
-        
+
         TableModel tableModel = jTable2.getModel();
-        
+
         for (IDepartmentDto d : this.departmentHeadDto.getDepartmentList())
         {
             for (IClubTeamDto c : d.getClubTeamList())
@@ -45,19 +46,19 @@ public class MemberSubscriberForm
             }
         }
         jTable2.setModel(tableModel);
-        
+
         jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener()
         {
             @Override
             public void valueChanged(ListSelectionEvent e)
             {
                 int selectedMessageId = jTable1.getSelectedRow();
-                
+
                 jButton1.setEnabled(selectedMessageId != -1);
                 jButton2.setEnabled(selectedMessageId != -1);
             }
         });
-        
+
         subscriberJms = new MemberSubscriberJms(departmentHead);
         subscriberJms.read(this, this);
     }
@@ -180,12 +181,12 @@ public class MemberSubscriberForm
     {//GEN-HEADEREND:event_jButton1ActionPerformed
         writeToDatabase(true);
     }//GEN-LAST:event_jButton1ActionPerformed
-    
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
     {//GEN-HEADEREND:event_jButton2ActionPerformed
         writeToDatabase(false);
     }//GEN-LAST:event_jButton2ActionPerformed
-    
+
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton3ActionPerformed
     {//GEN-HEADEREND:event_jButton3ActionPerformed
         messages.clear();
@@ -205,58 +206,68 @@ public class MemberSubscriberForm
     @Override
     public void onMessage(Message message)
     {
-        IMemberDepartmentMessage msg = (IMemberDepartmentMessage) message;
-        
-        System.out.println("received: " + msg);
-        
-        if (!departmentHeadDto.getDepartmentList().contains(msg.getDepartment()))
+        try
         {
-            return;
+            ObjectMessage om = (ObjectMessage) message;
+            Object o = om.getObject();
+
+            IMemberDepartmentMessage msg = (IMemberDepartmentMessage) o;
+
+            System.out.println("received: " + msg);
+
+            if (!departmentHeadDto.getDepartmentList().contains(msg.getDepartment()))
+            {
+                return;
+            }
+
+            messages.add(msg);
         }
-        
-        messages.add(msg);
+        catch (JMSException ex)
+        {
+            Logger.getLogger(MemberSubscriberForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    
+
     @Override
     public void onException(JMSException exception)
     {
         System.err.println("something bad happended: " + exception);
     }
-    
+
     private void writeToDatabase(boolean shouldWrite)
     {
         int selectedMessageId = jTable1.getSelectedRow();
-        
+
         if (selectedMessageId == -1)
         {
             JOptionPane.showMessageDialog(this, "No message selected");
             return;
         }
-        
+
         IMemberDepartmentMessage selectedMessage = messages.remove(selectedMessageId);
         jTable1.remove(selectedMessageId);
-        
+
         if (shouldWrite)
         {
             return;
         }
-        
+
         int[] clubTeamIds = jTable2.getSelectedRows();
-        
+
         if (clubTeamIds.length == 0)
         {
             JOptionPane.showMessageDialog(this, "No clubTeam selected");
             return;
         }
-        
+
         for (int clubTeamId : clubTeamIds)
         {
             IClubTeamDto clubTeam = clubTeams.get(clubTeamId);
-            
+
             controller.addPlayerToClubTeam(clubTeam, getPlayer(selectedMessage.getMember()));
         }
     }
-    
+
     private IPlayerDto getPlayer(IMemberDto member)
     {
         for (IRoleDto r : member.getRoleList())
@@ -266,7 +277,7 @@ public class MemberSubscriberForm
                 return (IPlayerDto) r;
             }
         }
-        
+
         return null;
     }
 }
