@@ -4,9 +4,10 @@
  */
 package applicationclient1;
 
-import applicationclient1.stubs.*;
 import java.io.*;
 import java.util.logging.*;
+import javamessaging.message.MemberDepartmentMessage;
+import javamessaging.stubs.*;
 import javax.jms.*;
 import javax.naming.*;
 
@@ -19,7 +20,7 @@ public class MemberPublisherJms
     /**
      @param args the command line arguments
      */
-    public void publish(IDepartmentDto department, IMemberDto member)
+    public void publish(IDepartmentDto department, IPlayerDto player)
     {
         try
         {
@@ -45,7 +46,7 @@ public class MemberPublisherJms
             InputStreamReader inputStreamReader = new InputStreamReader(System.in);
             BufferedReader reader = new BufferedReader(inputStreamReader);
 
-            MemberDepartmentMessage msg = new MemberDepartmentMessage(member, department);
+            MemberDepartmentMessage msg = new MemberDepartmentMessage(player, department);
             // create the "Hello World" message
             ObjectMessage message = topicSession.createObjectMessage(msg);
 

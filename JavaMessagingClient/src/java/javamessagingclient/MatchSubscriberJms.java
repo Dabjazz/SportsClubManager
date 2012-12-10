@@ -4,7 +4,8 @@
  */
 package javamessagingclient;
 
-import javamessagingclient.stubs.IMemberDto;
+import javamessaging.stubs.*;
+import javamessaging.contract.*;
 import java.util.logging.*;
 import javax.jms.*;
 import javax.naming.*;
@@ -30,6 +31,20 @@ public class MatchSubscriberJms
     {
         this.member = member;
     }
+    TopicConnection topicConn;
+
+    public void close()
+    {
+        try
+        {
+            // close the topic connection
+            topicConn.close();
+        }
+        catch (JMSException ex)
+        {
+            Logger.getLogger(MatchSubscriberJms.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public void read(MessageListener messageListener, ExceptionListener exceptionListener)
     {
@@ -45,7 +60,7 @@ public class MatchSubscriberJms
             TopicConnectionFactory connFactory = (TopicConnectionFactory) ctx.lookup("topic/memberAddedToClubTeamFactory");
 
             // create a topic connection
-            TopicConnection topicConn = connFactory.createTopicConnection();
+            topicConn = connFactory.createTopicConnection();
             topicConn.setClientID(member.getUsername());
             // create a topic session
             TopicSession topicSession = topicConn.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
@@ -64,19 +79,6 @@ public class MatchSubscriberJms
 
             // wait for messages
             System.out.println("waiting for messages");
-            for (int i = 0; i < 10; i++)
-            {
-                Thread.sleep(1000);
-                System.out.print(".");
-            }
-            System.out.println();
-
-            // close the topic connection
-            topicConn.close();
-        }
-        catch (InterruptedException ex)
-        {
-            Logger.getLogger(MatchSubscriberJms.class.getName()).log(Level.SEVERE, null, ex);
         }
         catch (JMSException ex)
         {

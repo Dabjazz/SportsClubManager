@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.6" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="title" type="java.lang.String" value="Add New Member"/>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[848, 549]"/>
     </Property>
@@ -26,38 +25,35 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="paneNewMember" alignment="0" pref="835" max="32767" attributes="0"/>
+          <Component id="paneSearch" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="paneNewMember" alignment="1" pref="554" max="32767" attributes="0"/>
+          <Component id="paneSearch" min="-2" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="paneNewMember">
-      <Properties>
-        <Property name="name" type="java.lang.String" value="" noResource="true"/>
-        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[848, 546]"/>
-        </Property>
-      </Properties>
+    <Container class="javax.swing.JPanel" name="paneSearch">
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="panePersonData" max="32767" attributes="0"/>
-                      <Component id="paneMembershipData" alignment="0" max="32767" attributes="0"/>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="btnSaveMember" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="personDataPanel1" pref="840" max="32767" attributes="0"/>
                       </Group>
+                      <Component id="membershipDataPanel2" alignment="1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                  <Component id="btnApplyChange" min="-2" pref="163" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -65,411 +61,28 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="panePersonData" min="-2" max="-2" attributes="0"/>
+                  <Component id="personDataPanel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="paneMembershipData" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="33" max="32767" attributes="0"/>
-                  <Component id="btnSaveMember" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                  <Component id="membershipDataPanel2" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="btnApplyChange" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="21" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Container class="javax.swing.JPanel" name="panePersonData">
+        <Component class="javax.swing.JButton" name="btnApplyChange">
           <Properties>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Person Data">
-                  <Font PropertyName="font" name="Tahoma" size="14" style="0"/>
-                </TitledBorder>
-              </Border>
-            </Property>
-          </Properties>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblFName" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblAddress" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblCity" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblBirthDate" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblPhone" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txtfieldPhone" alignment="0" max="32767" attributes="0"/>
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="txtfieldCity" max="32767" attributes="0"/>
-                                          <Component id="txtfieldFName" max="32767" attributes="0"/>
-                                          <Component id="txtfieldAddress" min="-2" pref="200" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace pref="56" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="dateChooserBirth" min="-2" pref="120" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblMail" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblCountry" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblGender" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="lblLName" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblPostCode" alignment="1" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="radioFemale" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="radioMale" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace pref="1" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txtfieldCountry" max="32767" attributes="0"/>
-                                  <Component id="txtfieldPostCode" max="32767" attributes="0"/>
-                                  <Component id="txtfieldLName" min="-2" pref="200" max="-2" attributes="0"/>
-                                  <Component id="txtfieldMail" min="-2" pref="200" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
-                      <EmptySpace min="-2" pref="191" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="txtfieldFName" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtfieldAddress" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtfieldCity" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="txtfieldPhone" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblPhone" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="dateChooserBirth" min="-2" pref="25" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="lblLName" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtfieldLName" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblFName" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="lblPostCode" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtfieldPostCode" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblAddress" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="txtfieldCountry" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblCountry" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblCity" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="lblMail" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="txtfieldMail" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="radioFemale" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="radioMale" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lblGender" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Component id="lblBirthDate" alignment="1" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
-                      <EmptySpace pref="23" max="32767" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-          <SubComponents>
-            <Component class="javax.swing.JLabel" name="lblFName">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="First Name"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtfieldFName">
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblLName">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Last Name"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtfieldLName">
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblAddress">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Address"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtfieldAddress">
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtfieldPostCode">
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblPostCode">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Post Code"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblCity">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="City"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtfieldCity">
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtfieldCountry">
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblCountry">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Country"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblMail">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Mail"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblBirthDate">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Birth Date"/>
-              </Properties>
-            </Component>
-            <Component class="com.toedter.calendar.JDateChooser" name="dateChooserBirth">
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblGender">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Gender"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtfieldPhone">
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblPhone">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Phone"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JRadioButton" name="radioFemale">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="female"/>
-              </Properties>
-              <Events>
-                <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="radioFemaleStateChanged"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JRadioButton" name="radioMale">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="male"/>
-              </Properties>
-              <Events>
-                <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="radioMaleStateChanged"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtfieldMail">
-            </Component>
-          </SubComponents>
-        </Container>
-        <Container class="javax.swing.JPanel" name="paneMembershipData">
-          <Properties>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Membership Data">
-                  <Font PropertyName="font" name="Tahoma" size="14" style="0"/>
-                </TitledBorder>
-              </Border>
-            </Property>
-          </Properties>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblEntryDate" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblTeam" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblRole" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="radioAdmin" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="radioCaretaker" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="radioDeptHead" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="radioTrainer" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="radioPlayer" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="txtFieldTeam" max="32767" attributes="0"/>
-                                  <Component id="txtFieldSport" min="-2" pref="476" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="btnAddSports" max="32767" attributes="0"/>
-                                  <Component id="btnTeams" pref="110" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Component id="dateChooserEntry" min="-2" pref="120" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="lblEntryDate" min="-2" max="-2" attributes="0"/>
-                          <Component id="dateChooserEntry" min="-2" pref="25" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace pref="23" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblRole" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="radioAdmin" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="radioTrainer" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="radioPlayer" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="radioDeptHead" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="radioCaretaker" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtFieldSport" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnAddSports" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblTeam" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtFieldTeam" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnTeams" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-          <SubComponents>
-            <Component class="javax.swing.JLabel" name="lblEntryDate">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Entry Date"/>
-              </Properties>
-            </Component>
-            <Component class="com.toedter.calendar.JDateChooser" name="dateChooserEntry">
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblRole">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Role"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JRadioButton" name="radioAdmin">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Admin"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JRadioButton" name="radioTrainer">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Trainer"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JRadioButton" name="radioPlayer">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Player"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblTeam">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Team"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JRadioButton" name="radioDeptHead">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Department Head"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JRadioButton" name="radioCaretaker">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Caretaker"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel1">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Sport(s)"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtFieldSport">
-              <Properties>
-                <Property name="enabled" type="boolean" value="false"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="btnAddSports">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Select Sport(s)"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddSportsActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtFieldTeam">
-              <Properties>
-                <Property name="enabled" type="boolean" value="false"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="btnTeams">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Select Team(s)"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTeamsActionPerformed"/>
-              </Events>
-            </Component>
-          </SubComponents>
-        </Container>
-        <Component class="javax.swing.JButton" name="btnSaveMember">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Save Member"/>
+            <Property name="text" type="java.lang.String" value="Apply"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSaveMemberActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnApplyChangeActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="presentation.forms.member.MembershipDataPanel" name="membershipDataPanel2">
+        </Component>
+        <Component class="presentation.forms.member.PersonDataPanel" name="personDataPanel1">
         </Component>
       </SubComponents>
     </Container>

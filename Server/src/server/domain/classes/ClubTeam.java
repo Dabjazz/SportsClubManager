@@ -40,6 +40,9 @@ public class ClubTeam
     private List<Player> players;
     @ManyToMany(mappedBy = "clubTeamList")
     private List<Trainer> trainerList;
+  //  @JoinColumn(name = "ClubTeam", referencedColumnName = "id")
+ //   @ManyToOne(optional = false)
+    private ClubTeam parentClubTeam;
 
     public ClubTeam()
     {
@@ -55,9 +58,19 @@ public class ClubTeam
     {
         return getName();
     }
-    
-    
-    
+
+    @Override
+    public IClubTeam getParentClubTeam()
+    {
+        return parentClubTeam;
+    }
+
+    @Override
+    public void setParentClubTeam(IClubTeam parentClubTeam)
+    {
+        this.parentClubTeam = (ClubTeam) parentClubTeam;
+    }
+
     @XmlTransient
     @Override
     public List<IPlayer> getPlayerList()
@@ -66,7 +79,7 @@ public class ClubTeam
 
         for (Player d : players)
         {
-            result.add((IPlayer)d);
+            result.add((IPlayer) d);
         }
 
         return result;
@@ -100,7 +113,7 @@ public class ClubTeam
 
         for (Department d : departmentList)
         {
-            result.add((IDepartment)d);
+            result.add((IDepartment) d);
         }
 
         return result;
@@ -127,7 +140,7 @@ public class ClubTeam
 
         for (Trainer d : trainerList)
         {
-            result.add((ITrainer)d);
+            result.add((ITrainer) d);
         }
 
         return result;
@@ -175,5 +188,4 @@ public class ClubTeam
     {
         return super.getId();
     }
-
 }
