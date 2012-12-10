@@ -21,6 +21,10 @@ public interface ILeague extends IDomain
     
     List<ICompetition> getCompetitions();
     
+    ITypeOfSport getTypeOfSport();
+    
+    void setTypeOfSport(ITypeOfSport sport);
+    
     void setCompetitions(List<ICompetition> competitions);
 
     void setDescription(String description);

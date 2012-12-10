@@ -39,11 +39,11 @@ public class NewCompetitionServiceMapper
     }
 
     @Override
-    public List<ITeamDto> getTeams()
+    public List<ITeamDto> getTeams(ITypeOfSportDto sport)
     {
         try
         {
-            return service.getTeams();
+            return service.getTeams(sport);
         }
         catch (RemoteException ex)
         {
@@ -60,6 +60,16 @@ public class NewCompetitionServiceMapper
         }
         catch (RemoteException ex)
         {
+            Logger.getLogger(NewCompetitionServiceMapper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    @Override
+    public List<ITypeOfSportDto> getTypeOfSports(Integer memberId) {
+        try {
+            return service.getTypeOfSports(memberId);
+        } catch (RemoteException ex) {
             Logger.getLogger(NewCompetitionServiceMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;

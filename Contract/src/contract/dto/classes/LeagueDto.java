@@ -14,6 +14,7 @@ public class LeagueDto
     private int id;
     private String name;
     private String description;
+    private ITypeOfSportDto typeOfSport;
     private List<Integer> teamList = new LinkedList<>();
     private List<Integer> competitions = new LinkedList<>();
     public static IDtoFactory dtoFactory;
@@ -136,5 +137,15 @@ public class LeagueDto
         }
 
         return result;
+    }
+
+    @Override
+    public ITypeOfSportDto getTypeOfSport() {
+        return typeOfSport;
+    }
+
+    @Override
+    public void setTypeOfSport(ITypeOfSportDto typeOfSport) {
+        this.typeOfSport = typeOfSport;
     }
 }

@@ -18,9 +18,12 @@ public interface INewCompetitionRmiService
     List<IRoleDto> getRoles(Integer memberId)
             throws RemoteException;
     
+    List<ITypeOfSportDto> getTypeOfSports(Integer memberId)
+            throws RemoteException;
+    
+    List<ITeamDto> getTeams(ITypeOfSportDto sport)
+            throws RemoteException;
+    
     void setCompetition(ICompetitionDto competition, IMemberDto member)
-            throws RemoteException;
-
-    List<ITeamDto> getTeams()
-            throws RemoteException;
+            throws RemoteException;    
 }

@@ -20,6 +20,10 @@ public interface ILeagueDto
     List<Integer> getTeamList();
 
     List<Integer> getCompetitions();
+    
+    ITypeOfSportDto getTypeOfSport();
+    
+    void setTypeOfSport(ITypeOfSportDto typeOfSport);
 
     void setCompetitions(List<Integer> competitions);
 

@@ -478,8 +478,12 @@ public class CreateCompetitionForm
 
     //TODO add controller method
     private Object[] getSportsList() {
-        //return controller.getTypeOfSports(user.getId()).toArray();
-        return null;
+        List<ITypeOfSportDto> sportList = controller.getTypeOfSports(user.getId());
+       
+        Object[] array = sportList.toArray();
+        setListSelectTeams((ITypeOfSportDto)array[0]);
+        
+        return array;
     }
 
     private void setListSelectTeams(final ITypeOfSportDto sport) {
@@ -498,8 +502,7 @@ public class CreateCompetitionForm
     }
 
     private Object[] getTeamsList(ITypeOfSportDto sport) {
-        List<ITeamDto> teamList = controller.getTeams();
-        //TODO: List<ITeamDto> teamList = controller.getTeams(sport);
+        List<ITeamDto> teamList = controller.getTeams(sport);
         return teamList.toArray();
     }
 

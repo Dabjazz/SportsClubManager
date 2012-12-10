@@ -43,14 +43,16 @@ public class League
         this.id = id;
     }
 
-    public TypeOfSport getTypeOfSport()
+    @Override
+    public ITypeOfSport getTypeOfSport()
     {
-        return typeOfSport;
+        return (ITypeOfSport)typeOfSport;
     }
 
-    public void setTypeOfSport(TypeOfSport typeOfSport)
+    @Override
+    public void setTypeOfSport(ITypeOfSport typeOfSport)
     {
-        this.typeOfSport = typeOfSport;
+        this.typeOfSport = (TypeOfSport)typeOfSport;
     }
 
     @Override
@@ -173,4 +175,5 @@ public class League
     {
         return "sportsclubmanager.domain.classes.League[ id=" + id + " ]";
     }
+
 }

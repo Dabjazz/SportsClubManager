@@ -8,6 +8,7 @@ import contract.dto.IMemberDto;
 import contract.dto.ICompetitionDto;
 import contract.dto.IRoleDto;
 import contract.dto.ITeamDto;
+import contract.dto.ITypeOfSportDto;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
@@ -32,14 +33,19 @@ public class NewCompetitionRmiService extends UnicastRemoteObject implements INe
     }
 
     @Override
-    public List<ITeamDto> getTeams() throws RemoteException
+    public List<ITeamDto> getTeams(ITypeOfSportDto sport) throws RemoteException
     {
-        return NewCompetitionController.getInstance().getTeams();
+        return NewCompetitionController.getInstance().getTeams(sport);
     }
 
     @Override
     public List<IRoleDto> getRoles(Integer memberId) throws RemoteException {
         return NewCompetitionController.getInstance().getRoles(memberId);
+    }
+
+    @Override
+    public List<ITypeOfSportDto> getTypeOfSports(Integer memberId) throws RemoteException {
+        return NewCompetitionController.getInstance().getTypeOfSports(memberId);
     }
     
 }
