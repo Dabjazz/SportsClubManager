@@ -91,22 +91,22 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblTeams" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblTeams" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblSport" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" pref="140" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jScrollPane1" pref="140" max="32767" attributes="0"/>
+                          <Component id="comboSport" max="32767" attributes="0"/>
+                      </Group>
                       <EmptySpace pref="60" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblName" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblMatchNr" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txtfieldName" min="-2" pref="200" max="-2" attributes="0"/>
-                                  <Component id="jSpinner1" min="-2" pref="50" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="165" pref="165" max="-2" attributes="0"/>
+                              <Component id="lblName" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                              <Component id="txtfieldName" min="-2" pref="200" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="269" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -136,7 +136,7 @@
                                   <Component id="txtfieldLocation" alignment="0" max="32767" attributes="0"/>
                                   <Component id="txtfieldCountry" alignment="0" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="62" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Component id="btnConfirm" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -146,19 +146,19 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane1" min="-2" pref="200" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                      <Component id="lblMatchNr" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jSpinner1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="lblTeams" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="lblSport" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="comboSport" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                              <Component id="lblTeams" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="lblName" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Component id="txtfieldName" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -200,7 +200,12 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="49" max="32767" attributes="0"/>
+                      <EmptySpace pref="64" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" min="-2" pref="169" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -221,7 +226,7 @@
                 <Component class="javax.swing.JList" name="listSelectTeams">
                   <Properties>
                     <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="new javax.swing.AbstractListModel() {&#xa;    Object[] teams = getTeamsList();&#xa;    public int getSize() { return teams.length; }&#xa;    public Object getElementAt(int i) { return teams[i]; }&#xa;}" type="code"/>
+                      <Connection code="new javax.swing.AbstractListModel() {&#xa;    Object[] teams = new Object[]{};&#xa;    public int getSize() { return teams.length; }&#xa;    public Object getElementAt(int i) { return teams[i]; }&#xa;}" type="code"/>
                     </Property>
                     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[40, 80]"/>
@@ -239,12 +244,10 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JLabel" name="lblMatchNr">
+            <Component class="javax.swing.JLabel" name="lblSport">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Matches"/>
+                <Property name="text" type="java.lang.String" value="Sport"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JSpinner" name="jSpinner1">
             </Component>
             <Component class="javax.swing.JLabel" name="lblName">
               <Properties>
@@ -309,6 +312,16 @@
               </Events>
             </Component>
             <Component class="com.toedter.calendar.JDateChooser" name="dateDateTo">
+            </Component>
+            <Component class="javax.swing.JComboBox" name="comboSport">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="new javax.swing.DefaultComboBoxModel(getSportsList())" type="code"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboSportActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
