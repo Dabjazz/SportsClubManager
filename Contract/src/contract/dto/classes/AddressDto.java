@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class AddressDto
         implements Serializable, IAddressDto
 {
-    private int id;
+    private Integer id;
     private String street;
     private int streetNumber;
     private String village;
@@ -16,7 +16,7 @@ public class AddressDto
     private int country;
     private static HashMap<IAddress, AddressDto> addresses = new HashMap<>();
 
-    AddressDto(int id)
+    AddressDto(Integer id)
     {
         this.id = id;
     }
@@ -113,5 +113,10 @@ public class AddressDto
     public Integer getId()
     {
         return id;
+    }
+    
+    public void setId(Integer id)
+    {
+        this.id = id;
     }
 }

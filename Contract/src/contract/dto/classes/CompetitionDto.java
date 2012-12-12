@@ -6,9 +6,9 @@ import java.io.Serializable;
 import java.util.*;
 
 public class CompetitionDto
-        implements Serializable, ICompetitionDto
-{
-    private int id;
+        implements Serializable, ICompetitionDto {
+
+    private Integer id;
     private Date dateFrom;
     private Date dateTo;
     private Double payment;
@@ -20,26 +20,20 @@ public class CompetitionDto
     private String description;
     private String name;
 
-    public CompetitionDto()
-    {
+    public CompetitionDto() {
     }
 
-    public CompetitionDto(int id)
-    {
+    public CompetitionDto(int id) {
         this.id = id;
     }
     private static HashMap<ICompetition, CompetitionDto> competitions = new HashMap<>();
 
-    public static CompetitionDto copy(ICompetition competition)
-    {
+    public static CompetitionDto copy(ICompetition competition) {
         CompetitionDto a;
 
-        if (competitions.containsKey(competition))
-        {
+        if (competitions.containsKey(competition)) {
             a = competitions.get(competition);
-        }
-        else
-        {
+        } else {
             a = new CompetitionDto(competition.getId());
 
             a.setDateFrom(competition.getDateFrom());
@@ -51,13 +45,11 @@ public class CompetitionDto
             a.setName(competition.getName());
             a.setDescription(competition.getDescription());
 
-            for (ITeam d : competition.getTeamList())
-            {
+            for (ITeam d : competition.getTeamList()) {
                 a.teamList.add(d.getId());
             }
 
-            for (IMatch d : competition.getMatchList())
-            {
+            for (IMatch d : competition.getMatchList()) {
                 a.matchList.add(d.getId());
             }
             competitions.put(competition, a);
@@ -67,134 +59,116 @@ public class CompetitionDto
     }
 
     @Override
-    public Integer getId()
-    {
+    public Integer getId() {
         return id;
     }
 
     @Override
-    public Date getDateFrom()
-    {
+    public Date getDateFrom() {
         return dateFrom;
     }
 
     @Override
-    public void setDateFrom(Date dateFrom)
-    {
+    public void setDateFrom(Date dateFrom) {
         this.dateFrom = dateFrom;
     }
 
     @Override
-    public Date getDateTo()
-    {
+    public Date getDateTo() {
         return dateTo;
     }
 
     @Override
-    public void setDateTo(Date dateTo)
-    {
+    public void setDateTo(Date dateTo) {
         this.dateTo = dateTo;
     }
 
     @Override
-    public Double getPayment()
-    {
+    public Double getPayment() {
         return payment;
     }
 
     @Override
-    public void setPayment(Double payment)
-    {
+    public void setPayment(Double payment) {
         this.payment = payment;
     }
 
     @Override
-    public List<Integer> getTeamList()
-    {
+    public List<Integer> getTeamList() {
         return teamList;
     }
 
     @Override
-    public void setTeamList(List<Integer> teamList)
-    {
+    public void setTeamList(List<Integer> teamList) {
         this.teamList = teamList;
     }
 
     @Override
-    public List<Integer> getMatchList()
-    {
+    public List<Integer> getMatchList() {
         return matchList;
     }
 
     @Override
-    public void setMatchList(List<Integer> matchList)
-    {
+    public void setMatchList(List<Integer> matchList) {
         this.matchList = matchList;
     }
 
     @Override
-    public Integer getLeague()
-    {
+    public Integer getLeague() {
         return this.league;
     }
 
     @Override
-    public Integer getSport()
-    {
+    public Integer getSport() {
         return this.sport;
     }
 
     @Override
-    public void setSport(Integer typeOfSport)
-    {
+    public void setSport(Integer typeOfSport) {
         this.sport = typeOfSport;
     }
 
     @Override
-    public void setLeague(Integer league)
-    {
+    public void setLeague(Integer league) {
         this.league = league;
     }
 
     @Override
-    public Integer getAddress()
-    {
+    public Integer getAddress() {
         return this.address;
     }
 
     @Override
-    public void setAddress(Integer address)
-    {
+    public void setAddress(Integer address) {
         this.address = address;
     }
 
     @Override
-    public String getName()
-    {
+    public String getName() {
         return this.name;
     }
 
     @Override
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
     @Override
-    public String getDescription()
-    {
+    public String getDescription() {
         return this.description;
     }
 
     @Override
-    public void setDescription(String description)
-    {
+    public void setDescription(String description) {
         this.description = description;
     }
-    
+
     @Override
-    public String toString()
-    {
+    public String toString() {
         return this.name;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

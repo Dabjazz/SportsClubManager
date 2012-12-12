@@ -13,9 +13,9 @@ import java.util.List;
 public interface IClubTeam
         extends ITeam
 {
-    IClubTeam getParentClubTeam();
-
-    void setParentClubTeam(IClubTeam parentClubTeam);
+//    IClubTeam getParentClubTeam();
+//
+//    void setParentClubTeam(IClubTeam parentClubTeam);
 
     List<IDepartment> getDepartmentList();
 

@@ -26,11 +26,11 @@ public class NewCompetitionServiceMapper
     }
 
     @Override
-    public void setCompetition(ICompetitionDto competition, IMemberDto member)
+    public void setCompetition(ICompetitionDto competition, IAddressDto address, ICountryDto country, List<IMatchDto> matchList)
     {
         try
         {
-            service.setCompetition(competition, member);
+            service.setCompetition(competition, address, country, matchList);
         }
         catch (RemoteException ex)
         {

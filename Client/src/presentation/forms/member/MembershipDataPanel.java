@@ -47,9 +47,9 @@ public class MembershipDataPanel
 
             List<Integer> selSports = getSelectedSports();
             trainer.setTypeOfSportList(selSports);
-            player.setTypeOfSportList(selSports);
-
             trainer.setClubTeamList(getSelectedTeamIds(selectedTrainerTeams));
+            
+            player.setTypeOfSportList(selSports);
             player.setClubTeamList(getSelectedTeamIds(selectedPlayerTeams));
 
             member.setMemberFrom(dateEntry.getDate());
@@ -455,18 +455,15 @@ public class MembershipDataPanel
                 .addGap(31, 31, 31)));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAddSportActionPerformed(java.awt.event.ActionEvent evt)
-    {        
+    private void btnAddSportActionPerformed(java.awt.event.ActionEvent evt) {
         new SelectSportsHelper(selectedSports, selectedSports, null);
     }
 
-    private void btnTeamsActionPerformed(java.awt.event.ActionEvent evt)
-    {
+    private void btnTeamsActionPerformed(java.awt.event.ActionEvent evt) {
         new SelectTeamsHelper(selectedSports, true);
     }
 
-    private void btnTeams1ActionPerformed(java.awt.event.ActionEvent evt)
-    {
+    private void btnTeams1ActionPerformed(java.awt.event.ActionEvent evt) {
         try {
             new SelectTeamsHelper(selectedSports, true);
         } catch (Exception e) {

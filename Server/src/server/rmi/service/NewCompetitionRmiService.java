@@ -4,8 +4,11 @@
  */
 package server.rmi.service;
 
+import contract.dto.IAddressDto;
 import contract.dto.IMemberDto;
 import contract.dto.ICompetitionDto;
+import contract.dto.ICountryDto;
+import contract.dto.IMatchDto;
 import contract.dto.IRoleDto;
 import contract.dto.ITeamDto;
 import contract.dto.ITypeOfSportDto;
@@ -30,10 +33,10 @@ public class NewCompetitionRmiService
     }
 
     @Override
-    public void setCompetition(ICompetitionDto competition, IMemberDto member)
+    public void setCompetition(ICompetitionDto competition, IAddressDto address, ICountryDto country, List<IMatchDto> matchList)
             throws RemoteException
     {
-        NewCompetitionController.getInstance().setCompetition(competition, member);
+        NewCompetitionController.getInstance().setCompetition(competition, address, country, matchList);
     }
 
     @Override

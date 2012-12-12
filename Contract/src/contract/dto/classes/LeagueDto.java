@@ -49,6 +49,8 @@ public class LeagueDto
 
             a.setName(league.getName());
             a.setDescription(league.getDescription());
+            ITypeOfSportDto tos = TypeOfSportDto.copy(league.getTypeOfSport());
+            a.setTypeOfSport(tos);
 
             for (ICompetition c : league.getCompetitions())
             {

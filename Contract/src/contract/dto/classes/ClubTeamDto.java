@@ -14,9 +14,14 @@ public class ClubTeamDto
     private List<Integer> trainerList = new LinkedList<>();
     private List<Integer> playerList = new LinkedList<>();
 
-    public ClubTeamDto()
+      public ClubTeamDto( )
     {
         super();
+    }
+      
+    public ClubTeamDto(int id)
+    {
+        super(id);
     }
     private static HashMap<IClubTeam, ClubTeamDto> clubTeams = new HashMap<>();
 
@@ -30,7 +35,7 @@ public class ClubTeamDto
         }
         else
         {
-            a = new ClubTeamDto();
+            a = new ClubTeamDto(clubTeam.getId());
 
             // Competition list
             List<Integer> competitionList = new LinkedList<>();
@@ -42,7 +47,7 @@ public class ClubTeamDto
 
             a.setCompetitionList(competitionList);
 
-            a.setParentClubTeam(clubTeam.getParentClubTeam().getId());
+//            a.setParentClubTeam(clubTeam.getParentClubTeam().getId());
 
             // description
             a.setDescription(clubTeam.getDescription());
@@ -95,6 +100,8 @@ public class ClubTeamDto
 
         return a;
     }
+
+    
 
     @Override
     public Integer getParentClubTeam()

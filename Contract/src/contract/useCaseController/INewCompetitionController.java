@@ -16,6 +16,6 @@ public interface INewCompetitionController {
     List<IRoleDto> getRoles(Integer memberId);
     List<ITypeOfSportDto> getTypeOfSports(Integer memberId);    
     List<ITeamDto> getTeams(ITypeOfSportDto sport);
-    void setCompetition(ICompetitionDto competition, IMemberDto member);
+    void setCompetition(ICompetitionDto competition, IAddressDto address, ICountryDto country, List<IMatchDto> matchList);
     
 }

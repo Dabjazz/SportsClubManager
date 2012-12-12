@@ -20,13 +20,18 @@ public class TeamDto
     public TeamDto() {
     }
 
+    public TeamDto(int id) {
+
+        this.id = id;
+    }
+
     public static TeamDto copy(contract.domain.ITeam team) {
         TeamDto a;
 
         if (teams.containsKey(team)) {
             a = teams.get(team);
         } else {
-            a = new TeamDto();
+            a = new TeamDto(team.getId());
 
             a.setName(team.getName());
             a.setDescription(team.getDescription());

@@ -29,6 +29,8 @@ public class CreateCompetitionForm
     IUseCaseControllerFactory client;
     INewCompetitionController controller;
     ICompetitionDto competition;
+    IAddressDto compAddress;
+    ICountryDto compCountry;
     List<IMatchDto> matches;
     IMemberDto user;
     List<ITeamDto> selectedTeams;
@@ -409,13 +411,8 @@ public class CreateCompetitionForm
     }
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
 
-        if (confirmed) {
-            List<Integer> matchesInt = new LinkedList<>();
-            for (IMatchDto m : matches) {
-                matchesInt.add(m.getId());
-            }
-            competition.setMatchList(matchesInt);
-            controller.setCompetition(competition, user);
+        if (confirmed) {            
+            controller.setCompetition(competition, compAddress, compCountry, matches);
         } else {
             JOptionPane.showMessageDialog(null, "Please confirm the competition details first!");
         }
@@ -455,15 +452,21 @@ public class CreateCompetitionForm
         competition.setTeamList(getSelectedTeamsID());
         ITypeOfSportDto sport = (ITypeOfSportDto)comboSport.getSelectedItem();
         competition.setSport(sport.getId());
+        competition.setLeague(1);   //TODO: implement me maybe :)
 
         //Set Competitions address
-        IAddressDto address = new AddressDto();
-        address.setVillage(txtfieldcity.getText());
-        address.setPostalCode(Integer.parseInt(txtfieldplz.getText()));
-        ICountryDto country = new CountryDto();
-        country.setName(txtfieldCountry.getText());
-        address.setCountry(country.getId());
-        competition.setAddress(address.getId());
+        compAddress = new AddressDto();
+        if(txtfieldLocation.getText().isEmpty()){
+            compAddress.setStreet("street is not supported");
+        }
+        else{
+            compAddress.setStreet(txtfieldLocation.getText());
+        }
+        compAddress.setStreetNumber(1);
+        compAddress.setVillage(txtfieldcity.getText());
+        compAddress.setPostalCode(Integer.parseInt(txtfieldplz.getText()));
+        compCountry = new CountryDto();
+        compCountry.setName(txtfieldCountry.getText());
 
         setMatchTeamList();
         confirmed = true;
@@ -550,10 +553,13 @@ public class CreateCompetitionForm
 
     private void updateMatchTables() {
         IMatchDto newMatch = new MatchDto();
-        newMatch.setCompetition(competition.getId());
+        //newMatch.setCompetition(competition.getId());
         newMatch.setHometeam(getTeamID(txtfieldTeamA.getText()));
         newMatch.setForeignteam(getTeamID(txtfieldTeamB.getText()));
+        newMatch.setDateFrom(dateDateFrom.getDate());
+        newMatch.setDateTo(dateDateTo.getDate());
         matches.add(newMatch);
+        
 
         setListTeamAModel();
         setListTeamBModel();

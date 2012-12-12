@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class MatchresultDto
         implements Serializable, IMatchresultDto
 {
-    private int id;
+    private Integer id;
     private boolean fin;
     private double pointsHometeam;
     private double pointsForeignteam;
@@ -83,5 +83,9 @@ public class MatchresultDto
     @Override
     public void setFinal(boolean fin) {
         this.fin = fin;
+    }
+    
+    public void setId(Integer id){
+        this.id = id;
     }
 }

@@ -104,7 +104,7 @@ public class CountryMapper
             Logger.getLogger(CountryMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return 0;
+        return 1;
     }
 
     @Override
@@ -150,11 +150,12 @@ public class CountryMapper
     public ICountryDto getByName(String name)
             throws IdNotFoundException
     {
+                    contract.domain.ICountry a = DomainFacade.getInstance().getByName(contract.domain.ICountry.class, name);
+
+                    System.out.println(a.getName());
         try
         {
-            contract.domain.ICountry a = DomainFacade.getInstance().getByName(contract.domain.ICountry.class, name);
             return CountryDto.copy(a);
-
         }
         catch (Exception ex)
         {

@@ -24,6 +24,6 @@ public interface INewCompetitionRmiService
     List<ITeamDto> getTeams(ITypeOfSportDto sport)
             throws RemoteException;
     
-    void setCompetition(ICompetitionDto competition, IMemberDto member)
+    void setCompetition(ICompetitionDto competition, IAddressDto address, ICountryDto country, List<IMatchDto> matchList)
             throws RemoteException;    
 }

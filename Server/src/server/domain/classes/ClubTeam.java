@@ -42,7 +42,7 @@ public class ClubTeam
     private List<Trainer> trainerList;
   //  @JoinColumn(name = "ClubTeam", referencedColumnName = "id")
  //   @ManyToOne(optional = false)
-    private ClubTeam parentClubTeam;
+ //   private ClubTeam parentClubTeam;
 
     public ClubTeam()
     {
@@ -59,17 +59,17 @@ public class ClubTeam
         return getName();
     }
 
-    @Override
-    public IClubTeam getParentClubTeam()
-    {
-        return parentClubTeam;
-    }
-
-    @Override
-    public void setParentClubTeam(IClubTeam parentClubTeam)
-    {
-        this.parentClubTeam = (ClubTeam) parentClubTeam;
-    }
+//    @Override
+//    public IClubTeam getParentClubTeam()
+//    {
+//        return parentClubTeam;
+//    }
+//
+//    @Override
+//    public void setParentClubTeam(IClubTeam parentClubTeam)
+//    {
+//        this.parentClubTeam = (ClubTeam) parentClubTeam;
+//    }
 
     @XmlTransient
     @Override
