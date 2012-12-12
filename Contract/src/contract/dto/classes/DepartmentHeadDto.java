@@ -14,6 +14,11 @@ public class DepartmentHeadDto
 
     public static DepartmentHeadDto copy(IDepartmentHead departmentHead)
     {
+        if (departmentHead == null)
+        {
+            return null;
+        }
+
         DepartmentHeadDto a;
 
         if (departmentHeads.containsKey(departmentHead))

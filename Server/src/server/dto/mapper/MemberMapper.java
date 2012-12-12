@@ -67,6 +67,7 @@ public class MemberMapper
         }
     }
 
+    @Override
     public IMemberDto getMemberByUsername(String username)
             throws NotFoundException
     {

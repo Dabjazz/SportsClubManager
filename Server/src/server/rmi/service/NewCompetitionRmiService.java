@@ -16,36 +16,44 @@ import contract.rmi.services.INewCompetitionRmiService;
 import server.useCaseController.NewCompetitionController;
 
 /**
- *
- * @author Lins Christian (christian.lins87@gmail.com)
- */
-public class NewCompetitionRmiService extends UnicastRemoteObject implements INewCompetitionRmiService
-{
 
-    public NewCompetitionRmiService() throws RemoteException {
+ @author Lins Christian (christian.lins87@gmail.com)
+ */
+public class NewCompetitionRmiService
+        extends UnicastRemoteObject
+        implements INewCompetitionRmiService
+{
+    public NewCompetitionRmiService()
+            throws RemoteException
+    {
         super();
     }
-    
+
     @Override
-    public void setCompetition(ICompetitionDto competition, IMemberDto member) throws RemoteException
+    public void setCompetition(ICompetitionDto competition, IMemberDto member)
+            throws RemoteException
     {
         NewCompetitionController.getInstance().setCompetition(competition, member);
     }
 
     @Override
-    public List<ITeamDto> getTeams(ITypeOfSportDto sport) throws RemoteException
+    public List<ITeamDto> getTeams(ITypeOfSportDto sport)
+            throws RemoteException
     {
         return NewCompetitionController.getInstance().getTeams(sport);
     }
 
     @Override
-    public List<IRoleDto> getRoles(Integer memberId) throws RemoteException {
+    public List<IRoleDto> getRoles(Integer memberId)
+            throws RemoteException
+    {
         return NewCompetitionController.getInstance().getRoles(memberId);
     }
 
     @Override
-    public List<ITypeOfSportDto> getTypeOfSports(Integer memberId) throws RemoteException {
+    public List<ITypeOfSportDto> getTypeOfSports(Integer memberId)
+            throws RemoteException
+    {
         return NewCompetitionController.getInstance().getTypeOfSports(memberId);
     }
-    
 }
