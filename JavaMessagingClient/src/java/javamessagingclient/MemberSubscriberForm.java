@@ -34,16 +34,30 @@ public class MemberSubscriberForm
 
         this.departmentHeadDto = departmentHead;
 
-        TableModel tableModel = clubTeamTable.getModel();
-
         for (IDepartmentDto d : this.departmentHeadDto.getDepartmentList())
         {
             for (IClubTeamDto c : d.getClubTeamList())
             {
                 clubTeams.add(c);
-                clubTeamTable.setValueAt(c, tableModel.getRowCount() + 1, 0);
             }
         }
+
+        TableModel tm = clubTeamTable.getModel();
+
+        DefaultTableModel dm = (DefaultTableModel) clubTeamTable.getModel();
+        dm.setRowCount(0);
+        dm.setRowCount(clubTeams.size());
+
+        clubTeamTable.setModel(tm);
+
+        TableModel tableModel = clubTeamTable.getModel();
+
+        for (int i = 0; i < clubTeams.size(); i++)
+        {
+            IClubTeamDto c = clubTeams.get(i);
+            clubTeamTable.setValueAt(c, i, 0);
+        }
+
         clubTeamTable.setModel(tableModel);
 
         playerTable.getSelectionModel().addListSelectionListener(new ListSelectionListener()

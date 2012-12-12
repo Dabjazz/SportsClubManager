@@ -15,4 +15,6 @@ public interface IDepartmentDto extends Serializable
     String getName();
     
     List<IClubTeamDto> getClubTeamList();
+
+    public void setClubTeamList(List<IClubTeamDto> clubTeams);
 }

@@ -11,11 +11,12 @@ import java.util.*;
 
  @author Thomas
  */
-public interface IClubTeamDto extends Serializable
+public interface IClubTeamDto
+        extends Serializable
 {
     List<IPlayerDto> getPlayerList();
 
     void setPlayerList(List<IPlayerDto> playerList);
-    
-        String getName();
+
+    String getName();
 }

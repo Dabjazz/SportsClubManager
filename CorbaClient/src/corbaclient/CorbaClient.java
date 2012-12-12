@@ -25,7 +25,7 @@ public class CorbaClient
     {
         try
         {
-            
+
             String[] args1 = new String[]
             {
                 "-ORBInitialPort", "2050"

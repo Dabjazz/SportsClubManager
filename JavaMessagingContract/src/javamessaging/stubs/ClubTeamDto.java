@@ -39,4 +39,10 @@ public class ClubTeamDto
     {
         return name;
     }
+
+    @Override
+    public String toString()
+    {
+        return this.name;
+    }
 }

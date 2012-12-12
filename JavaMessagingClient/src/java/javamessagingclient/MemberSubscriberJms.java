@@ -15,6 +15,7 @@ import javax.naming.*;
 public class MemberSubscriberJms
 {
     IDepartmentHeadDto departmentHead;
+    TopicConnection topicConn;
 
     public IDepartmentHeadDto getDepartmentHead()
     {
@@ -31,6 +32,19 @@ public class MemberSubscriberJms
         this.departmentHead = departmentHead;
     }
 
+    public void close()
+    {
+        try
+        {
+            // close the topic connection
+            topicConn.close();
+        }
+        catch (JMSException ex)
+        {
+            Logger.getLogger(MatchSubscriberJms.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public void read(MessageListener messageListener, ExceptionListener exceptionListener)
     {
         try
@@ -45,7 +59,7 @@ public class MemberSubscriberJms
             TopicConnectionFactory connFactory = (TopicConnectionFactory) ctx.lookup("topic/memberAddedToDepartmentFactory");
 
             // create a topic connection
-            TopicConnection topicConn = connFactory.createTopicConnection();
+            topicConn = connFactory.createTopicConnection();
             topicConn.setClientID(departmentHead.getMember().getUsername());
             // create a topic session
             TopicSession topicSession = topicConn.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
@@ -64,19 +78,9 @@ public class MemberSubscriberJms
 
             // wait for messages
             System.out.println("waiting for messages");
-            for (int i = 0; i < 10; i++)
-            {
-                Thread.sleep(1000);
-                System.out.print(".");
-            }
-            System.out.println();
 
             // close the topic connection
             topicConn.close();
-        }
-        catch (InterruptedException ex)
-        {
-            Logger.getLogger(MemberSubscriberJms.class.getName()).log(Level.SEVERE, null, ex);
         }
         catch (JMSException ex)
         {

@@ -32,6 +32,7 @@ public class DepartmentDto
         return clubTeamList;
     }
 
+    @Override
     public void setClubTeamList(List<IClubTeamDto> clubTeamList)
     {
         this.clubTeamList = clubTeamList;
