@@ -141,7 +141,7 @@ public class MemberMapper
     {
         server.domain.classes.Member member = new server.domain.classes.Member(value.getId());
 
-
+        member.setUsername(value.getUsername());
         member.setDateOfBirth(value.getDateOfBirth());
         member.setEmailAddress(value.getEmailAddress());
         member.setGender(value.getGender());

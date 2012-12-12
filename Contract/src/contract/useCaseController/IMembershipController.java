@@ -24,5 +24,7 @@ public interface IMembershipController
     List<ITypeOfSportDto> getAllSports() throws NetworkFailureException;
 
     IRoleDto setRole(IMemberDto member, String departmentHead, boolean selected) throws NetworkFailureException;
+    
+    List<IClubTeamDto> getClubTeamsByTypeOfSport(ITypeOfSportDto sport)throws NetworkFailureException;
 
 }

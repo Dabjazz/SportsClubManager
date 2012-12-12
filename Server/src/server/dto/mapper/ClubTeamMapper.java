@@ -164,7 +164,7 @@ public class ClubTeamMapper
         }
         try
         {
-            List<IClubTeamDto> ret = new LinkedList<>();
+            LinkedList<IClubTeamDto> ret = new LinkedList<>();
             ITypeOfSport byID = DomainFacade.getInstance().getByID(contract.domain.ITypeOfSport.class, sport.getId());
             List<server.domain.classes.ClubTeam> clubTeams = DomainFacade.getInstance().getClubTeamsByTypeOfSport(byID);
             for (server.domain.classes.ClubTeam c : clubTeams)

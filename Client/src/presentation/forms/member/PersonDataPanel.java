@@ -8,6 +8,8 @@ import contract.dto.*;
 import contract.dto.classes.MemberDto;
 import contract.useCaseController.*;
 import java.awt.event.ActionEvent;
+import java.util.Date;
+import javax.print.attribute.standard.DateTimeAtCompleted;
 
 /**
  @author Thomas
@@ -29,8 +31,10 @@ public class PersonDataPanel
         if (member == null)
         {
             member = new MemberDto();
+            member.setMemberFrom(new Date());
         }
 
+        member.setUsername(txtFieldUsername.getText());
         member.setPrename(txtfieldFName.getText());
         member.setLastname(txtfieldLName.getText());
         member.setDateOfBirth(dateBirthday.getDate());
@@ -47,6 +51,8 @@ public class PersonDataPanel
     {
         this.member = member;
 
+        
+        txtFieldUsername.setText(member.getUsername());
         txtfieldFName.setText(member.getPrename());
         txtfieldLName.setText(member.getLastname());
         dateBirthday.setDate(member.getDateOfBirth());
@@ -102,6 +108,8 @@ public class PersonDataPanel
         lblPhone1 = new javax.swing.JLabel();
         txtfieldNationality = new javax.swing.JTextField();
         addressPanel1 = new presentation.forms.member.AddressPanel();
+        lblUsername = new javax.swing.JLabel();
+        txtFieldUsername = new javax.swing.JTextField();
 
         lblFName.setText("First Name");
 
@@ -147,6 +155,8 @@ public class PersonDataPanel
 
         lblPhone1.setText("Nationality");
 
+        lblUsername.setText("UserName");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -154,18 +164,15 @@ public class PersonDataPanel
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblFName)
-                        .addGap(26, 26, 26))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblGender)
-                            .addComponent(lblPhone1)
-                            .addComponent(lblBirthDate)
-                            .addComponent(lblPhone)
-                            .addComponent(lblMail)
-                            .addComponent(lblLName))
-                        .addGap(26, 26, 26)))
+                    .addComponent(lblFName, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblGender)
+                        .addComponent(lblPhone1)
+                        .addComponent(lblBirthDate)
+                        .addComponent(lblPhone)
+                        .addComponent(lblMail)
+                        .addComponent(lblLName)))
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtfieldFName)
                     .addComponent(txtfieldLName, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -178,8 +185,15 @@ public class PersonDataPanel
                         .addComponent(radioFemale)
                         .addGap(18, 18, 18)
                         .addComponent(radioMale, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(addressPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(addressPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(lblUsername)
+                        .addGap(35, 35, 35)
+                        .addComponent(txtFieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -220,7 +234,9 @@ public class PersonDataPanel
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPhone1)
-                    .addComponent(txtfieldNationality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtfieldNationality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblUsername)
+                    .addComponent(txtFieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -259,8 +275,10 @@ public class PersonDataPanel
     private javax.swing.JLabel lblMail;
     private javax.swing.JLabel lblPhone;
     private javax.swing.JLabel lblPhone1;
+    private javax.swing.JLabel lblUsername;
     private javax.swing.JRadioButton radioFemale;
     private javax.swing.JRadioButton radioMale;
+    private javax.swing.JTextField txtFieldUsername;
     private javax.swing.JTextField txtfieldFName;
     private javax.swing.JTextField txtfieldLName;
     private javax.swing.JTextField txtfieldMail;

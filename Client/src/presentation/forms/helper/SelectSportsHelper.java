@@ -2,7 +2,9 @@ package presentation.forms.helper;
 
 import contract.dto.ITypeOfSportDto;
 import java.util.*;
+import javax.swing.JPanel;
 import presentation.basics.AbstractMainForm;
+import presentation.forms.helper.observer.SelectedSportsValue;
 
 /**
  * @author Lucia
@@ -11,12 +13,12 @@ public class SelectSportsHelper
         extends AbstractMainForm {
 
     private List<ITypeOfSportDto> allSports;
-    private AbstractMainForm parent;
+    private SelectedSportsValue parent;
 
     /**
      * Creates new form SelectSports
      */
-    public SelectSportsHelper(List<ITypeOfSportDto> allSports, List<ITypeOfSportDto> selSports, AbstractMainForm parent) {
+    public SelectSportsHelper(List<ITypeOfSportDto> allSports, List<ITypeOfSportDto> selSports, SelectedSportsValue parent) {
         this.allSports = allSports;
 
         this.parent = parent;
@@ -122,7 +124,7 @@ public class SelectSportsHelper
             selSports.add((ITypeOfSportDto) o);
         }
 
-//        parent.setTxtFieldSports(selSports);
+        parent.sportSelected(selSports);
 
         setVisible(false);
         dispose();

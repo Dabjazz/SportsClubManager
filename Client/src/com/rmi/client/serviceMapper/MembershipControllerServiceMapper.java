@@ -93,4 +93,15 @@ public class MembershipControllerServiceMapper
             throw new NetworkFailureException(ex.getMessage());
         }
     }
+
+    @Override
+    public List<IClubTeamDto> getClubTeamsByTypeOfSport(ITypeOfSportDto sport) 
+            throws NetworkFailureException    
+    {
+        try {
+            return service.getClubTeamsByTypeOfSport(sport);
+        } catch (RemoteException ex) {
+            throw new NetworkFailureException(ex.getMessage());
+        }
+    }
 }

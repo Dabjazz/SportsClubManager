@@ -29,4 +29,7 @@ public interface IMembershipRmiService
     
     public IRoleDto setRole(IMemberDto member, String departmentHead, boolean selected)
             throws RemoteException;
+    
+    public List<IClubTeamDto> getClubTeamsByTypeOfSport(ITypeOfSportDto sport)
+            throws RemoteException;
 }

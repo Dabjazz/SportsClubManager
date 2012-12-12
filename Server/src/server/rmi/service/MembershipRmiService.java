@@ -89,4 +89,15 @@ public class MembershipRmiService
         }
         return setRole;
     }
+
+    @Override
+    public List<IClubTeamDto> getClubTeamsByTypeOfSport(ITypeOfSportDto sport) throws RemoteException {
+        try {
+            return MembershipController.getInstance().getClubTeamsByTypeOfSport(sport);
+            
+        } catch (NetworkFailureException ex) {
+            Logger.getLogger(MembershipRmiService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }

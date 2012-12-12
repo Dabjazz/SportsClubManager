@@ -161,7 +161,15 @@ public class MembershipController
                 case "Player":
                     if (selected) {
                         try {
-                            return dtoFactory.getPlayerMapper().getMemberById(member.getId());
+                            if (member.getId() == null) {
+                                PlayerDto aDto = new PlayerDto();
+                                aDto.setName("Player");
+                                aDto.setMember(member.getId());
+                                dtoFactory.getPlayerMapper().set((IPlayerDto) aDto);
+                                return aDto;
+                            } else {
+                                return dtoFactory.getPlayerMapper().getMemberById(member.getId());
+                            }
                         } catch (IdNotFoundException ex) {
                             PlayerDto aDto = new PlayerDto();
                             aDto.setName("Player");
@@ -177,5 +185,21 @@ public class MembershipController
             Logger.getLogger(MembershipController.class.getName()).log(Level.SEVERE, null, ex1);
         }
         return null;
+    }
+    
+    @Override
+    public List<IClubTeamDto> getClubTeamsByTypeOfSport(ITypeOfSportDto sport)
+    {
+        List<IClubTeamDto> ret = new LinkedList<>();
+        try
+        {
+            ret = dtoFactory.getClubTeamMapper().getClubTeamsByTypeOfSport(sport);
+
+        }
+        catch (ClubTeamNotFoundException | RemoteException ex)
+        {
+            Logger.getLogger(NewMemberController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ret;
     }
 }
