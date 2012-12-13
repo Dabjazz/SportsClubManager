@@ -239,28 +239,26 @@ public class ShowCompetitionForm
     {
         findClubTeams();    //build up list with club teams
 
-        DefaultTableModel dm = (DefaultTableModel) tableOurMembers.getModel();
-        dm.setRowCount(0);
-        dm.setRowCount(clubTeams.size());
-
-        TableModel tableModel = tableOurMembers.getModel();
-
         //check if selected match contains relevant clubteam
-        if (containsClubTeam(match) == true)
-        {
+        if (containsClubTeam(match) == true) {
             List<IPlayerDto> tmpPlayer = controller.getPlayer(cTeam);
-            int counter;
+            
+            TableModel tm = tableOurMembers.getModel();
+            DefaultTableModel dm = (DefaultTableModel) tableOurMembers.getModel();
+            dm.setRowCount(0);
+            dm.setRowCount(tmpPlayer.size());
 
-            for (int row = 0; row < tmpPlayer.size(); row++)
-            {
-                counter = 0;
+            tableOurMembers.setModel(tm);
+            TableModel tableModel = tableOurMembers.getModel();
 
-                String[] fullname = tmpPlayer.get(row).getName().split(" ");
-                tableModel.setValueAt(fullname[counter], row, counter++);   // first name
-                tableModel.setValueAt(fullname[counter], row, counter);     // last name
+            for (int row = 0; row < tmpPlayer.size(); row++) {
+                String[] fullname = tmpPlayer.get(row).toString().split(" ");
+                tableModel.setValueAt(fullname[0], row, 0);   // first name
+                tableModel.setValueAt(fullname[1], row, 1);     // last name
             }
-        }
-        tableOurMembers.setModel(tableModel);
+            
+            tableOurMembers.setModel(tableModel);
+        }        
     }
 
     private void findClubTeams()
@@ -289,13 +287,11 @@ public class ShowCompetitionForm
     {
         for (IClubTeamDto ct : clubTeams)
         {
-            if (ct.equals(match.getHometeam()))
-            {
+            Integer id = ct.getId();
+            if (id.equals(match.getHometeam())) {
                 cTeam = ct;
                 return true;
-            }
-            else if (ct.equals(match.getForeignteam()))
-            {
+            } else if (id.equals(match.getForeignteam())) {
                 cTeam = ct;
                 return true;
             }

@@ -256,7 +256,7 @@ public class AddToATeamForm extends AbstractMainForm {
 
         //TODO: add to the team or call controlller
         clubTeam.setPlayerList(playerIDs);
-        TODO: controller.updateClubTeam(clubTeam);
+        controller.updateClubTeam(clubTeam);
 
     }//GEN-LAST:event_btnSaveActionPerformed
 

@@ -35,57 +35,55 @@ public class AddMemberToTeamController
     public List<IClubTeamDto> getClubTeams(IMemberDto user)
     {
 
-        List<IClubTeamDto> clubTeamList = new LinkedList<>();
-        try
-        {
-            List<Integer> roleList = user.getRoleList();
-            IDepartmentHeadDto departmentHead = null;
-            for (Integer roleid : roleList)
-            {
-                IRoleDto byId = dtoFactory.getRoleMapper().getById(roleid);
-                if (byId instanceof IDepartmentHeadDto)
-                {
-                    departmentHead = (IDepartmentHeadDto) byId;
-                    break;
+        IAdminDto admin = null;
+
+        for (Integer role : user.getRoleList()) {
+            try {
+                IRoleDto r = dtoFactory.getRoleMapper().getById(role);
+
+                if (r instanceof IDepartmentHeadDto) {
+                    return findClubTeams((IDepartmentHeadDto) r);
+                } 
+                else if (r instanceof IAdminDto) {
+                    admin = (IAdminDto) r;
                 }
-            }
-            //if member is no departmenthead :-D
-            if(departmentHead == null)
-            {
-                return clubTeamList;
-            }
-            
-            IMapper<IDepartmentDto> departmentMapper = dtoFactory.getDepartmentMapper();
-            IMapper<IClubTeamDto> clubTeamMapper = dtoFactory.getClubTeamMapper();
-            
-            for (Integer departmentId : departmentHead.getDepartmentList())
-            {
-                IDepartmentDto tmp = departmentMapper.getById(departmentId);
 
-                for (Integer clubTeamId : tmp.getClubTeamList())
-                {
-                    IClubTeamDto clubTeam = clubTeamMapper.getById(clubTeamId);
+                if (admin != null) {
+                    return dtoFactory.getClubTeamMapper().getAll();
+                }
+            } catch (RemoteException | IdNotFoundException | NotFoundException ex) {
+                Logger.getLogger(AddMemberToTeamController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return new LinkedList<>();
+    }
 
-                    if (clubTeamList.contains(clubTeam))
-                    {
+    List<IClubTeamDto> findClubTeams(IDepartmentHeadDto depHead) {
+        List<IClubTeamDto> clubTeamList = new LinkedList<>();
+
+        try {
+            for (Integer depID : depHead.getDepartmentList()) {
+                IDepartmentDto department = dtoFactory.getDepartmentMapper().getById(depID);
+				
+                for (Integer clubTeamId : department.getClubTeamList()) {
+                    IClubTeamDto clubTeam = dtoFactory.getClubTeamMapper().getById(clubTeamId);
+
+                    if (clubTeamList.contains(clubTeam)) {
                         continue;
                     }
 
                     clubTeamList.add(clubTeam);
                 }
             }
-        }
-        catch (IdNotFoundException ex)
-        {
+        } catch (IdNotFoundException ex) {
+            Logger.getLogger(AddMemberToTeamController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (RemoteException ex) {
             Logger.getLogger(AddMemberToTeamController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (RemoteException ex)
-        {
-            Logger.getLogger(AddMemberToTeamController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
         return clubTeamList;
     }
-
+    
     @Override
     public List<IPlayerDto> getPotentialPlayer(IClubTeamDto clubTeam)
     {
@@ -93,12 +91,11 @@ public class AddMemberToTeamController
         List<IPlayerDto> potentialPlayerList = new LinkedList<>();
         try
         {
-            IClubTeamDto parentClubTeam = dtoFactory.getClubTeamMapper().getById(clubTeam.getParentClubTeam());
-
-            if (parentClubTeam == null)
-            {
-                return currentPlayerList;
+            if (clubTeam.getParentClubTeam() == null) {
+                return new LinkedList<>();
             }
+            
+            IClubTeamDto parentClubTeam = dtoFactory.getClubTeamMapper().getById(clubTeam.getParentClubTeam());
 
             for (IPlayerDto playerDto : this.getTeamPlayer(parentClubTeam))
             {
