@@ -4,7 +4,10 @@
  */
 package applicationclient1;
 
-import applicationclient1.stubs.*;
+import javamessaging.message.MatchMessage;
+import javamessaging.stubs.IPlayerDto;
+import javamessaging.stubs.IClubTeamDto;
+import javamessaging.stubs.ICompetitionDto;
 import java.io.*;
 import java.util.logging.*;
 import javax.jms.*;
@@ -41,9 +44,6 @@ public class MatchPublisherJms
             // create a topic publisher
             TopicPublisher topicPublisher = topicSession.createPublisher(topic);
             topicPublisher.setDeliveryMode(DeliveryMode.PERSISTENT);
-
-            InputStreamReader inputStreamReader = new InputStreamReader(System.in);
-            BufferedReader reader = new BufferedReader(inputStreamReader);
 
             for (IPlayerDto player : clubTeam.getPlayerList())
             {

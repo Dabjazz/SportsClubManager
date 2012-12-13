@@ -1,87 +1,77 @@
-PipesAndFilters/nbproject/private/
-PipesAndFilters/nbproject/project.properties
-PipesAndFilters/build.xml
-PipesAndFilters/dist/
-PipesAndFilters/build/
-PipesAndFilters/.gitignore
-PipesAndFilters/nbproject/build-impl.xml
-
-Presentation/nbproject/private/
-Presentation/nbproject/private/private.properties
-Presentation/dist/
-Presentation/build/
-Presentation/.gitignore
-Presentation/nbproject/build-impl.xml
-
-RmiClient/nbproject/private/
-RmiClient/nbproject/private/private.properties
-RmiClient/dist/
-RmiClient/build/
-RmiClient/.gitignore
-RmiClient/nbproject/build-impl.xml
-
-Security/nbproject/private/
-Security/nbproject/private/private.properties/
-Security/dist/
-Security/build/
-Security/.gitignore
-Security/nbproject/build-impl.xml
-
-Presentation/nbproject/private/private.properties
-
-Presentation/nbproject/private/private.xml
-
-RmiClient/nbproject/private/private.properties
-
-RmiClient/nbproject/private/private.xml
-
-Security/nbproject/private/private.properties
-
 *.class
 # Package Files #
 *.jar
 *.war
 *.ear
 
-/CorbaServer/nbproject/private/
-/CorbaClient/nbproject/private/
-/Server/nbproject/private/
-CorbaServer/build/classes/.netbeans_automatic_build
+PipesAndFilters/nbproject/private/
+PipesAndFilters/build.xml
+PipesAndFilters/dist/
+PipesAndFilters/build/
+PipesAndFilters/nbproject/build-impl.xml
 
-CorbaServer/build/classes/.netbeans_update_resources
+Presentation/nbproject/private/
+Presentation/dist/
+Presentation/build/
+Presentation/nbproject/build-impl.xml
 
-CorbaServer/build/classes/matchresult.idl
+RmiClient/nbproject/private/
+RmiClient/dist/
+RmiClient/build/
+RmiClient/nbproject/build-impl.xml
 
-CorbaServer/dist/README.TXT
+Security/nbproject/private/
+Security/nbproject/private/private.properties/
+Security/dist/
+Security/build/
+Security/nbproject/build-impl.xml
 
-Server/build/classes/.netbeans_automatic_build
+Security/nbproject/private/private.properties
 
-Server/build/classes/.netbeans_update_resources
+CorbaServer/nbproject/private/
+CorbaServer/build/
+CorbaServer/dist/
 
-Server/dist/README.TXT
-/CorbaServer/build/
-/Server/build/
-/PresentationAdapter/dist/
-/PresentationAdapter/build/
-/CorbaClient/dist/
-/CorbaClient/build/
-/Contract/build/
-/Contract/dist/
-Contract/nbproject/private/config.properties
+CorbaClient/nbproject/private/
 
-PresentationAdapter/nbproject/private/private.xml
+Server/nbproject/private/
+Server/dist/
+Server/build/
 
-PresentationService/nbproject/private/private.xml
+CorbaClient/dist/
+CorbaClient/build/
 
-RMITest/nbproject/private/private.xml
+Contract/build/
+Contract/dist/
 
-JavaMessagingSender/nbproject/private/private.properties
+Client/nbproject/private/
+Contract/nbproject/private/
+
+RMITest/nbproject/private/
+
+JavaMessagingClient/nbproject/private/
+JavaMessagingClient/build/
+JavaMessagingClient/dist/
+JavaMessagingSender/nbproject/private/
+JavaMessagingSender/build
+JavaMessagingSender/dist
+JavaMessagingContract/nbproject/private/
+JavaMessagingContract/dist/
+JavaMessagingContract/build
+
+
+JavaMessagingClient/nbproject/build-impl.xml
+
+JavaMessagingClient/nbproject/genfiles.properties
 
 JavaMessagingClient/nbproject/private/private.properties
-/JavaMessagingClient/nbproject/private/
-/JavaMessagingSender/nbproject/private/
-/Client/nbproject/private/
-/Contract/nbproject/private/
-JavaMessagingClient/nbproject/private/private.properties
 
-JavaMessagingSender/nbproject/private/private.properties
+JavaMessagingClient/build.xml
+
+JavaMessagingClient/build/jar/META-INF/MANIFEST.MF
+
+JavaMessagingSender/build/jar/META-INF/MANIFEST.MF
+
+JavaMessagingSender/build.xml
+
+Server/orb.db/NC0

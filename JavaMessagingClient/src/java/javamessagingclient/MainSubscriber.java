@@ -9,13 +9,13 @@ import java.util.*;
 import javamessaging.stubs.*;
 
 /**
-
- @author Thomas
+ *
+ * @author Thomas
  */
 public class MainSubscriber
 {
     /**
-     @param args the command line arguments
+     * @param args the command line arguments
      */
     public static void main(final String[] args)
     {
@@ -38,24 +38,27 @@ public class MainSubscriber
 
                             frame.setVisible(true);
                         }
-                        else if (args[0].equals("Team"))
+                        else
                         {
-                            List<IClubTeamDto> clubTeams = new LinkedList<IClubTeamDto>();
-                            clubTeams.add(new ClubTeamDto("team 1"));
-                            clubTeams.add(new ClubTeamDto("team 2"));
-                            clubTeams.add(new ClubTeamDto("team 3"));
+                            if (args[0].equals("Team"))
+                            {
+                                List<IClubTeamDto> clubTeams = new LinkedList<IClubTeamDto>();
+                                clubTeams.add(new ClubTeamDto("team 1"));
+                                clubTeams.add(new ClubTeamDto("team 2"));
+                                clubTeams.add(new ClubTeamDto("team 3"));
 
-                            IDepartmentDto department = new DepartmentDto("Fussball");
-                            department.setClubTeamList(clubTeams);
-                            List<IDepartmentDto> departments = new LinkedList<IDepartmentDto>();
-                            departments.add(department);
+                                IDepartmentDto department = new DepartmentDto("Fussball");
+                                department.setClubTeamList(clubTeams);
+                                List<IDepartmentDto> departments = new LinkedList<IDepartmentDto>();
+                                departments.add(department);
 
-                            IDepartmentHeadDto departmentHead = new DepartmentHeadDto(member);
-                            departmentHead.setDepartmentList(departments);
+                                IDepartmentHeadDto departmentHead = new DepartmentHeadDto(member);
+                                departmentHead.setDepartmentList(departments);
 
-                            MemberSubscriberForm memberForm = new MemberSubscriberForm(departmentHead);
+                                MemberSubscriberForm memberForm = new MemberSubscriberForm(departmentHead);
 
-                            memberForm.setVisible(true);
+                                memberForm.setVisible(true);
+                            }
                         }
                     }
                 ;
