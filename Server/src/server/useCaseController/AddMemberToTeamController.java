@@ -13,8 +13,8 @@ import java.util.logging.*;
 import server.dto.mapper.DtoFactory;
 
 /**
-
- @author Lucia
+ *
+ * @author Lucia
  */
 public class AddMemberToTeamController
         implements IAddMemberToTeamController
@@ -34,14 +34,30 @@ public class AddMemberToTeamController
     @Override
     public List<IClubTeamDto> getClubTeams(IMemberDto user)
     {
-        IDepartmentHeadDto departmentHead = (IDepartmentHeadDto) user;
-        List<IClubTeamDto> clubTeamList = new LinkedList<>();
 
+        List<IClubTeamDto> clubTeamList = new LinkedList<>();
         try
         {
+            List<Integer> roleList = user.getRoleList();
+            IDepartmentHeadDto departmentHead = null;
+            for (Integer roleid : roleList)
+            {
+                IRoleDto byId = dtoFactory.getRoleMapper().getById(roleid);
+                if (byId instanceof IDepartmentHeadDto)
+                {
+                    departmentHead = (IDepartmentHeadDto) byId;
+                    break;
+                }
+            }
+            //if member is no departmenthead :-D
+            if(departmentHead == null)
+            {
+                return clubTeamList;
+            }
+            
             IMapper<IDepartmentDto> departmentMapper = dtoFactory.getDepartmentMapper();
             IMapper<IClubTeamDto> clubTeamMapper = dtoFactory.getClubTeamMapper();
-
+            
             for (Integer departmentId : departmentHead.getDepartmentList())
             {
                 IDepartmentDto tmp = departmentMapper.getById(departmentId);
@@ -86,11 +102,11 @@ public class AddMemberToTeamController
 
             for (IPlayerDto playerDto : this.getTeamPlayer(parentClubTeam))
             {
-                if(currentPlayerList.contains(playerDto))
+                if (currentPlayerList.contains(playerDto))
                 {
                     continue;
                 }
-                
+
                 potentialPlayerList.add(playerDto);
             }
         }
