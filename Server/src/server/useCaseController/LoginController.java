@@ -8,6 +8,8 @@ import contract.dto.*;
 import contract.dto.mapper.*;
 import contract.useCaseController.*;
 import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import server.dto.mapper.DtoFactory;
 
 /**
@@ -40,6 +42,20 @@ public class LoginController
         {
             IMemberMapper m = dtoFactory.getMemberMapper();
             return m.getMemberByUsername(userData.getUsername());
+        }
+        catch (RemoteException | NotFoundException ex)
+        {
+            throw new MemberNotFoundException(ex);
+        }
+    }
+
+    @Override
+    public IMemberDto getMemberByUsername(String username) throws MemberNotFoundException
+    {
+        try
+        {
+            IMemberMapper m = dtoFactory.getMemberMapper();
+            return m.getMemberByUsername(username);
         }
         catch (RemoteException | NotFoundException ex)
         {
