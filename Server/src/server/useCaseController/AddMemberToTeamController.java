@@ -22,6 +22,11 @@ public class AddMemberToTeamController
     private static AddMemberToTeamController singleton = null;
     DtoFactory dtoFactory = new DtoFactory();
 
+
+    private AddMemberToTeamController() {
+        
+    }
+    
     public static AddMemberToTeamController getInstance()
     {
         if (singleton == null)
