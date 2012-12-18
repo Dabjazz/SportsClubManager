@@ -7,6 +7,7 @@ package contract.ejb.business;
 import contract.dto.IClubTeamDto;
 import contract.dto.IMemberDto;
 import contract.dto.IPlayerDto;
+import contract.dto.IRoleDto;
 import java.util.List;
 import javax.ejb.Remote;
 
@@ -24,4 +25,6 @@ public interface IAddMemberToTeamRemote
 
     //update team with it's changed playerlist (if needed playerlist could send as well from GUI --> check if necessary)
     void updateClubTeam(IClubTeamDto clubTeam);
+    
+    List<IRoleDto> getRoles(Integer memberId);
 }

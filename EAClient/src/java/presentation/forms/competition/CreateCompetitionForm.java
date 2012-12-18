@@ -4,8 +4,8 @@
  */
 package presentation.forms.competition;
 
-import com.contract.IUseCaseControllerFactory;
 import com.ServiceNotAvailableException;
+import com.contract.IUseCaseControllerFactory;
 import contract.dto.*;
 import contract.dto.classes.AddressDto;
 import contract.dto.classes.CompetitionDto;
@@ -15,7 +15,6 @@ import contract.useCaseController.INewCompetitionController;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.AbstractListModel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import presentation.basics.AbstractForm;
@@ -30,10 +29,13 @@ public class CreateCompetitionForm
     IUseCaseControllerFactory client;
     INewCompetitionController controller;
     ICompetitionDto competition;
-    List<IMatchDto> match;
+    IAddressDto compAddress;
+    ICountryDto compCountry;
+    List<IMatchDto> matches;
     IMemberDto user;
-    List<String> aTeam;
-    List<String> bTeam;
+    List<ITeamDto> selectedTeams;
+    List<ITeamDto> aTeam;
+    List<ITeamDto> bTeam;
     boolean confirmed = false;
     boolean lastWasA = false;
     Object tmpTeam = null;
@@ -48,6 +50,12 @@ public class CreateCompetitionForm
         this.user = user;
         controller = this.client.getNewCompetitionController();
         initComponents();
+
+        String[] neededRoles = {"DepartmentHeadDto", "Admin"};
+        if (!hasRole(neededRoles)) {
+            this.getPanel().removeAll();
+            JOptionPane.showMessageDialog(null, "Sorry, you do not have the permission to enter this area!");
+        }
     }
 
     /**
@@ -64,8 +72,7 @@ public class CreateCompetitionForm
         lblTeams = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         listSelectTeams = new javax.swing.JList();
-        lblMatchNr = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
+        lblSport = new javax.swing.JLabel();
         lblName = new javax.swing.JLabel();
         lblDate = new javax.swing.JLabel();
         lblTime = new javax.swing.JLabel();
@@ -75,12 +82,15 @@ public class CreateCompetitionForm
         lblPostCode = new javax.swing.JLabel();
         txtfieldLocation = new javax.swing.JTextField();
         txtfieldName = new javax.swing.JTextField();
+        dateDateFrom = new com.toedter.calendar.JDateChooser();
         txtfieldplz = new javax.swing.JTextField();
         txtfieldcity = new javax.swing.JTextField();
         txtfieldCountry = new javax.swing.JTextField();
         lblFee = new javax.swing.JLabel();
         txtfieldFee = new javax.swing.JTextField();
         btnConfirm = new javax.swing.JButton();
+        dateDateTo = new com.toedter.calendar.JDateChooser();
+        comboSport = new javax.swing.JComboBox();
         paneSetMatches = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         listSelectMatch = new javax.swing.JList();
@@ -106,7 +116,7 @@ public class CreateCompetitionForm
         lblTeams.setText("Select Teams");
 
         listSelectTeams.setModel(new javax.swing.AbstractListModel() {
-            String[] teams = getTeamsList();
+            Object[] teams = new Object[]{};
             public int getSize() { return teams.length; }
             public Object getElementAt(int i) { return teams[i]; }
         });
@@ -120,7 +130,7 @@ public class CreateCompetitionForm
         });
         jScrollPane1.setViewportView(listSelectTeams);
 
-        lblMatchNr.setText("Matches");
+        lblSport.setText("Sport");
 
         lblName.setText("Title");
 
@@ -136,30 +146,19 @@ public class CreateCompetitionForm
 
         lblPostCode.setText("Post Code");
 
-        txtfieldLocation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfieldLocationActionPerformed(evt);
-            }
-        });
-
-        txtfieldName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfieldNameActionPerformed(evt);
-            }
-        });
-
         lblFee.setText("Fee");
-
-        txtfieldFee.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfieldFeeActionPerformed(evt);
-            }
-        });
 
         btnConfirm.setText("Confirm Data");
         btnConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConfirmActionPerformed(evt);
+            }
+        });
+
+        comboSport.setModel(new javax.swing.DefaultComboBoxModel(getSportsList()));
+        comboSport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboSportActionPerformed(evt);
             }
         });
 
@@ -169,20 +168,20 @@ public class CreateCompetitionForm
             paneDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneDataLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblTeams)
+                .addGroup(paneDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTeams)
+                    .addComponent(lblSport))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(paneDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                    .addComponent(comboSport, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                 .addGroup(paneDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(paneDataLayout.createSequentialGroup()
-                        .addGroup(paneDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblName)
-                            .addComponent(lblMatchNr))
-                        .addGap(27, 27, 27)
-                        .addGroup(paneDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtfieldName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(165, 165, 165))
+                        .addComponent(lblName)
+                        .addGap(47, 47, 47)
+                        .addComponent(txtfieldName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(269, 269, 269))
                     .addGroup(paneDataLayout.createSequentialGroup()
                         .addGroup(paneDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblLocation)
@@ -197,14 +196,17 @@ public class CreateCompetitionForm
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblCity)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtfieldcity, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))
+                                .addComponent(txtfieldcity))
                             .addGroup(paneDataLayout.createSequentialGroup()
-                                .addGap(158, 158, 158)
-                                .addComponent(lblTime))
+                                .addComponent(dateDateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(36, 36, 36)
+                                .addComponent(lblTime)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(dateDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txtfieldFee, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtfieldLocation)
                             .addComponent(txtfieldCountry))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnConfirm)
                         .addContainerGap())))
         );
@@ -213,23 +215,25 @@ public class CreateCompetitionForm
             .addGroup(paneDataLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(paneDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(paneDataLayout.createSequentialGroup()
-                        .addGroup(paneDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(paneDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(lblMatchNr)
-                                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblTeams))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(paneDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblSport)
+                            .addComponent(comboSport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(14, 14, 14)
+                        .addComponent(lblTeams))
+                    .addGroup(paneDataLayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
                         .addGroup(paneDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblName, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtfieldName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(13, 13, 13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(paneDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(paneDataLayout.createSequentialGroup()
                                 .addGroup(paneDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(lblDate)
-                                    .addComponent(lblTime))
+                                    .addComponent(lblTime)
+                                    .addComponent(dateDateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(dateDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(paneDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(lblLocation)
@@ -250,7 +254,11 @@ public class CreateCompetitionForm
                                     .addComponent(btnConfirm))
                                 .addGap(1, 1, 1))
                             .addComponent(lblFee))))
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneDataLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         paneSetMatches.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Set Matches", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
@@ -259,9 +267,9 @@ public class CreateCompetitionForm
         paneSetMatches.setPreferredSize(new java.awt.Dimension(712, 214));
 
         listSelectMatch.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+            Object[] objects = { "" };
+            public int getSize() { return objects.length; }
+            public Object getElementAt(int i) { return objects[i]; }
         });
         listSelectMatch.setEnabled(false);
         listSelectMatch.setMaximumSize(new java.awt.Dimension(40, 80));
@@ -275,20 +283,10 @@ public class CreateCompetitionForm
         jScrollPane3.setViewportView(listSelectMatch);
 
         txtfieldTeamA.setEnabled(false);
-        txtfieldTeamA.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfieldTeamAActionPerformed(evt);
-            }
-        });
 
         lbl1.setText("vs.");
 
         txtfieldTeamB.setEnabled(false);
-        txtfieldTeamB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfieldTeamBActionPerformed(evt);
-            }
-        });
 
         setListTeamAModel();
         listTeamA.setEnabled(false);
@@ -411,36 +409,10 @@ public class CreateCompetitionForm
     public JPanel getPanel() {
         return panel;
     }
-    private void txtfieldLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfieldLocationActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtfieldLocationActionPerformed
-
-    private void txtfieldNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfieldNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtfieldNameActionPerformed
-
-    private void txtfieldFeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfieldFeeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtfieldFeeActionPerformed
-
-    private void txtfieldTeamAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfieldTeamAActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtfieldTeamAActionPerformed
-
-    private void txtfieldTeamBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfieldTeamBActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtfieldTeamBActionPerformed
-
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
 
-        if (confirmed) {
-            List<Integer> matchInt = new LinkedList<Integer>();
-            for (IMatchDto m : match) {
-                matchInt.add(m.getId());
-            }
-            competition.setMatchList(matchInt);
-
-            controller.setCompetition(competition, user);
+        if (confirmed) {            
+            controller.setCompetition(competition, compAddress, compCountry, matches);
         } else {
             JOptionPane.showMessageDialog(null, "Please confirm the competition details first!");
         }
@@ -452,17 +424,13 @@ public class CreateCompetitionForm
 
     private void listSelectMatchValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listSelectMatchValueChanged
         tmpTeam = listSelectMatch.getSelectedValue();
-        
-        if (lastWasA == false && txtfieldTeamA.getText().isEmpty()) {
-            String teamA = listSelectMatch.getSelectedValue().toString();
-            txtfieldTeamA.setText(teamA);
-            lastWasA = true;
-        } 
-        else if (!tmpTeam.equals(txtfieldTeamA.getText()) || !txtfieldTeamB.getText().isEmpty()) {
-            String teamB = listSelectMatch.getSelectedValue().toString();
-            txtfieldTeamB.setText(teamB);
-            lastWasA = false;
 
+        if (lastWasA == false && txtfieldTeamA.getText().isEmpty()) {
+            txtfieldTeamA.setText(listSelectMatch.getSelectedValue().toString());
+            lastWasA = true;
+        } else if (!tmpTeam.equals(txtfieldTeamA.getText()) || !txtfieldTeamB.getText().isEmpty()) {
+            txtfieldTeamB.setText(listSelectMatch.getSelectedValue().toString());
+            lastWasA = false;
         }
     }//GEN-LAST:event_listSelectMatchValueChanged
 
@@ -475,158 +443,191 @@ public class CreateCompetitionForm
     }//GEN-LAST:event_btnAddMatchActionPerformed
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
+        competition = new CompetitionDto();
+        competition.setName(txtfieldName.getText());
+        competition.setDescription(txtfieldLocation.getText());
+        competition.setDateFrom(dateDateFrom.getDate());
+        competition.setDateTo(dateDateTo.getDate());
+        competition.setPayment(Double.parseDouble(txtfieldFee.getText()));
+        competition.setTeamList(getSelectedTeamsID());
+        ITypeOfSportDto sport = (ITypeOfSportDto)comboSport.getSelectedItem();
+        competition.setSport(sport.getId());
+        competition.setLeague(1);   //TODO: implement me maybe :)
+
+        //Set Competitions address
+        compAddress = new AddressDto();
+        if(txtfieldLocation.getText().isEmpty()){
+            compAddress.setStreet("street is not supported");
+        }
+        else{
+            compAddress.setStreet(txtfieldLocation.getText());
+        }
+        compAddress.setStreetNumber(1);
+        compAddress.setVillage(txtfieldcity.getText());
+        compAddress.setPostalCode(Integer.parseInt(txtfieldplz.getText()));
+        compCountry = new CountryDto();
+        compCountry.setName(txtfieldCountry.getText());
+
         setMatchTeamList();
         confirmed = true;
         btnAddMatch.setEnabled(true);
         listSelectMatch.setEnabled(true);
-        match = new LinkedList<IMatchDto>();
-
-        competition = new CompetitionDto();
-        competition.setName(txtfieldName.getText());
-        competition.setDescription(txtfieldLocation.getText());
-//        competition.setDateFrom(dateDateFrom.getDate());
-//        competition.setDateTo(dateDateTo.getDate());
-        competition.setPayment(Double.parseDouble(txtfieldFee.getText()));
-        competition.setTeamList(getSelectedTeams(listSelectTeams));
-
-        //Set Competitions address
-        IAddressDto address = new AddressDto();
-        address.setVillage(txtfieldcity.getText());
-        address.setPostalCode(Integer.parseInt(txtfieldplz.getText()));
-        ICountryDto country = new CountryDto();
-        country.setName(txtfieldCountry.getText());
-        address.setCountry(country.getId());
-
-        competition.setAddress(address.getId());
+        matches = new LinkedList<IMatchDto>();
     }//GEN-LAST:event_btnConfirmActionPerformed
 
-    private String[] getTeamsList() {
-        List<ITeamDto> teamList = controller.getTeams();
-        String[] list = new String[teamList.size()];
+    private void comboSportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSportActionPerformed
+        setListSelectTeams((ITypeOfSportDto)comboSport.getSelectedItem());
+    }//GEN-LAST:event_comboSportActionPerformed
 
-        for (int i = 0; i < list.length; i++) {
-            list[i] = teamList.get(i).getName();
-        }
-        return list;
+    //TODO add controller method
+    private Object[] getSportsList() {
+        List<ITypeOfSportDto> sportList = controller.getTypeOfSports(user.getId());
+       
+        Object[] array = sportList.toArray();
+        setListSelectTeams((ITypeOfSportDto)array[0]);
+        
+        return array;
+    }
+
+    private void setListSelectTeams(final ITypeOfSportDto sport) {
+        listSelectTeams.setModel(new javax.swing.AbstractListModel() {
+            Object[] teams = getTeamsList(sport);
+
+            public int getSize() {
+                return teams.length;
+            }
+
+            public Object getElementAt(int i) {
+                return teams[i];
+            }
+        });
+                
+    }
+
+    private Object[] getTeamsList(ITypeOfSportDto sport) {
+        List<ITeamDto> teamList = controller.getTeams(sport);
+        return teamList.toArray();
     }
 
     private void setMatchTeamList() {
-        Object[] selectedObj = listSelectTeams.getSelectedValues();
-        final String[] selString = new String[selectedObj.length];
-        for (int i = 0; i < selectedObj.length; i++) {
-            selString[i] = selectedObj[i].toString();
+        if (selectedTeams.isEmpty()) {
+            selectedTeams = getSelectedTeams();
         }
 
         listSelectMatch.setModel(new AbstractListModel() {
-            String[] strings = selString;
+            Object[] objects = selectedTeams.toArray();
 
             @Override
             public int getSize() {
-                return strings.length;
+                return objects.length;
             }
 
             @Override
             public Object getElementAt(int i) {
-                return strings[i];
+                return objects[i];
             }
         });
     }
 
-    private List<Integer> getSelectedTeams(JList list) {
-        Object[] selection = list.getSelectedValues();      //array with selected values
-        List<String> teamSelection = new LinkedList<String>();    //selected teams
+    public List<ITeamDto> getSelectedTeams() {
+        Object[] selection = listSelectTeams.getSelectedValues();       //array with selected values
+        selectedTeams = new LinkedList<ITeamDto>();                             //selected teams
 
         //add selected values to the selection teamlist
         for (int i = 0; i < selection.length; i++) {
-            teamSelection.add(selection[i].toString());
+            selectedTeams.add((ITeamDto) selection[i]);
+        }
+        return selectedTeams;
+    }
+
+    private List<Integer> getSelectedTeamsID() {
+        selectedTeams = getSelectedTeams();
+
+        List<Integer> selectedTeamsID = new LinkedList<Integer>();
+        for (ITeamDto t : selectedTeams) {
+            selectedTeamsID.add(t.getId());
         }
 
-        List<ITeamDto> teamList = controller.getTeams();
-        List<Integer> selTeam = new LinkedList<Integer>();
-
-        for (ITeamDto t : teamList) {
-            for (int i = 0; i < teamSelection.size(); i++) {
-                if (t.getName().equals(teamSelection.get(i))) {
-                    selTeam.add(t.getId());
-                }
-            }
-        }
-        return selTeam;
+        return selectedTeamsID;
     }
 
     private void updateMatchTables() {
         IMatchDto newMatch = new MatchDto();
-        newMatch.setCompetition(competition.getId());
+        //newMatch.setCompetition(competition.getId());
         newMatch.setHometeam(getTeamID(txtfieldTeamA.getText()));
         newMatch.setForeignteam(getTeamID(txtfieldTeamB.getText()));
-        match.add(newMatch);
+        newMatch.setDateFrom(dateDateFrom.getDate());
+        newMatch.setDateTo(dateDateTo.getDate());
+        matches.add(newMatch);
+        
 
         setListTeamAModel();
         setListTeamBModel();
     }
 
-    private Integer getTeamID(String name) {
-        List<ITeamDto> teamList = controller.getTeams();
+    private Integer getTeamID(String teamName) {
         Integer teamID = null;
 
-        for (ITeamDto t : teamList) {
-            if (t.getName().equals(name)) {
+        for (ITeamDto t : selectedTeams) {
+            if (t.getName().equals(teamName)) {
                 teamID = t.getId();
             }
         }
         return teamID;
     }
 
-    private void addToATeams(String name) {
+    private void addToATeams(String teamName) {
         if (aTeam == null) {
-            aTeam = new LinkedList<String>();
+            aTeam = new LinkedList<ITeamDto>();
         }
-        aTeam.add(name);
+
+        for (ITeamDto t : selectedTeams) {
+            if (t.getName().equals(teamName)) {
+                aTeam.add(t);
+                return;
+            }
+        }
     }
 
-    private String[] getATeams() {
+    private void addToBTeams(String teamName) {
+        if (bTeam == null) {
+            bTeam = new LinkedList<ITeamDto>();
+        }
+
+        for (ITeamDto t : selectedTeams) {
+            if (t.getName().equals(teamName)) {
+                bTeam.add(t);
+                return;
+            }
+        }
+    }
+
+    private Object[] getATeams() {
         if (aTeam == null) {
-            aTeam = new LinkedList<String>();
+            aTeam = new LinkedList<ITeamDto>();
         }
-
-        String[] aArray = new String[aTeam.size()];
-        for (int i = 0; i < aTeam.size(); i++) {
-            aArray[i] = aTeam.get(i);
-        }
-        return aArray;
+        return aTeam.toArray();
     }
 
-    private void addToBTeams(String name) {
+    private Object[] getBTeams() {
         if (bTeam == null) {
-            bTeam = new LinkedList<String>();
+            bTeam = new LinkedList<ITeamDto>();
         }
-        bTeam.add(name);
-    }
-
-    private String[] getBTeams() {
-        if (bTeam == null) {
-            bTeam = new LinkedList<String>();
-        }
-
-        String[] bArray = new String[bTeam.size()];
-        for (int i = 0; i < bTeam.size(); i++) {
-            bArray[i] = bTeam.get(i);
-        }
-        return bArray;
+        return bTeam.toArray();
     }
 
     private void setListTeamAModel() {
         listTeamA.setModel(new AbstractListModel() {
-            String[] strings = getATeams();
+            Object[] objects = getATeams();
 
             @Override
             public int getSize() {
-                return strings.length;
+                return objects.length;
             }
 
             @Override
             public Object getElementAt(int i) {
-                return strings[i];
+                return objects[i];
             }
         });
 
@@ -634,28 +635,43 @@ public class CreateCompetitionForm
 
     private void setListTeamBModel() {
         listTeamB.setModel(new AbstractListModel() {
-            String[] strings = getBTeams();
+            Object[] objects = getBTeams();
 
             @Override
             public int getSize() {
-                return strings.length;
+                return objects.length;
             }
 
             @Override
             public Object getElementAt(int i) {
-                return strings[i];
+                return objects[i];
             }
         });
+    }
+
+    private boolean hasRole(String[] roleNames) {
+        List<IRoleDto> roleList = controller.getRoles(user.getId());
+
+        for (IRoleDto r : roleList) {
+            for (int i = 0; i < roleNames.length; i++) {
+                if (r.getName().equals(roleNames[i])) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddMatch;
     private javax.swing.JButton btnConfirm;
     private javax.swing.JButton btnCreate;
+    private javax.swing.JComboBox comboSport;
+    private com.toedter.calendar.JDateChooser dateDateFrom;
+    private com.toedter.calendar.JDateChooser dateDateTo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JLabel lbl1;
     private javax.swing.JLabel lbl2;
     private javax.swing.JLabel lblCity;
@@ -663,9 +679,9 @@ public class CreateCompetitionForm
     private javax.swing.JLabel lblDate;
     private javax.swing.JLabel lblFee;
     private javax.swing.JLabel lblLocation;
-    private javax.swing.JLabel lblMatchNr;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblPostCode;
+    private javax.swing.JLabel lblSport;
     private javax.swing.JLabel lblTeams;
     private javax.swing.JLabel lblTime;
     private javax.swing.JList listSelectMatch;

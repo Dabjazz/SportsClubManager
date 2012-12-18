@@ -7,6 +7,7 @@ package com.rmi.client.serviceMapper;
 import contract.dto.*;
 import contract.rmi.services.ILoginRmiService;
 import contract.useCaseController.ILogin;
+import contract.useCaseController.MemberNotFoundException;
 import java.rmi.RemoteException;
 import java.util.logging.*;
 
@@ -76,5 +77,11 @@ public class LoginServiceMapper
 //
 //            return member;
         // </editor-fold> 
+    }
+
+    @Override
+    public IMemberDto getMemberByUsername(String username) throws MemberNotFoundException
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

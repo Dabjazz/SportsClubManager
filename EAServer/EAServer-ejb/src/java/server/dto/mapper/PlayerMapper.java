@@ -68,7 +68,7 @@ public class PlayerMapper
     {
         try
         {
-            List<IPlayerDto> result = new LinkedList<>();
+            List<IPlayerDto> result = new LinkedList<IPlayerDto>();
 
             for (contract.domain.IPlayer a : DomainFacade.getInstance().getAll(contract.domain.IPlayer.class))
             {
@@ -111,14 +111,14 @@ public class PlayerMapper
         List<Integer> permissionList = value.getPermisssionList();
         List<Integer> typeOfSportList = value.getTypeOfSportList();
 
-        LinkedList<contract.domain.IPermission> p = new LinkedList<>();
+        LinkedList<contract.domain.IPermission> p = new LinkedList<IPermission>();
         for (int id : permissionList)
         {
             p.add(new PermissionMapper().getDomainById(id));
         }
         player.setPermissionList(p);
 
-        LinkedList<contract.domain.ITypeOfSport> typeOfSports = new LinkedList<>();
+        LinkedList<contract.domain.ITypeOfSport> typeOfSports = new LinkedList<ITypeOfSport>();
         for (int id : typeOfSportList)
         {
             typeOfSports.add(new TypeOfSportMapper().getDomainById(id));
@@ -135,8 +135,11 @@ public class PlayerMapper
         {
             server.domain.classes.Player p = createDomain(value);
             DomainFacade.getInstance().delete(p);
+        } catch (CouldNotDeleteException ex)
+        {
+            Logger.getLogger(PlayerMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (IdNotFoundException | CouldNotDeleteException ex)
+        catch (IdNotFoundException ex)
         {
             Logger.getLogger(PlayerMapper.class.getName()).log(Level.SEVERE, null, ex);
         }

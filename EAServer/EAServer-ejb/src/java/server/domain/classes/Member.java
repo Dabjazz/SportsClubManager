@@ -219,7 +219,7 @@ public class Member
     @Override
     public List<IRole> getRoleList()
     {
-        List<IRole> result = new LinkedList<>();
+        List<IRole> result = new LinkedList<IRole>();
 
         for (Role d : roleList)
         {
@@ -232,7 +232,7 @@ public class Member
     @Override
     public void setRoleList(List<IRole> roleList)
     {
-        List<Role> result = new LinkedList<>();
+        List<Role> result = new LinkedList<Role>();
 
         for (IRole d : roleList)
         {

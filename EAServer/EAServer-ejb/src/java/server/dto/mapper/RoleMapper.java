@@ -89,7 +89,7 @@ public class RoleMapper
     {
         try
         {
-            List<IRoleDto> roles = new LinkedList<>();
+            List<IRoleDto> roles = new LinkedList<IRoleDto>();
 
             roles.addAll(TrainerMapper.getInstance().getAll());
             roles.addAll(PlayerMapper.getInstance().getAll());
@@ -142,6 +142,6 @@ public class RoleMapper
     @Override
     public IRoleDto getNew()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return RoleMapper.getInstance().getNew();
     }
 }

@@ -11,4 +11,6 @@ import javax.ejb.Remote;
 @Remote
 public interface ILoginRemote {
     IMemberDto  getMemberByUserData(IUserDataDto userData);
+
+    IMemberDto getMemberByUsername(String username);
 }

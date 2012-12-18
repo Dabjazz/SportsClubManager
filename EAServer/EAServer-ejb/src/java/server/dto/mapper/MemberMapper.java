@@ -4,12 +4,19 @@
  */
 package server.dto.mapper;
 
-import contract.domain.*;
+import contract.domain.CouldNotDeleteException;
+import contract.domain.CouldNotFetchException;
+import contract.domain.CouldNotSaveException;
+import contract.domain.IRole;
 import contract.dto.IMemberDto;
 import contract.dto.classes.MemberDto;
-import contract.dto.mapper.*;
-import java.util.*;
-import java.util.logging.*;
+import contract.dto.mapper.IMemberMapper;
+import contract.dto.mapper.IdNotFoundException;
+import contract.dto.mapper.NotFoundException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import server.domain.DomainFacade;
 
 /**
@@ -67,6 +74,7 @@ public class MemberMapper
         }
     }
 
+    @Override
     public IMemberDto getMemberByUsername(String username)
             throws NotFoundException
     {
@@ -88,7 +96,7 @@ public class MemberMapper
     {
         try
         {
-            List<IMemberDto> result = new LinkedList<>();
+            List<IMemberDto> result = new LinkedList<IMemberDto>();
 
             for (contract.domain.IMember a : DomainFacade.getInstance().getAll(contract.domain.IMember.class))
             {
@@ -111,8 +119,11 @@ public class MemberMapper
             server.domain.classes.Member member = createDomain(value);
 
             return DomainFacade.getInstance().set(member);
+        } catch (CouldNotSaveException ex)
+        {
+            Logger.getLogger(MemberMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (IdNotFoundException | CouldNotSaveException ex)
+        catch (IdNotFoundException ex)
         {
             Logger.getLogger(MemberMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -128,8 +139,11 @@ public class MemberMapper
             server.domain.classes.Member member = createDomain(value);
 
             DomainFacade.getInstance().delete(member);
+        } catch (CouldNotDeleteException ex)
+        {
+            Logger.getLogger(MemberMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (IdNotFoundException | CouldNotDeleteException ex)
+        catch (IdNotFoundException ex)
         {
             Logger.getLogger(MemberMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -153,7 +167,7 @@ public class MemberMapper
         member.setAddress(new AddressMapper().getDomainById(value.getAddress()));
         member.setNationality(new CountryMapper().getDomainById(value.getNationality()));
 
-        List< contract.domain.IRole> roleList = new LinkedList<>();
+        List< contract.domain.IRole> roleList = new LinkedList<IRole>();
 
         for (int i : value.getRoleList())
         {

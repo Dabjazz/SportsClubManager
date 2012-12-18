@@ -15,4 +15,5 @@ import java.rmi.RemoteException;
  */
 public interface ILoginRmiService extends Remote {
     IMemberDto  getMemberByUserData(IUserDataDto userData) throws RemoteException;
+    IMemberDto getMemberByUsername(String username) throws RemoteException;
 }

@@ -14,7 +14,8 @@ import javax.ejb.Remote;
 @Remote
 public interface INewCompetitionRemote
 {
-    void setCompetition(ICompetitionDto competition, IMemberDto member);
-
-    List<ITeamDto> getTeams();
+    List<IRoleDto> getRoles(Integer memberId);
+    List<ITypeOfSportDto> getTypeOfSports(Integer memberId);    
+    List<ITeamDto> getTeams(ITypeOfSportDto sport);
+    void setCompetition(ICompetitionDto competition, IAddressDto address, ICountryDto country, List<IMatchDto> matchList);
 }

@@ -153,7 +153,7 @@ public class Competition
     @Override
     public List<ITeam> getTeamList()
     {
-        List<ITeam> result = new LinkedList<>();
+        List<ITeam> result = new LinkedList<ITeam>();
 
         for (Team d : teamList)
         {
@@ -166,7 +166,7 @@ public class Competition
     @Override
     public void setTeamList(List<ITeam> teamList)
     {
-        List<Team> result = new LinkedList<>();
+        List<Team> result = new LinkedList<Team>();
 
         for (ITeam d : teamList)
         {
@@ -180,7 +180,7 @@ public class Competition
     @Override
     public List<IMatch> getMatchList()
     {
-        List<IMatch> result = new LinkedList<>();
+        List<IMatch> result = new LinkedList<IMatch>();
 
         for (Match d : matchList)
         {
@@ -193,7 +193,7 @@ public class Competition
     @Override
     public void setMatchList(List<IMatch> matchList)
     {
-        List<Match> result = new LinkedList<>();
+        List<Match> result = new LinkedList<Match>();
 
         for (IMatch d : matchList)
         {

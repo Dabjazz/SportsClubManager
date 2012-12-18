@@ -6,7 +6,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import server.domain.DomainFacade;
@@ -21,12 +20,12 @@ import server.domain.classes.TypeOfSport;
  */
 public class HibernateTestDatabase
 {
+
     private static final String CLASSENDING = ".class";
     private static final String EMPTYSTRING = "";
     private static final String METHODBEGINNING = "get";
     private static final String PACKAGENAME = "server.domain.classes";
 
-    
     public void runGetterTest()
     {
         try
@@ -42,57 +41,58 @@ public class HibernateTestDatabase
                     iterateGetMethodsOfObject(obj);
                 }
             }
-        }
-        catch (ClassNotFoundException | CouldNotFetchException ex)
+        } catch (ClassNotFoundException ex)
+        {
+        } catch (CouldNotFetchException ex)
         {
             Logger.getLogger(HibernateTestDatabase.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void runQueryTests()
     {
         try
         {
             System.out.println("getAll");
             TypeOfSport sport = DomainFacade.getInstance().getAll(TypeOfSport.class).get(0);
-            
+
             System.out.println("getByName");
             League l = DomainFacade.getInstance().getByName(League.class, "Handballliga");
-            
+
             System.out.println("getClubTeamsByTypeOfSport");
             DomainFacade.getInstance().getClubTeamsByTypeOfSport(sport);
-            
+
             System.out.println("getDepartmentsBySport");
             DomainFacade.getInstance().getDepartmentsBySport(sport);
-            
+
             System.out.println("getLeagueByNameAndTypeOfSport");
-            DomainFacade.getInstance().getLeageByNameAndTypeOfSport(sport,l.getName());
-            
+            DomainFacade.getInstance().getLeageByNameAndTypeOfSport(sport, l.getName());
+
             System.out.println("getCompetitionsByDate");
             DomainFacade.getInstance().getCompetitionsByDate(new Date(), new Date(1387584000));
-            
+
             System.out.println("getMemberByName");
             Member memberByName = DomainFacade.getInstance().getMemberByName("Markus", "Mohanty");
-            
+
             System.out.println("getMemberByUsername");
             DomainFacade.getInstance().getMemberByUsername("mmo7528");
-            
+
             System.out.println("getAll");
             Competition competition = DomainFacade.getInstance().getAll(Competition.class).get(0);
-            
+
             System.out.println("getMatchesByCompetition");
             DomainFacade.getInstance().getMatchesByCompetition(competition);
-           
+
         } catch (CouldNotFetchException ex)
         {
             Logger.getLogger(HibernateTestDatabase.class.getName()).log(Level.SEVERE,
                     null, ex);
         }
     }
-    
+
     public Class[] getAllClasses() throws ClassNotFoundException
     {
-        ArrayList<Class> classes = new ArrayList<>();
+        ArrayList<Class> classes = new ArrayList<Class>();
         try
         {
             File dir = new File(Thread.currentThread().getContextClassLoader().getResource(PACKAGENAME.replaceAll("\\.", "/")).getFile());
@@ -109,8 +109,7 @@ public class HibernateTestDatabase
                 }
             }
             return classes.toArray(new Class[classes.size()]);
-        }
-        catch (NullPointerException ex)
+        } catch (NullPointerException ex)
         {
             throw new ClassNotFoundException(PACKAGENAME, ex);
         }
@@ -128,8 +127,13 @@ public class HibernateTestDatabase
                     m.invoke(obj);
                 }
             }
-        }
-        catch ( InvocationTargetException | IllegalArgumentException | IllegalAccessException ex)
+        } catch (IllegalAccessException ex)
+        {
+            Logger.getLogger(HibernateTestDatabase.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalArgumentException ex)
+        {
+            Logger.getLogger(HibernateTestDatabase.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvocationTargetException ex)
         {
             Logger.getLogger(HibernateTestDatabase.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -70,7 +70,7 @@ public class Department
     {
         this.name = name;
         this.description = description;
-        this.typeOfSports = new LinkedList<>();
+        this.typeOfSports = new LinkedList<TypeOfSport>();
         this.typeOfSports.add((TypeOfSport) typeOfSport);
     }
     
@@ -78,7 +78,7 @@ public class Department
     {
         this.name = name;
         this.description = description;
-        this.typeOfSports = new LinkedList<>();
+        this.typeOfSports = new LinkedList<TypeOfSport>();
         
         for (ITypeOfSport typeOfSport : typeOfSports)
         {
@@ -125,7 +125,7 @@ public class Department
     @Override
     public List<IClubTeam> getClubTeamList()
     {
-        List<IClubTeam> result = new LinkedList<>();
+        List<IClubTeam> result = new LinkedList<IClubTeam>();
         
         for (ClubTeam d : clubTeamList)
         {
@@ -138,7 +138,7 @@ public class Department
     @Override
     public void setClubTeamList(List<IClubTeam> clubTeamList)
     {
-        List<ClubTeam> result = new LinkedList<>();
+        List<ClubTeam> result = new LinkedList<ClubTeam>();
         
         for (IClubTeam d : clubTeamList)
         {
@@ -152,7 +152,7 @@ public class Department
     @Override
     public List<ITypeOfSport> getTypeOfSportList()
     {
-        List<ITypeOfSport> result = new LinkedList<>();
+        List<ITypeOfSport> result = new LinkedList<ITypeOfSport>();
         
         for (TypeOfSport d : typeOfSports)
         {
@@ -165,7 +165,7 @@ public class Department
     @Override
     public void setTypeOfSportList(List<ITypeOfSport> typeOfSports)
     {
-        List<TypeOfSport> result = new LinkedList<>();
+        List<TypeOfSport> result = new LinkedList<TypeOfSport>();
         
         for (ITypeOfSport d : typeOfSports)
         {

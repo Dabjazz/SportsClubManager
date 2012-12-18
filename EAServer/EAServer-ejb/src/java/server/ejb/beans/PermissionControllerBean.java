@@ -6,12 +6,14 @@ package server.ejb.beans;
 
 import contract.dto.*;
 import contract.ejb.business.IPermissionControllerRemote;
+import javax.ejb.Stateful;
 import server.useCaseController.*;
 
 /**
 
  @author Thomas
  */
+@Stateful
 public class PermissionControllerBean implements IPermissionControllerRemote
 {
     public PermissionControllerBean()

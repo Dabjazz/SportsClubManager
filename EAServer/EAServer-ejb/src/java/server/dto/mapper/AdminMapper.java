@@ -4,12 +4,18 @@
  */
 package server.dto.mapper;
 
-import contract.domain.*;
+import contract.domain.CouldNotDeleteException;
+import contract.domain.CouldNotFetchException;
+import contract.domain.CouldNotSaveException;
 import contract.dto.IAdminDto;
 import contract.dto.classes.AdminDto;
-import contract.dto.mapper.*;
-import java.util.*;
-import java.util.logging.*;
+import contract.dto.mapper.IAdminMapper;
+import contract.dto.mapper.IdNotFoundException;
+import contract.dto.mapper.NotFoundException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import server.domain.DomainFacade;
 import server.domain.classes.Role;
 
@@ -70,7 +76,7 @@ public class AdminMapper
     {
         try
         {
-            List<IAdminDto> result = new LinkedList<>();
+            List<IAdminDto> result = new LinkedList<IAdminDto>();
 
             for (contract.domain.IAdmin a : DomainFacade.getInstance().getAll(contract.domain.IAdmin.class))
             {
@@ -93,8 +99,11 @@ public class AdminMapper
             server.domain.classes.Admin address = createDomain(value);
 
             return DomainFacade.getInstance().set(address);
+        } catch (CouldNotSaveException ex)
+        {
+            Logger.getLogger(AdminMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (IdNotFoundException | CouldNotSaveException ex)
+        catch (IdNotFoundException ex)
         {
             Logger.getLogger(AdminMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -110,8 +119,11 @@ public class AdminMapper
             server.domain.classes.Admin address = createDomain(value);
 
             DomainFacade.getInstance().delete(address);
+        } catch (CouldNotDeleteException ex)
+        {
+            Logger.getLogger(AdminMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (IdNotFoundException | CouldNotDeleteException ex)
+        catch (IdNotFoundException  ex)
         {
             Logger.getLogger(AdminMapper.class.getName()).log(Level.SEVERE, null, ex);
         }

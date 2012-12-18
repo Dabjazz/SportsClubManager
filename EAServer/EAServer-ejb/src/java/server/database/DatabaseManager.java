@@ -12,10 +12,11 @@ import server.domain.DomainFacade;
 import server.domain.classes.*;
 
 /**
- @author Thomas
+ * @author Thomas
  */
 public class DatabaseManager
 {
+
     public static void clearDatabase()
     {
         try
@@ -34,8 +35,7 @@ public class DatabaseManager
             DomainFacade.getInstance().delete(Member.class);
             DomainFacade.getInstance().delete(Country.class);
             DomainFacade.getInstance().delete(TypeOfSport.class);
-        }
-        catch (CouldNotDeleteException ex)
+        } catch (CouldNotDeleteException ex)
         {
             Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -43,7 +43,7 @@ public class DatabaseManager
 
     public static void restoreDefault()
     {
-       // clearDatabase();
+        // clearDatabase();
 
         restoreTypeOfSport();
         restoreCountry();
@@ -87,8 +87,7 @@ public class DatabaseManager
                 DomainFacade.getInstance().set(type);
 
             }
-        }
-        catch (CouldNotSaveException ex)
+        } catch (CouldNotSaveException ex)
         {
             Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -343,8 +342,7 @@ public class DatabaseManager
             DomainFacade.getInstance().set(new Country("WSM", "WS", ".ws", "Samoa", "Samoa", "Samoa", " Samoa", "Samoa", " Samoa (Samoa Ocidental)"));
             DomainFacade.getInstance().set(new Country("YEM", "YE", ".ye", "Yemen", "Jemen", "Yemen", " Yémen", "Yemen", " Iémen"));
             DomainFacade.getInstance().set(new Country("ZMB", "ZM", ".zm", "Zambia", "Sambia", "Zambia", " Zambie", "Zambia", " Zâmbia"));
-        }
-        catch (CouldNotSaveException ex)
+        } catch (CouldNotSaveException ex)
         {
             Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -367,10 +365,10 @@ public class DatabaseManager
                 String telephoneNumber = "+43/" + new Random().nextInt();
                 String emailAddress = new Random().nextInt(100000) + "@sample.com";
 
-                List<ITypeOfSport> list = new LinkedList<>();
+                List<ITypeOfSport> list = new LinkedList<ITypeOfSport>();
                 list.add(DomainFacade.getInstance().getByName(ITypeOfSport.class, "Volleyball"));
 
-                List<IRole> roles = new LinkedList<>();
+                List<IRole> roles = new LinkedList<IRole>();
                 roles.add(DomainFacade.getInstance().getByName(IRole.class, "Player"));
 
                 IMember member = new Member();
@@ -386,8 +384,10 @@ public class DatabaseManager
                 member.setNationality(country);
 
                 DomainFacade.getInstance().set(member);
-            }
-            catch (CouldNotSaveException | ParseException ex)
+            } catch (ParseException ex)
+            {
+                Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (CouldNotSaveException ex)
             {
                 Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -411,7 +411,7 @@ public class DatabaseManager
                 String telephoneNumber = "+43/" + new Random().nextInt();
                 String emailAddress = new Random().nextInt(100000) + "@sample.com";
 
-                List<IRole> roles = new LinkedList<>();
+                List<IRole> roles = new LinkedList<IRole>();
                 roles.add(DomainFacade.getInstance().getByName(IRole.class, "Trainer"));
 
                 IMember member = new Member();
@@ -427,8 +427,10 @@ public class DatabaseManager
                 member.setNationality(country);
 
                 DomainFacade.getInstance().set(member);
-            }
-            catch (CouldNotSaveException | ParseException ex)
+            } catch (ParseException ex)
+            {
+                Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (CouldNotSaveException ex)
             {
                 Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -439,7 +441,7 @@ public class DatabaseManager
     {
         for (int i = 0; i < 10; i++)
         {
-            List<IPlayer> players = new LinkedList<>();
+            List<IPlayer> players = new LinkedList<IPlayer>();
 
             try
             {
@@ -461,8 +463,7 @@ public class DatabaseManager
 
                 DomainFacade.getInstance().set(team);
 
-            }
-            catch (CouldNotSaveException ex)
+            } catch (CouldNotSaveException ex)
             {
                 Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -484,8 +485,7 @@ public class DatabaseManager
                     team.setDescription("Description for foreign Team " + (i * 10 + j));
                     team.setLeague(league);
                     DomainFacade.getInstance().set(team);
-                }
-                catch (CouldNotSaveException ex)
+                } catch (CouldNotSaveException ex)
                 {
                     Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -511,7 +511,7 @@ public class DatabaseManager
                 String telephoneNumber = "+43/" + new Random().nextInt();
                 String emailAddress = new Random().nextInt(100000) + "@sample.com";
 
-                List<IRole> roles = new LinkedList<>();
+                List<IRole> roles = new LinkedList<IRole>();
                 roles.add(DomainFacade.getInstance().getByName(Role.class, "DepartmentHead"));
 
                 IMember member = new Member();
@@ -527,8 +527,10 @@ public class DatabaseManager
                 member.setNationality(country);
 
                 DomainFacade.getInstance().set(member);
-            }
-            catch (CouldNotSaveException | ParseException ex)
+            } catch (ParseException ex)
+            {
+                Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (CouldNotSaveException ex)
             {
                 Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -548,8 +550,7 @@ public class DatabaseManager
             DomainFacade.getInstance().set(new Department("Curling", "", DomainFacade.getInstance().getByName(ITypeOfSport.class, "Curling")));
             DomainFacade.getInstance().set(new Department("Fistball", "", DomainFacade.getInstance().getByName(ITypeOfSport.class, "Fistball")));
             DomainFacade.getInstance().set(new Department("Volleyball", "", DomainFacade.getInstance().getByName(ITypeOfSport.class, "Volleyball"), DomainFacade.getInstance().getByName(TypeOfSport.class, "Beachvolleyball")));
-        }
-        catch (CouldNotSaveException ex)
+        } catch (CouldNotSaveException ex)
         {
             Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -561,7 +562,7 @@ public class DatabaseManager
         {
             try
             {
-                List<ITeam> teams = new LinkedList<>();
+                List<ITeam> teams = new LinkedList<ITeam>();
 
                 teams.add(DomainFacade.getInstance().getByName(ITeam.class, "Team" + i));
 
@@ -598,8 +599,10 @@ public class DatabaseManager
                 }
 
                 DomainFacade.getInstance().set(c);
-            }
-            catch (CouldNotSaveException | ParseException ex)
+            } catch (ParseException ex)
+            {
+                Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (CouldNotSaveException ex)
             {
                 Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
             }

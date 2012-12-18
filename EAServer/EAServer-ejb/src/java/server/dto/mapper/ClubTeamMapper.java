@@ -5,11 +5,17 @@
 package server.dto.mapper;
 
 import contract.domain.*;
-import contract.dto.*;
+import contract.dto.IClubTeamDto;
+import contract.dto.ITypeOfSportDto;
 import contract.dto.classes.ClubTeamDto;
-import contract.dto.mapper.*;
-import java.util.*;
-import java.util.logging.*;
+import contract.dto.mapper.ClubTeamNotFoundException;
+import contract.dto.mapper.IClubTeamMapper;
+import contract.dto.mapper.IdNotFoundException;
+import contract.dto.mapper.NotFoundException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import server.domain.DomainFacade;
 
 /**
@@ -71,7 +77,7 @@ public class ClubTeamMapper
     {
         try
         {
-            List<IClubTeamDto> result = new LinkedList<>();
+            List<IClubTeamDto> result = new LinkedList<IClubTeamDto>();
 
             for (contract.domain.IClubTeam a : DomainFacade.getInstance().getAll(contract.domain.IClubTeam.class))
             {
@@ -94,8 +100,11 @@ public class ClubTeamMapper
             server.domain.classes.ClubTeam clubTeam = createDomain(value);
 
             return DomainFacade.getInstance().set(clubTeam);
+        } catch (CouldNotSaveException ex)
+        {
+            Logger.getLogger(ClubTeamMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (IdNotFoundException | CouldNotSaveException ex)
+        catch (IdNotFoundException ex)
         {
             Logger.getLogger(ClubTeamMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -111,8 +120,11 @@ public class ClubTeamMapper
             server.domain.classes.ClubTeam clubTeam = createDomain(value);
 
             DomainFacade.getInstance().delete(clubTeam);
+        } catch (CouldNotDeleteException ex)
+        {
+            Logger.getLogger(ClubTeamMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (IdNotFoundException | CouldNotDeleteException ex)
+        catch (IdNotFoundException  ex)
         {
             Logger.getLogger(ClubTeamMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -122,9 +134,9 @@ public class ClubTeamMapper
             throws IdNotFoundException
     {
         server.domain.classes.ClubTeam clubTeam = new server.domain.classes.ClubTeam(value.getId());
-        List<contract.domain.IDepartment> departmentList = new LinkedList<>();
-        List<contract.domain.IPlayer> teamhasPlayerList = new LinkedList<>();
-        List<contract.domain.ITrainer> trainerList = new LinkedList<>();
+        List<contract.domain.IDepartment> departmentList = new LinkedList<IDepartment>();
+        List<contract.domain.IPlayer> teamhasPlayerList = new LinkedList<IPlayer>();
+        List<contract.domain.ITrainer> trainerList = new LinkedList<ITrainer>();
 
         for (int d : value.getDepartmentList())
         {
@@ -164,7 +176,7 @@ public class ClubTeamMapper
         }
         try
         {
-            List<IClubTeamDto> ret = new LinkedList<>();
+            List<IClubTeamDto> ret = new LinkedList<IClubTeamDto>();
             ITypeOfSport byID = DomainFacade.getInstance().getByID(contract.domain.ITypeOfSport.class, sport.getId());
             List<server.domain.classes.ClubTeam> clubTeams = DomainFacade.getInstance().getClubTeamsByTypeOfSport(byID);
             for (server.domain.classes.ClubTeam c : clubTeams)

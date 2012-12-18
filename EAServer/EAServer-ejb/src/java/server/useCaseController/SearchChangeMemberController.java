@@ -5,19 +5,24 @@
 package server.useCaseController;
 
 import contract.dto.*;
-import contract.dto.mapper.*;
+import contract.dto.mapper.ClubTeamNotFoundException;
+import contract.dto.mapper.IdNotFoundException;
+import contract.dto.mapper.NotFoundException;
 import contract.useCaseController.ISearchChangeMemberController;
-import java.rmi.RemoteException;
-import java.util.*;
-import java.util.logging.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import server.dto.mapper.DtoFactory;
 
 /**
- @author EnjoX
+ * @author EnjoX
  */
 public class SearchChangeMemberController
         implements ISearchChangeMemberController
 {
+
     private static SearchChangeMemberController INSTANCE;
     private IMemberDto member;
     private DtoFactory dtoFactory = new DtoFactory();
@@ -41,20 +46,19 @@ public class SearchChangeMemberController
     {
         try
         {
-            List<IMemberDto> resultIMembers = new LinkedList<>();
+            List<IMemberDto> resultIMembers = new LinkedList<IMemberDto>();
             List<IMemberDto> memberList = dtoFactory.getMemberMapper().getAll();
-            for (IMemberDto member : memberList)
+            for (IMemberDto m : memberList)
             {
-                if (member.getLastname().toLowerCase().contains(searchInput.toLowerCase())
-                        || member.getPrename().toLowerCase().contains(searchInput.toLowerCase())
-                        || member.getUsername().toLowerCase().contains(searchInput.toLowerCase()))
+                if (m.getLastname().toLowerCase().contains(searchInput.toLowerCase())
+                        || m.getPrename().toLowerCase().contains(searchInput.toLowerCase())
+                        || m.getUsername().toLowerCase().contains(searchInput.toLowerCase()))
                 {
-                    resultIMembers.add(member);
+                    resultIMembers.add(m);
                 }
             }
             return resultIMembers;
-        }
-        catch (RemoteException | NotFoundException ex)
+        } catch (NotFoundException ex)
         {
             Logger.getLogger(SearchChangeMemberController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -67,8 +71,7 @@ public class SearchChangeMemberController
         try
         {
             return dtoFactory.getMemberMapper().getById(id);
-        }
-        catch (RemoteException | IdNotFoundException ex)
+        } catch (IdNotFoundException ex)
         {
             Logger.getLogger(SearchChangeMemberController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -79,16 +82,15 @@ public class SearchChangeMemberController
     public List<IRoleDto> getRoles(Integer memberId)
     {
         //RoleMapper
-        List<IRoleDto> roleList = new ArrayList<>();
+        List<IRoleDto> roleList = new ArrayList<IRoleDto>();
         try
         {
-            IMemberDto member = dtoFactory.getMemberMapper().getById(memberId);
-            for (Integer role : member.getRoleList())
+            IMemberDto m = dtoFactory.getMemberMapper().getById(memberId);
+            for (Integer role : m.getRoleList())
             {
                 roleList.add(dtoFactory.getRoleMapper().getById(role));
             }
-        }
-        catch (RemoteException | IdNotFoundException ex)
+        } catch (IdNotFoundException ex)
         {
             Logger.getLogger(SearchChangeMemberController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -104,7 +106,7 @@ public class SearchChangeMemberController
             List<IDepartmentDto> depList = dtoFactory.getDepartmentMapper().getAll();
             for (IDepartmentDto dep : depList)
             {
-                List<IClubTeamDto> clubList = new ArrayList<>();
+                List<IClubTeamDto> clubList = new ArrayList<IClubTeamDto>();
                 for (Integer club : dep.getClubTeamList())
                 {
                     clubList.add(dtoFactory.getClubTeamMapper().getById(club));
@@ -118,8 +120,10 @@ public class SearchChangeMemberController
                     }
                 }
             }
-        }
-        catch (RemoteException | IdNotFoundException | NotFoundException ex)
+        } catch (NotFoundException ex)
+        {
+            Logger.getLogger(SearchChangeMemberController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IdNotFoundException ex)
         {
             Logger.getLogger(SearchChangeMemberController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -132,8 +136,8 @@ public class SearchChangeMemberController
         try
         {
             return dtoFactory.getAddressMapper().getById(addressId);
-        }
-        catch (RemoteException | IdNotFoundException ex)
+        } 
+        catch(IdNotFoundException ex)
         {
             Logger.getLogger(SearchChangeMemberController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -146,8 +150,7 @@ public class SearchChangeMemberController
         try
         {
             return dtoFactory.getCountryMapper().getById(countryID);
-        }
-        catch (RemoteException | IdNotFoundException ex)
+        } catch(IdNotFoundException ex)
         {
             Logger.getLogger(SearchChangeMemberController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -160,8 +163,7 @@ public class SearchChangeMemberController
         try
         {
             return dtoFactory.getDepartmentMapper().getAll();
-        }
-        catch (RemoteException | NotFoundException ex)
+        }catch(NotFoundException ex)
         {
             Logger.getLogger(SearchChangeMemberController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -171,15 +173,14 @@ public class SearchChangeMemberController
     @Override
     public List<IClubTeamDto> getClubTeams(List<Integer> clubTeams)
     {
-        List<IClubTeamDto> teamList = new ArrayList<>();
+        List<IClubTeamDto> teamList = new ArrayList<IClubTeamDto>();
         try
         {
             for (Integer team : clubTeams)
             {
                 teamList.add(dtoFactory.getClubTeamMapper().getById(team));
             }
-        }
-        catch (RemoteException | IdNotFoundException ex)
+        }catch(IdNotFoundException ex)
         {
             Logger.getLogger(SearchChangeMemberController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -207,7 +208,7 @@ public class SearchChangeMemberController
     @Override
     public List<ITypeOfSportDto> getTypeOfSports(List<Integer> sportsList)
     {
-        List<ITypeOfSportDto> typeOfSportReturnList = new ArrayList<>();
+        List<ITypeOfSportDto> typeOfSportReturnList = new ArrayList<ITypeOfSportDto>();
         try
         {
             for (Integer sportID : sportsList)
@@ -215,10 +216,9 @@ public class SearchChangeMemberController
                 typeOfSportReturnList.add(dtoFactory.getTypeOfSportMapper().getById(sportID));
 
             }
-        }
-        catch (RemoteException | IdNotFoundException ex)
+        } catch(IdNotFoundException ex)
         {
-            Logger.getLogger(NewMemberController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SearchChangeMemberController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return typeOfSportReturnList;
     }
@@ -229,12 +229,10 @@ public class SearchChangeMemberController
         try
         {
             return dtoFactory.getTypeOfSportMapper().getAll();
-        }
-        catch (RemoteException | NotFoundException ex)
+        } catch(NotFoundException ex)
         {
             Logger.getLogger(SearchChangeMemberController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return null;
     }
 
@@ -257,8 +255,7 @@ public class SearchChangeMemberController
         try
         {
             cTeams = dtoFactory.getClubTeamMapper().getClubTeamsByTypeOfSport(sport);
-        }
-        catch (RemoteException | ClubTeamNotFoundException ex)
+        }catch(ClubTeamNotFoundException ex)
         {
             Logger.getLogger(SearchChangeMemberController.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -8,6 +8,11 @@ import contract.dto.*;
 import contract.ejb.business.IShowCompetitionRemote;
 import contract.useCaseController.IShowCompetitionController;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 /**
  *
@@ -18,10 +23,15 @@ public class ShowCompetitionServiceMapper
 
     private IShowCompetitionRemote service;
 
-    public ShowCompetitionServiceMapper(IShowCompetitionRemote service) {
-        this.service = service;
+//    public ShowCompetitionServiceMapper(IShowCompetitionRemote service) {
+//        this.service = service;
+//    }
+    
+    public ShowCompetitionServiceMapper()
+    {
+        this.service = lookupShowCompetitionBeanRemote();
     }
-
+    
     @Override
     public List<ICompetitionDto> getCompetitions() {
 
@@ -62,5 +72,18 @@ public class ShowCompetitionServiceMapper
     public IMatchresultDto getMatchresult(Integer matchresult) {
         return service.getMatchresult(matchresult);
 
+    }
+
+    private IShowCompetitionRemote lookupShowCompetitionBeanRemote()
+    {
+        try
+        {
+            Context c = new InitialContext();
+            return (IShowCompetitionRemote) c.lookup("java:comp/env/ShowCompetitionBean");
+        } catch (NamingException ne)
+        {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
     }
 }

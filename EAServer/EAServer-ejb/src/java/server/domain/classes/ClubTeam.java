@@ -62,7 +62,7 @@ public class ClubTeam
     @Override
     public List<IPlayer> getPlayerList()
     {
-        List<IPlayer> result = new LinkedList<>();
+        List<IPlayer> result = new LinkedList<IPlayer>();
 
         for (Player d : players)
         {
@@ -75,7 +75,7 @@ public class ClubTeam
     @Override
     public void setPlayerList(List<IPlayer> players)
     {
-        List<Player> result = new LinkedList<>();
+        List<Player> result = new LinkedList<Player>();
 
         for (IPlayer d : players)
         {
@@ -96,7 +96,7 @@ public class ClubTeam
     @Override
     public List<IDepartment> getDepartmentList()
     {
-        List<IDepartment> result = new LinkedList<>();
+        List<IDepartment> result = new LinkedList<IDepartment>();
 
         for (Department d : departmentList)
         {
@@ -109,7 +109,7 @@ public class ClubTeam
     @Override
     public void setDepartmentList(List<IDepartment> departmentList)
     {
-        List<Department> result = new LinkedList<>();
+        List<Department> result = new LinkedList<Department>();
 
         for (IDepartment d : departmentList)
         {
@@ -123,7 +123,7 @@ public class ClubTeam
     @Override
     public List<ITrainer> getTrainerList()
     {
-        List<ITrainer> result = new LinkedList<>();
+        List<ITrainer> result = new LinkedList<ITrainer>();
 
         for (Trainer d : trainerList)
         {
@@ -136,7 +136,7 @@ public class ClubTeam
     @Override
     public void setTrainerList(List<ITrainer> trainerList)
     {
-        List<Trainer> result = new LinkedList<>();
+        List<Trainer> result = new LinkedList<Trainer>();
 
         for (ITrainer d : trainerList)
         {

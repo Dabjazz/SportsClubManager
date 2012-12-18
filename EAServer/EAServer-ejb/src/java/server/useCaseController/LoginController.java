@@ -4,18 +4,23 @@
  */
 package server.useCaseController;
 
-import contract.dto.*;
-import contract.dto.mapper.*;
-import contract.useCaseController.*;
-import java.rmi.RemoteException;
+import contract.dto.IMemberDto;
+import contract.dto.IUserDataDto;
+import contract.dto.mapper.IMemberMapper;
+import contract.dto.mapper.NotFoundException;
+import contract.useCaseController.ILogin;
+import contract.useCaseController.MemberNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import server.dto.mapper.DtoFactory;
 
 /**
- @author Lins Christian (christian.lins87@gmail.com)
+ * @author Lins Christian (christian.lins87@gmail.com)
  */
 public class LoginController
         implements ILogin
 {
+
     private static LoginController INSTANCE;
     private DtoFactory dtoFactory = new DtoFactory();
 
@@ -40,8 +45,20 @@ public class LoginController
         {
             IMemberMapper m = dtoFactory.getMemberMapper();
             return m.getMemberByUsername(userData.getUsername());
+        } catch (NotFoundException ex)
+        {
+            throw new MemberNotFoundException(ex);
         }
-        catch (RemoteException | NotFoundException ex)
+    }
+
+    @Override
+    public IMemberDto getMemberByUsername(String username) throws MemberNotFoundException
+    {
+        try
+        {
+            IMemberMapper m = dtoFactory.getMemberMapper();
+            return m.getMemberByUsername(username);
+        } catch (NotFoundException ex)
         {
             throw new MemberNotFoundException(ex);
         }

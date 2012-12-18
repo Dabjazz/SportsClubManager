@@ -75,7 +75,7 @@ public class CountryMapper
     {
         try
         {
-            List<ICountryDto> result = new LinkedList<>();
+            List<ICountryDto> result = new LinkedList<ICountryDto>();
 
             for (contract.domain.ICountry a : DomainFacade.getInstance().getAll(contract.domain.ICountry.class))
             {
@@ -98,8 +98,11 @@ public class CountryMapper
             server.domain.classes.Country country = createDomain(value);
 
             return DomainFacade.getInstance().set(country);
+        } catch (CouldNotSaveException ex)
+        {
+            Logger.getLogger(CountryMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (IdNotFoundException | CouldNotSaveException ex)
+        catch (IdNotFoundException ex)
         {
             Logger.getLogger(CountryMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -115,8 +118,11 @@ public class CountryMapper
             server.domain.classes.Country country = createDomain(value);
 
             DomainFacade.getInstance().delete(country);
+        } catch (CouldNotDeleteException ex)
+        {
+            Logger.getLogger(CountryMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (IdNotFoundException | CouldNotDeleteException ex)
+        catch (IdNotFoundException ex)
         {
             Logger.getLogger(CountryMapper.class.getName()).log(Level.SEVERE, null, ex);
         }

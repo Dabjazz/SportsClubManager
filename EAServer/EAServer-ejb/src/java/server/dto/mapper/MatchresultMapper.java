@@ -4,16 +4,18 @@
  */
 package server.dto.mapper;
 
-import contract.dto.mapper.IdNotFoundException;
-import contract.dto.mapper.IMapper;
-import contract.dto.mapper.NotFoundException;
-import contract.domain.CouldNotSaveException;
-import contract.domain.CouldNotFetchException;
 import contract.domain.CouldNotDeleteException;
-import java.util.*;
-import java.util.logging.*;
-import contract.dto.classes.MatchresultDto;
+import contract.domain.CouldNotFetchException;
+import contract.domain.CouldNotSaveException;
 import contract.dto.IMatchresultDto;
+import contract.dto.classes.MatchresultDto;
+import contract.dto.mapper.IMapper;
+import contract.dto.mapper.IdNotFoundException;
+import contract.dto.mapper.NotFoundException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import server.domain.DomainFacade;
 
 /**
@@ -76,7 +78,7 @@ public class MatchresultMapper
     {
         try
         {
-            List<IMatchresultDto> result = new LinkedList<>();
+            List<IMatchresultDto> result = new LinkedList<IMatchresultDto>();
 
             for (contract.domain.IMatchresult a : DomainFacade.getInstance().getAll(contract.domain.IMatchresult.class))
             {
@@ -99,8 +101,11 @@ public class MatchresultMapper
             server.domain.classes.Matchresult matchresult = createDomain(value);
 
             return DomainFacade.getInstance().set(matchresult);
+        } catch (CouldNotSaveException ex)
+        {
+            Logger.getLogger(MatchresultMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (IdNotFoundException | CouldNotSaveException ex)
+        catch (IdNotFoundException ex)
         {
             Logger.getLogger(MatchresultMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -116,8 +121,11 @@ public class MatchresultMapper
             server.domain.classes.Matchresult matchresult = createDomain(value);
 
             DomainFacade.getInstance().delete(matchresult);
+        } catch (CouldNotDeleteException ex)
+        {
+            Logger.getLogger(MatchresultMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (IdNotFoundException | CouldNotDeleteException ex)
+        catch (IdNotFoundException ex)
         {
             Logger.getLogger(MatchresultMapper.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -44,7 +44,7 @@ public class Trainer
     @Override
     public List<IClubTeam> getClubTeamList()
     {
-        List<IClubTeam> result = new LinkedList<>();
+        List<IClubTeam> result = new LinkedList<IClubTeam>();
 
         for (ClubTeam d : clubTeamList)
         {
@@ -57,7 +57,7 @@ public class Trainer
     @Override
     public void setClubTeamList(List<IClubTeam> clubTeamList)
     {
-        List<ClubTeam> result = new LinkedList<>();
+        List<ClubTeam> result = new LinkedList<ClubTeam>();
 
         for (IClubTeam d : clubTeamList)
         {
@@ -70,7 +70,7 @@ public class Trainer
     @Override
     public List<ITypeOfSport> getTypeOfSportList()
     {
-        List<ITypeOfSport> l = new LinkedList<>();
+        List<ITypeOfSport> l = new LinkedList<ITypeOfSport>();
         for(TypeOfSport t : typeOfSportList)
         {
             l.add(t);

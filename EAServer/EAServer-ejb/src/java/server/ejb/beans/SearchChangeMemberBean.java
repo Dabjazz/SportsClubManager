@@ -7,12 +7,14 @@ package server.ejb.beans;
 import contract.dto.*;
 import contract.ejb.business.ISearchChangeMemberRemote;
 import java.util.List;
+import javax.ejb.Stateful;
 import server.useCaseController.SearchChangeMemberController;
 
 /**
 
  @author Lins Christian (christian.lins87@gmail.com)
  */
+@Stateful
 public class SearchChangeMemberBean
         implements ISearchChangeMemberRemote
 {

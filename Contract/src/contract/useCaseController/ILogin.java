@@ -4,7 +4,8 @@
  */
 package contract.useCaseController;
 
-import contract.dto.*;
+import contract.dto.IMemberDto;
+import contract.dto.IUserDataDto;
 
 /**
 
@@ -13,5 +14,8 @@ import contract.dto.*;
 public interface ILogin
 {
     IMemberDto getMemberByUserData(IUserDataDto userData)
+            throws MemberNotFoundException;
+
+    IMemberDto getMemberByUsername(String username)
             throws MemberNotFoundException;
 }

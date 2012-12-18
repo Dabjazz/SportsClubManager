@@ -4,28 +4,36 @@
  */
 package com.ejb.mapper;
 
-import contract.dto.ICompetitionDto;
-import contract.dto.IMatchDto;
-import contract.dto.IMatchresultDto;
-import contract.dto.ITeamDto;
+import contract.dto.*;
 import contract.ejb.business.IAddMatchResultsRemote;
 import contract.useCaseController.IAddMatchResultsController;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 /**
-
- @author Lins Christian (christian.lins87@gmail.com)
+ *
+ * @author Lins Christian (christian.lins87@gmail.com)
  */
 public class AddMatchResultsServiceMapper
         implements IAddMatchResultsController
 {
+
     private IAddMatchResultsRemote service;
 
-    public AddMatchResultsServiceMapper(IAddMatchResultsRemote service)
-    {
-        this.service = service;
-    }
+//    public AddMatchResultsServiceMapper(IAddMatchResultsRemote service)
+//    {
+//        this.service = service;
+//    }
 
+    public AddMatchResultsServiceMapper()
+    {
+        this.service = lookupAddMatchResultsBeanRemote();
+    }
+    
     @Override
     public List<ICompetitionDto> getCompetitionList()
     {
@@ -41,7 +49,7 @@ public class AddMatchResultsServiceMapper
     @Override
     public List<IMatchDto> getMatchList(List<Integer> match)
     {
-       return service.getMatchList(match);
+        return service.getMatchList(match);
     }
 
     @Override
@@ -53,6 +61,25 @@ public class AddMatchResultsServiceMapper
     @Override
     public ITeamDto getTeam(Integer hometeam)
     {
-       return service.getTeam(hometeam);
+        return service.getTeam(hometeam);
+    }
+
+    @Override
+    public List<IRoleDto> getRoles(Integer memberId)
+    {
+        return service.getRoles(memberId);
+    }
+
+    private IAddMatchResultsRemote lookupAddMatchResultsBeanRemote()
+    {
+        try
+        {
+            Context c = new InitialContext();
+            return (IAddMatchResultsRemote) c.lookup("java:comp/env/AddMatchResultsBean");
+        } catch (NamingException ne)
+        {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
     }
 }

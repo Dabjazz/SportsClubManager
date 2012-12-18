@@ -7,8 +7,10 @@ package server.ejb.beans;
 import contract.dto.IClubTeamDto;
 import contract.dto.ICompetitionDto;
 import contract.dto.IPlayerDto;
+import contract.dto.IRoleDto;
 import contract.ejb.business.IChangeCompetitionTeamRemote;
 import java.util.List;
+import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import server.useCaseController.ChangeCompetitionTeamController;
 
@@ -16,7 +18,7 @@ import server.useCaseController.ChangeCompetitionTeamController;
 
  @author Lins Christian (christian.lins87@gmail.com)
  */
-@Stateless
+@Stateful
 public class ChangeCompetitionTeamBean implements IChangeCompetitionTeamRemote
 {
     public ChangeCompetitionTeamBean()
@@ -52,5 +54,11 @@ public class ChangeCompetitionTeamBean implements IChangeCompetitionTeamRemote
     public List<IPlayerDto> getPlayers(List<Integer> players)
     {
         return ChangeCompetitionTeamController.getInstance().getPlayers(players);
+    }
+
+    @Override
+    public List<IRoleDto> getRoles(Integer memberId)
+    {
+        return ChangeCompetitionTeamController.getInstance().getRoles(memberId);
     }
 }

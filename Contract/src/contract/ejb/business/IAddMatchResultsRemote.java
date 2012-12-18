@@ -4,10 +4,7 @@
  */
 package contract.ejb.business;
 
-import contract.dto.ICompetitionDto;
-import contract.dto.IMatchDto;
-import contract.dto.IMatchresultDto;
-import contract.dto.ITeamDto;
+import contract.dto.*;
 import java.util.List;
 import javax.ejb.Remote;
 
@@ -27,4 +24,6 @@ public interface IAddMatchResultsRemote
     void setMatchResult(IMatchDto match, IMatchresultDto matchresult);
 
     public ITeamDto getTeam(Integer hometeam);
+    
+    List<IRoleDto> getRoles(Integer memberId);
 }

@@ -4,19 +4,17 @@
  */
 package server.ejb.beans;
 
-import server.rmi.service.*;
 import contract.dto.*;
 import contract.ejb.business.IShowCompetitionRemote;
-import contract.rmi.services.IShowCompetitionRmiService;
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
+import javax.ejb.Stateful;
 import server.useCaseController.ShowCompetitionController;
 
 /**
 
  @author Lins Christian (christian.lins87@gmail.com)
  */
+@Stateful
 public class ShowCompetitionBean
         implements IShowCompetitionRemote
 {

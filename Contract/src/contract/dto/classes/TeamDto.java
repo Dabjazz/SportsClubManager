@@ -3,8 +3,9 @@ package contract.dto.classes;
 import contract.domain.ILeague;
 import contract.dto.ITeamDto;
 import java.io.Serializable;
-import java.util.*;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 public class TeamDto
         implements Serializable, ITeamDto {
@@ -48,24 +49,6 @@ public class TeamDto
         }
 
         return a;
-    }
-
-    public static contract.domain.ITeam copy(ITeamDto team,
-            contract.domain.ILeague league,
-            List<contract.domain.ICompetition> competitionList,
-            List<contract.domain.IMatch> matchList) {
-//        contract.domain.ITeam a = new server.domain.classes.Team(team.getId());
-//
-//        a.setName(team.getName());
-//        a.setDescription(team.getDescription());
-//        a.setLeague(league);
-//
-//        a.setCompetitionList(competitionList);
-//
-//        a.setMatchList(matchList);
-//
-//        return a;
-        throw new NotImplementedException();
     }
 
     @Override

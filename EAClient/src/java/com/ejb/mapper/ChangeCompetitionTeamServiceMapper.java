@@ -7,9 +7,15 @@ package com.ejb.mapper;
 import contract.dto.IClubTeamDto;
 import contract.dto.ICompetitionDto;
 import contract.dto.IPlayerDto;
+import contract.dto.IRoleDto;
 import contract.ejb.business.IChangeCompetitionTeamRemote;
 import contract.useCaseController.IChangeCompetitionTeamController;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 /**
 
@@ -20,9 +26,14 @@ public class ChangeCompetitionTeamServiceMapper
 {
     private IChangeCompetitionTeamRemote service;
 
-    public ChangeCompetitionTeamServiceMapper(IChangeCompetitionTeamRemote service)
+//    public ChangeCompetitionTeamServiceMapper(IChangeCompetitionTeamRemote service)
+//    {
+//        this.service = service;
+//    }
+    
+    public ChangeCompetitionTeamServiceMapper()
     {
-        this.service = service;
+        this.service = lookupChangeCompetitionTeamBeanRemote();
     }
 
     @Override
@@ -59,5 +70,24 @@ public class ChangeCompetitionTeamServiceMapper
     public List<IClubTeamDto> getClubTeams()
     {
         return service.getClubTeams(null);
+    }
+
+    @Override
+    public List<IRoleDto> getRoles(Integer memberId)
+    {
+        return service.getRoles(memberId);
+    }
+
+    private IChangeCompetitionTeamRemote lookupChangeCompetitionTeamBeanRemote()
+    {
+        try
+        {
+            Context c = new InitialContext();
+            return (IChangeCompetitionTeamRemote) c.lookup("java:comp/env/ChangeCompetitionTeamBean");
+        } catch (NamingException ne)
+        {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
     }
 }

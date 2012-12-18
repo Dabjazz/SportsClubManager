@@ -56,7 +56,7 @@ public class League
     @Override
     public List<ICompetition> getCompetitions()
     {
-        List<ICompetition> cl = new LinkedList<>();
+        List<ICompetition> cl = new LinkedList<ICompetition>();
         for (Competition c : competitions)
         {
             cl.add(c);
@@ -67,7 +67,7 @@ public class League
     @Override
     public void setCompetitions(List<ICompetition> competitions)
     {
-        List<Competition> result = new LinkedList<>();
+        List<Competition> result = new LinkedList<Competition>();
 
         for (ICompetition d : competitions)
         {
@@ -83,6 +83,7 @@ public class League
         this.name = name;
     }
 
+    @Override
     public Integer getId()
     {
         return id;
@@ -121,7 +122,7 @@ public class League
     @Override
     public List<ITeam> getTeamList()
     {
-        List<ITeam> result = new LinkedList<>();
+        List<ITeam> result = new LinkedList<ITeam>();
 
         for (Team d : teamList)
         {
@@ -134,7 +135,7 @@ public class League
     @Override
     public void setTeamList(List<ITeam> teamList)
     {
-        List<Team> result = new LinkedList<>();
+        List<Team> result = new LinkedList<Team>();
 
         for (ITeam d : teamList)
         {
@@ -172,5 +173,11 @@ public class League
     public String toString()
     {
         return "sportsclubmanager.domain.classes.League[ id=" + id + " ]";
+    }
+
+    @Override
+    public void setTypeOfSport(ITypeOfSport sport)
+    {
+        this.typeOfSport = (TypeOfSport) sport;
     }
 }

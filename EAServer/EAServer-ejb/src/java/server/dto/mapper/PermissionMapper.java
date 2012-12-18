@@ -4,13 +4,19 @@
  */
 package server.dto.mapper;
 
-import contract.domain.*;
+import contract.domain.CouldNotDeleteException;
+import contract.domain.CouldNotFetchException;
+import contract.domain.CouldNotSaveException;
 import contract.dto.IPermissionDto;
-import contract.dto.mapper.*;
-import java.util.*;
-import java.util.logging.*;
-import server.domain.DomainFacade;
 import contract.dto.classes.PermissionDto;
+import contract.dto.mapper.IMapper;
+import contract.dto.mapper.IdNotFoundException;
+import contract.dto.mapper.NotFoundException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import server.domain.DomainFacade;
 
 /**
 
@@ -70,7 +76,7 @@ public class PermissionMapper
     {
         try
         {
-            List<IPermissionDto> result = new LinkedList<>();
+            List<IPermissionDto> result = new LinkedList<IPermissionDto>();
 
             for (contract.domain.IPermission a : DomainFacade.getInstance().getAll(contract.domain.IPermission.class))
             {
@@ -93,8 +99,11 @@ public class PermissionMapper
             server.domain.classes.Permission permission = createDomain(value);
 
             return DomainFacade.getInstance().set(permission);
+        } catch (CouldNotSaveException ex)
+        {
+            Logger.getLogger(PermissionMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (IdNotFoundException | CouldNotSaveException ex)
+        catch (IdNotFoundException ex)
         {
             Logger.getLogger(PermissionMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -110,8 +119,11 @@ public class PermissionMapper
             server.domain.classes.Permission permission = createDomain(value);
 
             DomainFacade.getInstance().delete(permission);
+        } catch (CouldNotDeleteException ex)
+        {
+            Logger.getLogger(PermissionMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (IdNotFoundException | CouldNotDeleteException ex)
+        catch (IdNotFoundException ex)
         {
             Logger.getLogger(PermissionMapper.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -13,18 +13,19 @@ import java.util.logging.*;
 import server.domain.DomainFacade;
 
 /**
- @author Thomas
+ * @author Thomas
  */
 public class DepartmentMapper
         implements IMapper<IDepartmentDto>
 {
+
     private static DepartmentMapper controller;
 
-    DepartmentMapper( )
+    DepartmentMapper()
     {
     }
 
-    public static IMapper<IDepartmentDto> getInstance( )
+    public static IMapper<IDepartmentDto> getInstance()
     {
         if (controller == null)
         {
@@ -41,8 +42,7 @@ public class DepartmentMapper
         {
             contract.domain.IDepartment a = DomainFacade.getInstance().getByID(contract.domain.IDepartment.class, id);
             return a;
-        }
-        catch (Exception ex)
+        } catch (Exception ex)
         {
 
             throw new IdNotFoundException();
@@ -57,8 +57,7 @@ public class DepartmentMapper
         {
             contract.domain.IDepartment a = DomainFacade.getInstance().getByID(contract.domain.IDepartment.class, id);
             return DepartmentDto.copy(a);
-        }
-        catch (CouldNotFetchException ex)
+        } catch (CouldNotFetchException ex)
         {
             throw new IdNotFoundException();
         }
@@ -70,7 +69,7 @@ public class DepartmentMapper
     {
         try
         {
-            List<IDepartmentDto> result = new LinkedList<>();
+            List<IDepartmentDto> result = new LinkedList<IDepartmentDto>();
 
             for (contract.domain.IDepartment a : DomainFacade.getInstance().getAll(contract.domain.IDepartment.class))
             {
@@ -78,8 +77,7 @@ public class DepartmentMapper
             }
 
             return result;
-        }
-        catch (CouldNotFetchException ex)
+        } catch (CouldNotFetchException ex)
         {
             throw new NotFoundException(ex);
         }
@@ -93,8 +91,10 @@ public class DepartmentMapper
             server.domain.classes.Department department = createDomain(value);
 
             return DomainFacade.getInstance().set(department);
-        }
-        catch (IdNotFoundException | CouldNotSaveException ex)
+        } catch (CouldNotSaveException ex)
+        {
+            Logger.getLogger(DepartmentMapper.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IdNotFoundException ex)
         {
             Logger.getLogger(DepartmentMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -110,8 +110,10 @@ public class DepartmentMapper
             server.domain.classes.Department department = createDomain(value);
 
             DomainFacade.getInstance().delete(department);
-        }
-        catch (IdNotFoundException | CouldNotDeleteException ex)
+        } catch (CouldNotDeleteException ex)
+        {
+            Logger.getLogger(DepartmentMapper.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IdNotFoundException ex)
         {
             Logger.getLogger(DepartmentMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -126,8 +128,8 @@ public class DepartmentMapper
         department.setDescription(value.getDescription());
         department.setName(value.getName());
 
-        List< contract.domain.IClubTeam> clubTeamList = new LinkedList<>();
-        List< contract.domain.ITypeOfSport> departmenthasTypeOfSportList = new LinkedList<>();
+        List< contract.domain.IClubTeam> clubTeamList = new LinkedList<contract.domain.IClubTeam>();
+        List< contract.domain.ITypeOfSport> departmenthasTypeOfSportList = new LinkedList<contract.domain.ITypeOfSport>();
 
         for (int i : value.getClubTeamList())
         {

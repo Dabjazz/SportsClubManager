@@ -71,7 +71,7 @@ public class DepartmentHeadMapper
     {
         try
         {
-            List<IDepartmentHeadDto> result = new LinkedList<>();
+            List<IDepartmentHeadDto> result = new LinkedList<IDepartmentHeadDto>();
 
             for (contract.domain.IDepartmentHead a : DomainFacade.getInstance().getAll(contract.domain.IDepartmentHead.class))
             {
@@ -94,10 +94,13 @@ public class DepartmentHeadMapper
             server.domain.classes.DepartmentHead departmentHead = createDomain(value);
 
             return DomainFacade.getInstance().set(departmentHead);
-        }
-        catch (IdNotFoundException | CouldNotSaveException ex)
+        } catch (CouldNotSaveException ex)
         {
             Logger.getLogger(DepartmentHeadMapper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         catch (IdNotFoundException ex)
+        {
+            Logger.getLogger(DepartmentMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return 0;
@@ -111,10 +114,13 @@ public class DepartmentHeadMapper
             server.domain.classes.DepartmentHead departmentHead = createDomain(value);
 
             DomainFacade.getInstance().delete(departmentHead);
-        }
-        catch (IdNotFoundException | CouldNotDeleteException ex)
+        } catch (CouldNotDeleteException ex)
         {
             Logger.getLogger(DepartmentHeadMapper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         catch (IdNotFoundException ex)
+        {
+            Logger.getLogger(DepartmentMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -123,8 +129,8 @@ public class DepartmentHeadMapper
     {
         server.domain.classes.DepartmentHead departmentHead = new server.domain.classes.DepartmentHead(value.getId());
 
-        List< contract.domain.IDepartment> departmentList = new LinkedList<>();
-        List<contract.domain.IPermission> permissionList = new LinkedList<>();
+        List< contract.domain.IDepartment> departmentList = new LinkedList<contract.domain.IDepartment>();
+        List<contract.domain.IPermission> permissionList = new LinkedList<contract.domain.IPermission>();
 
         for (int i : value.getDepartmentList())
         {

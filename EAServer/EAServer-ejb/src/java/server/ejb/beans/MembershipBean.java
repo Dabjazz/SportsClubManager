@@ -86,4 +86,18 @@ public class MembershipBean implements IMembershipRemote
         }
         return setRole;
     }
+
+    @Override
+    public List<IClubTeamDto> getClubTeamsByTypeOfSport(ITypeOfSportDto sport)
+    {
+        List<IClubTeamDto> list = new LinkedList<IClubTeamDto>();
+        try
+        {
+            list = MembershipController.getInstance().getClubTeamsByTypeOfSport(sport);
+        } catch (NetworkFailureException ex)
+        {
+            Logger.getLogger(MembershipBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
 }

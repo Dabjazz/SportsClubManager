@@ -7,18 +7,17 @@ package server.useCaseController;
 import contract.dto.*;
 import contract.dto.mapper.*;
 import contract.useCaseController.*;
-import java.rmi.*;
-import java.util.*;
 import java.util.logging.*;
 import server.dto.mapper.DtoFactory;
 
 /**
-
- @author Thomas
+ *
+ * @author Thomas
  */
 public class PermissionController
         implements IPermissionController
 {
+
     private IMemberDto member;
     private DtoFactory dtoFactory = new DtoFactory();
     private static IPermissionController INSTANCE;
@@ -47,36 +46,28 @@ public class PermissionController
     @Override
     public boolean hasPermission(String permissionName)
     {
-        try
+
+        IMapper<IRoleDto> roleMapper = dtoFactory.getRoleMapper();
+        IMapper<IPermissionDto> permissionMapper = dtoFactory.getPermissionMapper();
+
+        for (int rI : member.getRoleList())
         {
-            IMapper<IRoleDto> roleMapper = dtoFactory.getRoleMapper();
-            IMapper<IPermissionDto> permissionMapper = dtoFactory.getPermissionMapper();
-
-            for (int rI : member.getRoleList())
+            try
             {
-                try
-                {
-                    IRoleDto role = roleMapper.getById(rI);
+                IRoleDto role = roleMapper.getById(rI);
 
-                    for (int perm : role.getPermisssionList())
+                for (int perm : role.getPermisssionList())
+                {
+                    if (permissionMapper.getById(perm).getName().equals(permissionName))
                     {
-                        if (permissionMapper.getById(perm).getName().equals(permissionName))
-                        {
-                            return true;
-                        }
+                        return true;
                     }
                 }
-                catch (IdNotFoundException ex)
-                {
-                    Logger.getLogger(PermissionController.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            } catch (IdNotFoundException ex)
+            {
+                Logger.getLogger(PermissionController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        catch (RemoteException ex)
-        {
-            Logger.getLogger(PermissionController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
         return false;
     }
 }

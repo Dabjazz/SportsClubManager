@@ -5,12 +5,16 @@
 package server.dto.mapper;
 
 import contract.domain.*;
-import contract.dto.*;
-import contract.dto.mapper.*;
-import java.util.*;
-import java.util.logging.*;
-import server.domain.DomainFacade;
+import contract.dto.ITypeOfSportDto;
 import contract.dto.classes.TypeOfSportDto;
+import contract.dto.mapper.ITypeOfSportMapper;
+import contract.dto.mapper.IdNotFoundException;
+import contract.dto.mapper.NotFoundException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import server.domain.DomainFacade;
 
 /**
 
@@ -70,7 +74,7 @@ public class TypeOfSportMapper
     {
         try
         {
-            List<ITypeOfSportDto> result = new LinkedList<>();
+            List<ITypeOfSportDto> result = new LinkedList<ITypeOfSportDto>();
             DomainFacade instance = DomainFacade.getInstance();
             List<ITypeOfSport> all = instance.getAll(contract.domain.ITypeOfSport.class);
 
@@ -95,8 +99,11 @@ public class TypeOfSportMapper
             server.domain.classes.TypeOfSport typeofsport = createDomain(value);
 
             return DomainFacade.getInstance().set(typeofsport);
+        } catch (CouldNotSaveException ex)
+        {
+            Logger.getLogger(TypeOfSportMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (IdNotFoundException | CouldNotSaveException ex)
+        catch (IdNotFoundException ex)
         {
             Logger.getLogger(AddressMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -112,8 +119,11 @@ public class TypeOfSportMapper
             server.domain.classes.TypeOfSport typeofsport = createDomain(value);
 
             DomainFacade.getInstance().delete(typeofsport);
+        } catch (CouldNotDeleteException ex)
+        {
+            Logger.getLogger(TypeOfSportMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (IdNotFoundException | CouldNotDeleteException ex)
+        catch (IdNotFoundException ex)
         {
             Logger.getLogger(AddressMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -127,7 +137,7 @@ public class TypeOfSportMapper
         typeofsport.setDescription(value.getDescription());
         typeofsport.setId(value.getId());
         typeofsport.setName(value.getName());
-        LinkedList<contract.domain.IPlayer> list = new LinkedList<>();
+        LinkedList<contract.domain.IPlayer> list = new LinkedList<IPlayer>();
         for (Integer id : value.getPlayerList())
         {
             list.add(new PlayerMapper().getDomainById(id));

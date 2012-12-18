@@ -5,11 +5,14 @@
 package server.useCaseController;
 
 import contract.dto.*;
-import contract.dto.mapper.*;
+import contract.dto.mapper.IdNotFoundException;
+import contract.dto.mapper.NotFoundException;
 import contract.useCaseController.IShowCompetitionController;
-import java.rmi.RemoteException;
-import java.util.*;
-import java.util.logging.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import server.dto.mapper.DtoFactory;
 
 /**
@@ -37,21 +40,22 @@ public class ShowCompetitionController
     @Override
     public List<ICompetitionDto> getCompetitions()
     {
+        List<ICompetitionDto> list = new LinkedList<ICompetitionDto>();
         try
         {
-            return dtoFactory.getCompetitionMapper().getAll();
+            list =  dtoFactory.getCompetitionMapper().getAll();
         }
-        catch (RemoteException | NotFoundException ex)
+        catch(NotFoundException ex)
         {
-            Logger.getLogger(ShowCompetitionController.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
+            Logger.getLogger(SearchChangeMemberController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return list;
     }
 
     @Override
     public List<IMatchDto> getMatchs(List<Integer> matches)
     {
-        List<IMatchDto> matchList = new ArrayList<>();
+        List<IMatchDto> matchList = new ArrayList<IMatchDto>();
 
         try
         {
@@ -60,9 +64,9 @@ public class ShowCompetitionController
                 matchList.add(dtoFactory.getMatchMapper().getById(id));
             }
         }
-        catch (RemoteException | IdNotFoundException ex)
+        catch(IdNotFoundException ex)
         {
-            Logger.getLogger(ShowCompetitionController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SearchChangeMemberController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return matchList;
     }
@@ -70,7 +74,7 @@ public class ShowCompetitionController
     @Override
     public List<IPlayerDto> getPlayer(IClubTeamDto team)
     {
-        List<IPlayerDto> playerList = new ArrayList<>();
+        List<IPlayerDto> playerList = new ArrayList<IPlayerDto>();
 
         try
         {
@@ -79,8 +83,9 @@ public class ShowCompetitionController
                 playerList.add(dtoFactory.getPlayerMapper().getById(playerID));
             }
         }
-        catch (RemoteException | IdNotFoundException ex)
+        catch(IdNotFoundException ex)
         {
+            Logger.getLogger(SearchChangeMemberController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return playerList;
     }
@@ -92,11 +97,10 @@ public class ShowCompetitionController
         {
             return dtoFactory.getTeamMapper().getById(hometeam);
         }
-        catch (IdNotFoundException | RemoteException ex)
+        catch(IdNotFoundException ex)
         {
-            Logger.getLogger(AddMatchResultsController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SearchChangeMemberController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return null;
     }
 
@@ -107,11 +111,10 @@ public class ShowCompetitionController
         {
             return dtoFactory.getClubTeamMapper().getById(hometeam);
         }
-        catch (IdNotFoundException | RemoteException ex)
+        catch(IdNotFoundException ex)
         {
-            Logger.getLogger(AddMatchResultsController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SearchChangeMemberController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return null;
     }
 
@@ -122,11 +125,10 @@ public class ShowCompetitionController
         {
             return dtoFactory.getMatchresultMapper().getById(matchresult);
         }
-        catch (IdNotFoundException | RemoteException ex)
+        catch(IdNotFoundException ex)
         {
-            Logger.getLogger(AddMatchResultsController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SearchChangeMemberController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return null;
     }
 }

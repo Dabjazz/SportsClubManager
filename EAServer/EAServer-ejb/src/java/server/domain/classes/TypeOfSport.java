@@ -108,7 +108,7 @@ public class TypeOfSport
     @Override
     public List<IPlayer> getPlayerList()
     {
-        List<IPlayer> result = new LinkedList<>();
+        List<IPlayer> result = new LinkedList<IPlayer>();
 
         for (Player d : playerList)
         {
@@ -121,7 +121,7 @@ public class TypeOfSport
     @Override
     public void setPlayerList(List<IPlayer> playerList)
     {
-        List<Player> result = new LinkedList<>();
+        List<Player> result = new LinkedList<Player>();
 
         for (IPlayer d : playerList)
         {

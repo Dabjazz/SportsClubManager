@@ -34,7 +34,7 @@ public class DepartmentHead
     @Override
     public List<IDepartment> getDepartmentList()
     {
-        List<IDepartment> result = new LinkedList<>();
+        List<IDepartment> result = new LinkedList<IDepartment>();
 
         for (Department d : departmentList)
         {
@@ -47,7 +47,7 @@ public class DepartmentHead
     @Override
     public void setDepartmentList(List<IDepartment> departmentList)
     {
-        List<Department> result = new LinkedList<>();
+        List<Department> result = new LinkedList<Department>();
 
         for (IDepartment d : departmentList)
         {

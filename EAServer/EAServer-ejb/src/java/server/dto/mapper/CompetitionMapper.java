@@ -4,15 +4,16 @@
  */
 package server.dto.mapper;
 
-import com.sun.org.apache.bcel.internal.generic.*;
 import contract.domain.*;
-import contract.dto.*;
 import contract.dto.ICompetitionDto;
 import contract.dto.classes.CompetitionDto;
-import contract.dto.mapper.*;
-import java.rmi.RemoteException;
-import java.util.*;
-import java.util.logging.*;
+import contract.dto.mapper.IMapper;
+import contract.dto.mapper.IdNotFoundException;
+import contract.dto.mapper.NotFoundException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import server.domain.DomainFacade;
 
 /**
@@ -75,7 +76,7 @@ public class CompetitionMapper
     {
         try
         {
-            List<ICompetitionDto> result = new LinkedList<>();
+            List<ICompetitionDto> result = new LinkedList<ICompetitionDto>();
 
             for (ICompetition a : DomainFacade.getInstance().getAll(ICompetition.class))
             {
@@ -98,8 +99,11 @@ public class CompetitionMapper
             server.domain.classes.Competition competition = createDomain(value);
 
             return DomainFacade.getInstance().set(competition);
+        } catch (CouldNotSaveException ex)
+        {
+            Logger.getLogger(CompetitionMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (IdNotFoundException | CouldNotSaveException ex)
+        catch (IdNotFoundException ex)
         {
             Logger.getLogger(CompetitionMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -115,8 +119,11 @@ public class CompetitionMapper
             server.domain.classes.Competition competition = createDomain(value);
 
             DomainFacade.getInstance().delete(competition);
+        } catch (CouldNotDeleteException ex)
+        {
+            Logger.getLogger(CompetitionMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (IdNotFoundException | CouldNotDeleteException ex)
+        catch (IdNotFoundException ex)
         {
             Logger.getLogger(CompetitionMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -125,8 +132,6 @@ public class CompetitionMapper
     private server.domain.classes.Competition createDomain(ICompetitionDto value)
             throws IdNotFoundException
     {
-        try
-        {
             server.domain.classes.Competition competition = new server.domain.classes.Competition(value.getId());
 
             competition.setName(value.getName());
@@ -141,8 +146,8 @@ public class CompetitionMapper
             competition.setDateTo(value.getDateTo());
             competition.setPayment(value.getPayment());
 
-            List< IMatch> matchList = new LinkedList<>();
-            List< ITeam> teamList = new LinkedList<>();
+            List< IMatch> matchList = new LinkedList<IMatch>();
+            List< ITeam> teamList = new LinkedList<ITeam>();
 
             MatchMapper m = (MatchMapper) new DtoFactory().getMatchMapper();
 
@@ -161,13 +166,7 @@ public class CompetitionMapper
             competition.setTeamList(teamList);
 
             return competition;
-        }
-        catch (RemoteException ex)
-        {
-            Logger.getLogger(CompetitionMapper.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return null;
+ 
     }
 
     @Override

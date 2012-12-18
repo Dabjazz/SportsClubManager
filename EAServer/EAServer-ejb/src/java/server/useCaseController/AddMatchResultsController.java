@@ -7,18 +7,18 @@ package server.useCaseController;
 import contract.dto.*;
 import contract.dto.mapper.*;
 import contract.useCaseController.IAddMatchResultsController;
-import java.rmi.RemoteException;
 import java.util.*;
 import java.util.logging.*;
 import server.dto.mapper.DtoFactory;
 
 /**
-
- @author EnjoX
+ *
+ * @author EnjoX
  */
 public class AddMatchResultsController
         implements IAddMatchResultsController
 {
+
     private static AddMatchResultsController singleton = null;
     DtoFactory access = new DtoFactory();
 
@@ -41,32 +41,31 @@ public class AddMatchResultsController
         try
         {
             return access.getCompetitionMapper().getAll();
-        }
-        catch (RemoteException | NotFoundException ex)
+
+        } catch (NotFoundException ex)
         {
             Logger.getLogger(AddMatchResultsController.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
         }
+        return new LinkedList<ICompetitionDto>();
     }
 
     @Override
     public List<ITeamDto> getTeamList(List<Integer> team)
     {
 
-        List<ITeamDto> teamList = new ArrayList<>();
+        List<ITeamDto> teamList = new ArrayList<ITeamDto>();
         try
         {
             for (Integer id : team)
             {
 
                 teamList.add(access.getTeamMapper().getById(id));
+
             }
-        }
-        catch (RemoteException | IdNotFoundException ex)
+        } catch (IdNotFoundException ex)
         {
             Logger.getLogger(AddMatchResultsController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return teamList;
     }
 
@@ -74,7 +73,7 @@ public class AddMatchResultsController
     public List<IMatchDto> getMatchList(List<Integer> match)
     {
 
-        List<IMatchDto> matchList = new ArrayList<>();
+        List<IMatchDto> matchList = new ArrayList<IMatchDto>();
 
         try
         {
@@ -82,8 +81,7 @@ public class AddMatchResultsController
             {
                 matchList.add(access.getMatchMapper().getById(id));
             }
-        }
-        catch (RemoteException | IdNotFoundException ex)
+        } catch (IdNotFoundException ex)
         {
             Logger.getLogger(AddMatchResultsController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -93,16 +91,11 @@ public class AddMatchResultsController
     @Override
     public void setMatchResult(IMatchDto match, IMatchresultDto matchresult)
     {
-        try
-        {
-            Integer matchresultId = access.getMatchresultMapper().set(matchresult);
-            match.setMatchresult(matchresultId);
-            access.getMatchMapper().set(match);
-        }
-        catch (RemoteException ex)
-        {
-            Logger.getLogger(AddMatchResultsController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        Integer matchresultId = access.getMatchresultMapper().set(matchresult);
+        match.setMatchresult(matchresultId);
+        access.getMatchMapper().set(match);
+
     }
 
     @Override
@@ -111,12 +104,30 @@ public class AddMatchResultsController
         try
         {
             return access.getTeamMapper().getById(hometeam);
-        }
-        catch (IdNotFoundException | RemoteException ex)
+        } catch (IdNotFoundException ex)
         {
             Logger.getLogger(AddMatchResultsController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;
+    }
+
+    @Override
+    public List<IRoleDto> getRoles(Integer memberId)
+    {
+        //RoleMapper
+        List<IRoleDto> roleList = new ArrayList<IRoleDto>();
+        try
+        {
+            IMemberDto member = access.getMemberMapper().getById(memberId);
+            for (Integer role : member.getRoleList())
+            {
+                roleList.add(access.getRoleMapper().getById(role));
+            }
+        } catch (IdNotFoundException ex)
+        {
+            Logger.getLogger(SearchChangeMemberController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return roleList;
     }
 }

@@ -4,12 +4,10 @@
  */
 package server.ejb.beans;
 
-import contract.dto.ICompetitionDto;
-import contract.dto.IMatchDto;
-import contract.dto.IMatchresultDto;
-import contract.dto.ITeamDto;
+import contract.dto.*;
 import contract.ejb.business.IAddMatchResultsRemote;
 import java.util.List;
+import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import server.useCaseController.AddMatchResultsController;
 
@@ -17,7 +15,7 @@ import server.useCaseController.AddMatchResultsController;
 
  @author Lins Christian (christian.lins87@gmail.com)
  */
-@Stateless
+@Stateful
 public class AddMatchResultsBean implements IAddMatchResultsRemote
 {
     public AddMatchResultsBean()
@@ -53,5 +51,11 @@ public class AddMatchResultsBean implements IAddMatchResultsRemote
     public ITeamDto getTeam(Integer hometeam)
     {
         return AddMatchResultsController.getInstance().getTeam(hometeam);
+    }
+
+    @Override
+    public List<IRoleDto> getRoles(Integer memberId)
+    {
+        return AddMatchResultsController.getInstance().getRoles(memberId);
     }
 }

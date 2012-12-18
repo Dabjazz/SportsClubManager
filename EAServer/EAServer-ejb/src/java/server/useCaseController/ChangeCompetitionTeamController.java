@@ -5,20 +5,24 @@
 package server.useCaseController;
 
 import contract.dto.*;
-import contract.dto.mapper.*;
+import contract.dto.mapper.IClubTeamMapper;
+import contract.dto.mapper.IdNotFoundException;
+import contract.dto.mapper.NotFoundException;
 import contract.useCaseController.IChangeCompetitionTeamController;
-import java.rmi.RemoteException;
-import java.util.*;
-import java.util.logging.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import server.dto.mapper.DtoFactory;
 
 /**
-
- @author EnjoX
+ *
+ * @author EnjoX
  */
 public class ChangeCompetitionTeamController
         implements IChangeCompetitionTeamController
 {
+
     private static IChangeCompetitionTeamController INSTANCE;
     private DtoFactory dtoFactory = new DtoFactory();
 
@@ -40,9 +44,9 @@ public class ChangeCompetitionTeamController
     {
         try
         {
+
             return dtoFactory.getCompetitionMapper().getAll();
-        }
-        catch (RemoteException | NotFoundException ex)
+        } catch (NotFoundException ex)
         {
             Logger.getLogger(ChangeCompetitionTeamController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -52,26 +56,18 @@ public class ChangeCompetitionTeamController
     @Override
     public List<IClubTeamDto> getClubTeams(List<Integer> Teams)
     {
-        List<IClubTeamDto> clubTeamList = new ArrayList<>();
+        List<IClubTeamDto> clubTeamList = new ArrayList<IClubTeamDto>();
 
-        try
+        IClubTeamMapper ctMapper = dtoFactory.getClubTeamMapper();
+        for (Integer teamId : Teams)
         {
-            IClubTeamMapper ctMapper = dtoFactory.getClubTeamMapper();
-            for (Integer teamId : Teams)
+            try
             {
-                try
-                {
-                    IClubTeamDto ct = ctMapper.getById(teamId);
-                    clubTeamList.add(ct);
-                }
-                catch (IdNotFoundException ex)
-                {
-                }
+                IClubTeamDto ct = ctMapper.getById(teamId);
+                clubTeamList.add(ct);
+            } catch (IdNotFoundException ex)
+            {
             }
-        }
-        catch (RemoteException ex)
-        {
-            Logger.getLogger(ChangeCompetitionTeamController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return clubTeamList;
@@ -89,14 +85,7 @@ public class ChangeCompetitionTeamController
                 team = newTeam.getId();
             }
         }
-        try
-        {
-            dtoFactory.getCompetitionMapper().set(competition);
-        }
-        catch (RemoteException ex)
-        {
-            Logger.getLogger(ChangeCompetitionTeamController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        dtoFactory.getCompetitionMapper().set(competition);
     }
 
     @Override
@@ -104,9 +93,9 @@ public class ChangeCompetitionTeamController
     {
         try
         {
+
             return dtoFactory.getClubTeamMapper().getAll();
-        }
-        catch (RemoteException | NotFoundException ex)
+        } catch (NotFoundException ex)
         {
             Logger.getLogger(ChangeCompetitionTeamController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -123,19 +112,39 @@ public class ChangeCompetitionTeamController
     @Override
     public List<IPlayerDto> getPlayers(List<Integer> players)
     {
-        List<IPlayerDto> playerList = new ArrayList<>();
+        List<IPlayerDto> playerList = new ArrayList<IPlayerDto>();
 
         try
         {
             for (Integer player : players)
             {
+
                 playerList.add(dtoFactory.getPlayerMapper().getById(player));
+
             }
-        }
-        catch (RemoteException | IdNotFoundException ex)
+        } catch (IdNotFoundException ex)
         {
             Logger.getLogger(ChangeCompetitionTeamController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return playerList;
+    }
+
+    @Override
+    public List<IRoleDto> getRoles(Integer memberId)
+    {
+        //RoleMapper
+        List<IRoleDto> roleList = new ArrayList<IRoleDto>();
+        try
+        {
+            IMemberDto member = dtoFactory.getMemberMapper().getById(memberId);
+            for (Integer role : member.getRoleList())
+            {
+                roleList.add(dtoFactory.getRoleMapper().getById(role));
+            }
+        } catch (IdNotFoundException ex)
+        {
+            Logger.getLogger(SearchChangeMemberController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return roleList;
     }
 }

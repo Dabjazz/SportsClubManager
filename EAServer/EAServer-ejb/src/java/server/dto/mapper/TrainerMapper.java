@@ -5,12 +5,16 @@
 package server.dto.mapper;
 
 import contract.domain.*;
-import contract.dto.*;
-import contract.dto.mapper.*;
-import java.util.*;
-import java.util.logging.*;
-import server.domain.DomainFacade;
+import contract.dto.ITrainerDto;
 import contract.dto.classes.TrainerDto;
+import contract.dto.mapper.ITrainerMapper;
+import contract.dto.mapper.IdNotFoundException;
+import contract.dto.mapper.NotFoundException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import server.domain.DomainFacade;
 import server.domain.classes.Role;
 
 /**
@@ -71,7 +75,7 @@ public class TrainerMapper
     {
         try
         {
-            List<ITrainerDto> result = new LinkedList<>();
+            List<ITrainerDto> result = new LinkedList<ITrainerDto>();
 
             for (contract.domain.ITrainer a : DomainFacade.getInstance().getAll(contract.domain.ITrainer.class))
             {
@@ -94,7 +98,7 @@ public class TrainerMapper
         {
             server.domain.classes.Trainer trainer = new server.domain.classes.Trainer(value.getId());
 
-            List<contract.domain.IClubTeam> clubTeamList = new LinkedList<>();
+            List<contract.domain.IClubTeam> clubTeamList = new LinkedList<IClubTeam>();
             for (int i : value.getClubTeamList())
             {
                 clubTeamList.add(new ClubTeamMapper().getDomainById(i));
@@ -103,7 +107,7 @@ public class TrainerMapper
 
             returnv = DomainFacade.getInstance().set(trainer);
         }
-        catch (IdNotFoundException | CouldNotSaveException ex)
+        catch (IdNotFoundException ex)
         {
             Logger.getLogger(AddressMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -121,8 +125,11 @@ public class TrainerMapper
             server.domain.classes.Trainer typeofsport = createDomain(value);
 
             DomainFacade.getInstance().delete(typeofsport);
+        } catch (CouldNotDeleteException ex)
+        {
+            Logger.getLogger(TrainerMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (IdNotFoundException | CouldNotDeleteException ex)
+        catch (IdNotFoundException ex)
         {
             Logger.getLogger(AddressMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -136,14 +143,14 @@ public class TrainerMapper
         List<Integer> clubTeams = value.getClubTeamList();
         List<Integer> permisssions = value.getPermisssionList();
 
-        LinkedList<contract.domain.IClubTeam> teams = new LinkedList<>();
+        LinkedList<contract.domain.IClubTeam> teams = new LinkedList<IClubTeam>();
         for (int id : clubTeams)
         {
             teams.add(new ClubTeamMapper().getDomainById(id));
         }
         trainer.setClubTeamList(teams);
 
-        LinkedList<contract.domain.IPermission> p = new LinkedList<>();
+        LinkedList<contract.domain.IPermission> p = new LinkedList<IPermission>();
 
         for (int id : permisssions)
         {

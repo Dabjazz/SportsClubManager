@@ -1,19 +1,12 @@
 package presentation.forms.member;
 
-import com.contract.IUseCaseControllerFactory;
 import com.ServiceNotAvailableException;
-import contract.dto.IClubTeamDto;
-import contract.dto.IDepartmentHeadDto;
-import contract.dto.IMemberDto;
-import contract.dto.IPlayerDto;
+import com.contract.IUseCaseControllerFactory;
+import contract.dto.*;
 import contract.useCaseController.IAddMemberToTeamController;
-import java.util.LinkedList;
-import java.util.List;
-import javax.swing.AbstractListModel;
-import javax.swing.JPanel;
-import javax.swing.ListModel;
-import presentation.basics.AbstractForm;
-import presentation.basics.AbstractMainForm;
+import java.util.*;
+import javax.swing.*;
+import presentation.basics.*;
 
 /**
  *
@@ -28,6 +21,7 @@ public class AddToATeamForm extends AbstractMainForm {
     List<IPlayerDto> availablePlayers;
     List<IPlayerDto> teamPlayers;
     IAddMemberToTeamController controller;
+    boolean permission;
 
     /**
      * Creates new form AddMemberToTeam
@@ -38,6 +32,13 @@ public class AddToATeamForm extends AbstractMainForm {
         this.user = user;
         controller = client.getAddMemberToTeamController();
         initComponents();
+        
+        //TODO: Test as soon as controller is running properly
+        String[] neededRoles = {"DepartmentHead", "Admin"};
+        if(!hasRole(neededRoles)){         
+            this.thePanel.removeAll();
+            JOptionPane.showMessageDialog(null, "Sorry, you do not have the permission to enter this area!");
+        }                   
     }
 
     /**
@@ -255,7 +256,7 @@ public class AddToATeamForm extends AbstractMainForm {
 
         //TODO: add to the team or call controlller
         clubTeam.setPlayerList(playerIDs);
-        TODO: controller.updateClubTeam(clubTeam);
+        controller.updateClubTeam(clubTeam);
 
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -305,7 +306,20 @@ public class AddToATeamForm extends AbstractMainForm {
             }
         });
     }
+    
+     private boolean hasRole(String[] roleNames) {
+        List<IRoleDto> roleList = controller.getRoles(user.getId());
 
+        for (IRoleDto r : roleList) {
+            for (int i = 0; i < roleNames.length; i++) {
+                if (r.getName().equals(roleNames[i])) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
     public JPanel getPanel() {
         return thePanel;
     }

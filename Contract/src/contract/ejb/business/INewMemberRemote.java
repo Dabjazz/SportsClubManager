@@ -26,4 +26,6 @@ public interface INewMemberRemote
     List<IClubTeamDto> getClubTeamsByTypeOfSport(ITypeOfSportDto sport);
     
     List<ITypeOfSportDto> getAllSports();
+    
+    List<IRoleDto> getRoles(Integer memberId);
 }

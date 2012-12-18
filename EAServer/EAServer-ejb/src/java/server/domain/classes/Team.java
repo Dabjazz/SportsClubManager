@@ -95,7 +95,7 @@ public class Team
     @Override
     public List<ICompetition> getCompetitionList()
     {
-        List<ICompetition> result = new LinkedList<>();
+        List<ICompetition> result = new LinkedList<ICompetition>();
 
         for (Competition d : competitionList)
         {
@@ -108,7 +108,7 @@ public class Team
     @Override
     public void setCompetitionList(List<ICompetition> competitionList)
     {
-        List<Competition> result = new LinkedList<>();
+        List<Competition> result = new LinkedList<Competition>();
 
         for (ICompetition d : competitionList)
         {
@@ -122,7 +122,7 @@ public class Team
     @Override
     public List<IMatch> getMatchList()
     {
-        List<IMatch> result = new LinkedList<>();
+        List<IMatch> result = new LinkedList<IMatch>();
 
         for (Match d : matchList)
         {
@@ -134,7 +134,7 @@ public class Team
 
     public void setMatchList(List<IMatch> matchList)
     {
-        List<Match> result = new LinkedList<>();
+        List<Match> result = new LinkedList<Match>();
 
         for (IMatch d : matchList)
         {

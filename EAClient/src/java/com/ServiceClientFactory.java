@@ -1,9 +1,7 @@
 package com;
 
 import com.contract.IUseCaseControllerFactory;
-import com.CommunicationProblemException;
 import com.ejb.EJBUseCaseControllerFactory;
-import com.rmi.client.RmiUseCaseControllerFactory;
 
 
 /*
@@ -16,12 +14,6 @@ import com.rmi.client.RmiUseCaseControllerFactory;
  */
 public class ServiceClientFactory
 {
-    public static IUseCaseControllerFactory getRmiServiceClient(String host, int port)
-            throws CommunicationProblemException
-    {
-        return new RmiUseCaseControllerFactory(host, port);
-    }
-    
     public static IUseCaseControllerFactory getEJBServiceClient(String host, int port)
             throws CommunicationProblemException
     {

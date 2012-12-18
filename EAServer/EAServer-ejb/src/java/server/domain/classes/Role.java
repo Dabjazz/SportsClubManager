@@ -74,7 +74,7 @@ public class Role
     @Override
     public List<IPermission> getPermissionList()
     {
-        List<IPermission> result = new LinkedList<>();
+        List<IPermission> result = new LinkedList<IPermission>();
 
         for (Permission d : permissionList)
         {
@@ -87,7 +87,7 @@ public class Role
     @Override
     public void setPermissionList(List<IPermission> permisssionList)
     {
-        List<Permission> result = new LinkedList<>();
+        List<Permission> result = new LinkedList<Permission>();
 
         for (IPermission d : permisssionList)
         {

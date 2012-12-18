@@ -23,4 +23,6 @@ public interface IMembershipRemote
     public List<IClubTeamDto> getClubTeams(List<Integer> playerList);
     
     public IRoleDto setRole(IMemberDto member, String departmentHead, boolean selected);
+    
+    public List<IClubTeamDto> getClubTeamsByTypeOfSport(ITypeOfSportDto sport);
 }

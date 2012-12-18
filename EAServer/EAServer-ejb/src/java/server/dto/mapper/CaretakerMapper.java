@@ -4,12 +4,19 @@
  */
 package server.dto.mapper;
 
-import contract.domain.*;
+import contract.domain.CouldNotDeleteException;
+import contract.domain.CouldNotFetchException;
+import contract.domain.CouldNotSaveException;
+import contract.domain.IPermission;
 import contract.dto.ICaretakerDto;
 import contract.dto.classes.CaretakerDto;
-import contract.dto.mapper.*;
-import java.util.*;
-import java.util.logging.*;
+import contract.dto.mapper.ICaretakerMapper;
+import contract.dto.mapper.IdNotFoundException;
+import contract.dto.mapper.NotFoundException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import server.domain.DomainFacade;
 import server.domain.classes.Role;
 
@@ -71,7 +78,7 @@ public class CaretakerMapper
     {
         try
         {
-            List<ICaretakerDto> result = new LinkedList<>();
+            List<ICaretakerDto> result = new LinkedList<ICaretakerDto>();
 
             for (contract.domain.ICaretaker a : DomainFacade.getInstance().getAll(contract.domain.ICaretaker.class))
             {
@@ -94,8 +101,11 @@ public class CaretakerMapper
             server.domain.classes.Caretaker address = createDomain(value);
 
             return DomainFacade.getInstance().set(address);
+        } catch (CouldNotSaveException ex)
+        {
+            Logger.getLogger(CaretakerMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (IdNotFoundException | CouldNotSaveException ex)
+        catch (IdNotFoundException  ex)
         {
             Logger.getLogger(CaretakerMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -111,8 +121,11 @@ public class CaretakerMapper
             server.domain.classes.Caretaker address = createDomain(value);
 
             DomainFacade.getInstance().delete(address);
+        } catch (CouldNotDeleteException ex)
+        {
+            Logger.getLogger(CaretakerMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (IdNotFoundException | CouldNotDeleteException ex)
+        catch (IdNotFoundException ex)
         {
             Logger.getLogger(CaretakerMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -123,7 +136,7 @@ public class CaretakerMapper
     {
         server.domain.classes.Caretaker caretaker = new server.domain.classes.Caretaker(value.getId());
 
-        LinkedList<contract.domain.IPermission> permissionList = new LinkedList<>();
+        LinkedList<contract.domain.IPermission> permissionList = new LinkedList<IPermission>();
         for (int id : value.getPermisssionList())
         {
             permissionList.add(new PermissionMapper().getDomainById(id));

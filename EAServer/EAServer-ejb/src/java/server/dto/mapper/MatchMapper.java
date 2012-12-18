@@ -4,13 +4,19 @@
  */
 package server.dto.mapper;
 
-import contract.domain.*;
-import contract.dto.*;
-import contract.dto.mapper.*;
-import java.util.*;
-import java.util.logging.*;
-import server.domain.DomainFacade;
+import contract.domain.CouldNotDeleteException;
+import contract.domain.CouldNotFetchException;
+import contract.domain.CouldNotSaveException;
+import contract.dto.IMatchDto;
 import contract.dto.classes.MatchDto;
+import contract.dto.mapper.IMapper;
+import contract.dto.mapper.IdNotFoundException;
+import contract.dto.mapper.NotFoundException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import server.domain.DomainFacade;
 
 /**
 
@@ -72,7 +78,7 @@ public class MatchMapper
     {
         try
         {
-            List<IMatchDto> result = new LinkedList<>();
+            List<IMatchDto> result = new LinkedList<IMatchDto>();
 
             for (contract.domain.IMatch a : DomainFacade.getInstance().getAll(contract.domain.IMatch.class))
             {
@@ -95,8 +101,11 @@ public class MatchMapper
             server.domain.classes.Match match = createDomain(value);
 
             return DomainFacade.getInstance().set(match);
+        } catch (CouldNotSaveException ex)
+        {
+            Logger.getLogger(MatchMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (IdNotFoundException | CouldNotSaveException ex)
+        catch (IdNotFoundException ex)
         {
             Logger.getLogger(MatchMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -112,8 +121,11 @@ public class MatchMapper
             server.domain.classes.Match match = createDomain(value);
 
             DomainFacade.getInstance().delete(match);
+        } catch (CouldNotDeleteException ex)
+        {
+            Logger.getLogger(MatchMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (IdNotFoundException | CouldNotDeleteException ex)
+        catch (IdNotFoundException ex)
         {
             Logger.getLogger(MatchMapper.class.getName()).log(Level.SEVERE, null, ex);
         }

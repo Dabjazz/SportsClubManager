@@ -5,8 +5,8 @@
 package ldap;
 
 import contract.dto.IUserDataDto;
-import java.util.*;
-import javax.naming.*;
+import java.util.Date;
+import java.util.HashMap;
 import ldap.contract.IAuthenticator;
 
 /**

@@ -7,17 +7,17 @@ package server.useCaseController;
 import contract.dto.*;
 import contract.dto.mapper.*;
 import contract.useCaseController.INewMemberController;
-import java.rmi.RemoteException;
 import java.util.*;
 import java.util.logging.*;
 import server.dto.mapper.DtoFactory;
 
 /**
- @author EnjoX
+ * @author EnjoX
  */
 public class NewMemberController
         implements INewMemberController
 {
+
     private static INewMemberController INSTANCE;
     private DtoFactory dtoFactory = new DtoFactory();
 
@@ -35,31 +35,25 @@ public class NewMemberController
     }
 
     /**
-
-     @param member
-     @param address
-     @return
+     *
+     * @param member
+     * @param address
+     * @return
      */
     @Override
     public void setNewMember(IMemberDto member, IAddressDto address)
     {
         addMember(member, address);
     }
-        
+
     private IMemberDto addMember(IMemberDto member, IAddressDto address)
     {
-        try
-        {
-            Integer adressId = dtoFactory.getAddressMapper().set(address);
-            member.setAddress(adressId);
-            dtoFactory.getMemberMapper().set(member);
-            return member;
-        }
-        catch (RemoteException ex)
-        {
-            Logger.getLogger(NewMemberController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
+
+        Integer adressId = dtoFactory.getAddressMapper().set(address);
+        member.setAddress(adressId);
+        dtoFactory.getMemberMapper().set(member);
+        return member;
+
     }
 
     @Override
@@ -68,8 +62,7 @@ public class NewMemberController
         try
         {
             return dtoFactory.getDepartmentMapper().getAll();
-        }
-        catch (RemoteException | NotFoundException ex)
+        } catch (NotFoundException ex)
         {
             Logger.getLogger(NewMemberController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -79,7 +72,7 @@ public class NewMemberController
     @Override
     public List<IClubTeamDto> getClubTeams(List<Integer> clubTeams)
     {
-        List<IClubTeamDto> clubTeamList = new ArrayList<>();
+        List<IClubTeamDto> clubTeamList = new ArrayList<IClubTeamDto>();
         try
         {
             for (Integer team : clubTeams)
@@ -87,8 +80,7 @@ public class NewMemberController
                 clubTeamList.add(dtoFactory.getClubTeamMapper().getById(team));
             }
 
-        }
-        catch (RemoteException | IdNotFoundException ex)
+        } catch (IdNotFoundException ex)
         {
             Logger.getLogger(NewMemberController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -98,7 +90,7 @@ public class NewMemberController
     @Override
     public List<ITypeOfSportDto> getTypeOfSports(List<Integer> typOfSportsList)
     {
-        List<ITypeOfSportDto> typeOfSportReturnList = new ArrayList<>();
+        List<ITypeOfSportDto> typeOfSportReturnList = new ArrayList<ITypeOfSportDto>();
         try
         {
             for (Integer sportID : typOfSportsList)
@@ -106,8 +98,7 @@ public class NewMemberController
                 typeOfSportReturnList.add(dtoFactory.getTypeOfSportMapper().getById(sportID));
 
             }
-        }
-        catch (RemoteException | IdNotFoundException ex)
+        } catch (IdNotFoundException ex)
         {
             Logger.getLogger(NewMemberController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -117,13 +108,12 @@ public class NewMemberController
     @Override
     public List<IClubTeamDto> getClubTeamsByTypeOfSport(ITypeOfSportDto sport)
     {
-        List<IClubTeamDto> ret = new LinkedList<>();
+        List<IClubTeamDto> ret = new LinkedList<IClubTeamDto>();
         try
         {
-            ret = dtoFactory.getClubTeamMapper().getClubTeamsByTypeOfSport(sport);
 
-        }
-        catch (ClubTeamNotFoundException | RemoteException ex)
+            ret = dtoFactory.getClubTeamMapper().getClubTeamsByTypeOfSport(sport);
+        } catch (ClubTeamNotFoundException ex)
         {
             Logger.getLogger(NewMemberController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -170,23 +160,33 @@ public class NewMemberController
     @Override
     public List<ITypeOfSportDto> getAllSports()
     {
+        List<ITypeOfSportDto> list = new LinkedList<ITypeOfSportDto>();
         try
         {
-            try
-            {
-                return dtoFactory.getTypeOfSportMapper().getAll();
-            }
-            catch (NotFoundException ex)
-            {
-                Logger.getLogger(NewMemberController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        catch (RemoteException ex)
+            list = dtoFactory.getTypeOfSportMapper().getAll();
+        } catch (NotFoundException ex)
         {
             Logger.getLogger(NewMemberController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return list;
     }
-    
-    
+
+    @Override
+    public List<IRoleDto> getRoles(Integer memberId)
+    {
+        //RoleMapper
+        List<IRoleDto> roleList = new ArrayList<IRoleDto>();
+        try
+        {
+            IMemberDto member = dtoFactory.getMemberMapper().getById(memberId);
+            for (Integer role : member.getRoleList())
+            {
+                roleList.add(dtoFactory.getRoleMapper().getById(role));
+            }
+        } catch (IdNotFoundException ex)
+        {
+            Logger.getLogger(SearchChangeMemberController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return roleList;
+    }
 }

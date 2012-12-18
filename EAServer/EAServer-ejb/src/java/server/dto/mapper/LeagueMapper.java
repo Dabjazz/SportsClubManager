@@ -71,7 +71,7 @@ public class LeagueMapper
     {
         try
         {
-            List<ILeagueDto> result = new LinkedList<>();
+            List<ILeagueDto> result = new LinkedList<ILeagueDto>();
 
             for (contract.domain.ILeague a : DomainFacade.getInstance().getAll(contract.domain.ILeague.class))
             {
@@ -94,8 +94,11 @@ public class LeagueMapper
             server.domain.classes.League league = createDomain(value);
 
             return DomainFacade.getInstance().set(league);
+        } catch (CouldNotSaveException ex)
+        {
+            Logger.getLogger(LeagueMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (IdNotFoundException | CouldNotSaveException ex)
+        catch (IdNotFoundException  ex)
         {
             Logger.getLogger(LeagueMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -111,8 +114,11 @@ public class LeagueMapper
             server.domain.classes.League league = createDomain(value);
 
             DomainFacade.getInstance().delete(league);
+        } catch (CouldNotDeleteException ex)
+        {
+            Logger.getLogger(LeagueMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (IdNotFoundException | CouldNotDeleteException ex)
+        catch (IdNotFoundException ex)
         {
             Logger.getLogger(LeagueMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -126,7 +132,7 @@ public class LeagueMapper
         league.setDescription(value.getDescription());
         league.setName(value.getName());
 
-        List<contract.domain.ITeam> teamList = new LinkedList<>();
+        List<contract.domain.ITeam> teamList = new LinkedList<ITeam>();
 
         for (int i : value.getTeamList())
         {
@@ -147,8 +153,11 @@ public class LeagueMapper
             ITypeOfSport sport = TypeOfSportMapper.getInstance().getDomainById(typeOfSport.getId());
             ILeague l = DomainFacade.getInstance().getLeageByNameAndTypeOfSport(sport, league);
             return LeagueDto.copy(l);
+        } catch (IdNotFoundException ex)
+        {
+            throw new NotFoundException(ex);
         }
-        catch (CouldNotFetchException | IdNotFoundException ex)
+        catch (CouldNotFetchException ex)
         {
             throw new NotFoundException(ex);
         }

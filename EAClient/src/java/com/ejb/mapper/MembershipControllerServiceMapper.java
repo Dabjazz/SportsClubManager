@@ -12,6 +12,11 @@ import contract.ejb.business.IMembershipRemote;
 import contract.useCaseController.IMembershipController;
 import contract.useCaseController.NetworkFailureException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 /**
 
@@ -22,9 +27,14 @@ public class MembershipControllerServiceMapper
 {
     private IMembershipRemote service;
 
-    public MembershipControllerServiceMapper(IMembershipRemote service)
+//    public MembershipControllerServiceMapper(IMembershipRemote service)
+//    {
+//        this.service = service;
+//    }
+    
+    public MembershipControllerServiceMapper()
     {
-        this.service = service;
+        this.service = lookupMembershipBeanRemote();
     }
 
     @Override
@@ -60,5 +70,24 @@ public class MembershipControllerServiceMapper
             throws NetworkFailureException
     {
        return service.setRole(member, departmentHead, selected);
+    }
+
+    @Override
+    public List<IClubTeamDto> getClubTeamsByTypeOfSport(ITypeOfSportDto sport) throws NetworkFailureException
+    {
+        return service.getClubTeamsByTypeOfSport(sport);
+    }
+
+    private IMembershipRemote lookupMembershipBeanRemote()
+    {
+        try
+        {
+            Context c = new InitialContext();
+            return (IMembershipRemote) c.lookup("java:comp/env/MembershipBean");
+        } catch (NamingException ne)
+        {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
     }
 }

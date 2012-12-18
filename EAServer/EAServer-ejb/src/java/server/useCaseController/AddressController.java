@@ -4,11 +4,12 @@
  */
 package server.useCaseController;
 
-import contract.dto.*;
+import contract.dto.IAddressDto;
+import contract.dto.ICountryDto;
 import contract.dto.mapper.IdNotFoundException;
-import contract.useCaseController.*;
-import java.rmi.RemoteException;
-import java.util.logging.*;
+import contract.useCaseController.IAddressController;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import server.dto.mapper.DtoFactory;
 
 /**
@@ -37,10 +38,6 @@ public class AddressController
         {
             return dtoFactory.getCountryMapper().getById(country);
         }
-        catch (RemoteException ex)
-        {
-            Logger.getLogger(AddressController.class.getName()).log(Level.SEVERE, null, ex);
-        }
         catch (IdNotFoundException ex)
         {
             Logger.getLogger(AddressController.class.getName()).log(Level.SEVERE, null, ex);
@@ -56,11 +53,10 @@ public class AddressController
         {
             return dtoFactory.getAddressMapper().getById(id);
         }
-        catch (RemoteException | IdNotFoundException ex)
+        catch(IdNotFoundException ex)
         {
             Logger.getLogger(AddressController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return null;
     }
 
@@ -71,7 +67,7 @@ public class AddressController
         {
             return dtoFactory.getCountryMapper().getByName(name);
         }
-        catch (RemoteException | IdNotFoundException ex)
+        catch(IdNotFoundException ex)
         {
             Logger.getLogger(AddressController.class.getName()).log(Level.SEVERE, null, ex);
         }

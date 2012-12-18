@@ -6,14 +6,15 @@ package server.ejb.beans;
 
 import contract.dto.*;
 import contract.ejb.business.INewMemberRemote;
-import java.rmi.RemoteException;
 import java.util.List;
+import javax.ejb.Stateful;
 import server.useCaseController.NewMemberController;
 
 /**
 
  @author Lins Christian (christian.lins87@gmail.com)
  */
+@Stateful
 public class NewMemberBean implements INewMemberRemote
 {
     public NewMemberBean()
@@ -67,5 +68,11 @@ public class NewMemberBean implements INewMemberRemote
     public List<ITypeOfSportDto> getAllSports()
     {
         return NewMemberController.getInstance().getAllSports();
+    }
+
+    @Override
+    public List<IRoleDto> getRoles(Integer memberId)
+    {
+        return NewMemberController.getInstance().getRoles(memberId);
     }
 }

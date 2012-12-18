@@ -36,7 +36,7 @@ public class Player
     
     Player(IPlayer d)
     {
-        typeOfSportList = new LinkedList<>();
+        typeOfSportList = new LinkedList<TypeOfSport>();
         
         for (ITypeOfSport t : d.getTypeOfSportList())
         {
@@ -52,9 +52,10 @@ public class Player
     }
     
     @XmlTransient
+    @Override
     public List<IClubTeam> getClubTeams()
     {
-        List<IClubTeam> result = new LinkedList<>();
+        List<IClubTeam> result = new LinkedList<IClubTeam>();
         
         for (ClubTeam d : clubTeams)
         {
@@ -64,9 +65,10 @@ public class Player
         return result;
     }
     
+    @Override
     public void setClubTeams(List<IClubTeam> clubTeams)
     {
-        List<ClubTeam> result = new LinkedList<>();
+        List<ClubTeam> result = new LinkedList<ClubTeam>();
         
         for (IClubTeam d : clubTeams)
         {
@@ -80,7 +82,7 @@ public class Player
     @Override
     public List<ITypeOfSport> getTypeOfSportList()
     {
-        List<ITypeOfSport> result = new LinkedList<>();
+        List<ITypeOfSport> result = new LinkedList<ITypeOfSport>();
         
         for (TypeOfSport d : typeOfSportList)
         {
@@ -93,7 +95,7 @@ public class Player
     @Override
     public void setTypeOfSportList(List<ITypeOfSport> typeOfSportList)
     {
-        List<TypeOfSport> result = new LinkedList<>();
+        List<TypeOfSport> result = new LinkedList<TypeOfSport>();
         
         for (ITypeOfSport d : typeOfSportList)
         {

@@ -4,13 +4,19 @@
  */
 package server.dto.mapper;
 
-import contract.domain.*;
+import contract.domain.CouldNotDeleteException;
+import contract.domain.CouldNotFetchException;
+import contract.domain.CouldNotSaveException;
 import contract.dto.IAddressDto;
-import contract.dto.mapper.*;
-import java.util.*;
-import java.util.logging.*;
-import server.domain.DomainFacade;
 import contract.dto.classes.AddressDto;
+import contract.dto.mapper.IMapper;
+import contract.dto.mapper.IdNotFoundException;
+import contract.dto.mapper.NotFoundException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import server.domain.DomainFacade;
 
 /**
  * @author Thomas
@@ -64,7 +70,7 @@ public class AddressMapper
     {
         try
         {
-            List<IAddressDto> result = new LinkedList<>();
+            List<IAddressDto> result = new LinkedList<IAddressDto>();
 
             for (contract.domain.IAddress a : DomainFacade.getInstance().getAll(contract.domain.IAddress.class))
             {
@@ -87,8 +93,11 @@ public class AddressMapper
             server.domain.classes.Address address = createDomain(value);
 
             return DomainFacade.getInstance().set(address);
+        } catch (CouldNotSaveException ex)
+        {
+            Logger.getLogger(AddressMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (IdNotFoundException | CouldNotSaveException ex)
+        catch (IdNotFoundException ex)
         {
             Logger.getLogger(AddressMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -104,8 +113,11 @@ public class AddressMapper
             server.domain.classes.Address address = createDomain(value);
 
             DomainFacade.getInstance().delete(address);
+        } catch (CouldNotDeleteException ex)
+        {
+            Logger.getLogger(AddressMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (IdNotFoundException | CouldNotDeleteException ex)
+        catch (IdNotFoundException ex)
         {
             Logger.getLogger(AddressMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
