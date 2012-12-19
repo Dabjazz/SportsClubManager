@@ -14,7 +14,7 @@ import com.ejb.EJBUseCaseControllerFactory;
  */
 public class ServiceClientFactory
 {
-    public static IUseCaseControllerFactory getEJBServiceClient(String host, int port)
+    public static IUseCaseControllerFactory getEJBServiceClient()
             throws CommunicationProblemException
     {
         return new EJBUseCaseControllerFactory();

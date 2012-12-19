@@ -13,6 +13,7 @@
             </test-roots>
             <included-library dirs="200">reference.Contract.jar</included-library>
             <included-library dirs="200">file.reference.jcalendar-1.4.jar</included-library>
+            <included-library dirs="200">libs.swing-layout.classpath</included-library>
         </data>
         <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
             <reference>

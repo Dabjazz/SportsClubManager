@@ -46,4 +46,10 @@ public class LoginController
             throw new MemberNotFoundException(ex);
         }
     }
+
+    @Override
+    public IMemberDto getMemberByUsername(String username) throws MemberNotFoundException
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

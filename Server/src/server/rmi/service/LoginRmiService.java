@@ -37,8 +37,10 @@ public class LoginRmiService extends UnicastRemoteObject implements ILoginRmiSer
             throw new RemoteException(ex.getMessage());
         }
     }
-    
 
-   
-    
+    @Override
+    public IMemberDto getMemberByUsername(String username) throws RemoteException
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }
