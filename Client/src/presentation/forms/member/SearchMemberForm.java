@@ -282,7 +282,13 @@ public class SearchMemberForm
         // Wird vielleicht mal benötigt selectedMember.setMemberTo(anotherSelectedMember.getMemberTo());
         selectedMember.setRoleList(anotherSelectedMember.getRoleList());
 
-        controller.setNewMember(selectedMember, personDataPanel1.getAddress());
+        try {
+            controller.setNewMember(selectedMember, personDataPanel1.getAddress());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "An error occured! Please try again later");
+        }
+        JOptionPane.showMessageDialog(null, "Changes applied successfully");
+        
     }
 
 //    public List<IClubTeamDto> getClubTeams(ITypeOfSportDto sport)

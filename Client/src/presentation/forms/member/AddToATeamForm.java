@@ -256,8 +256,13 @@ public class AddToATeamForm extends AbstractMainForm {
 
         //TODO: add to the team or call controlller
         clubTeam.setPlayerList(playerIDs);
-        controller.updateClubTeam(clubTeam);
-
+        
+        try {
+            controller.updateClubTeam(clubTeam);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "An error occured while trying to perform changes!");
+        }
+        JOptionPane.showMessageDialog(null, "Successfully added member(s) to team!");
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowActionPerformed

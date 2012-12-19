@@ -4,6 +4,7 @@ import com.ServiceNotAvailableException;
 import com.contract.IUseCaseControllerFactory;
 import contract.dto.IMemberDto;
 import contract.useCaseController.*;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import presentation.basics.*;
 
@@ -190,7 +191,12 @@ public class NewMemberForm
             // Wird vielleicht mal benötigt selectedMember.setMemberTo(anotherSelectedMember.getMemberTo());
             selectedMember.setRoleList(anotherSelectedMember.getRoleList());
         }
-        controller.setNewMember(selectedMember, personDataPanel1.getAddress());
+        try {
+            controller.setNewMember(selectedMember, personDataPanel1.getAddress());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "An error occured! Please try again later");
+        }
+        JOptionPane.showMessageDialog(null, "The member was successfully created!");        
     }
 
 //    public List<IClubTeamDto> getClubTeams(ITypeOfSportDto sport)
