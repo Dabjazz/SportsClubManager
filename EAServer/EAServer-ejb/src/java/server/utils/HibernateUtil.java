@@ -5,7 +5,9 @@
 package server.utils;
 
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.service.ServiceRegistryBuilder;
 
 /**
  * Hibernate Utility class with a convenient method to get Session Factory object.
@@ -22,7 +24,10 @@ public class HibernateUtil
         {
             // Create the SessionFactory from standard (hibernate.cfg.xml) 
             // config file.
-            sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
+            Configuration conf = new Configuration();
+            conf.configure();
+            ServiceRegistryBuilder registrybuilder = new ServiceRegistryBuilder().applySettings(conf.getProperties());
+            sessionFactory = new Configuration().configure().buildSessionFactory(registrybuilder.buildServiceRegistry());
         }
         catch (Throwable ex)
         {
