@@ -223,7 +223,13 @@ public class AddCompetitionResultsForm
         result.setPointsForeignteam(new Double(spinTeamB.getValue().toString()));
         result.setFinal(true);
 
+        try{
         controller.setMatchResult(match, result); //TODO: Throws error
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "An error occured while trying to add result");
+        }
+        JOptionPane.showMessageDialog(null, "Successfully added result!");
     }//GEN-LAST:event_btnAddResultActionPerformed
 
     private void btnShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowActionPerformed

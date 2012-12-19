@@ -308,7 +308,14 @@ public class ChangeCompetitionTeamForm
         }
         newCompetitioTeam.setPlayerList(newTeamPlayerIDs);
 
-        controller.setCompetitonTeam(competition, formerTeam, newCompetitioTeam);
+        try{
+            controller.setCompetitonTeam(competition, formerTeam, newCompetitioTeam);
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "An error occured while trying to save changes!");
+        }
+        JOptionPane.showMessageDialog(null, "Competition Team changed!");
+        
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowActionPerformed
