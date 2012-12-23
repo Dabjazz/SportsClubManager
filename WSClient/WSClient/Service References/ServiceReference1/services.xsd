@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://webservice.server/" targetNamespace="http://webservice.server/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="getMatches" type="tns:getMatches" />
+  <xs:element name="getMatchesResponse" type="tns:getMatchesResponse" />
+  <xs:complexType name="getMatches">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string" />
+      <xs:element minOccurs="0" name="arg1" type="xs:string" />
+      <xs:element minOccurs="0" name="arg2" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getMatchesResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:matchresultWs" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="matchresultWs">
+    <xs:sequence>
+      <xs:element name="id" type="xs:int" />
+      <xs:element name="date" type="xs:dateTime" />
+      <xs:element name="hometeam" type="xs:string" />
+      <xs:element name="foreignteam" type="xs:string" />
+      <xs:element name="pointsHometeam" type="xs:double" />
+      <xs:element name="pointsForeignteam" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
