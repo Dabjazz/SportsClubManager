@@ -561,7 +561,7 @@ public class MembershipDataPanel
             sb.append(", ");
         }
 
-        txtFieldSports.setText(sb.toString().substring(sb.length() - 2, sb.length()));
+        txtFieldSports.setText(sb.toString().substring(0, sb.length() - 2));
     }
 
     @Override
@@ -579,7 +579,7 @@ public class MembershipDataPanel
             sb.append(", ");
         }
 
-        txtFieldPlayerClubTeam.setText(sb.toString().substring(sb.length() - 2, sb.length()));
+        txtFieldPlayerClubTeam.setText(sb.toString().substring(0, sb.length() - 2));
     }
 
     @Override
@@ -597,7 +597,7 @@ public class MembershipDataPanel
             sb.append(", ");
         }
 
-        txtFieldTrainerClubTeam.setText(sb.toString().substring(sb.length() - 2, sb.length()));
+        txtFieldTrainerClubTeam.setText(sb.toString().substring(0, sb.length() - 2));
     }
 
     @Override

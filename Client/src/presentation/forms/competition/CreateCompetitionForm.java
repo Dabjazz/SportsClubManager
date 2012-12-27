@@ -411,8 +411,9 @@ public class CreateCompetitionForm
     }
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
 
-        if (confirmed) {            
+        if (confirmed) {
             controller.setCompetition(competition, compAddress, compCountry, matches);
+            JOptionPane.showMessageDialog(null, "Successfully created!");
         } else {
             JOptionPane.showMessageDialog(null, "Please confirm the competition details first!");
         }
@@ -450,23 +451,26 @@ public class CreateCompetitionForm
         competition.setDateTo(dateDateTo.getDate());
         competition.setPayment(Double.parseDouble(txtfieldFee.getText()));
         competition.setTeamList(getSelectedTeamsID());
-        ITypeOfSportDto sport = (ITypeOfSportDto)comboSport.getSelectedItem();
+        ITypeOfSportDto sport = (ITypeOfSportDto) comboSport.getSelectedItem();
         competition.setSport(sport.getId());
         competition.setLeague(1);   //TODO: implement me maybe :)
 
         //Set Competitions address
         compAddress = new AddressDto();
-        if(txtfieldLocation.getText().isEmpty()){
+        if (txtfieldLocation.getText().isEmpty()) {
             compAddress.setStreet("street is not supported");
-        }
-        else{
+        } else {
             compAddress.setStreet(txtfieldLocation.getText());
         }
         compAddress.setStreetNumber(1);
         compAddress.setVillage(txtfieldcity.getText());
         compAddress.setPostalCode(Integer.parseInt(txtfieldplz.getText()));
         compCountry = new CountryDto();
-        compCountry.setName(txtfieldCountry.getText());
+        if (!txtfieldCountry.getText().equals("Austria") || !txtfieldCountry.getText().equals("India")) {
+            JOptionPane.showMessageDialog(null, "Set Austria or India as country, we do not support competitions in other countries yet!");
+        } else {
+            compCountry.setName(txtfieldCountry.getText());
+        }
 
         setMatchTeamList();
         confirmed = true;
@@ -476,16 +480,16 @@ public class CreateCompetitionForm
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     private void comboSportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSportActionPerformed
-        setListSelectTeams((ITypeOfSportDto)comboSport.getSelectedItem());
+        setListSelectTeams((ITypeOfSportDto) comboSport.getSelectedItem());
     }//GEN-LAST:event_comboSportActionPerformed
 
     //TODO add controller method
     private Object[] getSportsList() {
         List<ITypeOfSportDto> sportList = controller.getTypeOfSports(user.getId());
-       
+
         Object[] array = sportList.toArray();
-        setListSelectTeams((ITypeOfSportDto)array[0]);
-        
+        setListSelectTeams((ITypeOfSportDto) array[0]);
+
         return array;
     }
 
@@ -501,7 +505,7 @@ public class CreateCompetitionForm
                 return teams[i];
             }
         });
-                
+
     }
 
     private Object[] getTeamsList(ITypeOfSportDto sport) {
@@ -559,7 +563,7 @@ public class CreateCompetitionForm
         newMatch.setDateFrom(dateDateFrom.getDate());
         newMatch.setDateTo(dateDateTo.getDate());
         matches.add(newMatch);
-        
+
 
         setListTeamAModel();
         setListTeamBModel();

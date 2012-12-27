@@ -7,6 +7,7 @@ package server;
 import java.io.IOException;
 import server.corba.CorbaServer;
 import server.rmi.RmiServer;
+import server.webservice.*;
 
 /**
  @author Thomas
@@ -26,5 +27,8 @@ public class Server
         // start corba-server-thread
         CorbaServer corbaServer = new CorbaServer();
         new Thread(corbaServer).start();
+        
+        // start webservice
+        WebserviceMain ws = new WebserviceMain();
     }
 }

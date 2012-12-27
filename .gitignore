@@ -75,3 +75,8 @@ JavaMessagingSender/build/jar/META-INF/MANIFEST.MF
 JavaMessagingSender/build.xml
 
 Server/orb.db/NC0
+EAClient/nbproject/private/private.properties
+EAClient/nbproject/private/private.xml
+EAServer/EAServer-ejb/nbproject/private/private.properties
+EAServer/EAServer-ejb/nbproject/private/private.xml
+EAServer/nbproject/private/private.properties
