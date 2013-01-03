@@ -66,8 +66,6 @@ public class SCM_Overview
         btnChangeTeam = new javax.swing.JButton();
         paneCompMain = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sports Club Manager");
@@ -120,7 +118,7 @@ public class SCM_Overview
                 .addComponent(btnNewMember)
                 .addGap(31, 31, 31)
                 .addComponent(btnAddToTeam)
-                .addContainerGap(432, Short.MAX_VALUE))
+                .addContainerGap(451, Short.MAX_VALUE))
         );
 
         tabMember.setLeftComponent(paneMemberNavi);
@@ -133,7 +131,7 @@ public class SCM_Overview
         );
         paneMemberMainLayout.setVerticalGroup(
             paneMemberMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 549, Short.MAX_VALUE)
+            .addGap(0, 568, Short.MAX_VALUE)
         );
 
         tabMember.setRightComponent(paneMemberMain);
@@ -195,7 +193,7 @@ public class SCM_Overview
                 .addComponent(btnCreateCompetition)
                 .addGap(18, 18, 18)
                 .addComponent(btnChangeTeam)
-                .addContainerGap(404, Short.MAX_VALUE))
+                .addContainerGap(423, Short.MAX_VALUE))
         );
 
         tabMatch.setLeftComponent(paneCompNavi);
@@ -208,18 +206,12 @@ public class SCM_Overview
         );
         paneCompMainLayout.setVerticalGroup(
             paneCompMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 549, Short.MAX_VALUE)
+            .addGap(0, 568, Short.MAX_VALUE)
         );
 
         tabMatch.setRightComponent(paneCompMain);
 
         tabPane.addTab("Competition", tabMatch);
-
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -231,7 +223,7 @@ public class SCM_Overview
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabPane)
+            .addComponent(tabPane, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE)
         );
 
         pack();
@@ -365,8 +357,6 @@ public class SCM_Overview
     private javax.swing.JButton btnMember;
     private javax.swing.JButton btnNewMember;
     private javax.swing.JButton btnShowCompetition;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel paneCompMain;
     private javax.swing.JPanel paneCompNavi;
