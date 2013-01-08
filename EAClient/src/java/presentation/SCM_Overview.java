@@ -49,7 +49,8 @@ public class SCM_Overview
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         tabPane = new javax.swing.JTabbedPane();
         tabMember = new javax.swing.JSplitPane();
@@ -65,9 +66,6 @@ public class SCM_Overview
         btnCreateCompetition = new javax.swing.JButton();
         btnChangeTeam = new javax.swing.JButton();
         paneCompMain = new javax.swing.JPanel();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sports Club Manager");
@@ -79,22 +77,28 @@ public class SCM_Overview
         paneMemberNavi.setRequestFocusEnabled(false);
 
         btnMember.setText("Search Member");
-        btnMember.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnMember.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnMemberActionPerformed(evt);
             }
         });
 
         btnNewMember.setText("Add New Member");
-        btnNewMember.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnNewMember.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnNewMemberActionPerformed(evt);
             }
         });
 
         btnAddToTeam.setText("Add To Team");
-        btnAddToTeam.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnAddToTeam.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnAddToTeamActionPerformed(evt);
             }
         });
@@ -106,7 +110,7 @@ public class SCM_Overview
             .addGroup(paneMemberNaviLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(paneMemberNaviLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnNewMember, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                    .addComponent(btnNewMember, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(btnMember, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAddToTeam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -120,7 +124,7 @@ public class SCM_Overview
                 .addComponent(btnNewMember)
                 .addGap(31, 31, 31)
                 .addComponent(btnAddToTeam)
-                .addContainerGap(432, Short.MAX_VALUE))
+                .addContainerGap(438, Short.MAX_VALUE))
         );
 
         tabMember.setLeftComponent(paneMemberNavi);
@@ -133,7 +137,7 @@ public class SCM_Overview
         );
         paneMemberMainLayout.setVerticalGroup(
             paneMemberMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 549, Short.MAX_VALUE)
+            .addGap(0, 568, Short.MAX_VALUE)
         );
 
         tabMember.setRightComponent(paneMemberMain);
@@ -144,29 +148,37 @@ public class SCM_Overview
         paneCompNavi.setPreferredSize(new java.awt.Dimension(140, 549));
 
         btnShowCompetition.setText("Show Result");
-        btnShowCompetition.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnShowCompetition.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnShowCompetitionActionPerformed(evt);
             }
         });
 
         btnAddResult.setText("Add Result");
-        btnAddResult.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnAddResult.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnAddResultActionPerformed(evt);
             }
         });
 
         btnCreateCompetition.setText("Create Competition");
-        btnCreateCompetition.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnCreateCompetition.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnCreateCompetitionActionPerformed(evt);
             }
         });
 
         btnChangeTeam.setText("Change Team");
-        btnChangeTeam.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnChangeTeam.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnChangeTeamActionPerformed(evt);
             }
         });
@@ -208,20 +220,12 @@ public class SCM_Overview
         );
         paneCompMainLayout.setVerticalGroup(
             paneCompMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 549, Short.MAX_VALUE)
+            .addGap(0, 568, Short.MAX_VALUE)
         );
 
         tabMatch.setRightComponent(paneCompMain);
 
         tabPane.addTab("Competition", tabMatch);
-
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
-
-        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -231,7 +235,7 @@ public class SCM_Overview
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabPane)
+            .addComponent(tabPane, javax.swing.GroupLayout.PREFERRED_SIZE, 618, Short.MAX_VALUE)
         );
 
         pack();
@@ -365,9 +369,6 @@ public class SCM_Overview
     private javax.swing.JButton btnMember;
     private javax.swing.JButton btnNewMember;
     private javax.swing.JButton btnShowCompetition;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel paneCompMain;
     private javax.swing.JPanel paneCompNavi;
     private javax.swing.JPanel paneMemberMain;

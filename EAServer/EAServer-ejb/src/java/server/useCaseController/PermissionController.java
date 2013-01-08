@@ -55,7 +55,7 @@ public class PermissionController
             try
             {
                 IRoleDto role = roleMapper.getById(rI);
-
+                
                 for (int perm : role.getPermisssionList())
                 {
                     if (permissionMapper.getById(perm).getName().equals(permissionName))

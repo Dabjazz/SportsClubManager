@@ -4,13 +4,32 @@
  */
 package server.dto.mapper;
 
+import contract.domain.CouldNotFetchException;
+import contract.domain.IRole;
 import contract.dto.*;
+import contract.dto.classes.AdminDto;
+import contract.dto.classes.CaretakerDto;
+import contract.dto.classes.DepartmentHeadDto;
+import contract.dto.classes.MemberDto;
+import contract.dto.classes.PlayerDto;
+import contract.dto.classes.RoleDto;
+import contract.dto.classes.TrainerDto;
 import contract.dto.mapper.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import server.domain.DomainFacade;
+import server.domain.classes.Admin;
+import server.domain.classes.Caretaker;
+import server.domain.classes.DepartmentHead;
+import server.domain.classes.Member;
+import server.domain.classes.Player;
+import server.domain.classes.Role;
+import server.domain.classes.Trainer;
 
 /**
-
- @author Thomas
+ *
+ * @author Thomas
  */
 public class RoleMapper
         implements IMapper<IRoleDto>
@@ -21,7 +40,7 @@ public class RoleMapper
     {
     }
 
-    public static IMapper<IRoleDto> getInstance( )
+    public static IMapper<IRoleDto> getInstance()
     {
         if (controller == null)
         {
@@ -37,50 +56,30 @@ public class RoleMapper
     {
         try
         {
-            IRoleDto r = PlayerMapper.getInstance().getById(id);
-            return r;
-        }
-        catch (IdNotFoundException e)
-        {
-        }
+            IRole r = DomainFacade.getInstance().getByID(Role.class, id);
+            
+            if(r instanceof DepartmentHead)
+            {
+                return DepartmentHeadDto.copy((DepartmentHead)r);
+            }else if(r instanceof Admin)
+            {
+                return AdminDto.copy((Admin)r);
+            }else if(r instanceof Caretaker)
+            {
+                return CaretakerDto.copy((Caretaker)r);
+            }else if(r instanceof Player)
+            {
+                return PlayerDto.copy((Player)r);
+            }else
+            {
+                return TrainerDto.copy((Trainer)r);
+            }
 
-        try
-        {
-            IRoleDto r = TrainerMapper.getInstance().getById(id);
-            return r;
         }
-        catch (IdNotFoundException e)
+        catch (CouldNotFetchException ex)
         {
+            throw new IdNotFoundException();
         }
-
-        try
-        {
-            IRoleDto r = CaretakerMapper.getInstance().getById(id);
-            return r;
-        }
-        catch (IdNotFoundException e)
-        {
-        }
-
-        try
-        {
-            IRoleDto r = AdminMapper.getInstance().getById(id);
-            return r;
-        }
-        catch (IdNotFoundException e)
-        {
-        }
-
-        try
-        {
-            IRoleDto r = DepartmentHeadMapper.getInstance().getById(id);
-            return r;
-        }
-        catch (IdNotFoundException e)
-        {
-        }
-
-        throw new IdNotFoundException();
     }
 
     @Override
@@ -110,13 +109,19 @@ public class RoleMapper
         {
             return TrainerMapper.getInstance().set((ITrainerDto) value);
         }
-        else if (value instanceof IPlayerDto)
+        else
         {
-            return PlayerMapper.getInstance().set((IPlayerDto) value);
-        }
-        else if (value instanceof IDepartmentHeadDto)
-        {
-            return DepartmentHeadMapper.getInstance().set((IDepartmentHeadDto) value);
+            if (value instanceof IPlayerDto)
+            {
+                return PlayerMapper.getInstance().set((IPlayerDto) value);
+            }
+            else
+            {
+                if (value instanceof IDepartmentHeadDto)
+                {
+                    return DepartmentHeadMapper.getInstance().set((IDepartmentHeadDto) value);
+                }
+            }
         }
 
         return 0;
@@ -129,13 +134,19 @@ public class RoleMapper
         {
             TrainerMapper.getInstance().delete((ITrainerDto) value);
         }
-        else if (value instanceof IPlayerDto)
+        else
         {
-            PlayerMapper.getInstance().delete((IPlayerDto) value);
-        }
-        else if (value instanceof IDepartmentHeadDto)
-        {
-            DepartmentHeadMapper.getInstance().delete((IDepartmentHeadDto) value);
+            if (value instanceof IPlayerDto)
+            {
+                PlayerMapper.getInstance().delete((IPlayerDto) value);
+            }
+            else
+            {
+                if (value instanceof IDepartmentHeadDto)
+                {
+                    DepartmentHeadMapper.getInstance().delete((IDepartmentHeadDto) value);
+                }
+            }
         }
     }
 
