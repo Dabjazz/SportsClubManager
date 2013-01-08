@@ -80,3 +80,16 @@ EAClient/nbproject/private/private.xml
 EAServer/EAServer-ejb/nbproject/private/private.properties
 EAServer/EAServer-ejb/nbproject/private/private.xml
 EAServer/nbproject/private/private.properties
+WebClient/build/web/META-INF/MANIFEST.MF
+WebClient/build/web/WEB-INF/classes/.netbeans_automatic_build
+WebClient/build/web/WEB-INF/classes/.netbeans_update_resources
+WebClient/build/web/WEB-INF/glassfish-web.xml
+WebClient/build/web/WEB-INF/web.xml
+WebClient/build/web/competition.xhtml
+WebClient/build/web/gfv3ee6.dpf
+WebClient/build/web/images/logo.jpg
+WebClient/build/web/index.xhtml
+WebClient/build/web/match.xhtml
+WebClient/build/web/result.xhtml
+WebClient/build/web/style.css
+WebClient/build/web/template.xhtml

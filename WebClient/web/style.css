@@ -1,0 +1,54 @@
+@charset "UTF-8";
+
+body {
+	letter-spacing: normal;
+	text-align: left;
+	word-spacing: normal;
+	white-space: normal;
+	background-color: #31B404;
+}
+
+.master{
+	width:100%;
+}
+
+.top {
+	width: 100%;
+}
+
+.headerimg {
+	width:300px;
+	float:left
+}
+	
+.clear{
+	clear:both
+}
+	
+.navigation{
+	height:auto;
+	width:300px;
+	float:left;
+	background-color:#0B610B
+}
+
+.content{
+	float:left;
+	width:600px;
+	background-color:#FFF;
+}
+
+.emailicon{
+	width:50px;
+	margin-left:40px;
+}
+
+h1{
+	font-size:50px;
+	margin:50px;
+	float:left
+}
+
+a{
+	color:#000;
+}

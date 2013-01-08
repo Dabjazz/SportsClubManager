@@ -1,0 +1,32 @@
+<ui:composition template="template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <ui:define name="meta">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </ui:define>
+    <ui:define name="title">
+        Match
+    </ui:define>
+    <ui:define name="content">
+        <h2>Selected Match</h2>
+        <h:outputLabel value="#{competition.selectedMatch}"/>
+        <c:if test="#{login.loggedIn}">
+            <h:form>
+                <h:panelGrid>
+                    <h:outputLabel value="Points hometeam"/>
+                    <h:inputText value="#{competition.result.pointsHometeam}"/>
+
+                    <h:outputLabel value="Points foreignteam"/>
+                    <h:inputText value="#{competition.result.pointsForeignteam}"/>
+                    <h:commandButton value="change" action="#{competition.resultChanged()}"/>
+                </h:panelGrid>
+            </h:form>
+        </c:if>
+        <c:if test="#{!login.loggedIn}">
+            Points hometeam:#{competition.result.pointsHometeam}<br/>
+            Points foreignteam:#{competition.result.pointsForeignteam}
+        </c:if>
+    </ui:define>
+</ui:composition>
