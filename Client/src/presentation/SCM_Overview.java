@@ -4,8 +4,14 @@ import com.contract.IUseCaseControllerFactory;
 import com.ServiceNotAvailableException;
 import contract.dto.*;
 import contract.useCaseController.IPermissionController;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.net.URL;
 import java.util.logging.*;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import presentation.basics.AbstractForm;
 import presentation.forms.competition.*;
@@ -57,7 +63,7 @@ public class SCM_Overview
         btnMember = new javax.swing.JButton();
         btnNewMember = new javax.swing.JButton();
         btnAddToTeam = new javax.swing.JButton();
-        paneMemberMain = new javax.swing.JPanel();
+        paneMemberMain = setDefaultMain();
         tabMatch = new javax.swing.JSplitPane();
         paneCompNavi = new javax.swing.JPanel();
         btnShowCompetition = new javax.swing.JButton();
@@ -223,12 +229,43 @@ public class SCM_Overview
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabPane, javax.swing.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE)
+            .addComponent(tabPane)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private JPanel setDefaultMain(){
+        URL resource = SCM_Overview.class.getResource("logo.jpg");
+        ImagePanel defaultPane = new ImagePanel(new ImageIcon(resource.getFile()).getImage());
+        
+        return defaultPane;
+    }
+    
+    class ImagePanel extends JPanel {
+
+        private Image img;
+
+        public ImagePanel(String img) {
+            this(new ImageIcon(img).getImage());
+        }
+
+        public ImagePanel(Image img) {
+            this.img = img;
+            Dimension size = new Dimension(img.getWidth(null), img.getHeight(null));
+            setPreferredSize(size);
+            setMinimumSize(size);
+            setMaximumSize(size);
+            setSize(size);
+            setLayout(null);
+        }
+
+        @Override
+        public void paintComponent(Graphics g) {
+            g.drawImage(img, 0, 0, null);
+        }
+    }
+    
     private void btnMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMemberActionPerformed
         try {
             if (permissionController.hasPermission("read")) {
