@@ -31,11 +31,9 @@ body {
 	width:300px;
 	float:left;
 	opacity: 0.4;
+        font-weight: bold;
+        color: black;
 	background-color:#0B610B
-}
-
-.navigation font{
-	color: black;
 }
 
 .content{

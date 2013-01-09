@@ -4,6 +4,7 @@ import contract.dto.ICompetitionDto;
 import contract.dto.IMatchDto;
 import contract.dto.IMatchresultDto;
 import contract.dto.ITeamDto;
+import contract.ejb.business.IAddMatchResultsRemote;
 import contract.ejb.business.IShowCompetitionRemote;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,6 +20,7 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class CompetitionBean
 {
+    @EJB private IAddMatchResultsRemote addMatchResultsBean;
     @EJB private IShowCompetitionRemote showCompetitionBean;
     private ICompetitionDto selectedCompetition = null;
     private List<ICompetitionDto> competitions = new LinkedList<ICompetitionDto>();
@@ -90,6 +92,7 @@ public class CompetitionBean
     
     public String resultChanged()
     {
+        this.addMatchResultsBean.setMatchResult(selectedMatch, result);
         return "match";
     }
     
