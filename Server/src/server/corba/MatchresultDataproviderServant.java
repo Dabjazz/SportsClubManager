@@ -43,7 +43,7 @@ public class MatchresultDataproviderServant
 
             Date date = new SimpleDateFormat("dd.MM.yyyy").parse(competitiondate);
 
-            for (ICompetitionDto competition : l.getCompetitionsByDate(date))
+            for (ICompetitionDto competition : dtoFactory.getLeagueMapper().getCompetitionsByDate(l, date))
             {
                 for (int matchId : competition.getMatchList())
                 {

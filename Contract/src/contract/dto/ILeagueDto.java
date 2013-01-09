@@ -32,6 +32,4 @@ public interface ILeagueDto
     void setName(String name);
 
     void setTeamList(List<Integer> teamList);
-
-    List<ICompetitionDto> getCompetitionsByDate(Date date);
 }
