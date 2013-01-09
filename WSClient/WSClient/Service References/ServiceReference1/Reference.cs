@@ -20,9 +20,6 @@ namespace WSClient.ServiceReference1 {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
         WSClient.ServiceReference1.getMatchesResponse getMatches(WSClient.ServiceReference1.getMatchesRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://webservice.server/MatchSvc/getMatchesRequest", ReplyAction="http://webservice.server/MatchSvc/getMatchesResponse")]
-        System.Threading.Tasks.Task<WSClient.ServiceReference1.getMatchesResponse> getMatchesAsync(WSClient.ServiceReference1.getMatchesRequest request);
     }
     
     /// <remarks/>
@@ -212,19 +209,6 @@ namespace WSClient.ServiceReference1 {
             inValue.arg2 = arg2;
             WSClient.ServiceReference1.getMatchesResponse retVal = ((WSClient.ServiceReference1.MatchSvc)(this)).getMatches(inValue);
             return retVal.@return;
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<WSClient.ServiceReference1.getMatchesResponse> WSClient.ServiceReference1.MatchSvc.getMatchesAsync(WSClient.ServiceReference1.getMatchesRequest request) {
-            return base.Channel.getMatchesAsync(request);
-        }
-        
-        public System.Threading.Tasks.Task<WSClient.ServiceReference1.getMatchesResponse> getMatchesAsync(string arg0, string arg1, string arg2) {
-            WSClient.ServiceReference1.getMatchesRequest inValue = new WSClient.ServiceReference1.getMatchesRequest();
-            inValue.arg0 = arg0;
-            inValue.arg1 = arg1;
-            inValue.arg2 = arg2;
-            return ((WSClient.ServiceReference1.MatchSvc)(this)).getMatchesAsync(inValue);
         }
     }
 }

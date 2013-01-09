@@ -28,7 +28,7 @@ namespace WSClient
                 Console.WriteLine("Insert a date:");
                 string competitiondate = Console.ReadLine();
 
-                var matchresults = client.getMatches(typeOfSport, league, competitiondate);
+                var matchresults = client.getMatches(competitiondate, league, typeOfSport);
 
                 Console.WriteLine();
                 Console.WriteLine("Results");

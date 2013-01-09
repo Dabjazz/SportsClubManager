@@ -12,6 +12,7 @@ import java.util.*;
 import java.util.logging.*;
 import javax.jws.WebService;
 import server.corba.MatchresultDataproviderServant;
+import server.corba.generated.*;
 import server.dto.mapper.DtoFactory;
 
 /**
@@ -29,13 +30,35 @@ public class MatchService
 
             List<MatchresultWs> results = new LinkedList<>();
 
+            System.out.println("competitiondate " + competitiondate);
+            System.out.println("liga " + league);
+            System.out.println("sportart " + typeOfSport);
+
             ITypeOfSportDto t = dtoFactory.getTypeOfSportMapper().getByName(typeOfSport);
 
             ILeagueDto l = dtoFactory.getLeagueMapper().getByName(league, t);
 
             Date date = new SimpleDateFormat("dd.MM.yyyy").parse(competitiondate);
 
-            for (ICompetitionDto competition : l.getCompetitionsByDate(date))
+            List<ICompetitionDto> competitions = dtoFactory.getLeagueMapper().getCompetitionsByDate(l, date);
+
+            System.out.println("Competitionscount: " + competitions.size());
+            for (ICompetitionDto competition : competitions)
+            {
+                for (int matchId : competition.getMatchList())
+                {
+                    IMatchDto match = dtoFactory.getMatchMapper().getById(matchId);
+                    IMatchresultDto matchresult = dtoFactory.getMatchresultMapper().getById(match.getMatchresult());
+
+                    System.out.println("match form " + match.getDateFrom() + " to " + match.getDateTo());
+                    System.out.println("machtresult: " + matchresult.getPointsHometeam() + ":" + matchresult.getPointsForeignteam());
+                    System.out.println("pointshometeam: " + match.getHometeam());
+                    System.out.println("pointsforeignteam: " + match.getForeignteam());
+                    System.out.println("-----------------------------");
+                }
+            }
+
+            for (ICompetitionDto competition : competitions)
             {
                 for (int matchId : competition.getMatchList())
                 {
