@@ -11,14 +11,14 @@
     </ui:define>
     <ui:define name="content">
         <h2>Selected Match</h2>
-        <h:outputLabel value="#{competition.selectedMatch}"/>
+        <p><h:outputLabel value="#{competition.selectedHomeTeam}"/>:<h:outputLabel value="#{competition.selectedForeignTeam}"/></p>
         <c:if test="#{login.permitedToWrite}">
             <h:form>
                 <h:panelGrid>
-                    <h:outputLabel value="Points hometeam"/>
+                    <h:outputLabel value="#{competition.selectedHomeTeam}"/>
                     <h:inputText value="#{competition.result.pointsHometeam}"/>
 
-                    <h:outputLabel value="Points foreignteam"/>
+                    <h:outputLabel value="#{competition.selectedForeignTeam}"/>
                     <h:inputText value="#{competition.result.pointsForeignteam}"/>
                     <h:commandButton value="change" action="#{competition.resultChanged()}"/>
                 </h:panelGrid>

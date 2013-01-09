@@ -42,6 +42,10 @@ public class LoginBean
         return "index";
     }
     
+    /**
+     * logs out a user by setting user property to null
+     * @return "index" to return to index.xhtml
+     */
     public String logout()
     {
         this.user = null;
@@ -64,6 +68,10 @@ public class LoginBean
      */
     public boolean isPermitedToWrite()
     {
+        if(user == null)
+        {
+            return false;
+        }
         return permissionControllerBean.hasPermission("write");
     }
     
