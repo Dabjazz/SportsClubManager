@@ -42,6 +42,13 @@ public class LoginBean
         return "index";
     }
     
+    public String logout()
+    {
+        this.user = null;
+        permissionControllerBean.setMember(null);
+        return "index";
+    }
+    
     /**
      * if logged then user property is not null
      * @return true if logged in

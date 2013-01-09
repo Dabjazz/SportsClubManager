@@ -12,7 +12,7 @@
     <ui:define name="content">
         <h2>Selected Match</h2>
         <h:outputLabel value="#{competition.selectedMatch}"/>
-        <c:if test="#{login.loggedIn}">
+        <c:if test="#{login.permitedToWrite}">
             <h:form>
                 <h:panelGrid>
                     <h:outputLabel value="Points hometeam"/>

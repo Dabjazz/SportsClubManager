@@ -7,10 +7,13 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </ui:define>
     <ui:define name="title">
-        Willkommen
+        Welcome
     </ui:define>
     <ui:define name="content">
-        <h2>Willkommen</h2>
-        <p>Willkommen zum Online Sportclubmanager.</p>
+        <h2>Welcome</h2>
+        <p>Welcome to the online sport club manager</p>
+        <c:if test="#{!login.loggedIn}">
+            You are not logged, to see more information or to change results, please login
+        </c:if>
     </ui:define>
 </ui:composition>

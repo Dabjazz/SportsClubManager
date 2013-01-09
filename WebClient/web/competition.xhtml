@@ -13,13 +13,24 @@
         <h2>Competitions</h2>
         <h:dataTable value="#{competition.competitions}" var="comp">
             <h:column>
-                #{comp.name}
-                <c:if test="#{login.loggedIn}">
-                    <h:form>
-                        <h:commandButton value="select" action="#{competition.setSelectedCompetition(comp)}"/>
-                    </h:form>
-                </c:if>
+                <b>#{comp.name}</b>
             </h:column>
+            <h:column>
+                from: #{comp.dateFrom}
+            </h:column>
+            <h:column>
+                to: #{comp.dateTo}
+            </h:column>
+            <c:if test="#{login.loggedIn}">
+                <h:column>
+                    <h:form>
+                        <h:commandButton value="select"
+                                         action="#{competition.setSelectedCompetition(comp)}"
+                                         />
+                    </h:form>
+                </h:column>
+            </c:if>
+
         </h:dataTable>
     </ui:define>
 </ui:composition>

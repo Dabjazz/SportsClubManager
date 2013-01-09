@@ -24,7 +24,7 @@
                 <c:if test="#{!login.loggedIn}">
                     <h:form>
                         <h:panelGrid>
-                        <h:outputLabel value="Username"/>
+                        <h:outputLabel value="Login"/>
                         <h:inputText value="#{login.username}" />
                         <h:commandButton id="login"
                                          value="Login"
@@ -35,6 +35,11 @@
                 </c:if>
                 <c:if test="#{login.loggedIn}">
                     <p style="font-weight: bold">Logged in as:<br/>#{login.user.username}</p>
+                    <h:form>
+                        <h:commandButton id="logout"
+                                         value="Logout"
+                                         action="#{login.logout()}"/>
+                    </h:form>
                 </c:if>
             </div>
             <div class="content">

@@ -14,7 +14,7 @@
         <h:dataTable value="#{competition.matchList}" var="match">
             <h:column>
                 #{competition.matchName(match)}
-                <c:if test="#{login.loggedIn}">
+                <c:if test="#{login.permitedToWrite}">
                     <h:form>
                         <h:commandButton value="Change result" action="#{competition.setSelectedMatch(match)}"/>
                     </h:form>
