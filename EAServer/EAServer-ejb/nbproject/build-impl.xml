@@ -790,8 +790,8 @@ exists or setup the property manually. For example like this:
     <target depends="compile,-library-inclusion-in-archive-weblogic,-library-inclusion-in-archive-by-user" name="library-inclusion-in-archive"/>
     <target if="is.jars.in.ejbjar" name="-library-inclusion-in-archive-by-user">
         <copyfiles files="${reference.Contract.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${libs.MySQLDriver.classpath}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.dom4j-1.6.1.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${libs.MySQLDriver.classpath}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.antlr-2.7.7.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.asm-3.1.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.asm-attrs-1.5.3.jar}" todir="${build.classes.dir}"/>
@@ -804,8 +804,8 @@ exists or setup the property manually. For example like this:
     </target>
     <target if="is.server.weblogic" name="-library-inclusion-in-archive-weblogic">
         <basename file="${reference.Contract.jar}" property="manifest.reference.Contract.jar"/>
-        <basename file="${libs.MySQLDriver.classpath}" property="manifest.libs.MySQLDriver.classpath"/>
         <basename file="${file.reference.dom4j-1.6.1.jar}" property="manifest.file.reference.dom4j-1.6.1.jar"/>
+        <basename file="${libs.MySQLDriver.classpath}" property="manifest.libs.MySQLDriver.classpath"/>
         <basename file="${file.reference.antlr-2.7.7.jar}" property="manifest.file.reference.antlr-2.7.7.jar"/>
         <basename file="${file.reference.asm-3.1.jar}" property="manifest.file.reference.asm-3.1.jar"/>
         <basename file="${file.reference.asm-attrs-1.5.3.jar}" property="manifest.file.reference.asm-attrs-1.5.3.jar"/>
@@ -818,8 +818,8 @@ exists or setup the property manually. For example like this:
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
             <attribute name="Extension-List" value="jar-1 jar-2 jar-3 jar-4 jar-5 jar-6 jar-7 jar-8 jar-9 jar-10 jar-11 jar-12 "/>
             <attribute name="jar-1-Extension-Name" value="${manifest.reference.Contract.jar}"/>
-            <attribute name="jar-2-Extension-Name" value="${manifest.libs.MySQLDriver.classpath}"/>
-            <attribute name="jar-3-Extension-Name" value="${manifest.file.reference.dom4j-1.6.1.jar}"/>
+            <attribute name="jar-2-Extension-Name" value="${manifest.file.reference.dom4j-1.6.1.jar}"/>
+            <attribute name="jar-3-Extension-Name" value="${manifest.libs.MySQLDriver.classpath}"/>
             <attribute name="jar-4-Extension-Name" value="${manifest.file.reference.antlr-2.7.7.jar}"/>
             <attribute name="jar-5-Extension-Name" value="${manifest.file.reference.asm-3.1.jar}"/>
             <attribute name="jar-6-Extension-Name" value="${manifest.file.reference.asm-attrs-1.5.3.jar}"/>
@@ -833,8 +833,8 @@ exists or setup the property manually. For example like this:
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
         <copyfiles files="${reference.Contract.jar}" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${libs.MySQLDriver.classpath}" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.dom4j-1.6.1.jar}" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${libs.MySQLDriver.classpath}" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.antlr-2.7.7.jar}" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.asm-3.1.jar}" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.asm-attrs-1.5.3.jar}" todir="${dist.ear.dir}/lib"/>

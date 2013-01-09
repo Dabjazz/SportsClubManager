@@ -11,7 +11,6 @@ import contract.dto.IRoleDto;
 import contract.ejb.business.IChangeCompetitionTeamRemote;
 import java.util.List;
 import javax.ejb.Stateful;
-import javax.ejb.Stateless;
 import server.useCaseController.ChangeCompetitionTeamController;
 
 /**
