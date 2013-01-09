@@ -5,6 +5,7 @@ body {
 	text-align: left;
 	word-spacing: normal;
 	white-space: normal;
+        background-image: url('images/rasen.jpg');
 	background-color: #31B404;
 }
 
@@ -29,6 +30,9 @@ body {
 	height:auto;
 	width:300px;
 	float:left;
+	opacity: 0.4;
+        font-weight: bold;
+        color: black;
 	background-color:#0B610B
 }
 

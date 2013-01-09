@@ -1,11 +1,12 @@
 package managedbeans;
 
-import contract.domain.IMatchresult;
 import contract.dto.ICompetitionDto;
 import contract.dto.IMatchDto;
 import contract.dto.IMatchresultDto;
 import contract.dto.ITeamDto;
+import contract.ejb.business.IAddMatchResultsRemote;
 import contract.ejb.business.IShowCompetitionRemote;
+import java.util.LinkedList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -19,12 +20,12 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class CompetitionBean
 {
+    @EJB private IAddMatchResultsRemote addMatchResultsBean;
     @EJB private IShowCompetitionRemote showCompetitionBean;
-    private String competition;
-    private ICompetitionDto selectedCompetition;
-    private List<ICompetitionDto> competitions;
-    private IMatchDto selectedMatch;
-    private IMatchresultDto result;
+    private ICompetitionDto selectedCompetition = null;
+    private List<ICompetitionDto> competitions = new LinkedList<ICompetitionDto>();
+    private IMatchDto selectedMatch = null;
+    private IMatchresultDto result = null;
     /**
      * Creates a new instance of CompetitionBean
      */
@@ -34,29 +35,22 @@ public class CompetitionBean
 
     public List<ICompetitionDto> getCompetitions()
     {
-        if(competitions == null)
+        if(competitions.isEmpty())
         {
             this.competitions = showCompetitionBean.getCompetitions();
         }
         return competitions;
     }
 
-    public String getSelectedCompetition()
+    public ICompetitionDto getSelectedCompetition()
     {
-        return competition;
+        return this.selectedCompetition;
     }
 
-    public void setSelectedCompetition(String competition)
+    public String setSelectedCompetition(ICompetitionDto competition)
     {
-        this.competition = competition;
-        for(ICompetitionDto c : competitions)
-        {
-            if(c.getName().equals(competition))
-            {
-                this.selectedCompetition = c;
-                break;
-            }
-        }
+        this.selectedCompetition = competition;
+        return "match";
     }
 
     public List<IMatchDto> getMatchList()
@@ -69,10 +63,11 @@ public class CompetitionBean
         return selectedMatch;
     }
 
-    public void setSelectedMatch(IMatchDto selectedMatch)
+    public String setSelectedMatch(IMatchDto selectedMatch)
     {
         this.selectedMatch = selectedMatch;
         this.result = showCompetitionBean.getMatchresult(selectedMatch.getMatchresult());
+        return "result";
     }
 
     public String getMatchName(IMatchDto match)
@@ -97,6 +92,7 @@ public class CompetitionBean
     
     public String resultChanged()
     {
+        this.addMatchResultsBean.setMatchResult(selectedMatch, result);
         return "match";
     }
     

@@ -24,12 +24,12 @@
                 <c:if test="#{!login.loggedIn}">
                     <h:form>
                         <h:panelGrid>
-                        <h:outputLabel value="Login"/>
-                        <h:inputText value="#{login.username}" />
-                        <h:commandButton id="login"
-                                         value="Login"
-                                         action="#{login.login()}"
-                                         />
+                            <h:outputLabel value="Login"/>
+                            <h:inputText value="#{login.username}" />
+                            <h:commandButton id="login"
+                                             value="Login"
+                                             action="#{login.login()}"
+                                             />
                         </h:panelGrid>
                     </h:form>
                 </c:if>

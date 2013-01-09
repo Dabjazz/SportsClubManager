@@ -160,8 +160,7 @@ public class LeagueMapper
     {
         return new LeagueDto();
     }
-    
-    
+      
     @Override
     public List<ICompetitionDto> getCompetitionsByDate(ILeagueDto leagueDto, Date date)
     {
