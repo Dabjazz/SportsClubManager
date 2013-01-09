@@ -93,3 +93,6 @@ WebClient/build/web/match.xhtml
 WebClient/build/web/result.xhtml
 WebClient/build/web/style.css
 WebClient/build/web/template.xhtml
+/WebClient/nbproject/private/
+/EAServer/build/
+/EAServer/EAServer-ejb/dist/

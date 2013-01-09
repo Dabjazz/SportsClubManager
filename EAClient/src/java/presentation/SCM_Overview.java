@@ -4,8 +4,14 @@ import com.contract.IUseCaseControllerFactory;
 import com.ServiceNotAvailableException;
 import contract.dto.*;
 import contract.useCaseController.IPermissionController;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.net.URL;
 import java.util.logging.*;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 import presentation.basics.AbstractForm;
 import presentation.forms.competition.*;
@@ -49,8 +55,7 @@ public class SCM_Overview
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         tabPane = new javax.swing.JTabbedPane();
         tabMember = new javax.swing.JSplitPane();
@@ -58,7 +63,7 @@ public class SCM_Overview
         btnMember = new javax.swing.JButton();
         btnNewMember = new javax.swing.JButton();
         btnAddToTeam = new javax.swing.JButton();
-        paneMemberMain = new javax.swing.JPanel();
+        paneMemberMain = setDefaultMain();
         tabMatch = new javax.swing.JSplitPane();
         paneCompNavi = new javax.swing.JPanel();
         btnShowCompetition = new javax.swing.JButton();
@@ -77,28 +82,22 @@ public class SCM_Overview
         paneMemberNavi.setRequestFocusEnabled(false);
 
         btnMember.setText("Search Member");
-        btnMember.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        btnMember.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMemberActionPerformed(evt);
             }
         });
 
         btnNewMember.setText("Add New Member");
-        btnNewMember.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        btnNewMember.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNewMemberActionPerformed(evt);
             }
         });
 
         btnAddToTeam.setText("Add To Team");
-        btnAddToTeam.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        btnAddToTeam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddToTeamActionPerformed(evt);
             }
         });
@@ -110,7 +109,7 @@ public class SCM_Overview
             .addGroup(paneMemberNaviLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(paneMemberNaviLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnNewMember, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(btnNewMember, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
                     .addComponent(btnMember, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAddToTeam, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -124,7 +123,7 @@ public class SCM_Overview
                 .addComponent(btnNewMember)
                 .addGap(31, 31, 31)
                 .addComponent(btnAddToTeam)
-                .addContainerGap(438, Short.MAX_VALUE))
+                .addContainerGap(471, Short.MAX_VALUE))
         );
 
         tabMember.setLeftComponent(paneMemberNavi);
@@ -137,7 +136,7 @@ public class SCM_Overview
         );
         paneMemberMainLayout.setVerticalGroup(
             paneMemberMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 568, Short.MAX_VALUE)
+            .addGap(0, 588, Short.MAX_VALUE)
         );
 
         tabMember.setRightComponent(paneMemberMain);
@@ -148,37 +147,29 @@ public class SCM_Overview
         paneCompNavi.setPreferredSize(new java.awt.Dimension(140, 549));
 
         btnShowCompetition.setText("Show Result");
-        btnShowCompetition.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        btnShowCompetition.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnShowCompetitionActionPerformed(evt);
             }
         });
 
         btnAddResult.setText("Add Result");
-        btnAddResult.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        btnAddResult.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddResultActionPerformed(evt);
             }
         });
 
         btnCreateCompetition.setText("Create Competition");
-        btnCreateCompetition.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        btnCreateCompetition.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCreateCompetitionActionPerformed(evt);
             }
         });
 
         btnChangeTeam.setText("Change Team");
-        btnChangeTeam.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        btnChangeTeam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnChangeTeamActionPerformed(evt);
             }
         });
@@ -207,7 +198,7 @@ public class SCM_Overview
                 .addComponent(btnCreateCompetition)
                 .addGap(18, 18, 18)
                 .addComponent(btnChangeTeam)
-                .addContainerGap(404, Short.MAX_VALUE))
+                .addContainerGap(443, Short.MAX_VALUE))
         );
 
         tabMatch.setLeftComponent(paneCompNavi);
@@ -220,7 +211,7 @@ public class SCM_Overview
         );
         paneCompMainLayout.setVerticalGroup(
             paneCompMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 568, Short.MAX_VALUE)
+            .addGap(0, 588, Short.MAX_VALUE)
         );
 
         tabMatch.setRightComponent(paneCompMain);
@@ -235,12 +226,43 @@ public class SCM_Overview
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabPane, javax.swing.GroupLayout.PREFERRED_SIZE, 618, Short.MAX_VALUE)
+            .addComponent(tabPane, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private JPanel setDefaultMain(){
+        URL resource = SCM_Overview.class.getResource("logo.jpg");
+        ImagePanel defaultPane = new ImagePanel(new ImageIcon(resource.getFile()).getImage());
+        
+        return defaultPane;
+    }
+    
+    class ImagePanel extends JPanel {
+
+        private Image img;
+
+        public ImagePanel(String img) {
+            this(new ImageIcon(img).getImage());
+        }
+
+        public ImagePanel(Image img) {
+            this.img = img;
+            Dimension size = new Dimension(img.getWidth(null), img.getHeight(null));
+            setPreferredSize(size);
+            setMinimumSize(size);
+            setMaximumSize(size);
+            setSize(size);
+            setLayout(null);
+        }
+
+        @Override
+        public void paintComponent(Graphics g) {
+            g.drawImage(img, 0, 0, null);
+        }
+    }
+    
     private void btnMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMemberActionPerformed
         try {
             if (permissionController.hasPermission("read")) {
