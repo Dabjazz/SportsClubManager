@@ -25,6 +25,11 @@ public class MatchresultWs
     private double pointsHometeam;
     private double pointsForeignteam;
 
+    public MatchresultWs() {
+    }
+    
+    
+
     public MatchresultWs(int _Id, Date _Date, String _hometeam, String _foreignteam, double _pointsHometeam, double _pointsForeignteam)
     {
         Id = _Id;
