@@ -13,6 +13,11 @@
         <h2>Selected Match</h2>
         <h:dataTable value="#{competition.matchList}" var="match">
             <h:column>
+                
+            </h:column>
+            <h:column>
+                <h:outputLabel value="#{competition.getHomeTeam(match)}"/>
+                <h:outputLabel value="#{competition.getForeignTeam(match)}"/>
                 <h:outputLabel value="#{match}"/>
             </h:column>
             <h:column>
