@@ -466,7 +466,8 @@ public class CreateCompetitionForm
         compAddress.setVillage(txtfieldcity.getText());
         compAddress.setPostalCode(Integer.parseInt(txtfieldplz.getText()));
         compCountry = new CountryDto();
-        if (!txtfieldCountry.getText().equals("Austria") || !txtfieldCountry.getText().equals("India")) {
+        String country = txtfieldCountry.getText().toLowerCase().trim();
+        if (!country.equals("austria") && !country.equals("india")) {
             JOptionPane.showMessageDialog(null, "Set Austria or India as country, we do not support competitions in other countries yet!");
         } else {
             compCountry.setName(txtfieldCountry.getText());
