@@ -96,3 +96,8 @@ WebClient/build/web/template.xhtml
 /WebClient/nbproject/private/
 /EAServer/build/
 /EAServer/EAServer-ejb/dist/
+/Contract/build
+/EAClient/build/
+/EAClient/dist/
+/WebClient/build/
+/WebClient/dist/
