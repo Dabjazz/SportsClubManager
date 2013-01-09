@@ -30,7 +30,14 @@
                     </h:form>
                 </h:column>
             </c:if>
-
+            <c:if test="#{!login.loggedIn}">
+                <h:column>
+                    <h:form>
+                        <h:commandButton value="show"
+                                         action="#{competition.setSelectedCompetition(comp)}"/>
+                    </h:form>
+                </h:column>
+            </c:if>
         </h:dataTable>
     </ui:define>
 </ui:composition>

@@ -1409,4 +1409,8 @@ exists or setup the property manually. For example like this:
     </target>
     <target depends="init,undeploy-clean,deps-clean,do-clean,check-clean,-post-clean" description="Clean build products." name="clean"/>
     <target depends="clean" description="Clean build products." name="clean-ear"/>
+<<<<<<< HEAD
 </project>
+=======
+</project>
+>>>>>>> 75daf9e71d051d7e08d727fac6f20eebe1f0e4b5
