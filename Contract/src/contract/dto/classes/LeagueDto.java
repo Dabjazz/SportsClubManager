@@ -2,7 +2,7 @@ package contract.dto.classes;
 
 import contract.domain.*;
 import contract.dto.*;
-import contract.dto.mapper.IdNotFoundException;
+import contract.dto.mapper.*;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.*;
@@ -17,7 +17,6 @@ public class LeagueDto
     private ITypeOfSportDto typeOfSport;
     private List<Integer> teamList = new LinkedList<>();
     private List<Integer> competitions = new LinkedList<>();
-    public static IDtoFactory dtoFactory;
 
     public LeagueDto()
     {
@@ -117,37 +116,14 @@ public class LeagueDto
     }
 
     @Override
-    public List<ICompetitionDto> getCompetitionsByDate(Date date)
+    public ITypeOfSportDto getTypeOfSport()
     {
-        List<ICompetitionDto> result = new LinkedList<>();
-
-        for (int c : competitions)
-        {
-            try
-            {
-                ICompetitionDto competitionDto = dtoFactory.getCompetitionMapper().getById(c);
-
-                if (competitionDto.getDateFrom().getDate() == date.getDate())
-                {
-                    result.add(competitionDto);
-                }
-            }
-            catch (RemoteException | IdNotFoundException ex)
-            {
-                Logger.getLogger(LeagueDto.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-        return result;
-    }
-
-    @Override
-    public ITypeOfSportDto getTypeOfSport() {
         return typeOfSport;
     }
 
     @Override
-    public void setTypeOfSport(ITypeOfSportDto typeOfSport) {
+    public void setTypeOfSport(ITypeOfSportDto typeOfSport)
+    {
         this.typeOfSport = typeOfSport;
     }
 }

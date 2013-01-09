@@ -8,6 +8,7 @@ import contract.domain.*;
 import contract.dto.*;
 import contract.dto.classes.LeagueDto;
 import contract.dto.mapper.*;
+import java.rmi.*;
 import java.util.*;
 import java.util.logging.*;
 import server.domain.DomainFacade;
@@ -158,5 +159,35 @@ public class LeagueMapper
     public ILeagueDto getNew()
     {
         return new LeagueDto();
+    }
+    
+    
+    @Override
+    public List<ICompetitionDto> getCompetitionsByDate(ILeagueDto leagueDto, Date date)
+    {
+        List<ICompetitionDto> result = new LinkedList<>();
+
+        for (int c : leagueDto.getCompetitions())
+        {
+            try
+            {
+                DtoFactory dtoFactory = new DtoFactory();
+                System.out.println("dtofactory is null " + ( dtoFactory == null));
+                IMapper<ICompetitionDto> cMapper = dtoFactory.getCompetitionMapper();
+                ICompetitionDto competitionDto = cMapper.getById(c);
+
+                System.out.println("competitiondate == " +competitionDto.getDateFrom().getTime() +" equals " +date.getTime());
+                if (competitionDto.getDateFrom().getTime() == date.getTime())
+                {
+                    result.add(competitionDto);
+                }
+            }
+            catch (RemoteException | IdNotFoundException ex)
+            {
+                Logger.getLogger(LeagueDto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return result;
     }
 }

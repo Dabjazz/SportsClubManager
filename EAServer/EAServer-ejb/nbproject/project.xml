@@ -6,8 +6,8 @@
             <name>EAServer-ejb</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <included-library dirs="200">reference.Contract.jar</included-library>
-            <included-library dirs="200">libs.MySQLDriver.classpath</included-library>
             <included-library dirs="200">file.reference.dom4j-1.6.1.jar</included-library>
+            <included-library dirs="200">libs.MySQLDriver.classpath</included-library>
             <included-library dirs="200">file.reference.antlr-2.7.7.jar</included-library>
             <included-library dirs="200">file.reference.asm-3.1.jar</included-library>
             <included-library dirs="200">file.reference.asm-attrs-1.5.3.jar</included-library>

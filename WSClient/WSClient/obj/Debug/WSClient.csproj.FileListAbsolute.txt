@@ -2,6 +2,5 @@ c:\users\thomas\documents\visual studio 2012\Projects\WSClient\WSClient\bin\Debu
 C:\Users\Thomas\Documents\GitHub\SportsClubManager\WSClient\WSClient\bin\Debug\WSClient.exe.config
 C:\Users\Thomas\Documents\GitHub\SportsClubManager\WSClient\WSClient\bin\Debug\WSClient.exe
 C:\Users\Thomas\Documents\GitHub\SportsClubManager\WSClient\WSClient\bin\Debug\WSClient.pdb
-C:\Users\Thomas\Documents\GitHub\SportsClubManager\WSClient\WSClient\obj\Debug\WSClient.csprojResolveAssemblyReference.cache
 C:\Users\Thomas\Documents\GitHub\SportsClubManager\WSClient\WSClient\obj\Debug\WSClient.exe
 C:\Users\Thomas\Documents\GitHub\SportsClubManager\WSClient\WSClient\obj\Debug\WSClient.pdb

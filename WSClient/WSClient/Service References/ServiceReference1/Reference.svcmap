@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="f10230af-5a05-4418-85f3-bce835fc55e7" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="d76548ac-244e-4ad2-a50c-445a72a884d5" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
-    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
     <EnableDataBinding>true</EnableDataBinding>
     <ExcludedTypes />
     <ImportXmlTypes>false</ImportXmlTypes>
@@ -22,8 +21,8 @@
     <MetadataSource Address="http://localhost:8080/services/MatchSvc?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="services.xsd" MetadataType="Schema" ID="8b4febc7-26fb-486e-bad6-19fcef4e2d98" SourceId="1" SourceUrl="http://localhost:8080/services?xsd=1" />
-    <MetadataFile FileName="MatchServiceService.wsdl" MetadataType="Wsdl" ID="f0532cf1-faa1-410b-a907-0bc8d9592f2e" SourceId="1" SourceUrl="http://localhost:8080/services/MatchSvc?wsdl" />
+    <MetadataFile FileName="services.xsd" MetadataType="Schema" ID="69b0bd61-6285-400d-8f0b-f5dde682a898" SourceId="1" SourceUrl="http://localhost:8080/services?xsd=1" />
+    <MetadataFile FileName="MatchServiceService.wsdl" MetadataType="Wsdl" ID="8510dd82-262f-46a0-b822-f770eec48699" SourceId="1" SourceUrl="http://localhost:8080/services/MatchSvc?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
