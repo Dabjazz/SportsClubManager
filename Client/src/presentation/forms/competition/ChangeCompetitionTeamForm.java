@@ -320,7 +320,8 @@ public class ChangeCompetitionTeamForm
 
     private void btnShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowActionPerformed
         IClubTeamDto completeTeam = (IClubTeamDto) comboTeam.getSelectedItem();
-        List<IPlayerDto> playerList = controller.getPlayers(completeTeam.getPlayerList());
+        allPlayers = controller.getPlayers(completeTeam.getPlayerList());
+        //List<IPlayerDto> playerList = controller.getPlayers(completeTeam.getPlayerList());
 
         formerTeam = controller.getCompetitionTeam(completeTeam);
         newPlayerList = controller.getPlayers(formerTeam.getPlayerList());
@@ -328,10 +329,10 @@ public class ChangeCompetitionTeamForm
 
         List<IPlayerDto> notNeededPlayerList = new LinkedList<>();
 
-        for (IPlayerDto player : playerList) {
-            if (!newPlayerList.contains(player)) {
+        for (IPlayerDto player : allPlayers) {
+            if(!(newPlayerList.toString().contains(player.toString()))){
                 notNeededPlayerList.add(player);
-            }
+            }            
         }
 
         setNotNeededPlayerList(notNeededPlayerList);
