@@ -7,6 +7,7 @@ package presentation.forms.competition;
 import com.contract.IUseCaseControllerFactory;
 import com.*;
 import contract.dto.*;
+import contract.dto.classes.ClubTeamDto;
 import contract.useCaseController.IChangeCompetitionTeamController;
 import java.util.*;
 import javax.swing.*;
@@ -300,14 +301,14 @@ public class ChangeCompetitionTeamForm
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        IClubTeamDto newCompetitioTeam = formerTeam; //keep trainers and competitions this way /*new ClubTeamDto();*/
-
+        IClubTeamDto newCompetitioTeam = new ClubTeamDto();
+        
         List<Integer> newTeamPlayerIDs = new LinkedList<>();
         for (IPlayerDto p : newPlayerList) {
             newTeamPlayerIDs.add(p.getId());
         }
         newCompetitioTeam.setPlayerList(newTeamPlayerIDs);
-
+        
         try{
             controller.setCompetitonTeam(competition, formerTeam, newCompetitioTeam);
         }
