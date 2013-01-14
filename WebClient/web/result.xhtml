@@ -13,6 +13,7 @@
         <h2>Selected Match</h2>
         <p><h:outputLabel value="#{competition.selectedHomeTeam}"/>:<h:outputLabel value="#{competition.selectedForeignTeam}"/></p>
         <c:if test="#{login.permitedToWrite}">
+            <p>Change the result</p>
             <h:form>
                 <h:panelGrid>
                     <h:outputLabel value="#{competition.selectedHomeTeam}"/>
