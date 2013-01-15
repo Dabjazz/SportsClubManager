@@ -7,6 +7,7 @@ package presentation.forms.competition;
 import com.contract.IUseCaseControllerFactory;
 import com.*;
 import contract.dto.*;
+import contract.dto.classes.ClubTeamDto;
 import contract.useCaseController.IChangeCompetitionTeamController;
 import java.util.*;
 import javax.swing.*;
@@ -239,7 +240,7 @@ public class ChangeCompetitionTeamForm
 
         //arrays to store teams, list to save new state of origin
         Object[] origSel = listTeam.getSelectedValues();
-        List<Object> tmpOrig = new LinkedList<Object>();
+        List<Object> tmpOrig = new LinkedList<>();
 
         for (int i = 0; i < origModel.getSize(); i++) {
             tmpOrig.add(origModel.getElementAt(i));
@@ -272,7 +273,7 @@ public class ChangeCompetitionTeamForm
         //arrays to store teams, list to save new state of competition team                            
         Object[] cTeamSel = listCompTeam.getSelectedValues();                  //competitionteam
         Object[] origTeam = new Object[teamModel.getSize() + cTeamSel.length];  //team general
-        List<Object> tmpTeam = new LinkedList<Object>();
+        List<Object> tmpTeam = new LinkedList<>();
 
         //Competition Team before removing
         for (int i = 0; i < compTModel.getSize(); i++) {
@@ -300,31 +301,39 @@ public class ChangeCompetitionTeamForm
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        IClubTeamDto newCompetitioTeam = formerTeam; //keep trainers and competitions this way /*new ClubTeamDto();*/
-
-        List<Integer> newTeamPlayerIDs = new LinkedList<Integer>();
+        IClubTeamDto newCompetitioTeam = new ClubTeamDto();
+        
+        List<Integer> newTeamPlayerIDs = new LinkedList<>();
         for (IPlayerDto p : newPlayerList) {
             newTeamPlayerIDs.add(p.getId());
         }
         newCompetitioTeam.setPlayerList(newTeamPlayerIDs);
-
-        controller.setCompetitonTeam(competition, formerTeam, newCompetitioTeam);
+        
+        try{
+            controller.setCompetitonTeam(competition, formerTeam, newCompetitioTeam);
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "An error occured while trying to save changes!");
+        }
+        JOptionPane.showMessageDialog(null, "Competition Team changed!");
+        
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowActionPerformed
         IClubTeamDto completeTeam = (IClubTeamDto) comboTeam.getSelectedItem();
-        List<IPlayerDto> playerList = controller.getPlayers(completeTeam.getPlayerList());
+        allPlayers = controller.getPlayers(completeTeam.getPlayerList());
+        //List<IPlayerDto> playerList = controller.getPlayers(completeTeam.getPlayerList());
 
         formerTeam = controller.getCompetitionTeam(completeTeam);
         newPlayerList = controller.getPlayers(formerTeam.getPlayerList());
         setNeededPLayerList();
 
-        List<IPlayerDto> notNeededPlayerList = new LinkedList<IPlayerDto>();
+        List<IPlayerDto> notNeededPlayerList = new LinkedList<>();
 
-        for (IPlayerDto player : playerList) {
-            if (!newPlayerList.contains(player)) {
+        for (IPlayerDto player : allPlayers) {
+            if(!(newPlayerList.toString().contains(player.toString()))){
                 notNeededPlayerList.add(player);
-            }
+            }            
         }
 
         setNotNeededPlayerList(notNeededPlayerList);
