@@ -1,6 +1,6 @@
 c:\users\thomas\documents\visual studio 2012\Projects\WSClient\WSClient\bin\Debug\WSClient.exe.config
-C:\Users\Thomas\Documents\GitHub\SportsClubManager\WSClient\WSClient\bin\Debug\WSClient.exe.config
-C:\Users\Thomas\Documents\GitHub\SportsClubManager\WSClient\WSClient\bin\Debug\WSClient.exe
-C:\Users\Thomas\Documents\GitHub\SportsClubManager\WSClient\WSClient\bin\Debug\WSClient.pdb
-C:\Users\Thomas\Documents\GitHub\SportsClubManager\WSClient\WSClient\obj\Debug\WSClient.exe
-C:\Users\Thomas\Documents\GitHub\SportsClubManager\WSClient\WSClient\obj\Debug\WSClient.pdb
+C:\Users\Thomas\Documents\GitHub\SportsClubManager\WSClient\WSClient\bin\Debug\WSRMIClient.exe.config
+C:\Users\Thomas\Documents\GitHub\SportsClubManager\WSClient\WSClient\bin\Debug\WSRMIClient.exe
+C:\Users\Thomas\Documents\GitHub\SportsClubManager\WSClient\WSClient\bin\Debug\WSRMIClient.pdb
+C:\Users\Thomas\Documents\GitHub\SportsClubManager\WSClient\WSClient\obj\Debug\WSRMIClient.exe
+C:\Users\Thomas\Documents\GitHub\SportsClubManager\WSClient\WSClient\obj\Debug\WSRMIClient.pdb

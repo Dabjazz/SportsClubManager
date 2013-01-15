@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WSRMIClient.ServiceReference1 {
+namespace WSEJBClient.ServiceReference1 {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -19,7 +19,10 @@ namespace WSRMIClient.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(Action="http://webservice.server/MatchSvc/getMatchesRequest", ReplyAction="http://webservice.server/MatchSvc/getMatchesResponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
-        WSRMIClient.ServiceReference1.getMatchesResponse getMatches(WSRMIClient.ServiceReference1.getMatchesRequest request);
+        WSEJBClient.ServiceReference1.getMatchesResponse getMatches(WSEJBClient.ServiceReference1.getMatchesRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://webservice.server/MatchSvc/getMatchesRequest", ReplyAction="http://webservice.server/MatchSvc/getMatchesResponse")]
+        System.Threading.Tasks.Task<WSEJBClient.ServiceReference1.getMatchesResponse> getMatchesAsync(WSEJBClient.ServiceReference1.getMatchesRequest request);
     }
     
     /// <remarks/>
@@ -160,23 +163,23 @@ namespace WSRMIClient.ServiceReference1 {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://webservice.server/", Order=0)]
         [System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public WSRMIClient.ServiceReference1.matchresultWs[] @return;
+        public WSEJBClient.ServiceReference1.matchresultWs[] @return;
         
         public getMatchesResponse() {
         }
         
-        public getMatchesResponse(WSRMIClient.ServiceReference1.matchresultWs[] @return) {
+        public getMatchesResponse(WSEJBClient.ServiceReference1.matchresultWs[] @return) {
             this.@return = @return;
         }
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface MatchSvcChannel : WSRMIClient.ServiceReference1.MatchSvc, System.ServiceModel.IClientChannel {
+    public interface MatchSvcChannel : WSEJBClient.ServiceReference1.MatchSvc, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class MatchSvcClient : System.ServiceModel.ClientBase<WSRMIClient.ServiceReference1.MatchSvc>, WSRMIClient.ServiceReference1.MatchSvc {
+    public partial class MatchSvcClient : System.ServiceModel.ClientBase<WSEJBClient.ServiceReference1.MatchSvc>, WSEJBClient.ServiceReference1.MatchSvc {
         
         public MatchSvcClient() {
         }
@@ -198,17 +201,30 @@ namespace WSRMIClient.ServiceReference1 {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        WSRMIClient.ServiceReference1.getMatchesResponse WSRMIClient.ServiceReference1.MatchSvc.getMatches(WSRMIClient.ServiceReference1.getMatchesRequest request) {
+        WSEJBClient.ServiceReference1.getMatchesResponse WSEJBClient.ServiceReference1.MatchSvc.getMatches(WSEJBClient.ServiceReference1.getMatchesRequest request) {
             return base.Channel.getMatches(request);
         }
         
-        public WSRMIClient.ServiceReference1.matchresultWs[] getMatches(string arg0, string arg1, string arg2) {
-            WSRMIClient.ServiceReference1.getMatchesRequest inValue = new WSRMIClient.ServiceReference1.getMatchesRequest();
+        public WSEJBClient.ServiceReference1.matchresultWs[] getMatches(string arg0, string arg1, string arg2) {
+            WSEJBClient.ServiceReference1.getMatchesRequest inValue = new WSEJBClient.ServiceReference1.getMatchesRequest();
             inValue.arg0 = arg0;
             inValue.arg1 = arg1;
             inValue.arg2 = arg2;
-            WSRMIClient.ServiceReference1.getMatchesResponse retVal = ((WSRMIClient.ServiceReference1.MatchSvc)(this)).getMatches(inValue);
+            WSEJBClient.ServiceReference1.getMatchesResponse retVal = ((WSEJBClient.ServiceReference1.MatchSvc)(this)).getMatches(inValue);
             return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<WSEJBClient.ServiceReference1.getMatchesResponse> WSEJBClient.ServiceReference1.MatchSvc.getMatchesAsync(WSEJBClient.ServiceReference1.getMatchesRequest request) {
+            return base.Channel.getMatchesAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<WSEJBClient.ServiceReference1.getMatchesResponse> getMatchesAsync(string arg0, string arg1, string arg2) {
+            WSEJBClient.ServiceReference1.getMatchesRequest inValue = new WSEJBClient.ServiceReference1.getMatchesRequest();
+            inValue.arg0 = arg0;
+            inValue.arg1 = arg1;
+            inValue.arg2 = arg2;
+            return ((WSEJBClient.ServiceReference1.MatchSvc)(this)).getMatchesAsync(inValue);
         }
     }
 }

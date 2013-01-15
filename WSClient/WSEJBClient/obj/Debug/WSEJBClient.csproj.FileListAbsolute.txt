@@ -1,0 +1,5 @@
+C:\Users\Thomas\Documents\GitHub\SportsClubManager\WSClient\WSEJBClient\bin\Debug\WSEJBClient.exe.config
+C:\Users\Thomas\Documents\GitHub\SportsClubManager\WSClient\WSEJBClient\bin\Debug\WSEJBClient.exe
+C:\Users\Thomas\Documents\GitHub\SportsClubManager\WSClient\WSEJBClient\bin\Debug\WSEJBClient.pdb
+C:\Users\Thomas\Documents\GitHub\SportsClubManager\WSClient\WSEJBClient\obj\Debug\WSEJBClient.exe
+C:\Users\Thomas\Documents\GitHub\SportsClubManager\WSClient\WSEJBClient\obj\Debug\WSEJBClient.pdb

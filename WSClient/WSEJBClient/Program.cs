@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WSClient
+namespace WSEJBClient
 {
     class Program
     {
         static void Main(string[] args)
         {
-            WSRMIClient.ServiceReference1.MatchSvcClient client = new WSRMIClient.ServiceReference1.MatchSvcClient();
+            ServiceReference1.MatchSvcClient client = new ServiceReference1.MatchSvcClient();
 
             Console.WriteLine("Insert exit to close the programm");
             Console.WriteLine("Press enter button to start request");
@@ -31,28 +31,28 @@ namespace WSClient
                 try
                 {
                     var matchresults = client.getMatches(competitiondate, league, typeOfSport);
+              
+                if (matchresults == null || matchresults.Count() == 0)
+                {
+                    Console.WriteLine("There are no results");
+                }
+                else
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Results");
 
-                    if (matchresults == null || matchresults.Count() == 0)
+                    foreach (var matchresult in matchresults)
                     {
-                        Console.WriteLine("There are no results");
-                    }
-                    else
-                    {
-                        Console.WriteLine();
-                        Console.WriteLine("Results");
+                        Console.WriteLine("-----------------------------------------");
+                        Console.WriteLine("Id:\t" + matchresult.id);
+                        Console.WriteLine("Hometeam:\t" + matchresult.hometeam);
+                        Console.WriteLine("Points:\t" + matchresult.pointsHometeam);
+                        Console.WriteLine("Foreignteam:\t" + matchresult.foreignteam);
+                        Console.WriteLine("Points:\t" + matchresult.pointsForeignteam);
 
-                        foreach (var matchresult in matchresults)
-                        {
-                            Console.WriteLine("-----------------------------------------");
-                            Console.WriteLine("Id:\t" + matchresult.id);
-                            Console.WriteLine("Hometeam:\t" + matchresult.hometeam);
-                            Console.WriteLine("Points:\t" + matchresult.pointsHometeam);
-                            Console.WriteLine("Foreignteam:\t" + matchresult.foreignteam);
-                            Console.WriteLine("Points:\t" + matchresult.pointsForeignteam);
-
-                            Console.WriteLine("-----------------------------------------");
-                        }
+                        Console.WriteLine("-----------------------------------------");
                     }
+                }
 
                 }
                 catch (Exception e)

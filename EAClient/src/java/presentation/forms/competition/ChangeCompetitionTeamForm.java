@@ -240,7 +240,7 @@ public class ChangeCompetitionTeamForm
 
         //arrays to store teams, list to save new state of origin
         Object[] origSel = listTeam.getSelectedValues();
-        List<Object> tmpOrig = new LinkedList<>();
+        List<Object> tmpOrig = new LinkedList<Object>();
 
         for (int i = 0; i < origModel.getSize(); i++) {
             tmpOrig.add(origModel.getElementAt(i));
@@ -273,7 +273,7 @@ public class ChangeCompetitionTeamForm
         //arrays to store teams, list to save new state of competition team                            
         Object[] cTeamSel = listCompTeam.getSelectedValues();                  //competitionteam
         Object[] origTeam = new Object[teamModel.getSize() + cTeamSel.length];  //team general
-        List<Object> tmpTeam = new LinkedList<>();
+        List<Object> tmpTeam = new LinkedList<Object>();
 
         //Competition Team before removing
         for (int i = 0; i < compTModel.getSize(); i++) {
@@ -303,7 +303,7 @@ public class ChangeCompetitionTeamForm
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         IClubTeamDto newCompetitioTeam = new ClubTeamDto();
         
-        List<Integer> newTeamPlayerIDs = new LinkedList<>();
+        List<Integer> newTeamPlayerIDs = new LinkedList<Integer>();
         for (IPlayerDto p : newPlayerList) {
             newTeamPlayerIDs.add(p.getId());
         }
@@ -328,7 +328,7 @@ public class ChangeCompetitionTeamForm
         newPlayerList = controller.getPlayers(formerTeam.getPlayerList());
         setNeededPLayerList();
 
-        List<IPlayerDto> notNeededPlayerList = new LinkedList<>();
+        List<IPlayerDto> notNeededPlayerList = new LinkedList<IPlayerDto>();
 
         for (IPlayerDto player : allPlayers) {
             if(!(newPlayerList.toString().contains(player.toString()))){
