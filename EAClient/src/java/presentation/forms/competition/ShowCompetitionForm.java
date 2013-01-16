@@ -1,7 +1,7 @@
 package presentation.forms.competition;
 
-import com.contract.IUseCaseControllerFactory;
 import com.ServiceNotAvailableException;
+import com.contract.IUseCaseControllerFactory;
 import contract.dto.*;
 import contract.useCaseController.IShowCompetitionController;
 import java.util.*;
@@ -168,17 +168,16 @@ public class ShowCompetitionForm
     }// </editor-fold>//GEN-END:initComponents
 
     private void comboCompetitionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCompetitionActionPerformed
-        competition = (ICompetitionDto) comboCompetition.getSelectedItem(); //set competition new
-        compMatches = controller.getMatchs(competition.getMatchList());     //competitions matches
-
-        if (competition != null)
-        {
-            setNewCompTable();
-        }
+        refreshResults();
     }//GEN-LAST:event_comboCompetitionActionPerformed
 
     private void showBtnActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_showBtnActionPerformed
     {//GEN-HEADEREND:event_showBtnActionPerformed
+        refreshResults();
+    }//GEN-LAST:event_showBtnActionPerformed
+
+    private void refreshResults()
+    {
         competition = (ICompetitionDto) comboCompetition.getSelectedItem(); //set competition new
         compMatches = controller.getMatchs(competition.getMatchList());     //competitions matches
 
@@ -186,8 +185,7 @@ public class ShowCompetitionForm
         {
             setNewCompTable();
         }
-    }//GEN-LAST:event_showBtnActionPerformed
-
+    }
     private Object[] getCompetitions()
     {
         if (controller.getCompetitions() != null)
@@ -215,7 +213,6 @@ public class ShowCompetitionForm
 
         for (int row = 0; row < compMatches.size(); row++)
         {
-            int i = 0;
             IMatchDto tmp = compMatches.get(row);     //get next match from list
 
             tableModel.setValueAt(controller.getTeam(tmp.getHometeam()).getName(), row, 0);

@@ -4,13 +4,14 @@
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <!--<property name="hibernate.connection.url">jdbc:mysql://194.6.190.11:3306/SportClubManagement</property>
-    <property name="hibernate.connection.username">root</property>
-    <property name="hibernate.connection.password">stella58nera</property>-->
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/SportClubManagement</property>
     <property name="hibernate.connection.username">root</property>
-    <!--<property name="hibernate.current_session_context_class">org.hibernate.context.ThreadLocalSessionContext</property>--> 
-    <property name="show_sql">true</property>
+    <!-- turn off second level cache 
+    http://stackoverflow.com/questions/4187344/how-to-disable-completely-hibernate-caching-with-spring-3-hibernate-with-anno
+    -->
+    <property name="hibernate.cache.use_second_level_cache">false</property>
+    <!--<property name="hibernate.current_session_context_class">org.hibernate.context.ThreadLocalSessionContext</property>
+    <property name="show_sql">true</property>-->
     <mapping class="server.domain.classes.Address"/>    
     <mapping class="server.domain.classes.Admin"/>
     <mapping class="server.domain.classes.Caretaker"/>
